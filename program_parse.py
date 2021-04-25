@@ -18,7 +18,7 @@ def standard_parse(dict_,lis_):
         else:
             dict_[val1] = [val2]
 
-# %% read in program list
+# %% initialize dataframes
 names = pd.read_csv('names.csv')
 names = names.sample(n=20)
 # names = names.head(3)
