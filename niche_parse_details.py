@@ -11,8 +11,9 @@ driver = webdriver.Firefox()
 
 # %% read in county list
 counties = pd.read_csv('county_names.csv')
-# counties = counties.tail(205).head(5)
+counties = counties.tail(counties.shape[0] - 570)
 details = pd.DataFrame.from_dict({})
+counties
 
 # %%
 def number_strip(text):
@@ -47,7 +48,10 @@ for index, row in counties.iterrows():
         itemdict[lis_[0]] = lis_[2]
 
     # summary
-    itemdict['sunmary'] = soup.find('span',{'class':'bare-value'}).text
+    try:
+        itemdict['sunmary'] = soup.find('span',{'class':'bare-value'}).text
+    except:
+        itemdict['sunmary'] = None
 
     #scalars
     scalars = [a.get_text(separator = "\n").split("\n") for a in soup.find_all('div',{'class':'scalar__value'})]
@@ -124,3 +128,4 @@ for index, row in counties.iterrows():
 
 # %%
 details
+details.to_csv('county_details.csv')
