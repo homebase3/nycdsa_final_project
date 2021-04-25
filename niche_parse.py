@@ -40,4 +40,26 @@ dict_ = {}
 dict_['County'] = Counties
 dict_['Link'] = Links
 df = pd.DataFrame.from_dict(dict_)
-df.to_csv('county_names.csv')
+df.to_csv('county_names3.csv')
+
+# %%
+Counties = []
+Links = []
+driver.get(urlbase + str(127))
+# wait for it to load
+sleep_time = random.uniform(3,10)
+time.sleep(sleep_time)
+#soup page
+soup = BeautifulSoup(driver.page_source,'html.parser')
+
+Counties += [a.text for a in soup.find_all('h2',{'class':"search-result__title"})]
+Links += [a['href'] for a in soup.find_all('a',{'class':"search-result__link"})]
+
+# %%
+dict_ = {}
+dict_['County'] = Counties
+dict_['Link'] = Links
+df = pd.DataFrame.from_dict(dict_)
+
+# %%
+df2 = pd.read_csv('county_names2.csv')

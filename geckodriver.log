@@ -1492,3 +1492,7 @@ console.warn: SearchSettings: "get: No settings file exists, new profile?" (new 
 1619361796085	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript error: , line 0: NetworkError: A network error occurred.
 console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+1619363289972	Marionette	INFO	Stopped listening on port 46223
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
