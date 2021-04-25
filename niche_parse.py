@@ -42,19 +42,6 @@ df = pd.DataFrame.from_dict(dict_)
 df.to_csv('county_names.csv')
 
 # %%
-def number_strip(text):
-    if text.find("%") != -1:
-        return float(text.replace("%",""))/100
-    else:
-        out = text.replace("$","").replace(",","")
-        try:
-            return int(out)
-        except:
-            return float(out)
-        finally:
-            return None
-
-# %%
 soup = BeautifulSoup(driver.page_source,'html.parser')
 
 # %% read in county list

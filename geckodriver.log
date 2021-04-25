@@ -1594,3 +1594,18 @@ JavaScript warning: https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.j
 JavaScript warning: https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js, line 29: WebGL warning: texImage: Alpha-premult and y-flip are deprecated for non-DOM-Element uploads.
 JavaScript warning: https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js, line 29: WebGL warning: texImage: Alpha-premult and y-flip are deprecated for non-DOM-Element uploads.
 JavaScript warning: https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js, line 29: WebGL warning: texImage: Alpha-premult and y-flip are deprecated for non-DOM-Element uploads.
+[GFX1-]: Updating unknown shared surface: 42949673340
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PWebRenderBridge::Msg_UpdateResources Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1619381407760	Marionette	INFO	Stopped listening on port 36729
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1619381413352	geckodriver	INFO	Listening on 127.0.0.1:53711
+1619381413356	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilef1LZK3"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1619381415164	Marionette	INFO	Listening on port 38317
+1619381415280	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.

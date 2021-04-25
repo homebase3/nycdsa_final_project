@@ -11,9 +11,21 @@ driver = webdriver.Firefox()
 
 # %% read in county list
 counties = pd.read_csv('county_names.csv')
-counties = counties.sample(n=5)
-
+# counties = counties.tail(205).head(5)
 details = pd.DataFrame.from_dict({})
+
+# %%
+def number_strip(text):
+    if text.find("%") != -1:
+        return float(text.replace("%",""))/100
+    else:
+        out = text.replace("$","").replace(",","")
+        try:
+            return int(out)
+        except:
+            return float(out)
+        finally:
+            return None
 
 # %% parse counties
 for index, row in counties.iterrows():
@@ -21,7 +33,7 @@ for index, row in counties.iterrows():
     # load page
     url = row[2]
     driver.get(url)
-    sleep_time = random.uniform(1,2)
+    sleep_time = random.uniform(0.5,1)
     time.sleep(sleep_time)
     soup = BeautifulSoup(driver.page_source,'html.parser')
 
@@ -62,16 +74,21 @@ for index, row in counties.iterrows():
     for lis_ in fact_list:
         itemdict[lis_[0]] = number_strip(lis_[1])
         if len(lis_) == 4:
-            try:    print(fact_list)
+            try:
                 itemdict[lis_[0] + ' vs. National'] = number_strip(lis_[1])/number_strip(lis_[3]) - 1
             except:
                 itemdict[lis_[0] + ' vs. National'] = None
 
 
     # ratings
-    overall_rating = soup.find('div',{'class':'review__stars'}).get_text(separator = "\n").split("\n")
-    itemdict["Overall rating"] = number_strip(overall_rating[1])
-    itemdict["Total reviews"] = number_strip(overall_rating[-1].split(' ')[0])
+    try:
+        overall_rating = soup.find('div',{'class':'review__stars'}).get_text(separator = "\n").split("\n")
+        itemdict["Overall rating"] = number_strip(overall_rating[1])
+        itemdict["Total reviews"] = number_strip(overall_rating[-1].split(' ')[0])
+    except:
+        itemdict["Overall rating"] = None
+        itemdict["Total reviews"] = None
+
 
     rating_counts = [a.get_text(separator = "\n").split("\n") for a in soup.find_all('div',{'class':'review__chart__item__total'})]
     for i in range(5):
