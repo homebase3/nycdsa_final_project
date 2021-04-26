@@ -11,8 +11,10 @@ driver = webdriver.Firefox()
 
 # %% read in county list
 counties = pd.read_csv('county_names.csv')
-counties = counties.head(10)
+counties = counties.tail(counties.shape[0]-75-1335-416)
+# counties = counties.head(1)
 details = pd.DataFrame.from_dict({})
+# counties.shape[0]
 
 # %%
 def number_strip(text):
@@ -41,15 +43,23 @@ for index, row in counties.iterrows():
     itemdict['Link'] = url
 
     #grades
+    try:
+        itemdict['Overall Grade'] = soup.find('div',{'class': 'overall-grade__niche-grade'}).get_text(separator = "\n").split("\n")[1]
+    except:
+        itemdict['Overall Grade'] = None
+
     grades = [a.get_text(separator = "\n").split("\n") for a in soup.find_all('div',{'class': 'profile-grade--two'})]
     for lis_ in grades:
-        itemdict[lis_[0]] = lis_[2]
+        try:
+            itemdict[lis_[0]] = lis_[2]
+        except:
+            itemdict[lis_[0]] = None
 
     # summary
     try:
-        itemdict['sunmary'] = soup.find('span',{'class':'bare-value'}).text
+        itemdict['Summary'] = soup.find('span',{'class':'bare-value'}).text
     except:
-        itemdict['sunmary'] = None
+        itemdict['Summary'] = None
 
     #scalars
     scalars = [a.get_text(separator = "\n").split("\n") for a in soup.find_all('div',{'class':'scalar__value'})]
@@ -123,11 +133,17 @@ for index, row in counties.iterrows():
     scalars = [a.get_text(separator = "\n").split("\n") for a in soup.find_all('div',{'class':'scalar--three'})]
 
     for lis_ in scalars:
-        itemdict[lis_[0]] = number_strip(lis_[-1])
+        try:
+            itemdict[lis_[0]] = number_strip(lis_[-1])
+        except:
+            itemdict[lis_[0]] = None
 
     fact_list = [a.get_text(separator = "\n").split("\n") for a in soup.find_all('li',{'class':'fact__table__row'})]
     for lis_ in fact_list:
-        itemdict[lis_[0]] = number_strip(lis_[1])
+        try:
+            itemdict[lis_[0]] = number_strip(lis_[1])
+        except:
+            itemdict[lis_[0]] = None
         if len(lis_) == 4:
             try:
                 itemdict[lis_[0] + ' vs. National'] = number_strip(lis_[1])/number_strip(lis_[3]) - 1
@@ -142,4 +158,7 @@ for index, row in counties.iterrows():
 
 # %%
 details
-details.to_csv('county_details_test.csv')
+# details.to_csv('county_details_6.csv')
+
+# %%
+soup = BeautifulSoup(driver.page_source,'html.parser')
