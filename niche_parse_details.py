@@ -11,7 +11,7 @@ driver = webdriver.Firefox()
 
 # %% read in county list
 counties = pd.read_csv('county_names.csv')
-counties = counties.tail(counties.shape[0] - 1863)
+counties = counties.head(10)
 details = pd.DataFrame.from_dict({})
 
 # %%
@@ -24,8 +24,7 @@ def number_strip(text):
             return int(out)
         except:
             return float(out)
-        finally:
-            return None
+        return None
 
 # %% parse counties
 for index, row in counties.iterrows():
@@ -33,7 +32,7 @@ for index, row in counties.iterrows():
     # load page
     url = row[2]
     driver.get(url)
-    sleep_time = random.uniform(0.5,1)
+    # sleep_time = random.uniform(0,1)
     time.sleep(sleep_time)
     soup = BeautifulSoup(driver.page_source,'html.parser')
 
@@ -90,14 +89,15 @@ for index, row in counties.iterrows():
     # facts
     fact_list = [a.get_text(separator = "\n").split("\n") for a in soup.find_all('li',{'class':'fact__table__row'})]
     for lis_ in fact_list:
-        itemdict[lis_[0]] = number_strip(lis_[1])
+        try:
+            itemdict[lis_[0]] = number_strip(lis_[1])
+        except:
+            itemdict[lis_[0]] = None
         if len(lis_) == 4:
             try:
-                itemdict[lis_[0] + ' vs. National'] = number_strip(lis_[1])/number_strip(lis_[3]) - 1
+                itemdict[lis_[0] + ' vs. National'] = number_strip(lis_[1])/number_strip(lis_[-1]) - 1
             except:
                 itemdict[lis_[0] + ' vs. National'] = None
-
-
     # ratings
     try:
         overall_rating = soup.find('div',{'class':'review__stars'}).get_text(separator = "\n").split("\n")
@@ -142,4 +142,4 @@ for index, row in counties.iterrows():
 
 # %%
 details
-#details.to_csv('county_details4.csv')
+details.to_csv('county_details_test.csv')
