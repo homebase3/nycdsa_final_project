@@ -11,9 +11,8 @@ driver = webdriver.Firefox()
 
 # %% read in county list
 counties = pd.read_csv('county_names.csv')
-counties = counties.tail(counties.shape[0] - 570)
+counties = counties.tail(counties.shape[0] - 1113)
 details = pd.DataFrame.from_dict({})
-counties
 
 # %%
 def number_strip(text):
@@ -56,10 +55,25 @@ for index, row in counties.iterrows():
     #scalars
     scalars = [a.get_text(separator = "\n").split("\n") for a in soup.find_all('div',{'class':'scalar__value'})]
 
-    itemdict['Population'] = number_strip(scalars[0][0])
-    itemdict['Median Home Value'] = number_strip(scalars[1][0][1:])
-    itemdict['Median Rent'] = number_strip(scalars[2][0][1:])
-    itemdict['Median Household Income'] = number_strip(scalars[3][0][1:])
+    try:
+        itemdict['Population'] = number_strip(scalars[0][0])
+    except:
+        itemdict['Population'] = None
+
+    try:
+        itemdict['Median Home Value'] = number_strip(scalars[1][0][1:])
+    except:
+        itemdict['Median Home Value'] = None
+    try:
+        itemdict['Median Rent'] = number_strip(scalars[2][0][1:])
+    except:
+        itemdict['Median Rent'] = None
+
+    try:
+        itemdict['Median Household Income'] = number_strip(scalars[3][0][1:])
+    except:
+        itemdict['Median Household Income'] = None
+
     try:
         itemdict['Median Home Value vs. National'] = number_strip(scalars[1][0][1:])/number_strip(scalars[1][2][1:]) - 1
     except:
@@ -128,4 +142,4 @@ for index, row in counties.iterrows():
 
 # %%
 details
-details.to_csv('county_details.csv')
+# details.to_csv('county_details2.csv')
