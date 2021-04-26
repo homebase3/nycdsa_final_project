@@ -1609,3 +1609,25 @@ console.warn: SearchSettings: "get: No settings file exists, new profile?" (new 
 1619381415164	Marionette	INFO	Listening on port 38317
 1619381415280	Marionette	WARN	TLS certificate errors will be ignored for this session
 console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+1619397834990	Marionette	INFO	Stopped listening on port 38317
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1619397836082	geckodriver	INFO	Listening on 127.0.0.1:52295
+1619397837083	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilere34qK"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1619397838938	Marionette	INFO	Listening on port 34663
+1619397839006	Marionette	WARN	TLS certificate errors will be ignored for this session
+1619397909961	Marionette	INFO	Stopped listening on port 34663
+1619397919360	geckodriver	INFO	Listening on 127.0.0.1:39197
+1619397919363	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile3FWBtN"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1619397921182	Marionette	INFO	Listening on port 33095
+1619397921288	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=C18DQ93QIA5GK7IMT3R0&lib=ttq, line 3: ChunkLoadError: Loading chunk 1 failed.
+(error: https://analytics.tiktok.com/i18n/pixel/identify.js)
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+JavaScript error: https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=C18DQ93QIA5GK7IMT3R0&lib=ttq, line 3: ChunkLoadError: Loading chunk 1 failed.
+(error: https://analytics.tiktok.com/i18n/pixel/identify.js)
+JavaScript error: https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=C18DQ93QIA5GK7IMT3R0&lib=ttq, line 3: ChunkLoadError: Loading chunk 1 failed.
+(error: https://analytics.tiktok.com/i18n/pixel/identify.js)

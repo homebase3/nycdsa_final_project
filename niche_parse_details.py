@@ -11,7 +11,7 @@ driver = webdriver.Firefox()
 
 # %% read in county list
 counties = pd.read_csv('county_names.csv')
-counties = counties.tail(counties.shape[0] - 1113)
+counties = counties.tail(counties.shape[0] - 1863)
 details = pd.DataFrame.from_dict({})
 
 # %%
@@ -142,4 +142,4 @@ for index, row in counties.iterrows():
 
 # %%
 details
-# details.to_csv('county_details2.csv')
+#details.to_csv('county_details4.csv')
