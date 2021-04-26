@@ -11,7 +11,7 @@ driver = webdriver.Firefox()
 
 # %% read in county list
 counties = pd.read_csv('county_names.csv')
-counties = counties.tail(counties.shape[0]-75-1335-416)
+counties = counties.tail(counties.shape[0]-75-1335-416-381-137)
 # counties = counties.head(1)
 details = pd.DataFrame.from_dict({})
 # counties.shape[0]
@@ -34,7 +34,7 @@ for index, row in counties.iterrows():
     # load page
     url = row[2]
     driver.get(url)
-    # sleep_time = random.uniform(0,1)
+    sleep_time = random.uniform(0,1)
     time.sleep(sleep_time)
     soup = BeautifulSoup(driver.page_source,'html.parser')
 
@@ -158,7 +158,7 @@ for index, row in counties.iterrows():
 
 # %%
 details
-# details.to_csv('county_details_6.csv')
+details.to_csv('county_details_7.csv')
 
 # %%
 soup = BeautifulSoup(driver.page_source,'html.parser')
