@@ -10,7 +10,7 @@ from selenium import webdriver
 driver = webdriver.Firefox()
 
 # %% get counties
-urlbase = 'https://www.niche.com/places-to-live/search/best-counties-to-buy-a-house/?page='
+urlbase = 'https://www.niche.com/places-to-live/search/best-outdoors-counties/?page='
 
 driver.get(urlbase)
 # wait for it to load
@@ -19,8 +19,8 @@ time.sleep(3)
 #soup page
 
 # %%
-# Counties = []
-# Links = []
+Counties = []
+Links = []
 r = list(range(1,128))
 for i in r:
     driver.get(urlbase + str(i))
@@ -38,4 +38,4 @@ dict_ = {}
 dict_['County'] = Counties
 dict_['Link'] = Links
 df = pd.DataFrame.from_dict(dict_)
-df.to_csv('best_counties_buy_house.csv')
+df.to_csv('best_for_outdoor_activities.csv')
