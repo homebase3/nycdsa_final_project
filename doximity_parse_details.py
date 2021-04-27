@@ -38,7 +38,7 @@ for i, val in enumerate(graph_list):
 # %%
 try_assign(itemdict, "Accredited Fellowship Programs",[a.text.strip() for a in soup.find_all('li',{'class':'col-1-3 residency-program-fellowship-program-list-item'})])
 
-#%%
+#%% subspcialty data
 total_subspecializing = soup.find('h2',{'class':'tooltip-top'}).text.replace("*","").strip().split(' ')[0]
 total_subspecializing = float(total_subspecializing.replace("%",""))/100
 sub_specialties = [a.text.strip() for a in soup.find_all('div',{'class':'residency-program-subspeicalty-diagram-label'})]
@@ -48,7 +48,7 @@ sum_ssp = sum(sub_specialties_percentage)
 sub_specialties_percentage_abs = [i/sum_ssp * total_subspecializing for i in sub_specialties_percentage]
 
 for i,val in enumerate(sub_specialties):
-    try_assign(itemdict,val,sub_specialties_percentage[i])
+    try_assign(itemdict,val,sub_specialties_percentage_abs[i])
 
 # %%
 

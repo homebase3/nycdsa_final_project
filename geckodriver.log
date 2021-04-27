@@ -3777,3 +3777,61 @@ console.error: "Error writing request: getGrids"
 1619537006030	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'loading'.
 1619538878950	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'loading'.
 1619538882423	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'loading'.
+1619539244317	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'loading'.
+1619539257808	Marionette	INFO	Stopped listening on port 43591
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+console.error: "Error writing request: getGrids"
+console.error: "Error writing request: getGrids"
+console.error: "Tried to send a 'target-destroyed-form' event on an already destroyed actor 'watcher'"
+JavaScript error: https://www.google.com/search?channel=fs&client=ubuntu&q=how+to+turn+on+app+tracking+transparency, line 1: ReferenceError: rwt is not defined
+1619543595977	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+Handler function _httpResponseExaminer threw an exception: TypeError: topFrame.browsingContext is null
+Stack: matchRequest@resource://devtools/server/actors/network-monitor/network-observer.js:130:9
+_httpResponseExaminer@resource://devtools/server/actors/network-monitor/network-observer.js:456:10
+exports.makeInfallible/<@resource://devtools/shared/ThreadSafeDevToolsUtils.js:103:22
+Line: 130, column: 9
+console.error: (new TypeError("topFrame.browsingContext is null", "resource://devtools/server/actors/network-monitor/network-observer.js", 130))
+JavaScript error: resource://devtools/server/actors/inspector/walker.js, line 479: TypeError: this._nodeActorsMap is null
+1619543701522	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+JavaScript error: https://cdn.permutive.com/d2fb08da-1c03-4c8a-978f-ad8a96b4c31f-web.js, line 1: Error: TypeError: Network request timed out
+JavaScript error: https://cdn.permutive.com/d2fb08da-1c03-4c8a-978f-ad8a96b4c31f-web.js, line 1: Error: TypeError: Network request timed out
+JavaScript error: https://cdn.permutive.com/d2fb08da-1c03-4c8a-978f-ad8a96b4c31f-web.js, line 1: Error: TypeError: Network request timed out
+JavaScript error: https://cdn.permutive.com/d2fb08da-1c03-4c8a-978f-ad8a96b4c31f-web.js, line 1: Error: TypeError: Network request timed out
+JavaScript error: , line 0: uncaught exception: undefined
+JavaScript error: https://cdn.permutive.com/d2fb08da-1c03-4c8a-978f-ad8a96b4c31f-web.js, line 1: Error: TypeError: Network request timed out
+JavaScript error: https://cdn.permutive.com/d2fb08da-1c03-4c8a-978f-ad8a96b4c31f-web.js, line 1: Error: TypeError: Network request timed out
+JavaScript error: https://cdn.permutive.com/d2fb08da-1c03-4c8a-978f-ad8a96b4c31f-web.js, line 1: Error: TypeError: Network request timed out
+JavaScript error: https://cdn.permutive.com/d2fb08da-1c03-4c8a-978f-ad8a96b4c31f-web.js, line 1: TypeError: Network request failed
+JavaScript error: https://cdn.permutive.com/d2fb08da-1c03-4c8a-978f-ad8a96b4c31f-web.js, line 1: TypeError: Network request failed
+JavaScript error: https://cdn.permutive.com/d2fb08da-1c03-4c8a-978f-ad8a96b4c31f-web.js, line 1: Error: TypeError: Network request timed out
+1619543832291	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'uninitialized'.
+JavaScript error: https://cdn.permutive.com/d2fb08da-1c03-4c8a-978f-ad8a96b4c31f-web.js, line 1: Error: TypeError: Network request timed out
+JavaScript error: https://cdn.permutive.com/d2fb08da-1c03-4c8a-978f-ad8a96b4c31f-web.js, line 1: Error: TypeError: Network request timed out
+JavaScript error: https://cdn.doubleverify.com/dv-measurements1281.js, line 1: TypeError: i.WindowAdaptor.workingDocument() is undefined
+1619544603646	Marionette	INFO	Stopped listening on port 35041
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1619550334963	geckodriver	INFO	Listening on 127.0.0.1:36531
+1619550334972	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileZr2yUo"
+1619550335828	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1619550338766	Marionette	INFO	Listening on port 40673
+1619550338839	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.warn: services.settings: main/cfr sync interrupted by shutdown
+1619550339681	Marionette	INFO	Stopped listening on port 40673
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1619550347278	geckodriver	INFO	Listening on 127.0.0.1:43419
+1619550347283	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilekrEwa8"
+1619550348000	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1619550350701	Marionette	INFO	Listening on port 39623
+1619550350824	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 194: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+JavaScript error: , line 0: NetworkError: A network error occurred.

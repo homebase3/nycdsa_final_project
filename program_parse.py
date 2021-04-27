@@ -18,28 +18,16 @@ def standard_parse(dict_,lis_):
         else:
             dict_[val1] = [val2]
 
-
-
-# %% try-except wrapper
-def try_assign(dict,key,val):
-    try:
-        dict[key] = val
-    except:
-        dict[key] = None
-
-# names = names.head(3)
-# %%
-dict = {}
-try_assign(dict,'apple',2)
-dict
-
-
 # %% initialize dataframes
 names = pd.read_csv('names.csv')
 names = names.tail(names.shape[0]-28)
+
+# %% try-except wrapper
+def try_wrap(val):
+
+# names = names.head(3)
+
 details = pd.DataFrame({})
-
-
 # %% parse programs
 for index, row in names.iterrows():
     # print(row[1])
@@ -61,25 +49,49 @@ for index, row in names.iterrows():
 
     # get contact info. If not exist, page is blank, move on
     contacts = [list(a.stripped_strings) for a in soup.find_all('small',{'class':['contact-info__contacts__details']})]
-    try_assign(itemdict,'Program director','\n'.join(contacts[0]))
-    try_assign(itemdict,'Person to contact for more information about the program','\n'.join(contacts[1]))
+    try:
+        itemdict['Program director'] = '\n'.join(contacts[0])
+    except:
+        itemdict['Program director'] = None
+    try:
+        itemdict['Person to contact for more information about the program'] = '\n'.join(contacts[1])
+    except:
+        itemdict['Person to contact for more information about the program'] = None
 
     # perform ID and location parse
     special = [a.get_text(separator = ", ") for a in soup.find_all('small',{'class':"ng-star-inserted"})]
-    try_assign(itemdict,'ID', special[0][4:])
-    try_assign(itemdict,'Location',special[1])
-    try_assign(itemdict,'Sponsor',special[2])
+    try:
+        itemdict['ID'] = special[0][4:]
+    except:
+        itemdict['ID'] = None
+    try:
+        itemdict['Location'] = special[1]
+    except:
+        itemdict['Location'] = None
+    try:
+        itemdict['Sponsor'] = special[2]
+    except:
+        itemdict['Sponsor'] = None
 
     for i,val in enumerate(special[3:-1]):
-        try_assign(itemdict,'Participant '+ str(i),val)
+        try:
+            itemdict['Participant '+ str(i)] = val
+        except:
+            itemdict['Participant '+ str(i)] = None
+
 
     # introduction
-    try_assign(itemdict,'Intro',[a.text.strip() for a in soup.find_all('div',{'class':['special_features ng-star-inserted']})][0])
+    try:
+        itemdict['Intro'] = [a.text.strip() for a in soup.find_all('div',{'class':['special_features ng-star-inserted']})][0]
+    except:
+        itemdict['Intro'] = None
+
     # go to second tab
+    #get program length to adjust parse
     try:
         length = int(itemdict['Required length'][0])
     except:
-        length = None
+        length = 4
 
     try:
         driver.find_element_by_xpath("//div[@data-test='program-sub-nav__item'][position()=2]").click()
@@ -119,8 +131,8 @@ for index, row in names.iterrows():
     standard_parse(itemdict,table_fourth)
     try:
         for i,val in enumerate(table_fifth[::3]):
-            try_assign(itemdict,'Year most taxing schedule And frequency per year_Year ' + val,[table_fifth[3*i+1]])
-            try_assign(itemdict,'Beeper or home call (Weeks/Year)_Year ' + val, [table_fifth[3*i+2]])
+            itemdict['Year most taxing schedule And frequency per year_Year ' + val] = [table_fifth[3*i+1]]
+            itemdict['Beeper or home call (Weeks/Year)_Year ' + val] = [table_fifth[3*i+2]]
     except:
         pass
     #move to third tab
@@ -154,9 +166,9 @@ for index, row in names.iterrows():
     # print(table_sixth)
     # print(table_seventh)
     for i,val in enumerate(table_seventh[::4]):
-        try_assign(itemdict,'Salary compensation_Year ' + val,table_seventh[4*i+1])
-        try_assign(itemdict,'Vacation days_Year ' + val, table_seventh[4*i+2])
-        try_assign('Sick days_Year ' + val, table_seventh[4*i+3])
+        itemdict['Salary compensation_Year ' + val] = table_seventh[4*i+1]
+        itemdict['Vacation days_Year ' + val] = table_seventh[4*i+2]
+        itemdict['Sick days_Year ' + val] = table_seventh[4*i+3]
 
     standard_parse(itemdict,table_eigth)
 
