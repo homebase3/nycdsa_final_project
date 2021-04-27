@@ -20,13 +20,7 @@ def standard_parse(dict_,lis_):
 
 # %% initialize dataframes
 names = pd.read_csv('names.csv')
-names = names.tail(names.shape[0]-28)
-
-# %% try-except wrapper
-def try_wrap(val):
-
-# names = names.head(3)
-
+names = names.tail(names.shape[0]-338)
 details = pd.DataFrame({})
 # %% parse programs
 for index, row in names.iterrows():
@@ -125,16 +119,25 @@ for index, row in names.iterrows():
     standard_parse(itemdict,table_second)
 
     for i,val in enumerate(table_third[::3]):
-        itemdict[val.strip()+'_Physician'] = [table_third[3*i+1]]
-        itemdict[val.strip()+'_Non-physician'] = [table_third[3*i+2]]
+        try:
+            itemdict[val.strip()+'_Physician'] = [table_third[3*i+1]]
+        except:
+            itemdict[val.strip()+'_Physician'] = None
+        try:
+            itemdict[val.strip()+'_Non-physician'] = [table_third[3*i+2]]
+        except:
+            itemdict[val.strip()+'_Non-physician'] = None
 
     standard_parse(itemdict,table_fourth)
-    try:
-        for i,val in enumerate(table_fifth[::3]):
+    for i,val in enumerate(table_fifth[::3]):
+        try:
             itemdict['Year most taxing schedule And frequency per year_Year ' + val] = [table_fifth[3*i+1]]
+        except:
+            itemdict['Year most taxing schedule And frequency per year_Year ' + val] = None
+        try:
             itemdict['Beeper or home call (Weeks/Year)_Year ' + val] = [table_fifth[3*i+2]]
-    except:
-        pass
+        except:
+            itemdict['Beeper or home call (Weeks/Year)_Year ' + val] = None
     #move to third tab
     try:
         driver.find_element_by_xpath("//div[@data-test='program-sub-nav__item'][position()=3]").click()
@@ -178,5 +181,5 @@ for index, row in names.iterrows():
 
 
 # %%
-details.to_csv('program-details_1.csv')
+details.to_csv('program-details_2.csv')
 details
