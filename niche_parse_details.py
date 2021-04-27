@@ -158,7 +158,7 @@ for index, row in counties.iterrows():
 
 # %%
 details
-details.to_csv('county_details_7.csv')
+details.to_csv('county_details_8.csv')
 
 # %%
 soup = BeautifulSoup(driver.page_source,'html.parser')

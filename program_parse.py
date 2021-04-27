@@ -20,13 +20,13 @@ def standard_parse(dict_,lis_):
 
 # %% initialize dataframes
 names = pd.read_csv('names.csv')
-names = names.sample(n=20)
+names = names.tail(names.shape[0]-550-22-99)
 # names = names.head(3)
 
 details = pd.DataFrame({})
 # %% parse programs
 for index, row in names.iterrows():
-    print(row[1])
+    # print(row[1])
 
     # load page
     driver.get(row[2])
@@ -98,7 +98,11 @@ for index, row in names.iterrows():
     try:
         end_fourth = list(reversed(table_fourth)).index('% Male') -1
     except:
-        end_fourth = list(reversed(table_fourth)).index('1') + 1
+        try:
+            end_fourth = list(reversed(table_fourth)).index('1') + 1
+        except:
+            end_fourth = len(table_fourth)
+
     table_fifth = table_fourth[-end_fourth:]
     del table_fourth[-end_fourth:]
     del table_fifth[-1]
@@ -110,11 +114,12 @@ for index, row in names.iterrows():
         itemdict[val.strip()+'_Non-physician'] = [table_third[3*i+2]]
 
     standard_parse(itemdict,table_fourth)
-
-    for i,val in enumerate(table_fifth[::3]):
-        itemdict['Year most taxing schedule And frequency per year_Year ' + val] = [table_fifth[3*i+1]]
-        itemdict['Beeper or home call (Weeks/Year)_Year ' + val] = [table_fifth[3*i+2]]
-
+    try:
+        for i,val in enumerate(table_fifth[::3]):
+            itemdict['Year most taxing schedule And frequency per year_Year ' + val] = [table_fifth[3*i+1]]
+            itemdict['Beeper or home call (Weeks/Year)_Year ' + val] = [table_fifth[3*i+2]]
+    except:
+        continue
     #move to third tab
     try:
         driver.find_element_by_xpath("//div[@data-test='program-sub-nav__item'][position()=3]").click()
@@ -158,7 +163,7 @@ for index, row in names.iterrows():
 
 
 # %%
-details.to_csv('test.csv')
+details.to_csv('programs_4.csv')
 details
 
 
@@ -239,10 +244,10 @@ for i,val in enumerate(table_third[::3]):
 standard_parse(itemdict,table_fourth)
 
 print(table_fifth)
-for i,val in enumerate(table_fifth[::3]):
-    itemdict['Year most taxing schedule And frequency per year_Year ' + val] = [table_fifth[3*i+1]]
-    itemdict['Beeper or home call (Weeks/Year)_Year ' + val] = [table_fifth[3*i+2]]
-# %%
+try:
+    for i,val in enumerate(table_fifth[::3]):
+        itemdict['Year most taxing schedule And frequency per year_Year ' + val] = [table_fifth[3*i+1]]
+        itemdict['Beeper or home call (Weeks/Year)_Year ' + val] = [table_fifth[3*i+2]]
 itemdict
 
 # %%
