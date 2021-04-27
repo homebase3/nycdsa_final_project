@@ -20,7 +20,7 @@ def standard_parse(dict_,lis_):
 
 # %% initialize dataframes
 names = pd.read_csv('names.csv')
-names = names.tail(names.shape[0]-550-22-99)
+names = names.tail(names.shape[0]-28)
 # names = names.head(3)
 
 details = pd.DataFrame({})
@@ -49,21 +49,17 @@ for index, row in names.iterrows():
         itemdict['Program director'] = '\n'.join(contacts[0])
         itemdict['Person to contact for more information about the program'] = '\n'.join(contacts[1])
     except:
-        # try:
-        #     time.sleep(1)
-        #     contacts = [list(a.stripped_strings) for a in soup.find_all('small',{'class':['contact-info__contacts__details']})]
-        #     itemdict['Program director'] = '\n'.join(contacts[0])
-        #     itemdict['Person to contact for more information about the program'] = '\n'.join(contacts[1])
-        # except:
-            # continue
-
-        continue
+        itemdict['Program director'] = None
+        itemdict['Person to contact for more information about the program'] = None
 
     # perform ID and location parse
-    special = [a.get_text(separator = ", ") for a in soup.find_all('small',{'class':"ng-star-inserted"})]
-    itemdict['ID'] = special[0][4:]
-    itemdict['Location'] = special[1]
-    itemdict['Sponsor'] = special[2]
+    try:
+        special = [a.get_text(separator = ", ") for a in soup.find_all('small',{'class':"ng-star-inserted"})]
+        itemdict['ID'] = special[0][4:]
+        itemdict['Location'] = special[1]
+        itemdict['Sponsor'] = special[2]
+    except:
+        continue
 
     for i,val in enumerate(special[3:-1]):
         itemdict['Participant '+ str(i)] = val
@@ -72,7 +68,7 @@ for index, row in names.iterrows():
     try:
         itemdict['Intro'] = [a.text.strip() for a in soup.find_all('div',{'class':['special_features ng-star-inserted']})][0]
     except:
-        itemdict['Intro'] = ''
+        itemdict['Intro'] = None
 
     # go to second tab
     #get program length to adjust parse
@@ -119,7 +115,7 @@ for index, row in names.iterrows():
             itemdict['Year most taxing schedule And frequency per year_Year ' + val] = [table_fifth[3*i+1]]
             itemdict['Beeper or home call (Weeks/Year)_Year ' + val] = [table_fifth[3*i+2]]
     except:
-        continue
+        pass
     #move to third tab
     try:
         driver.find_element_by_xpath("//div[@data-test='program-sub-nav__item'][position()=3]").click()
@@ -163,7 +159,7 @@ for index, row in names.iterrows():
 
 
 # %%
-details.to_csv('programs_4.csv')
+details.to_csv('programs.csv')
 details
 
 
