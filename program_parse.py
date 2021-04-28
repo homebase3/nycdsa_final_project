@@ -20,7 +20,7 @@ def standard_parse(dict_,lis_):
 
 # %% initialize dataframes
 names = pd.read_csv('names.csv')
-names = names.tail(names.shape[0]-750-488-630-617-124-327-239-525-490-510-500)
+names = names.tail(names.shape[0] - 530)
 details = pd.DataFrame({})
 # %% parse programs
 for index, row in names.iterrows():
@@ -181,5 +181,13 @@ for index, row in names.iterrows():
 
 
 # %%
-details.to_csv('program-details_14.csv')
+details.to_csv('program-details_2_1.csv')
 details
+
+# %%
+final_df = pd.DataFrame.from_dict({})
+for i in range(1,15):
+    df_item = pd.read_csv('program-details_'+str(i)+'.csv')
+    final_df = final_df.append(df_item)
+
+# %%
