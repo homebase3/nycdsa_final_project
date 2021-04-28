@@ -15,7 +15,7 @@ driver.get('https://www.doximity.com/residency/programs/009b631d-3390-4742-b583-
 
 # %%
 specialties_df = pd.read_csv('specialties_doximity.csv')
-specialties_links = list(np.unique(specialties_df['Link']))[1000:]
+specialties_links = list(np.unique(specialties_df['Link']))
 details = pd.DataFrame.from_dict({})
 
 # %%
@@ -116,11 +116,11 @@ for link in specialties_links:
     df_item = pd.DataFrame.from_dict(itemdict)
     # print(df_item)
     details = details.append(df_item)
-    print(details.shape[0])
+    # print(details.shape[0])
 
 # %%
 details
-# details.to_csv('doximity_details_5.csv')
+details.to_csv('doximity_details_1.csv')
 
 # %%
 df_item =  pd.DataFrame.from_dict(itemdict)
