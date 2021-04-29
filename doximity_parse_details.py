@@ -120,7 +120,7 @@ for link in specialties_links:
 
 # %%
 details
-details.to_csv('doximity_details_1.csv')
+# details.to_csv('doximity_details_full.csv')
 
 # %%
 df_item =  pd.DataFrame.from_dict(itemdict)
