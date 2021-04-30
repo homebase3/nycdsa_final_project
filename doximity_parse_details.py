@@ -71,12 +71,14 @@ for link in specialties_links:
         sub_specialties_percentage_abs = [i/sum_ssp * total_subspecializing for i in sub_specialties_percentage]
     except:
         pass
-
-    for i,val in enumerate(sub_specialties):
-        try:
-            itemdict[val] = [sub_specialties_percentage_abs[i]]
-        except:
-            itemdict[val] = None
+    try:
+        for i,val in enumerate(sub_specialties):
+            try:
+                itemdict[val] = [sub_specialties_percentage_abs[i]]
+            except:
+                itemdict[val] = None
+    except:
+        pass
 
     # Alumni satistfaction
     soup = BeautifulSoup(driver.page_source,'html.parser')
@@ -120,7 +122,7 @@ for link in specialties_links:
 
 # %%
 details
-# details.to_csv('doximity_details_full.csv')
+# details.to_csv('doximity_details_3_1.csv')
 
 # %%
 df_item =  pd.DataFrame.from_dict(itemdict)
