@@ -1,0 +1,58 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+runtime: shiny
+---
+<style>
+.panel-auth {
+  position: fixed;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #FFF;
+  opacity: 1;
+  z-index: 99997;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+</style>
+---
+```{r global, include=FALSE}
+library(flexdashboard)
+credentials <- data.frame(
+  user = c("shiny", "shinymanager"),
+  password = c("azerty", "12345"),
+  stringsAsFactors = FALSE
+)
+library(shiny)
+library(shinymanager)
+ui <- fluidPage(
+  tags$h2("My secure application"),
+  verbatimTextOutput("auth_output")
+)
+
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+```{r}
+auth_ui(id = "auth")
+
+auth <- callModule(
+    module = auth_server,
+    id = "auth",
+    check_credentials = check_credentials(credentials) # data.frame
+    # check_credentials = check_credentials("path/to/credentials.sqlite", passphrase = "supersecret") # sqlite
+)
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+```{r}
+tags$iframe(src="https://freida.ama-assn.org/program/4000111009", height = 1000, width = 1000,frameBorder="0")
+```
+

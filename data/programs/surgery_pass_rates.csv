@@ -1,0 +1,485 @@
+Program,Total #CE*,CE Success
+"Brookwood Baptist Health
+AL",8,88%
+"University of Alabama Medical Center
+AL",18,89%
+"University of South Alabama Medical Center
+AL",15,67%
+"University of Arkansas for Medical Sciences Affiliated Hospitals
+AR",13,92%
+"Creighton Univ.  Sch.  of Med.  Maricopa Medical Center
+AZ",12,75%
+"Creighton Univ.  Sch.  of Med.  St.  Joseph’s Med Ctr.
+AZ",8,75%
+"Mayo Clinic Arizona
+AZ",7,71%
+"Univ.  of Arizona, Phoneix
+AZ",15,60%
+"University of Arizona-Tucson Hospitals Program
+AZ",16,81%
+"Arrowhead Regional Medical Center Kaiser Permanente (Fontana) Program
+CA",7,86%
+"Cedars - Sinai Medical Center
+CA",12,83%
+"David Geffen School of Medicine at UCLA
+CA",18,94%
+"Huntington Memorial Hospital
+CA",5,80%
+"Kaiser Permanente Southern California (Los Angeles)
+CA",11,91%
+"Loma Linda University Affil.  Hosps.
+CA",13,92%
+"Los Angeles County - Harbor UCLA Medical Center
+CA",15,87%
+"Naval Medical Center (San Diego)
+CA",14,93%
+"Riverside Univ.  Health System / UC - Riverside
+CA",10,60%
+"San Joaquin General Hospital Prog.
+CA",9,100%
+"Santa Barbara Cottage Hospital
+CA",5,100%
+"Stanford University Affil.  Hosp
+CA",13,85%
+"Univ.  of California - San Francisco - Fresno
+CA",15,80%
+"Univ.  of California, SF - East Bay
+CA",14,71%
+"University of California (Davis) Affiliated Hospitals
+CA",23,100%
+"University of California (Irvine) Affiliated Hospitals
+CA",16,88%
+"University of California Hospitals San Francisco
+CA",20,85%
+"University of California- San Diego Program
+CA",15,93%
+"University of Southern California Program
+CA",19,58%
+"Exempla St.  Joseph Hospital
+CO",11,91%
+"University of Colorado Health Sciences Center
+CO",30,90%
+"Danbury Hospital Program
+CT",10,50%
+"Quinnipiac Univ.  - Waterbury Hospital
+CT",6,67%
+"St.  Marys Hospital
+CT",4,75%
+"Stamford Hospital/Columbia Univ.  Program
+CT",10,60%
+"University of Connecticut School of Medicine
+CT",11,73%
+"Yale-New Haven Medical Center Prog.
+CT",19,84%
+"George Washington University Prog.
+DC",14,93%
+"Howard University Affil.  Hospitals
+DC",11,45%
+"Christiana Care Health Svc.  Program
+DE",15,87%
+"AdventHealth Orlando Program
+FL",9,78%
+"Cleveland Clinic (Florida) Program
+FL",10,60%
+"Kendall Regional Medical Center
+FL",8,75%
+"Mayo Graduate School of Medicine Jacksonville Program
+FL",6,67%
+"Mt.  Sinai Medical Center of Greater Miami
+FL",6,67%
+"Orlando Health Program
+FL",10,100%
+"Univ.  of Florida Affil.  Hospitals
+FL",17,88%
+"Univ.  of Miami - JFK Med.  Ctr/ Palm Beach Regional GME Consort.
+FL",4,100%
+"University of Florida Col.  of Med.- Jacksonville Program
+FL",11,82%
+"University of Miami Jackson Memorial Hospital
+FL",19,68%
+"University of South Florida Program
+FL",16,81%
+"Dwight David Eisenhower Army Medical Center
+GA",8,75%
+"Emory University Affiliated Hosps.
+GA",22,73%
+"HCA Health-Mercer Univ.  Sch of Med Memorial Savannah
+GA",14,71%
+"Medical College of Georgia Integrated Hospital Programs
+GA",11,55%
+"Medical Ctr.  of Central Georgia /Mercer Univ.  Sch.  of Med.
+GA",14,86%
+"Morehouse School of Medicine Program
+GA",6,33%
+"WellStar Atlanta Medical Center
+GA",8,62%
+"Tripler Army Medical Center
+HI",10,100%
+"University of Hawaii Aff.  Hospitals
+HI",9,89%
+"Central Iowa Health System /Iowa Methodist Medical Center
+IA",12,100%
+"Univ.  of Iowa Affiliated Hospitals
+IA",12,92%
+"Loyola University Medical Center
+IL",14,71%
+"Northwestern University / McGaw Medical Center
+IL",13,92%
+"Presence Saint Joseph Hospital
+IL",5,100%
+"Rush University Medical Center Program
+IL",22,91%
+"Southern Illinois University Affiliated Hospitals
+IL",11,91%
+"Univ.  of Illinois Coll.  of Med.  at Chicago (Mt.  Sinai)
+IL",7,71%
+"University of Chicago Hospitals
+IL",17,82%
+"University of Illinois Affiliated Hospitals
+IL",12,67%
+"University of Illinois College of Medicine at Peoria
+IL",10,80%
+"University of Illinois Metropolitan Hospital Group
+IL",15,100%
+"Indiana University Medical Center
+IN",26,85%
+"St.  Vincent Hospitals and Health Care Center Program
+IN",4,100%
+"Univ.  of Kansas Medical Center
+KS",12,75%
+"University of Kansas - Wichita School of Medicine
+KS",19,58%
+"Univ.  of Louisville Affil.  Hosps.
+KY",22,86%
+"University of Kentucky Med.  Center
+KY",19,89%
+"LSU (Shreveport) Affil.  Hospitals
+LA",12,92%
+"Louisiana State University Affiliated Hospitals
+LA",16,94%
+"Ochsner Clinic Foundation
+LA",13,92%
+"Tulane University Aff.  Hospitals
+LA",14,86%
+"Beth Israel Deaconess Medical Center Program
+MA",22,68%
+"Boston University Surgical Residency Program
+MA",12,75%
+"Brigham and Womens Hospital
+MA",16,88%
+"Lahey Clinic Foundation
+MA",7,100%
+"Massachusetts General Hospital
+MA",22,91%
+"St.  Elizabeths Medical Center of Boston
+MA",7,100%
+"Tufts Medical Center
+MA",9,78%
+"UMMS - Baystate Program
+MA",14,93%
+"University of Massachusetts Coordinated Program
+MA",18,89%
+"Johns Hopkins Hospital
+MD",18,78%
+"MedStar Health (Baltimore) Frankllin Square Med.  Ctr.
+MD",5,60%
+"National Capital Consortium Program
+MD",21,81%
+"Sinai Hospital of Baltimore
+MD",9,100%
+"St.  Agnes Hospital of the City of Baltimore
+MD",7,71%
+"Univ.  of Maryland Affil.  Hospitals
+MD",14,64%
+"Maine Medical Center
+ME",15,93%
+"Ascension Providence / MSUCHM
+MI",7,86%
+"Ascension St.  John Hospital Program
+MI",14,79%
+"Beaumont Health (Royal Oak) Program
+MI",14,71%
+"Detroit Medical Ctr.  Corp./ Wayne State Univ.
+MI",21,76%
+"Henry Ford Hospital / Wayne State Univ.
+MI",16,94%
+"Michigan State University - Sparrow Health
+MI",7,71%
+"Spectrum Health Michigan State Univ.  Program
+MI",17,88%
+"St.  Joseph Mercy Hospital
+MI",10,80%
+"St.  Joseph Mercy Oakland
+MI",4,75%
+"Univ.  of Michigan Hospitals
+MI",19,84%
+"Western Michigan University School of Medicine
+MI",7,86%
+"Hennepin County Medical Center
+MN",9,67%
+"Mayo Graduate School of Medicine Program
+MN",30,83%
+"University of Minnesota Affiliated Hospitals
+MN",16,94%
+"St.  Louis University Group of Hospitals
+MO",12,75%
+"Univ.  of Missouri at Kansas City
+MO",15,87%
+"University of Missouri - Columbia
+MO",7,86%
+"Washington University Hospital B-JH/SLCH Consortium
+MO",21,95%
+"Keesler Medical Center
+MS",7,100%
+"Univ.  Of Mississippi Medical Center
+MS",14,79%
+"Carolinas Medical Center
+NC",9,100%
+"Duke University Medical Center
+NC",13,92%
+"New Hanover Regional Medical Center
+NC",6,100%
+"University of North Carolina Hosps.
+NC",19,84%
+"Vidant Medical Center / East Carolina Univ.
+NC",12,92%
+"Wake Forest University School of Medicine
+NC",20,95%
+"University Of North Dakota Affiliated Hospitals
+ND",9,67%
+"Creighton University Affiliated Hospitals
+NE",10,90%
+"University of Nebraska Medical Center
+NE",11,91%
+"Dartmouth-Hitchcock / Mary Hitchcock Mem.  Hsp.
+NH",12,92%
+"Atlantic Health System (Morristown)
+NJ",15,87%
+"Cooper Medical School of Rowan Univ.
+NJ",10,90%
+"Monmouth Medical Center Program
+NJ",10,80%
+"Rutgers New Jersey Medical School
+NJ",18,78%
+"Rutgers Robert Wood Johnson Medical School
+NJ",15,80%
+"St.  Barnabas Medical Center
+NJ",13,85%
+"U. of New Mexico Affil.  Hospitals
+NM",13,77%
+"University of Nevada Affiliated Hospitals
+NV",13,85%
+"Albany Medical Center Program
+NY",13,69%
+"Bassett Medical Center
+NY",7,71%
+"BronxCare Health - System
+NY",7,86%
+"Brookdale Hospital Medical Center Program
+NY",6,50%
+"Brooklyn Hospital Center
+NY",8,50%
+"Harlem Hospital Center
+NY",4,75%
+"Icahn Sch of Med Mt.  Sinai (West Side)
+NY",10,80%
+"Icahn School of Medicine at Mount Sinai
+NY",18,89%
+"Maimonides Medical Center
+NY",7,86%
+"Montefiore Medical Center / Albert Einstein College of Med.
+NY",26,81%
+"Nassau University Medical Center
+NY",8,75%
+"New York - Presbyterian Queens
+NY",13,54%
+"New York Medical College at Metropolitan Hospital Center
+NY",3,67%
+"New York Presbyterian (Columbia)
+NY",21,76%
+"New York Presbyterian Hospital (Cornell Campus)
+NY",22,95%
+"New York University Medical Center
+NY",20,100%
+"New York-Presbyterian Brooklyn Methodist Hsp.
+NY",9,78%
+"S.U.N.Y. Health Science Center at Brooklyn
+NY",21,62%
+"SUNY Upstate Medical University
+NY",13,54%
+"Stony Brook Medicine / University Hospital
+NY",14,64%
+"Univ of Rochester Affiliated Hosps.
+NY",14,79%
+"University of Buffalo
+NY",22,73%
+"Westchester Medical Center
+NY",7,71%
+"Zucker Sch Med Hoftstra/Northwell at Lenox Hill
+NY",7,86%
+"Zucker Sch of Med Hofstra/Northwell at Staten Island Univ.  Hsp
+NY",6,67%
+"Zucker School of Medicine Hofstra/Northwell
+NY",20,90%
+"Akron General Medical Center
+OH",9,44%
+"Case Western Reserve University / Univ.  Hosps./Cleveland Med.  Ctr.
+OH",16,75%
+"Cleveland Clinic Foundation
+OH",30,70%
+"Jewish Hospital of Cincinnati
+OH",6,67%
+"Mount Carmel Health
+OH",9,89%
+"Ohio State University General Surgery Training Program
+OH",13,85%
+"OhioHealth / Riverside Methodist Hospital
+OH",11,82%
+"St.  Elizabeth Health Center NEOUMED Program
+OH",8,62%
+"Summa Health System NEOMED Program
+OH",12,100%
+"TriHealth Good Samaritan Hospital
+OH",13,85%
+"University Hospital/University of Cincinnati College of Medicine
+OH",18,83%
+"University of Toledo
+OH",13,77%
+"Western Reserve Health NEOMED Program
+OH",4,100%
+"Wright State University Affiliated Hospitals
+OH",20,85%
+"The University of Oklahoma College of Medicine - Tulsa
+OK",14,57%
+"Univ of Oklahoma Health Science Ctr
+OK",15,87%
+"Oregon Health & Science Univ.
+OR",39,92%
+"Abington Memorial Hospital
+PA",11,64%
+"Albert Einstein Medical Center
+PA",7,100%
+"Allegheny Health Network Med.  Ed.  Consortium (AGH)
+PA",13,69%
+"Conemaugh Memorial Medical Center
+PA",8,62%
+"Easton Hospital
+PA",7,86%
+"Geisinger Medical Center
+PA",11,73%
+"Lehigh Valley Health Network /U, of S. Florida Col.  of Med.
+PA",12,100%
+"Main Line Health System / Lankenau Medical Center
+PA",4,100%
+"Mercy Catholic Medical Center
+PA",4,25%
+"Penn State University The Milton S. Hershey Med.  Center
+PA",17,82%
+"Robert Packer Hospital / Guthrie Program
+PA",6,83%
+"Sidney Kimmel Medical College at Thomas Jefferson Univ.
+PA",18,94%
+"St.  Lukes Hospital
+PA",9,67%
+"Temple University Affil.  Hospitals
+PA",14,86%
+"UPMC Mercy
+PA",6,83%
+"Univ of Pennsylvania Affl Hospitals
+PA",15,87%
+"Univ.  of Pittsburgh Medical Center
+PA",17,82%
+"York Hospital
+PA",9,89%
+"Hospital Episcopal San Lucas Ponce School of Medicine
+PR",4,25%
+"Univ of Puerto Rico Affil Hospitals
+PR",15,73%
+"Brown University Affiliated Hosps
+RI",18,94%
+"HCA Healthcare Grand Strand Regional Medical Cemter
+SC",3,100%
+"Medical Univ.  of South Carolina Teaching Hospitals
+SC",15,87%
+"Prisma Health - Midlands U. of SC - Columbia
+SC",5,100%
+"Prisma Health Upstate / Univ.  of SC - Greenville
+SC",17,88%
+"Spartanburg Regional Healthcare System
+SC",7,71%
+"East Tennessee State University Affiliated Hospitals
+TN",18,72%
+"Univ.  of Tennessee Affil.  Hospitals
+TN",18,78%
+"University of Tennessee Coll.  of Medicine, Chattanooga
+TN",15,80%
+"University of Tennessee Medical Center at Knoxville
+TN",14,93%
+"Vanderbilt University Integrated Hospitals
+TN",23,100%
+"Baylor College of Med.  Affil.  Hosps
+TX",19,79%
+"Baylor University Medical Center
+TX",21,86%
+"Methodist Hospital of Dallas
+TX",3,100%
+"San Antonio Uniformed Services Health Ed.  Consortium (BAMC)
+TX",13,85%
+"Texas A & M Col.  of Medicine Scott & White Memorial Hospital
+TX",14,79%
+"Texas Tech Univ.  (El Paso) Program
+TX",8,62%
+"Texas Tech Univ.  (Lubbock) Program
+TX",12,67%
+"The Methodist Hospital (Houston)
+TX",12,92%
+"Univ of Texas Health Science Center at San Antonio
+TX",20,75%
+"Univ.  of Texas Medical Branch Hosps
+TX",10,100%
+"University of Texas Southwestern Medical School Aff.  Hospitals
+TX",30,93%
+"University of Texas at Austin Dell Medical School
+TX",7,71%
+"University of Texas at Houston Affiliated Hospitals
+TX",20,80%
+"William Beaumont Army Medical Ctr.
+TX",8,75%
+"University of Utah Affiliated Hosps
+UT",12,75%
+"Carilion Clinic Virginia Tech School of Medicine
+VA",12,83%
+"Eastern Virginia Medical School
+VA",12,92%
+"Inova Fairfax Hospital Program
+VA",13,69%
+"Naval Medical Ctr.  Portsmouth
+VA",9,67%
+"University of Virginia Affil.  Hosps
+VA",16,100%
+"Virginia Commonwealth University Health System
+VA",20,70%
+"The University of Vermont Medical Center
+VT",11,82%
+"Madigan Army Medical Center
+WA",11,100%
+"Swedish Medical Center/First Hill
+WA",8,100%
+"Univ.  of Washington Affil.  Hosps.
+WA",21,86%
+"Virginia Mason Medical Center
+WA",10,80%
+"Gundersen Lutheran Medical Foundation
+WI",8,100%
+"Marshfield Clinic General Surgery Residency
+WI",6,83%
+"Medical College of Wisconsin Affiliated Hospitals
+WI",19,84%
+"University of Wisconsin Affiliated Hospitals
+WI",17,88%
+"Charleston Area Med.  Ctr.  / West Virginia Univ.
+WV",9,67%
+"Marshall Univ.  School of Medicine Affiliated Hospitals
+WV",12,83%
+"West Virginia University Hospital
+WV",7,71%

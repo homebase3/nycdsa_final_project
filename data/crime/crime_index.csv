@@ -1,0 +1,139 @@
+Rank,City,Crime Index,Safety Index
+1,"Caracas, Venezuela",84.68,15.32
+2,"San Pedro Sula, Honduras",80.04,19.96
+3,"Natal, Brazil",79.21,20.79
+4,"Fortaleza, Brazil",78.16,21.84
+5,"Rio de Janeiro, Brazil",77.52,22.48
+6,"Recife, Brazil",76.09,23.91
+7,"Salvador, Brazil",75.93,24.07
+8,"Porto Alegre, Brazil",75.02,24.98
+9,"Port of Spain, Trinidad And Tobago",74.86,25.14
+10,"Memphis, TN, United States",74.81,25.19
+11,"Baltimore, MD, United States",74.61,25.39
+12,"Detroit, MI, United States",73.47,26.53
+13,"San Salvador, El Salvador",72.45,27.55
+14,"Sao Paulo, Brazil",70.38,29.62
+15,"Saint Louis, MO, United States",70.34,29.66
+16,"Kingston, Jamaica",70.02,29.98
+17,"Albuquerque, NM, United States",70.01,29.99
+18,"Lima, Peru",69.95,30.05
+19,"Mexico City, Mexico",69.25,30.75
+20,"San Juan, Puerto Rico",69,31
+21,"Milwaukee, WI, United States",68.55,31.45
+22,"Tijuana, Mexico",67.94,32.06
+23,"Santo Domingo, Dominican Republic",66.82,33.18
+24,"Guayaquil, Ecuador",66.63,33.37
+25,"Campinas, Brazil",66.33,33.67
+26,"Puebla, Mexico",64.99,35.01
+27,"Chicago, IL, United States",64.81,35.19
+28,"Cleveland, OH, United States",64.67,35.33
+29,"New Orleans, LA, United States",64.54,35.46
+30,"Houston, TX, United States",63.89,36.11
+31,"Oakland, CA, United States",63.82,36.18
+32,"Belo Horizonte, Brazil",63.79,36.21
+33,"Surrey, Canada",63.4,36.6
+34,"Anchorage, AK, United States",63.25,36.75
+35,"Curitiba, Brazil",63.1,36.9
+36,"Bogota, Colombia",62.81,37.19
+37,"Buenos Aires, Argentina",62.58,37.42
+38,"Guatemala City, Guatemala",62.28,37.72
+39,"Guadalajara, Mexico",62.19,37.81
+40,"Atlanta, GA, United States",62,38
+41,"Brasilia, Brazil",61.88,38.12
+42,"Philadelphia, PA, United States",61.51,38.49
+43,"Lethbridge, AB, Canada",59.58,40.42
+44,"Kansas City, MO, United States",59.41,40.59
+45,"Quito, Ecuador",59.33,40.67
+46,"Red Deer, Canada",58.44,41.56
+47,"Jacksonville, FL, United States",58.04,41.96
+48,"Washington, DC, United States",57.83,42.17
+49,"Cordoba, Argentina",57.79,42.21
+50,"Indianapolis, IN, United States",57.56,42.44
+51,"Winnipeg, Canada",56.94,43.06
+52,"Las Vegas, NV, United States",56.19,43.81
+53,"San Francisco, CA, United States",56.12,43.88
+54,"Brampton, Canada",55.59,44.41
+55,"San Miguel de Allende, Mexico",55.46,44.54
+56,"San Jose, Costa Rica",55.35,44.65
+57,"Santiago, Chile",55.17,44.83
+58,"Spokane, WA, United States",54.47,45.53
+59,"Florianopolis, Brazil",54.19,45.81
+60,"Montevideo, Uruguay",54.03,45.97
+61,"Miami, FL, United States",53.15,46.85
+62,"Louisville, KY, United States",52.8,47.2
+63,"Regina, Canada",52.59,47.41
+64,"Cancun, Mexico",52.52,47.48
+65,"Hamilton, Canada",52.29,47.71
+66,"Minneapolis, MN, United States",52.25,47.75
+67,"Phoenix, AZ, United States",52.1,47.9
+68,"Orlando, FL, United States",51.93,48.07
+69,"Oshawa, Canada",51.58,48.42
+70,"Medellin, Colombia",51.37,48.63
+71,"Tucson, AZ, United States",50.52,49.48
+72,"Kelowna, Canada",50.31,49.69
+73,"Monterrey, Mexico",49.79,50.21
+74,"Dallas, TX, United States",49.71,50.29
+75,"Tampa, FL, United States",49.23,50.77
+76,"Seattle, WA, United States",49.11,50.89
+77,"Sacramento, CA, United States",49.06,50.94
+78,"Asuncion, Paraguay",49,51
+79,"Portland, OR, United States",48.76,51.24
+80,"San Antonio, TX, United States",48.68,51.32
+81,"Los Angeles, CA, United States",48.41,51.59
+82,"Cincinnati, OH, United States",48.37,51.63
+83,"Nashville, TN, United States",47.78,52.22
+84,"Saskatoon, Canada",47.56,52.44
+85,"London, Canada",47.53,52.47
+86,"Saint John's, Canada",47.19,52.81
+87,"New York, NY, United States",46.96,53.04
+88,"Panama City, Panama",46.75,53.25
+89,"San Jose, CA, United States",46.53,53.47
+90,"Nanaimo, BC, Canada",46.31,53.69
+91,"St.Catharines, Canada",45.77,54.23
+92,"Omaha, NE, United States",45.56,54.44
+93,"Richmond, VA, United States",45.02,54.98
+94,"Buffalo, NY, United States",44.99,55.01
+95,"Charlotte, NC, United States",44.19,55.81
+96,"Honolulu, HI, United States",43.92,56.08
+97,"Columbus, OH, United States",43.43,56.57
+98,"Denver, CO, United States",43.15,56.85
+99,"Edmonton, Canada",42.61,57.39
+100,"Moncton, Canada",42.48,57.52
+101,"Mississauga, Canada",42.02,57.98
+102,"Vitoria, Brazil",41.94,58.06
+103,"Vaughan, Canada",41.93,58.07
+104,"Halifax, Canada",40.36,59.64
+105,"Toronto, Canada",39.84,60.16
+106,"Riverside, CA, United States",39.32,60.68
+107,"Cuenca, Ecuador",38.93,61.07
+108,"Brooklyn, NY, United States",38.73,61.27
+109,"Windsor, Canada",38.21,61.79
+110,"Pittsburgh, PA, United States",37.77,62.23
+111,"Kitchener, Canada",37.13,62.87
+112,"Boise, ID, United States",36.79,63.21
+113,"Queretaro, Mexico",36.65,63.35
+114,"San Diego, CA, United States",36.51,63.49
+115,"Vancouver, Canada",36.45,63.55
+116,"Austin, TX, United States",35.8,64.2
+117,"Boston, MA, United States",35.52,64.48
+118,"Victoria, Canada",35.32,64.68
+119,"Calgary, Canada",34.49,65.51
+120,"Raleigh, NC, United States",34.45,65.55
+121,"Puerto Vallarta, Mexico",34.13,65.87
+122,"Madison, WI, United States",32.85,67.15
+123,"Salt Lake City, UT, United States",32.36,67.64
+124,"El Paso, TX, United States",32.04,67.96
+125,"Kingston, Canada",30.87,69.13
+126,"Guelph, Canada",30.04,69.96
+127,"Burlington, Canada",29.78,70.22
+128,"Montreal, Canada",29.15,70.85
+129,"Havana, Cuba",29.06,70.94
+130,"Waterloo, Canada",27.14,72.86
+131,"Merida, Mexico",26.48,73.52
+132,"Oakville, Canada",26.3,73.7
+133,"Ottawa, Canada",25.85,74.15
+134,"Coquitlam, Canada",23.16,76.84
+135,"Markham, Canada",23.15,76.85
+136,"Amarillo, TX, United States",22.73,77.27
+137,"Irvine, CA, United States",18.57,81.43
+138,"Quebec City, Canada",14.76,85.24
