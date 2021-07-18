@@ -20,7 +20,7 @@ driver.get('https://www.residencyexplorer.org/Explore')
 els = driver.find_elements_by_xpath("//input[@class = 'myCompare']")
 
 # %%
-for a in els[50:(min(len(els),500))]:
+for a in els[:(min(len(els),350))]:
     # action.move_to_element(a).perform()
     driver.execute_script("arguments[0].scrollIntoView();", a)
     mean = max(np.random.uniform(0.5,0.7),0.1)
