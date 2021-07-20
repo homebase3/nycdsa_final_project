@@ -21,7 +21,7 @@ driver.get('https://www.residencyexplorer.org/Explore')
 
 els = driver.find_elements_by_xpath("//input[@class = 'myCompare']")
 # %%
-for a in els[50:(min(len(els),150))]:
+for a in els[:(min(len(els),100))]:
     # action.move_to_element(a).perform()
     driver.execute_script("arguments[0].scrollIntoView();", a)
     mean = max(np.random.uniform(0.05,0.1),1)
@@ -29,7 +29,7 @@ for a in els[50:(min(len(els),150))]:
     time.sleep(max(np.random.normal(mean,sd),0.223124))
     a.click()
 # %%
-for a in els[100:(min(len(els),200))]:
+for a in els[50:(min(len(els),100))]:
     # action.move_to_element(a).perform()
     driver.execute_script("arguments[0].scrollIntoView();", a)
     mean = max(np.random.uniform(0.05,0.1),1)
@@ -37,7 +37,7 @@ for a in els[100:(min(len(els),200))]:
     time.sleep(max(np.random.normal(mean,sd),0.223124))
     a.click()
 # %%
-for a in els[150:(min(len(els),200))]:
+for a in els[100:(min(len(els),150))]:
     # action.move_to_element(a).perform()
     driver.execute_script("arguments[0].scrollIntoView();", a)
     mean = max(np.random.uniform(0.05,0.1),1)
@@ -45,7 +45,7 @@ for a in els[150:(min(len(els),200))]:
     time.sleep(max(np.random.normal(mean,sd),0.223124))
     a.click()
 # %%
-for a in els[300:(min(len(els),400))]:
+for a in els[150:(min(len(els),215))]:
     # action.move_to_element(a).perform()
     driver.execute_script("arguments[0].scrollIntoView();", a)
     mean = max(np.random.uniform(0.05,0.1),1)
