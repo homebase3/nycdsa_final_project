@@ -37,10 +37,48 @@ for a in els[100:(min(len(els),200))]:
     time.sleep(max(np.random.normal(mean,sd),0.223124))
     a.click()
 # %%
-for a in els[200:(min(len(els),300))]:
+for a in els[150:(min(len(els),200))]:
     # action.move_to_element(a).perform()
     driver.execute_script("arguments[0].scrollIntoView();", a)
     mean = max(np.random.uniform(0.05,0.1),1)
     sd = max(np.random.uniform(0.01,0.05),0.05)
     time.sleep(max(np.random.normal(mean,sd),0.223124))
     a.click()
+# %%
+for a in els[300:(min(len(els),400))]:
+    # action.move_to_element(a).perform()
+    driver.execute_script("arguments[0].scrollIntoView();", a)
+    mean = max(np.random.uniform(0.05,0.1),1)
+    sd = max(np.random.uniform(0.01,0.05),0.05)
+    time.sleep(max(np.random.normal(mean,sd),0.223124))
+    a.click()
+# %%
+for a in els[400:(min(len(els),500))]:
+    # action.move_to_element(a).perform()
+    driver.execute_script("arguments[0].scrollIntoView();", a)
+    mean = max(np.random.uniform(0.05,0.1),1)
+    sd = max(np.random.uniform(0.01,0.05),0.05)
+    time.sleep(max(np.random.normal(mean,sd),0.223124))
+    a.click()
+
+# %%
+for a in els[500:(min(len(els),600))]:
+    # action.move_to_element(a).perform()
+    driver.execute_script("arguments[0].scrollIntoView();", a)
+    mean = max(np.random.uniform(0.05,0.1),1)
+    sd = max(np.random.uniform(0.01,0.05),0.05)
+    time.sleep(max(np.random.normal(mean,sd),0.223124))
+    a.click()
+
+# %%
+for a in els[600:(min(len(els),700))]:
+    # action.move_to_element(a).perform()
+    driver.execute_script("arguments[0].scrollIntoView();", a)
+    mean = max(np.random.uniform(0.05,0.1),1)
+    sd = max(np.random.uniform(0.01,0.05),0.05)
+    time.sleep(max(np.random.normal(mean,sd),0.223124))
+    a.click()
+
+# %%
+soup = BeautifulSoup(driver.page_source,'html.parser')
+[i.a.text for i in soup.find_all('td', attrs={'data-field': 'Program'})]
