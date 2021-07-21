@@ -1,0 +1,143 @@
+,Specialty,Program,Link suffix
+0,Pathology-Anatomic and Clinical,USA Health Program,/Program/GetById/3114
+1,Pathology-Anatomic and Clinical,University of Cincinnati Medical Center/College of Medicine Program,/Program/GetById/3217
+2,Pathology-Anatomic and Clinical,Cleveland Clinic Foundation Program,/Program/GetById/3216
+3,Pathology-Anatomic and Clinical,University of Toledo Program,/Program/GetById/3215
+4,Pathology-Anatomic and Clinical,The MetroHealth System/Case Western Reserve University Program,/Program/GetById/3214
+5,Pathology-Anatomic and Clinical,Summa Health System/NEOMED Program,/Program/GetById/3213
+6,Pathology-Anatomic and Clinical,Vidant Medical Center/East Carolina University Program,/Program/GetById/3212
+7,Pathology-Anatomic and Clinical,Duke University Hospital Program,/Program/GetById/3211
+8,Pathology-Anatomic and Clinical,Wake Forest University School of Medicine Program,/Program/GetById/3210
+9,Pathology-Anatomic and Clinical,University of North Carolina Hospitals Program,/Program/GetById/3209
+10,Pathology-Anatomic and Clinical,Icahn School of Medicine at Mount Sinai (Morningside/West) Program,/Program/GetById/3208
+11,Pathology-Anatomic and Clinical,Stony Brook Medicine/University Hospital Program,/Program/GetById/3207
+12,Pathology-Anatomic and Clinical,SUNY Upstate Medical University Program,/Program/GetById/3206
+13,Pathology-Anatomic and Clinical,University of Rochester Program,/Program/GetById/3205
+14,Pathology-Anatomic and Clinical,SUNY Downstate Health Sciences University Program,/Program/GetById/3204
+15,Pathology-Anatomic and Clinical,NYU Grossman School of Medicine Program,/Program/GetById/3203
+16,Pathology-Anatomic and Clinical,Icahn School of Medicine at Mount Sinai (Mount Sinai Hospital) Program,/Program/GetById/3202
+17,Pathology-Anatomic and Clinical,Zucker School of Medicine at Hofstra/Northwell Program,/Program/GetById/3201
+18,Pathology-Anatomic and Clinical,Dartmouth-Hitchcock/Mary Hitchcock Memorial Hospital Program,/Program/GetById/3187
+19,Pathology-Anatomic and Clinical,Rutgers Health/Robert Wood Johnson Medical School Program,/Program/GetById/3188
+20,Pathology-Anatomic and Clinical,Rutgers Health/New Jersey Medical School Program,/Program/GetById/3189
+21,Pathology-Anatomic and Clinical,Rutgers Health/St Barnabas Medical Center Program,/Program/GetById/3190
+22,Pathology-Anatomic and Clinical,University of New Mexico School of Medicine Program,/Program/GetById/3191
+23,Pathology-Anatomic and Clinical,Zucker School of Medicine at Hofstra/Northwell at Staten Island University Hospital Program,/Program/GetById/3192
+24,Pathology-Anatomic and Clinical,Case Western Reserve University/University Hospitals Cleveland Medical Center Program,/Program/GetById/3218
+25,Pathology-Anatomic and Clinical,New York Presbyterian Hospital (Columbia Campus) Program,/Program/GetById/3193
+26,Pathology-Anatomic and Clinical,New York Presbyterian Hospital (Cornell Campus) Program,/Program/GetById/3195
+27,Pathology-Anatomic and Clinical,Westchester Medical Center Program,/Program/GetById/3196
+28,Pathology-Anatomic and Clinical,NYU Long Island School of Medicine Program,/Program/GetById/3197
+29,Pathology-Anatomic and Clinical,Albany Medical Center Program,/Program/GetById/3198
+30,Pathology-Anatomic and Clinical,University at Buffalo Program,/Program/GetById/3199
+31,Pathology-Anatomic and Clinical,Montefiore Medical Center/Albert Einstein College of Medicine Program,/Program/GetById/3200
+32,Pathology-Anatomic and Clinical,Zucker School of Medicine at Hofstra/Northwell at Lenox Hill Hospital Program,/Program/GetById/3194
+33,Pathology-Anatomic and Clinical,Ohio State University Hospital Program,/Program/GetById/3219
+34,Pathology-Anatomic and Clinical,University of Oklahoma Health Sciences Center Program,/Program/GetById/3220
+35,Pathology-Anatomic and Clinical,Oregon Health & Science University Program,/Program/GetById/3221
+36,Pathology-Anatomic and Clinical,University of Texas Health Science Center at Houston Program,/Program/GetById/3240
+37,Pathology-Anatomic and Clinical,San Antonio Uniformed Services Health Education Consortium Program,/Program/GetById/3241
+38,Pathology-Anatomic and Clinical,Baylor University Medical Center Program,/Program/GetById/3242
+39,Pathology-Anatomic and Clinical,Texas A&M College of Medicine-Scott and White Medical Center (Temple) Program,/Program/GetById/3243
+40,Pathology-Anatomic and Clinical,University of Texas Health Science Center San Antonio Joe and Teresa Lozano Long School of Medicine Program,/Program/GetById/3244
+41,Pathology-Anatomic and Clinical,Methodist Hospital (Houston) Program,/Program/GetById/3245
+42,Pathology-Anatomic and Clinical,University of Texas Medical Branch Hospitals Program,/Program/GetById/3239
+43,Pathology-Anatomic and Clinical,Baylor College of Medicine Program,/Program/GetById/3246
+44,Pathology-Anatomic and Clinical,University of Vermont Medical Center Program,/Program/GetById/3248
+45,Pathology-Anatomic and Clinical,University of Virginia Medical Center Program,/Program/GetById/3249
+46,Pathology-Anatomic and Clinical,Virginia Commonwealth University Health System Program,/Program/GetById/3250
+47,Pathology-Anatomic and Clinical,Madigan Army Medical Center Program,/Program/GetById/3251
+48,Pathology-Anatomic and Clinical,University of Washington Program,/Program/GetById/3252
+49,Pathology-Anatomic and Clinical,West Virginia University Program,/Program/GetById/3253
+50,Pathology-Anatomic and Clinical,University of Utah Health Program,/Program/GetById/3247
+51,Pathology-Anatomic and Clinical,University of Nebraska Medical Center College of Medicine Program,/Program/GetById/3186
+52,Pathology-Anatomic and Clinical,University of Texas Southwestern Medical Center Program,/Program/GetById/3238
+53,Pathology-Anatomic and Clinical,Vanderbilt University Medical Center Program,/Program/GetById/3236
+54,Pathology-Anatomic and Clinical,Geisinger Health System Program,/Program/GetById/3222
+55,Pathology-Anatomic and Clinical,Penn State Milton S Hershey Medical Center Program,/Program/GetById/3223
+56,Pathology-Anatomic and Clinical,Pennsylvania Hospital of the University of Pennsylvania Health System Program,/Program/GetById/3224
+57,Pathology-Anatomic and Clinical,Temple University Hospital Program,/Program/GetById/3225
+58,Pathology-Anatomic and Clinical,Sidney Kimmel Medical College at Thomas Jefferson University/TJUH Program,/Program/GetById/3226
+59,Pathology-Anatomic and Clinical,Allegheny Health Network Medical Education Consortium (AGH) Program,/Program/GetById/3227
+60,Pathology-Anatomic and Clinical,East Tennessee State University/Quillen College of Medicine Program,/Program/GetById/3237
+61,Pathology-Anatomic and Clinical,University of Pennsylvania Health System Program,/Program/GetById/3228
+62,Pathology-Anatomic and Clinical,University of Puerto Rico Program,/Program/GetById/3230
+63,Pathology-Anatomic and Clinical,Brown University Program,/Program/GetById/3231
+64,Pathology-Anatomic and Clinical,Medical University of South Carolina Program,/Program/GetById/3232
+65,Pathology-Anatomic and Clinical,University of South Dakota Program,/Program/GetById/3233
+66,Pathology-Anatomic and Clinical,University of Tennessee Medical Center at Knoxville Program,/Program/GetById/3234
+67,Pathology-Anatomic and Clinical,University of Tennessee Program,/Program/GetById/3235
+68,Pathology-Anatomic and Clinical,UPMC Medical Education Program,/Program/GetById/3229
+69,Pathology-Anatomic and Clinical,Creighton University School of Medicine (Omaha) Program,/Program/GetById/3185
+70,Pathology-Anatomic and Clinical,University of Missouri-Kansas City School of Medicine Program,/Program/GetById/3184
+71,Pathology-Anatomic and Clinical,St Louis University School of Medicine Program,/Program/GetById/3183
+72,Pathology-Anatomic and Clinical,Hartford Hospital Program,/Program/GetById/3133
+73,Pathology-Anatomic and Clinical,Yale-New Haven Medical Center Program,/Program/GetById/3134
+74,Pathology-Anatomic and Clinical,MedStar Health/Georgetown University Hospital Program,/Program/GetById/3135
+75,Pathology-Anatomic and Clinical,Howard University Program,/Program/GetById/3136
+76,Pathology-Anatomic and Clinical,National Capital Consortium Program,/Program/GetById/3137
+77,Pathology-Anatomic and Clinical,George Washington University Program,/Program/GetById/3138
+78,Pathology-Anatomic and Clinical,Danbury Hospital Program,/Program/GetById/3132
+79,Pathology-Anatomic and Clinical,HCA Healthcare/USF Morsani College of Medicine GME: Brandon Regional Hospital Program,/Program/GetById/3139
+80,Pathology-Anatomic and Clinical,University of Florida Program,/Program/GetById/3141
+81,Pathology-Anatomic and Clinical,University of Miami/Jackson Health System Program,/Program/GetById/3142
+82,Pathology-Anatomic and Clinical,University of Florida College of Medicine Jacksonville Program,/Program/GetById/3143
+83,Pathology-Anatomic and Clinical,Mount Sinai Medical Center of Florida Program,/Program/GetById/3144
+84,Pathology-Anatomic and Clinical,University of South Florida Morsani Program,/Program/GetById/3145
+85,Pathology-Anatomic and Clinical,Emory University School of Medicine Program,/Program/GetById/3146
+86,Pathology-Anatomic and Clinical,Orlando Health Program,/Program/GetById/3140
+87,Pathology-Anatomic and Clinical,Medical College of Georgia Program,/Program/GetById/3147
+88,Pathology-Anatomic and Clinical,University of Colorado Program,/Program/GetById/3131
+89,Pathology-Anatomic and Clinical,University of California (Irvine) Program,/Program/GetById/3129
+90,Pathology-Anatomic and Clinical,Brookwood Baptist Health Program,/Program/GetById/3115
+91,Pathology-Anatomic and Clinical,University of Alabama Medical Center Program,/Program/GetById/3116
+92,Pathology-Anatomic and Clinical,University of Arizona College of Medicine-Tucson Program,/Program/GetById/3117
+93,Pathology-Anatomic and Clinical,University of Arkansas for Medical Sciences (UAMS) College of Medicine Program,/Program/GetById/3118
+94,Pathology-Anatomic and Clinical,University of California Davis Health Program,/Program/GetById/3119
+95,Pathology-Anatomic and Clinical,UCLA David Geffen School of Medicine/UCLA Medical Center Program,/Program/GetById/3120
+96,Pathology-Anatomic and Clinical,Penrose-St Francis Health Services Program,/Program/GetById/3130
+97,Pathology-Anatomic and Clinical,Los Angeles County-Harbor-UCLA Medical Center Program,/Program/GetById/3121
+98,Pathology-Anatomic and Clinical,Cedars-Sinai Medical Center Program,/Program/GetById/3123
+99,Pathology-Anatomic and Clinical,Loma Linda University Health Education Consortium Program,/Program/GetById/3124
+100,Pathology-Anatomic and Clinical,University of Southern California/LAC+USC Medical Center Program,/Program/GetById/3125
+101,Pathology-Anatomic and Clinical,University of California (San Diego) Medical Center Program,/Program/GetById/3126
+102,Pathology-Anatomic and Clinical,University of California (San Francisco) Program,/Program/GetById/3127
+103,Pathology-Anatomic and Clinical,Stanford Health Care-Sponsored Stanford University Program,/Program/GetById/3128
+104,Pathology-Anatomic and Clinical,Naval Medical Center (San Diego) Program,/Program/GetById/3122
+105,Pathology-Anatomic and Clinical,Medical College of Wisconsin Affiliated Hospitals Program,/Program/GetById/3254
+106,Pathology-Anatomic and Clinical,University of Hawaii Program,/Program/GetById/3148
+107,Pathology-Anatomic and Clinical,McGaw Medical Center of Northwestern University Program,/Program/GetById/3150
+108,Pathology-Anatomic and Clinical,UMMS-Baystate Program,/Program/GetById/3169
+109,Pathology-Anatomic and Clinical,Massachusetts General Hospital Program,/Program/GetById/3170
+110,Pathology-Anatomic and Clinical,Brigham and Women's Hospital Program,/Program/GetById/3171
+111,Pathology-Anatomic and Clinical,Beth Israel Deaconess Medical Center/Harvard Medical School Program,/Program/GetById/3172
+112,Pathology-Anatomic and Clinical,Henry Ford Hospital/Wayne State University Program,/Program/GetById/3173
+113,Pathology-Anatomic and Clinical,Ascension St John Hospital Program,/Program/GetById/3174
+114,Pathology-Anatomic and Clinical,University of Massachusetts Program,/Program/GetById/3168
+115,Pathology-Anatomic and Clinical,University of Michigan Health System Program,/Program/GetById/3175
+116,Pathology-Anatomic and Clinical,Beaumont Health (Royal Oak) Program,/Program/GetById/3177
+117,Pathology-Anatomic and Clinical,Mayo Clinic College of Medicine and Science (Rochester) Program,/Program/GetById/3178
+118,Pathology-Anatomic and Clinical,University of Minnesota Program,/Program/GetById/3179
+119,Pathology-Anatomic and Clinical,University of Mississippi Medical Center Program,/Program/GetById/3180
+120,Pathology-Anatomic and Clinical,Washington University/B-JH/SLCH Consortium Program,/Program/GetById/3181
+121,Pathology-Anatomic and Clinical,University of Missouri-Columbia Program,/Program/GetById/3182
+122,Pathology-Anatomic and Clinical,Detroit Medical Center/Wayne State University Program,/Program/GetById/3176
+123,Pathology-Anatomic and Clinical,Rush University Medical Center Program,/Program/GetById/3149
+124,Pathology-Anatomic and Clinical,Tufts Medical Center Program,/Program/GetById/3167
+125,Pathology-Anatomic and Clinical,University of Maryland Program,/Program/GetById/3165
+126,Pathology-Anatomic and Clinical,University of Chicago Program,/Program/GetById/3151
+127,Pathology-Anatomic and Clinical,University of Illinois College of Medicine at Chicago Program,/Program/GetById/3152
+128,Pathology-Anatomic and Clinical,Loyola University Medical Center Program,/Program/GetById/3153
+129,Pathology-Anatomic and Clinical,University of Chicago (NorthShore) Program,/Program/GetById/3154
+130,Pathology-Anatomic and Clinical,Indiana University School of Medicine Program,/Program/GetById/3155
+131,Pathology-Anatomic and Clinical,University of Iowa Hospitals and Clinics Program,/Program/GetById/3156
+132,Pathology-Anatomic and Clinical,Boston University Medical Center Program,/Program/GetById/3166
+133,Pathology-Anatomic and Clinical,University of Kansas School of Medicine Program,/Program/GetById/3157
+134,Pathology-Anatomic and Clinical,University of Louisville School of Medicine Program,/Program/GetById/3159
+135,Pathology-Anatomic and Clinical,Tulane University Program,/Program/GetById/3160
+136,Pathology-Anatomic and Clinical,Louisiana State University Program,/Program/GetById/3161
+137,Pathology-Anatomic and Clinical,Louisiana State University (Shreveport) Program,/Program/GetById/3162
+138,Pathology-Anatomic and Clinical,Johns Hopkins University Program,/Program/GetById/3163
+139,Pathology-Anatomic and Clinical,National Institutes of Health Clinical Center Program,/Program/GetById/3164
+140,Pathology-Anatomic and Clinical,University of Kentucky College of Medicine Program,/Program/GetById/3158
+141,Pathology-Anatomic and Clinical,University of Wisconsin Hospitals and Clinics Program,/Program/GetById/3255

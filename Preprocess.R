@@ -1,7 +1,15 @@
 library(tidyverse)
+library(magrittr)
 library(readxl)
 library(data.table)
 library(janitor)
+library(readr)
+library(fuzzyjoin)
+library(zipcodeR)
+library(stringr)
+library(parallel)
+library(geosphere)
+library(tm)
 
 # read in aamc data files
 file_list <- list.files("data/AAMC")
@@ -32,338 +40,91 @@ for (num in seq_along(file_list)) {
 
 # Remove duplicates and check to ensure have the correct number of programs in each speciality
 dat <- unique(dat)
-dat %>% 
-  group_by(Specialty) %>% 
-  summarize(count = n()) %>% 
-  View(.)
+# dat %>%
+#   group_by(Specialty) %>%
+#   summarize(count = n()) %>%
+#   View(.)
 
-# Remove duplicates
+# Remove unnecessary columns
+dat %<>%
+  select(-contains("Comparison to Matched Applicants:")) %>% 
+  arrange(Specialty, `Residency program name`)
+
+# Process and join link files
+file_list <- list.files("data/AAMC_links")
+for (num in seq_along(file_list)) {
+  read_csv(paste0("data/AAMC_links/",file_list[num])) -> out
+  
+  if(num == 1) {
+    links <- out
+  } else {
+    links <- bind_rows(links,out)
+  }
+}
 
 
-dat %>% 
-  filter(Specialty == "Surgery-General - Categorical Track") %>% 
-  .$`Residency program name` %>% 
-  unique(.) -> included
+dat %<>% 
+  left_join(links, by=c("Specialty","Residency program name" = "Program")) %>% 
+  select(-`...1`) %>% 
+  mutate(link = paste0('https://www.residencyexplorer.org',`Link suffix`))
 
-full_list <- c('USA Health Program',
-                'Duke University Hospital Program',
-                'University of North Carolina Hospitals Program',
-                'Carolinas Medical Center Program',
-                'Vidant Medical Center/East Carolina University Program',
-                'Campbell University Program',
-                'Mountain Area Health Education Center Program',
-                'Brooklyn Hospital Center Program',
-                'New Hanover Regional Medical Center Program',
-                'Bassett Medical Center Program',
-                'University at Buffalo Program',
-                'Icahn School of Medicine at Mount Sinai (Morningside/West) Program',
-                'SUNY Upstate Medical University Program',
-                'Stony Brook Medicine/University Hospital Program',
-                'University of Rochester Program',
-                'SUNY Downstate Health Sciences University Program',
-                'New York Presbyterian Hospital (Columbia Campus) Program',
-                'NYU Grossman School of Medicine Program',
-                'Westchester Medical Center Program',
-                'Wake Forest University School of Medicine Program',
-                'Mercy St Vincent Medical Center Program',
-                'TriHealth (Good Samaritan Hospital) Program',
-                'Cleveland Clinic Foundation Program',
-                'Case Western Reserve University/University Hospitals Cleveland Medical Center Program',
-                'Western Reserve Health Education/NEOMED Program',
-                'University of Toledo Program',
-                'Wright State University Program',
-                'Ohio State University Hospital Program',
-                'University of North Dakota Program',
-                'University of Cincinnati Medical Center/College of Medicine Program',
-                'OhioHealth/Riverside Methodist Hospital Program',
-                'St Elizabeth Youngstown Hospital/NEOMED Program',
-                'Akron General Medical Center/NEOMED Program',
-                'Cleveland Clinic Foundation/South Pointe Hospital Program',
-                'Kettering Health Network Program',
-                'Western Reserve Hospital  Program',
-                'OhioHealth/Doctors Hospital Program',
-                'Summa Health System/NEOMED Program',
-                'Jewish Hospital of Cincinnati Program',
-                'Icahn School of Medicine at Mount Sinai (Mount Sinai Hospital) Program',
-                'Maimonides Medical Center Program',
-                'Wyckoff Heights Medical Center Program',
-                'Icahn School of Medicine at Mount Sinai (South Nassau) Program',
-                'Lincoln Medical and Mental Health Center Program',
-                'New York Medical College at Metropolitan Hospital Center Program',
-                'University of New Mexico School of Medicine Program',
-                'Rutgers Health/Robert Wood Johnson Medical School Program',
-                'Rutgers Health/Monmouth Medical Center Program',
-                'Flushing Hospital Medical Center Program',
-                'Cooper Medical School of Rowan University/Cooper University Hospital Program',
-                'Florida State University College of Medicine Program',
-                'Broward Health Program',
-                'Larkin Community Hospital Program',
-                'University of Central Florida/HCA Healthcare GME (Ocala) Program',
-                'University of Central Florida/HCA Healthcare GME (Greater Orlando) Program',
-                'University of Miami Hospital and Clinics Program',
-                'HCA Healthcare/USF Morsani College of Medicine GME: Brandon Regional Hospital Program',
-                'HCA Healthcare/USF Morsani College of Medicine GME: Regional Medical Center Bayonet Point Program',
-                'Memorial Healthcare System, Hollywood, Florida Program',
-                'HCA Healthcare/Mercer University School of Medicine/Orange Park Medical Center Program',
-                'HCA Healthcare: East Florida Division GME: Westside - Northwest Program',
-                'Orlando Health Program',
-                'AdventHealth Florida Program',
-                'Cleveland Clinic (Florida) Program',
-                'University of Florida Program',
-                'University of Florida College of Medicine Jacksonville Program',
-                'University of Miami/Jackson Health System Program',
-                'Mayo Clinic College of Medicine and Science (Jacksonville) Program',
-                'University of Miami/JFK Medical Center Palm Beach Regional GME Consortium Program',
-                'Mount Sinai Medical Center of Florida Program',
-                'University of South Florida Morsani Program',
-                'Northeast Georgia Medical Center Program',
-                'Emory University School of Medicine Program',
-                'The Medical Center Navicent Health/Mercer University School of Medicine Program',
-                'Morehouse School of Medicine Program',
-                'WellStar Atlanta Medical Center Program',
-                'Medical College of Georgia Program',
-                'HCA Healthcare/Mercer University School of Medicine/Memorial Health University Medical Center Program',
-                'University of Hawaii Program',
-                'Franciscan Health Olympia Fields Program',
-                'University of Chicago Program',
-                'Carle Foundation Hospital Program',
-                'McGaw Medical Center of Northwestern University Program',
-                'Rush University Medical Center Program',
-                'Loyola University Medical Center Program',
-                'University of Illinois College of Medicine at Peoria Program',
-                'Southern Illinois University Program',
-                'University of Illinois College of Medicine at Chicago (Mount Sinai) Program',
-                'University of Illinois College of Medicine at Chicago Program',
-                'AMITA Health/Saint Joseph Hospital (Chicago) Program',
-                'University of Illinois College of Medicine at Chicago (Metropolitan Group) Program',
-                'St Vincent Hospitals and Health Care Center Program',
-                'Indiana University School of Medicine Program',
-                'Iowa Medical Education Collaborative Program',
-                'University of Iowa Hospitals and Clinics Program',
-                'Central Iowa Health System (Iowa Methodist Medical Center) Program',
-                'HCA Healthcare Kansas City/Menorah Medical Center Program',
-                'University of Kansas School of Medicine Program',
-                'University of Kansas (Wichita) Program',
-                'University of Kentucky College of Medicine (Bowling Green) Program',
-                'Methodist Hospital (Houston) Program',
-                'University of Wisconsin Hospitals and Clinics Program',
-                'Gundersen Lutheran Medical Foundation Program',
-                'Marshall University School of Medicine Program',
-                'West Virginia University Program',
-                'Charleston Area Medical Center/West Virginia University (Charleston Division) Program',
-                'Swedish Medical Center/First Hill Program',
-                'University of Washington Program',
-                'Texas Tech University Health Sciences Center at Lubbock Program',
-                'Virginia Mason Medical Center Program',
-                'Carilion Clinic-Virginia Tech Carilion School of Medicine Program',
-                'Inova Fairfax Medical Campus/Inova Fairfax Hospital for Children Program',
-                'Virginia Commonwealth University Health System Program',
-                'Eastern Virginia Medical School Program',
-                'University of Virginia Medical Center Program',
-                'University of Vermont Medical Center Program',
-                'University of Utah Health Program',
-                "St. Joseph's Hospital Program",
-                'University of Tennessee Medical Center at Knoxville Program',
-                'University of Tennessee College of Medicine at Chattanooga Program',
-                'University of Tennessee College of Medicine (Nashville) Program',
-                'Robert Packer Hospital/Guthrie Program',
-                'UPMC Medical Education (Mercy) Program',
-                'Allegheny Health Network Medical Education Consortium (AGH) Program',
-                'Abington Memorial Hospital Program',
-                'Main Line Health System/Lankenau Medical Center Program',
-                'Albert Einstein Healthcare Network Program',
-                'Conemaugh Memorial Medical Center Program',
-                'Wellspan Health/York Hospital Program',
-                'Tower Health Program',
-                'UPMC Pinnacle Hospitals/Community Campus Program',
-                'UPMC Medical Education (Farrell) Program',
-                'Philadelphia College of Osteopathic Medicine Program',
-                'Geisinger Health System (Wilkes Barre) Program',
-                'Oregon Health & Science University Program',
-                'Samaritan Health Services - Corvallis Program',
-                'University of Oklahoma School of Community Medicine (Tulsa) Program',
-                'Crozer-Chester Medical Center Program',
-                'Lehigh Valley Health Network/University of South Florida College of Medicine Program',
-                'Geisinger Health System Program',
-                'Penn State Milton S Hershey Medical Center Program',
-                'University of South Dakota School of Medicine Program',
-                'Spartanburg Regional Healthcare System Program',
-                'Prisma Health/University of South Carolina SOM Columbia (Columbia) Program',
-                'Medical University of South Carolina Program',
-                'Prisma Health/University of South Carolina SOM Greenville (Greenville) Program',
-                'HCA Healthcare Grand Strand Regional Medical Center Program',
-                'Brown University Program',
-                'Hospital Episcopal San Lucas/Ponce School of Medicine Program',
-                'University of Puerto Rico Program',
-                'Mercy Catholic Medical Center Program',
-                "St Luke's University Hospital/Easton Hospital Program",
-                "St Luke's University Hospital Program",
-                'UPMC Pinnacle Hospitals Program',
-                'UPMC Medical Education (Pittsburgh) Program',
-                'University of Pennsylvania Health System Program',
-                'Sidney Kimmel Medical College at Thomas Jefferson University/TJUH Program',
-                'Temple University Hospital Program',
-                "St Joseph's University Medical Center Program",
-                'Dartmouth-Hitchcock/Mary Hitchcock Memorial Hospital Program',
-                'University of Nevada Las Vegas (UNLV) School of Medicine Program',
-                'Valley Health System Program',
-                'HCA Healthcare/USF Morsani College of Medicine GME: Regional Medical Center Bayonet Point Program',
-                'HCA Healthcare/USF Morsani College of Medicine GME: Brandon Regional Hospital Program',
-                'University of Miami Hospital and Clinics Program',
-                'University of Central Florida/HCA Healthcare GME (Greater Orlando) Program',
-                'University of Central Florida/HCA Healthcare GME (Ocala) Program',
-                'Larkin Community Hospital Program',
-                'Broward Health Program',
-                'Memorial Healthcare System, Hollywood, Florida Program',
-                'Florida State University College of Medicine Program',
-                'HCA Healthcare: East Florida Division GME: Kendall Regional Medical Center Program',
-                'Howard University Program',
-                'George Washington University Program',
-                'MedStar Health/Georgetown-Washington Hospital Program',
-                'Christiana Care Health Services Program',
-                "St Mary's Hospital (Waterbury) Program",
-                'University of Connecticut Program',
-                'Florida Atlantic University Charles E. Schmidt College of Medicine Program',
-                'Stamford Hospital/Columbia University College of Physicians and Surgeons Program',
-                'HCA Healthcare/Mercer University School of Medicine/Orange Park Medical Center Program',
-                'Orlando Health Program',
-                'HCA Healthcare/Mercer University School of Medicine/Memorial Health University Medical Center Program',
-                'Medical College of Georgia Program',
-                'WellStar Atlanta Medical Center Program',
-                'Morehouse School of Medicine Program',
-                'The Medical Center Navicent Health/Mercer University School of Medicine Program',
-                'Emory University School of Medicine Program',
-                'Northeast Georgia Medical Center Program',
-                'HCA Healthcare: East Florida Division GME: Westside - Northwest Program',
-                'University of South Florida Morsani Program',
-                'University of Miami/JFK Medical Center Palm Beach Regional GME Consortium Program',
-                'Mayo Clinic College of Medicine and Science (Jacksonville) Program',
-                'University of Miami/Jackson Health System Program',
-                'University of Florida College of Medicine Jacksonville Program',
-                'University of Florida Program',
-                'Cleveland Clinic (Florida) Program',
-                'AdventHealth Florida Program',
-                'Mount Sinai Medical Center of Florida Program',
-                'Yale-New Haven Medical Center Program',
-                'Danbury Hospital Program',
-                'Quinnipiac University Frank H Netter MD School of Medicine (Waterbury Hospital) Program',
-                'University of Southern California/LAC+USC Medical Center Program',
-                'Cedars-Sinai Medical Center Program',
-                'Riverside Community Hospital/University of California Riverside School of Medicine Program',
-                'Community Memorial Health System Program',
-                'Kaweah Delta Health Care District (KDHCD) Program',
-                'University of Arkansas for Medical Sciences (UAMS) College of Medicine Program',
-                'University of Arizona College of Medicine-Phoenix Program',
-                'Huntington Memorial Hospital Program',
-                'Creighton University School of Medicine/Maricopa Medical Center (Phoenix) Program',
-                'University of Arizona College of Medicine-Tucson Program',
-                "Creighton University School of Medicine/St Joseph's Medical Center (Phoenix) Program",
-                'Abrazo Health Network Program',
-                'HonorHealth Program',
-                'Midwestern University GME Consortium / Mountain Vista Program',
-                'University of Alabama Medical Center Program',
-                'Brookwood Baptist Health Program',
-                'Mayo Clinic College of Medicine and Science (Arizona) Program',
-                'Kaiser Permanente Southern California (Los Angeles) Program',
-                'Santa Barbara Cottage Hospital Program',
-                'San Joaquin General Hospital Program',
-                'Saint Joseph Hospital Program',
-                'University of Colorado Program',
-                'HCA HealthONE/Sky Ridge Medical Center Program',
-                'HCA HealthONE/Swedish Medical Center Program',
-                'Kansas City University GME Consortium (KCU-GME Consortium)/St Anthony Program',
-                'Arrowhead Regional Medical Center/Kaiser Permanente (Fontana) Program',
-                'Riverside University Health System/University of California Riverside Program',
-                'University of California San Francisco (East Bay) Program',
-                'Los Angeles County-Harbor-UCLA Medical Center Program',
-                'Stanford Health Care-Sponsored Stanford University Program',
-                'University of California (San Francisco) Program',
-                'University of California (San Diego) Medical Center Program',
-                'UCLA David Geffen School of Medicine/UCLA Medical Center Program',
-                'Loma Linda University Health Education Consortium Program',
-                'University of California (Irvine) Program',
-                'University of California (San Francisco)/Fresno Program',
-                'University of California Davis Health Program',
-                'University of Hawaii Program',
-                'Medical College of Wisconsin Affiliated Hospitals Program',
-                'Franciscan Health Olympia Fields Program',
-                'Carle Foundation Hospital Program',
-                'St Joseph Mercy-Oakland Program',
-                'Ascension St John Hospital Program',
-                'St Joseph Mercy Ann Arbor Program',
-                'Central Michigan University College of Medicine Program',
-                'McLaren Health Care/Macomb/MSU Program',
-                'McLaren Health Care/Greater Lansing/MSU Program',
-                'Henry Ford Macomb Hospital Program',
-                'Henry Ford Hospital/Wayne State University Program',
-                'Garden City Hospital Program',
-                'Metro Health University of Michigan Health (Metro Health) Program',
-                'Henry Ford Wyandotte Hospital Program',
-                'Beaumont Health (Trenton and Dearborn) Program',
-                'Ascension Macomb-Oakland Hospital Program',
-                'Ascension Genesys Hospital Program',
-                'Beaumont Health (Farmington Hills) Program',
-                'Henry Ford Allegiance Health Program',
-                'Detroit Medical Center Corporation Program',
-                'Beth Israel Deaconess Medical Center Program',
-                'Beaumont Health (Royal Oak) Program',
-                'Detroit Medical Center/Wayne State University Program',
-                'HCA Healthcare Sunrise Health Graduate Medical Education Program',
-                'Creighton University School of Medicine (Omaha) Program',
-                'University of Nebraska Medical Center College of Medicine Program',
-                'Washington University/B-JH/SLCH Consortium Program',
-                'St Louis University School of Medicine Program',
-                'University of Missouri-Kansas City School of Medicine Program',
-                'University of Missouri-Columbia Program',
-                'University of Michigan Health System Program',
-                "Kansas City University GME Consortium (KCU-GME Consortium)/St Mary's Program",
-                'University of Minnesota Program',
-                'Mayo Clinic College of Medicine and Science (Rochester) Program',
-                'Hennepin Healthcare Program',
-                'Spectrum Health/Michigan State University Program',
-                'Western Michigan University Homer Stryker MD School of Medicine Program',
-                'Sparrow Hospital Program',
-                'Ascension Providence/MSUCHM Program',
-                'University of Mississippi Medical Center Program',
-                'Massachusetts General Hospital Program',
-                'Lahey Clinic Program',
-                'University of Massachusetts Program',
-                'University of Kansas School of Medicine Program',
-                'HCA Healthcare Kansas City/Menorah Medical Center Program',
-                'Central Iowa Health System (Iowa Methodist Medical Center) Program',
-                'University of Iowa Hospitals and Clinics Program',
-                'Iowa Medical Education Collaborative Program',
-                'Indiana University School of Medicine Program',
-                'St Vincent Hospitals and Health Care Center Program',
-                'University of Kansas (Wichita) Program',
-                'University of Illinois College of Medicine at Chicago (Metropolitan Group) Program',
-                'University of Illinois College of Medicine at Chicago Program',
-                'University of Illinois College of Medicine at Chicago (Mount Sinai) Program',
-                'Southern Illinois University Program',
-                'University of Illinois College of Medicine at Peoria Program',
-                'Loyola University Medical Center Program',
-                'Rush University Medical Center Program',
-                'McGaw Medical Center of Northwestern University Program',
-                'AMITA Health/Saint Joseph Hospital (Chicago) Program',
-                'University of Kentucky College of Medicine (Bowling Green) Program',
-                'University of Kentucky College of Medicine Program',
-                'University of Louisville School of Medicine Program',
-                "St Elizabeth's Medical Center Program",
-                "Brigham and Women's Hospital Program",
-                'Tufts Medical Center Program',
-                'Boston University Medical Center Program',
-                'UMMS-Baystate Program',
-                'Berkshire Medical Center Program',
-                'St Agnes HealthCare Program',
-                'Sinai Hospital of Baltimore Program',
-                'Johns Hopkins University Program',
-                'University of Maryland Program',
-                'MedStar Health (Baltimore) Program',
-                'Anne Arundel Medical Center Program',
-                'Maine Medical Center Program',
-                'Ochsner Clinic Foundation Program',
-                'Tulane University Program',
-                'Louisiana State University (Shreveport) Program',
-                'Louisiana State University Program',
-                'University of Chicago Program',
-                'Marshfield Clinic Program')
+# Read in NIH file
+stopwords = c("a","of","the","school","hospital","program","medical", "residency", "medicine","system","health", "center","college", "for","university")
+
+NIH <- read_excel("data/brimr/Worldwide_2019.xls", skip = 1)
+NIH_cleaning_func <- function(df) {
+  df %>% 
+  drop_na(`ORGANIZATION NAME`) %>% 
+  mutate_at(vars(`ORGANIZATION NAME`), tolower) %>% 
+  mutate_at(vars(`ORGANIZATION NAME`), ~gsub("[[:punct:][:blank:]]+", " ",.)) %>%
+  mutate(org_cleaned = lapply(`ORGANIZATION NAME`, function(word) removeWords(word,stopwords))) %>% 
+  return(.)
+}
+
+
+totals <- NIH %>% 
+  group_by(`ORGANIZATION NAME`,`ORGANIZATION ID (IPF)`, `ZIP CODE`) %>% 
+  summarize(tot = sum(FUNDING, na.rm = T)) %>% 
+  NIH_cleaning_func(.)
+
+nih_specialty_lookup <- read_csv("data/brimr/nih_specialty_lookup.csv")
+
+spec_totals <- NIH %>% 
+  left_join(nih_specialty_lookup,by = "NIH DEPT COMBINING NAME") %>% 
+  group_by(`ORGANIZATION ID (IPF)`, `Specialty`) %>% 
+  summarize(`2019 NIH specialty funding` = sum(FUNDING))
+
+
+## Read in Zip codes and make sure both orders of pairs are included
+ZIPdb <- read_excel("data/geo/zip_code_database.xls")
+ZIPdb_longlat <- ZIPdb %>% 
+  select(zip,longitude,latitude)
+
+## Join in best match NIH data based on combination of geo and string_dist match for all specialties
+dat %<>%
+  replace(is.na(.), 0) %>%
+  mutate_at(vars("Residency program name"), tolower) %>%
+  mutate_at(vars("Residency program name"), ~gsub("[[:punct:][:blank:]]+", " ",.)) %>%
+  mutate(org_cleaned = lapply(`Residency program name`, function(word) removeWords(word,stopwords))) %>% 
+  stringdist_left_join(totals, by = c("org_cleaned"), distance_col = "match_distance",max_dist = 10) %>%
+  mutate(zip1 = str_sub(Zip,1,5)) %>%
+  mutate(zip2 = str_sub(`ZIP CODE`,1,5)) %>%
+  filter(str_length(zip1) == 5) %>%
+  filter(str_length(zip2) == 5) %>%
+  mutate_at(vars(zip1,zip2), as.numeric) %>%
+  left_join(.,ZIPdb_longlat, by = c("zip1" = "zip")) %>%
+  left_join(.,ZIPdb_longlat, by = c("zip2" = "zip")) %>%
+  mutate(geo_distance = distHaversine(bind_cols(longitude.x,latitude.x),bind_cols(longitude.y,latitude.y))*0.0006213712) %>%
+  filter(geo_distance <= 5) %>%
+  .[order(.$Specialty,.$`Residency program name`,.$match_distance),] %>%
+  .[!duplicated(.$ID),] %>% 
+  mutate(str_length = pmax(str_length(org_cleaned.x), str_length(org_cleaned.y))) %>% 
+  mutate(dist_ratio = match_distance / str_length) %>%
+  filter(dist_ratio <= 0.5) %>% 
+  select(ID, `ORGANIZATION ID (IPF)`, tot) %>% 
+  rename(`2019 NIH total funding` = tot) %>% 
+  left_join(dat,.,by = "ID") %>% 
+  left_join(.,spec_totals, by = c("Specialty", "ORGANIZATION ID (IPF)")) #specialty-funding
+
+
+
