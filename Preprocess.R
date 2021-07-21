@@ -102,10 +102,9 @@ ZIPdb_longlat <- ZIPdb %>%
 
 ## Join in best match NIH data based on combination of geo and string_dist match for all specialties
 dat %<>%
-  replace(is.na(.), 0) %>%
-  mutate_at(vars("Residency program name"), tolower) %>%
-  mutate_at(vars("Residency program name"), ~gsub("[[:punct:][:blank:]]+", " ",.)) %>%
-  mutate(org_cleaned = lapply(`Residency program name`, function(word) removeWords(word,stopwords))) %>% 
+  mutate(`Residency program name_lower` = tolower(`Residency program name`)) %>%
+  mutate_at(vars("Residency program name_lower"), ~gsub("[[:punct:][:blank:]]+", " ",.)) %>%
+  mutate(org_cleaned = lapply(`Residency program name_lower`, function(word) removeWords(word,stopwords))) %>% 
   stringdist_left_join(totals, by = c("org_cleaned"), distance_col = "match_distance",max_dist = 10) %>%
   mutate(zip1 = str_sub(Zip,1,5)) %>%
   mutate(zip2 = str_sub(`ZIP CODE`,1,5)) %>%
@@ -126,5 +125,93 @@ dat %<>%
   left_join(dat,.,by = "ID") %>% 
   left_join(.,spec_totals, by = c("Specialty", "ORGANIZATION ID (IPF)")) #specialty-funding
 
+# Join in Board scores
+## Family medicine
+family_medicine_pass_rates <- read_excel("data/programs/family_medicine_pass_rates.xlsx")
+family_medicine_pass_rates$`Pass %`[family_medicine_pass_rates$`Pass %` == "N/A"] <- NA
+family_medicine_pass_rates %>% 
+  select(-`Total residents per year`)
 
+dat %>% 
+  left_join(family_medicine_pass_rates) %>% 
+  rename(`Family medicine board pass rate` = `Pass %`) %>% 
+  drop_na(`Family medicine board pass rate`) %>% 
+  select(`Residency program name`, `Family medicine board pass rate`) %>% 
+  left_join(dat,.) -> dat
 
+## Internal medicine
+internal_medicine_pass_rates <- read_csv("data/programs/internal_medicine_pass.csv")
+internal_medicine_pass_rates %>% 
+  mutate_at(vars(`Percent Passing`), ~parse_number(.)/100) %>% 
+  rename(`Internal medicine board pass rate` = `Percent Passing`) %>% 
+  mutate(`Residency program name` = str_sub(`Program Name City and State`, 1, str_locate(`Program Name City and State`, "Program")[,2])) %>% 
+  select(`Residency program name`, `Internal medicine board pass rate`) %>% 
+  left_join(dat,.,by = "Residency program name") -> dat
+
+## Pediatrics (fuzzy match with city, state + string_dist)
+pediatrics_pass_rates <- read_csv("data/programs/pediatrics_pass_rates.csv")
+dat %<>%
+  mutate(`Residency program name_lower`= tolower(`Residency program name`)) %>%
+  mutate_at(vars("Residency program name_lower"), ~gsub("[[:punct:][:blank:]]+", " ",.)) %>%
+  mutate(org_cleaned = lapply(`Residency program name_lower`, function(word) removeWords(word,stopwords))) #add org-cleaned back
+
+pediatrics_pass_rates %>% 
+  mutate_at(vars(`Percent Passing`), ~parse_number(.)/100) %>% 
+  rename(`Pediatrics board pass rate` = `Percent Passing`) %>% 
+  mutate(`Residency program name` = str_sub(`Program Name`, 1, str_locate(`Program Name`, "\n")[,1]-1)) %>% 
+  mutate(`City and state` = str_sub(`Program Name`, str_locate(`Program Name`, "\n")[,2]+1,-1)) %>% 
+  mutate(City = str_sub(`City and state`, 1, str_locate(`City and state`, ", ")[,1]-1)) %>% 
+  mutate(State = str_sub(`City and state`, str_locate(`City and state`, ", ")[,2]+1),-1) %>% 
+  mutate_at(vars(`Residency program name`), ~paste0(.," Program")) %>% 
+  select(`Residency program name`, City, State, `Pediatrics board pass rate`) %>% 
+  mutate(`Residency program name_lower` = tolower(`Residency program name`)) %>%
+  mutate_at(vars("Residency program name_lower"), ~gsub("[[:punct:][:blank:]]+", " ",.)) %>%
+  mutate(org_cleaned = lapply(`Residency program name_lower`, function(word) removeWords(word,stopwords))) %>% 
+  stringdist_left_join(dat,., by = "org_cleaned", distance_col = "match_distance",max_dist = 1) %>%
+  filter(City.x == City.y,State.x == State.y) %>% 
+  mutate(str_length = pmax(str_length(org_cleaned.x), str_length(org_cleaned.y))) %>% 
+  mutate(dist_ratio = match_distance / str_length) %>%
+  filter(dist_ratio <= 0.5) %>% 
+  .[order(.$Specialty,.$ID,.$match_distance),] %>%
+  .[!duplicated(.$ID),] %>%
+  select(`ID`, `Pediatrics board pass rate`) %>% 
+  left_join(dat,., by = "ID") %>% 
+  select(-`Residency program name_lower`,-org_cleaned) -> dat
+
+## General surgery
+surgery_pass_rates <- read_csv("data/programs/surgery_pass_rates.csv")
+dat %<>%
+  mutate(`Residency program name_lower`= tolower(`Residency program name`)) %>%
+  mutate_at(vars("Residency program name_lower"), ~gsub("[[:punct:][:blank:]]+", " ",.)) %>%
+  mutate(org_cleaned = lapply(`Residency program name_lower`, function(word) removeWords(word,stopwords))) #add org-cleaned back
+
+surgery_pass_rates %>% 
+  mutate_at(vars(`CE Success`), ~parse_number(.)/100) %>% 
+  rename(`Surgery board pass rate` = `CE Success`) %>% 
+  mutate(`Residency program name` = str_sub(Program, 1, str_locate(Program, "\n")[,1]-1)) %>% 
+  mutate(`State` = str_sub(Program, str_locate(Program, "\n")[,2]+1,-1)) %>%  #city not available)
+  mutate_at(vars(`Residency program name`), ~paste0(.," Program")) %>% 
+  select(`Residency program name`, State, `Surgery board pass rate`) %>% 
+  mutate(`Residency program name_lower` = tolower(`Residency program name`)) %>%
+  mutate_at(vars("Residency program name_lower"), ~gsub("[[:punct:][:blank:]]+", " ",.)) %>%
+  mutate(org_cleaned = lapply(`Residency program name_lower`, function(word) removeWords(word,stopwords))) %>% 
+  stringdist_left_join(dat,., by = "org_cleaned", distance_col = "match_distance",max_dist = 5) %>%
+  filter(State.x == State.y) %>% 
+  mutate(str_length = pmax(str_length(org_cleaned.x), str_length(org_cleaned.y))) %>% 
+  mutate(dist_ratio = match_distance / str_length) %>%
+  filter(dist_ratio <= 0.5) %>% 
+  .[order(.$Specialty,.$ID,.$match_distance),] %>%
+  .[!duplicated(.$ID),] %>%
+  select(`ID`, `Surgery board pass rate`) %>% 
+  left_join(dat,., by = "ID") %>% 
+  select(-`Residency program name_lower`,-org_cleaned) -> dat
+
+## Note -> do aggregation later after random forest
+
+# Read in weather data
+## Process distances from every residency to top 160 cities for comparitive weather
+sunny_percentage <- read_csv("data/weather/sunny_percentage.csv")
+sunny_percentage %>% 
+  mutate(zip = as.numeric(str_sub(...1,1,5))) %>% 
+  left_join(ZIPdb_longlat) %>% 
+  View(.)
