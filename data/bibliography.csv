@@ -13,4 +13,8 @@ Work rankings,AAMC,
 NIH spending, Blue Ridge Institute for Medical Research,http://www.brimr.org/NIH_Awards/2019/NIH_Awards_2019.htm
 Zip code distances, unitedstateszipcodes.org, https://www.unitedstateszipcodes.org/zip-code-database/
 Climate data, NOAA, https://www.ncei.noaa.gov/products/land-based-station/comparative-climatic-data/
-
+Zip code to county FIPS, data.world, https://data.world/niccolley/us-zipcode-to-county-state
+county FIPS to MSA, US Census Bureau (2018), https://www.census.gov/geographies/reference-files/time-series/demo/metro-micro/delineation-files.html
+Cost of living data, AdvisorSmith, https://advisorsmith.com/data/coli/
+County health and other statistics, countyhealthrankings.org, https://www.countyhealthrankings.org/explore-health-rankings/rankings-data-documentation
+Hopsital quality rankings, CMS, https://data.cms.gov/provider-data/topics/hospitals, https://data.cms.gov/provider-data/topics/hospitals/overall-hospital-quality-star-rating/

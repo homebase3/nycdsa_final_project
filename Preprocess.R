@@ -10,6 +10,8 @@ library(stringr)
 library(parallel)
 library(geosphere)
 library(tm)
+library(ggmap)
+library(numform)
 
 # read in aamc data files
 file_list <- list.files("data/AAMC")
@@ -85,7 +87,7 @@ NIH_cleaning_func <- function(df) {
 totals <- NIH %>% 
   group_by(`ORGANIZATION NAME`,`ORGANIZATION ID (IPF)`, `ZIP CODE`) %>% 
   summarize(tot = sum(FUNDING, na.rm = T)) %>% 
-  NIH_cleaning_func(.)
+  NIH_cleaning_func()
 
 nih_specialty_lookup <- read_csv("data/brimr/nih_specialty_lookup.csv")
 
@@ -98,7 +100,8 @@ spec_totals <- NIH %>%
 ## Read in Zip codes and make sure both orders of pairs are included
 ZIPdb <- read_excel("data/geo/zip_code_database.xls")
 ZIPdb_longlat <- ZIPdb %>% 
-  select(zip,longitude,latitude)
+  select(zip,longitude,latitude) %>% 
+  mutate_at(vars(zip), f_pad_zero)
 
 ## Join in best match NIH data based on combination of geo and string_dist match for all specialties
 dat %<>%
@@ -110,7 +113,7 @@ dat %<>%
   mutate(zip2 = str_sub(`ZIP CODE`,1,5)) %>%
   filter(str_length(zip1) == 5) %>%
   filter(str_length(zip2) == 5) %>%
-  mutate_at(vars(zip1,zip2), as.numeric) %>%
+  # mutate_at(vars(zip1,zip2), as.numeric) %>%
   left_join(.,ZIPdb_longlat, by = c("zip1" = "zip")) %>%
   left_join(.,ZIPdb_longlat, by = c("zip2" = "zip")) %>%
   mutate(geo_distance = distHaversine(bind_cols(longitude.x,latitude.x),bind_cols(longitude.y,latitude.y))*0.0006213712) %>%
@@ -209,9 +212,55 @@ surgery_pass_rates %>%
 ## Note -> do aggregation later after random forest
 
 # Read in weather data
-## Process distances from every residency to top 160 cities for comparitive weather
+## Build weather station lookup
+
+weather_geocodes <- read_csv("data/weather/weather_geocodes.csv")
+`%notin%` <- Negate(`%in%`) #create notin operator
+weather_geocodes %<>% 
+  filter(...1 %notin% c(153:159)) #removing non-US state that were incorrectly geocoded
+
+weather_geocodes[weather_geocodes$submit == "NEWYORKCentralPar, United States", 3:4] <- list(-73.935242, 40.730610) #manually correct NY geocode
+
+weather_key_helper <- read_csv("data/weather/sunny_percentage.csv")
+
+weather_lat_long <- bind_cols(weather_geocodes$V1,weather_geocodes$V2)
+
+best_weather_geocode_match <- function(lat,lng) {
+  distHaversine(bind_cols(lng,lat),weather_lat_long) %>% 
+    which.min(.) %>% 
+    weather_key_helper$...1[.] %>% 
+    return(.)
+}
+dat %<>%
+  mutate(zip5 = str_sub(Zip,1,5)) %>%
+  left_join(.,ZIPdb_longlat, by = c("zip5" = "zip")) %>% 
+  mutate(weather_key = mapply(best_weather_geocode_match, latitude, longitude)) 
+  
+dat %<>% 
+  mutate(weather_key_5 = str_sub(weather_key,1,5)) #separated to reduce key errors
+
+## join in sun percentage
 sunny_percentage <- read_csv("data/weather/sunny_percentage.csv")
 sunny_percentage %>% 
-  mutate(zip = as.numeric(str_sub(...1,1,5))) %>% 
-  left_join(ZIPdb_longlat) %>% 
-  View(.)
+  mutate(`Mean % sunny` = ANN) %>% 
+  mutate(weather_key_5 = str_sub(...1,1,5)) %>% 
+  select(weather_key_5, `Mean % sunny`) %>% 
+  left_join(dat,.) -> dat
+
+## join in cold data
+mean_days_32 <- read_csv("data/weather/mean_days_<32.csv")
+mean_days_32 %>% 
+  mutate(`% days below freezing` = ANN/365.25) %>% 
+  mutate(weather_key_5 = str_sub(...1,1,5)) %>% 
+  select(weather_key_5, `% days below freezing`) %>% 
+  left_join(dat,.) -> dat
+
+# join in precipitation data
+precipitation_days <- read_csv("data/weather/precipitation_days.csv")
+precipitation_days %>% 
+  mutate(`% days with precipitation` = ANN/365.25) %>% 
+  mutate(weather_key_5 = str_sub(...1,1,5)) %>% 
+  select(weather_key_5, `% days with precipitation`) %>% 
+  left_join(dat,.) -> dat
+
+#
