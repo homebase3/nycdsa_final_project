@@ -411,24 +411,5 @@ County_Health_Rankings_Data_demography %>%
   left_join(dat,.,by=c("STCOUNTYFP" = "FIPS")) -> dat
 
 
-lgbt_data <- read_excel("data/population/lgbt_data.xlsx", 
-                        sheet = "Sheet2")
-MSAs <- FIPS_to_MSA_2020['CBSA Title'] %>% 
-  mutate(State = str_sub(`CBSA Title`, -2, -1)) %>% 
-  unique(.) %>% 
-  drop_na(.)
-
-lgbt_data$percent_key <- as.data.frame(str_locate(lgbt_data$Data,"%"))$start
-lgbt_data %>% 
-  mutate(`% LGBT` = as.numeric(str_sub(Data,percent_key - 3, percent_key -1))/100) %>% 
-  mutate(MSA = str_sub(Data,1, percent_key -4)) %>% 
-  mutate(State = str_sub(MSA, -3, -2)) %>% 
-  select(`% LGBT`,MSA, State) %>% 
-  stringdist_left_join(.,MSAs, by = c("MSA"= "CBSA Title"), distance_col = "match_distance",max_dist = 10) %>% 
-  View(.)
-  
-  .[order(.$MSA,.$match_distance),] %>%
-  .[!duplicated(.$MSA),] %>%
-  View(.)
 
   
