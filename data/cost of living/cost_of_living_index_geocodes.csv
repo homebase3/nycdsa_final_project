@@ -1,0 +1,511 @@
+"","submit","V1","V2"
+"1","Abilene, TX, United States",-99.7333,32.4465
+"2","Adrian, MI, United States",-84.0372,41.8975
+"3","Akron, OH, United States",-81.5185,41.0831
+"4","Alamogordo, NM, United States",-105.9603,32.8998
+"5","Albany, GA, United States",-84.1557,31.5782
+"6","Albany, OR, United States",-123.1059,44.6365
+"7","Albany, NY, United States",-73.755,42.6512
+"8","Albertville, AL, United States",-86.2089,34.2676
+"9","Albuquerque, NM, United States",-106.651,35.0841
+"10","Alexandria, LA, United States",-92.4449,31.3112
+"11","Allentown, PA, United States",-75.4713,40.6022
+"12","Altoona, PA, United States",-78.3947,40.5187
+"13","Amarillo, TX, United States",-101.8338,35.2072
+"14","Ames, IA, United States",-93.6171,42.0268
+"15","Anchorage, AK, United States",-149.8949,61.2163
+"16","Ann Arbor, MI, United States",-83.7312,42.2682
+"17","Anniston, AL, United States",-85.8316,33.6594
+"18","Appleton, WI, United States",-88.4068,44.2611
+"19","Asheville, NC, United States",-82.554,35.6009
+"20","Ashtabula, OH, United States",-80.7898,41.8651
+"21","Athens, OH, United States",-82.1013,39.3292
+"22","Athens, TX, United States",-95.8555,32.2049
+"23","Athens, GA, United States",-83.3767,33.9596
+"24","Atlanta, GA, United States",-84.3902,33.7491
+"25","Atlantic City, NJ, United States",-74.4229,39.3643
+"26","Auburn, NY, United States",-76.5672,42.932
+"27","Auburn, AL, United States",-85.4808,32.6099
+"28","Augusta, GA, United States",-81.9748,33.471
+"29","Augusta, ME, United States",-69.7793,44.3105
+"30","Austin, TX, United States",-97.7437,30.2711
+"31","Bakersfield, CA, United States",-119.0195,35.3739
+"32","Baltimore, MD, United States",-76.6108,39.2909
+"33","Bangor, ME, United States",-68.7778,44.8012
+"34","Barnstable Town, MA, United States",-70.282881,41.651502
+"35","Baton Rouge, LA, United States",-91.082617,30.400752
+"36","Battle Creek, MI, United States",-85.1824,42.3193
+"37","Bay City, MI, United States",-83.8889,43.5945
+"38","Beaumont, TX, United States",-94.1018,30.086
+"39","Beaver Dam, WI, United States",-88.8373,43.4578
+"40","Beckley, WV, United States",-81.1882,37.7782
+"41","Bellingham, WA, United States",-122.4789,48.7544
+"42","Bend, OR, United States",-121.3153,44.0582
+"43","Billings, MT, United States",-108.4961,45.7875
+"44","Binghamton, NY, United States",-75.9143,42.097
+"45","Birmingham, AL, United States",-86.8024,33.5207
+"46","Bismarck, ND, United States",-100.7837,46.8083
+"47","Blacksburg, VA, United States",-80.4137,37.2297
+"48","Bloomington, IN, United States",-86.5343,39.167
+"49","Bloomsburg, PA, United States",-76.4538,41.0041
+"50","Bluefield, WV, United States",-81.2223,37.2698
+"51","Boise City, ID, United States",-116.202079,43.615261
+"52","Boston, MA, United States",-71.0596,42.3605
+"53","Boulder, CO, United States",-105.2705,40.015
+"54","Bowling Green, KY, United States",-86.4436,36.9903
+"55","Bozeman, MT, United States",-111.0447,45.68
+"56","Brainerd, MN, United States",-94.2008,46.358
+"57","Branson, MO, United States",-93.2171,36.644
+"58","Bremerton, WA, United States",-122.734,47.5312
+"59","Brownsville, TX, United States",-97.4891,25.914
+"60","Brunswick, GA, United States",-81.4915,31.15
+"61","Buffalo, NY, United States",-78.8784,42.8865
+"62","Burlington, NC, United States",-79.4378,36.0957
+"63","Burlington, VT, United States",-73.2115,44.4724
+"64","Canton, OH, United States",-81.3784,40.799
+"65","Cape Girardeau, MO, United States",-89.5181,37.3059
+"66","Carbondale, IL, United States",-89.2167,37.7275
+"67","Carson City, NV, United States",-119.7674,39.1638
+"68","Casper, WY, United States",-106.3131,42.8666
+"69","Cedar Rapids, IA, United States",-91.6704,41.9759
+"70","Centralia, WA, United States",-122.9614,46.7204
+"71","Chambersburg, PA, United States",-77.6599,39.9406
+"72","Champaign, IL, United States",-88.2434,40.1164
+"73","Charleston, WV, United States",-81.6333,38.3506
+"74","Charleston, SC, United States",-79.9403,32.7876
+"75","Charlotte, NC, United States",-80.8431,35.2271
+"76","Charlottesville, VA, United States",-78.4767,38.0293
+"77","Chattanooga, TN, United States",-85.3097,35.0456
+"78","Cheyenne, WY, United States",-104.8202,41.14
+"79","Chicago, IL, United States",-87.6244,41.8756
+"80","Chico, CA, United States",-121.8375,39.7285
+"81","Chillicothe, OH, United States",-82.9824,39.3331
+"82","Cincinnati, OH, United States",-84.5125,39.1015
+"83","Claremont, NH, United States",-72.3468,43.3767
+"84","Clarksburg, WV, United States",-80.3445,39.2806
+"85","Clarksville, TN, United States",-87.3099,36.5286
+"86","Clearlake, CA, United States",-122.6264,38.9582
+"87","Cleveland, TN, United States",-84.8766,35.1595
+"88","Cleveland, OH, United States",-81.6934,41.5052
+"89","Coeur d'Alene, ID, United States",-116.784076,47.67213
+"90","College Station, TX, United States",-96.3347,30.6263
+"91","Colorado Springs, CO, United States",-104.790718,39.018123
+"92","Columbia, MO, United States",-92.3337,38.9519
+"93","Columbia, SC, United States",-81.0343,34.0007
+"94","Columbus, GA, United States",-84.9877,32.461
+"95","Columbus, IN, United States",-85.9214,39.2014
+"96","Columbus, OH, United States",-83.0007,39.9623
+"97","Concord, NH, United States",-71.537,43.2071
+"98","Cookeville, TN, United States",-85.5016,36.1628
+"99","Coos Bay, OR, United States",-124.2179,43.3665
+"100","Corning, NY, United States",-77.0547,42.1429
+"101","Corpus Christi, TX, United States",-97.3956,27.8003
+"102","Corvallis, OR, United States",-123.262,44.5646
+"103","Cullman, AL, United States",-86.8436,34.1748
+"104","Cumberland, MD, United States",-78.7625,39.6529
+"105","Dalton, GA, United States",-84.9702,34.7692
+"106","Danville, IL, United States",-87.6305,40.1252
+"107","Danville, VA, United States",-79.395,36.586
+"108","Dayton, OH, United States",-84.1919,39.7589
+"109","Decatur, AL, United States",-86.9833,34.6059
+"110","Decatur, IL, United States",-88.9524,39.8454
+"111","Denver, CO, United States",-104.9653,39.7348
+"112","Des Moines, IA, United States",-93.6037,41.5911
+"113","Detroit, MI, United States",-83.0567,42.3487
+"114","Dothan, AL, United States",-85.3905,31.2232
+"115","Dover, DE, United States",-75.5244,39.1582
+"116","DuBois, PA, United States",-78.76,41.1192
+"117","Dubuque, IA, United States",-90.6648,42.5006
+"118","Duluth, MN, United States",-92.1251,46.7729
+"119","Dunn, NC, United States",-78.6089,35.3063
+"120","Durham, NC, United States",-78.8986,35.994
+"121","East Stroudsburg, PA, United States",-75.1813,40.9995
+"122","Eau Claire, WI, United States",-91.4985,44.8113
+"123","El Centro, CA, United States",-115.5631,32.792
+"124","El Paso, TX, United States",-106.2221,31.8064
+"125","Elizabeth City, NC, United States",-76.2248,36.2957
+"126","Elizabethtown, KY, United States",-85.8591,37.694
+"127","Elkhart, IN, United States",-85.9767,41.682
+"128","Elmira, NY, United States",-76.8077,42.0898
+"129","Enid, OK, United States",-97.8791,36.3968
+"130","Erie, PA, United States",-80.0852,42.1291
+"131","Eugene, OR, United States",-123.0951,44.0505
+"132","Eureka, CA, United States",-124.1637,40.8021
+"133","Evansville, IN, United States",-87.5558,37.9748
+"134","Fairbanks, AK, United States",-147.7164,64.8378
+"135","Fargo, ND, United States",-96.7898,46.8772
+"136","Faribault, MN, United States",-93.2688,44.295
+"137","Farmington, MO, United States",-90.4218,37.7809
+"138","Farmington, NM, United States",-108.2089,36.7304
+"139","Fayetteville, NC, United States",-78.8787,35.053
+"140","Fayetteville, AR, United States",-94.1574,36.0626
+"141","Findlay, OH, United States",-83.6504,41.0414
+"142","Flagstaff, AZ, United States",-111.6514,35.1995
+"143","Flint, MI, United States",-83.7236,43.0172
+"144","Florence, SC, United States",-79.7672,34.1984
+"145","Florence, AL, United States",-87.6773,34.7998
+"146","Fond du Lac, WI, United States",-88.4458,43.7749
+"147","Forest City, NC, United States",-81.8651,35.334
+"148","Fort Collins, CO, United States",-105.0668,40.5509
+"149","Fort Smith, AR, United States",-94.4249,35.3872
+"150","Fort Wayne, IN, United States",-85.1386,41.08
+"151","Frankfort, KY, United States",-84.8733,38.2009
+"152","Fresno, CA, United States",-119.8155,36.6714
+"153","Gadsden, AL, United States",-86.0067,34.0144
+"154","Gainesville, FL, United States",-82.3248,29.6519
+"155","Gainesville, GA, United States",-83.8241,34.2979
+"156","Gallup, NM, United States",-108.7439,35.5284
+"157","Gettysburg, PA, United States",-77.2311,39.8309
+"158","Glens Falls, NY, United States",-73.6441,43.3097
+"159","Goldsboro, NC, United States",-77.9928,35.3849
+"160","Grand Forks, ND, United States",-97.0592,47.9078
+"161","Grand Island, NE, United States",-98.3387,40.9243
+"162","Grand Junction, CO, United States",-108.5507,39.064
+"163","Grand Rapids, MI, United States",-85.6679,42.9632
+"164","Grants Pass, OR, United States",-123.3272,42.4394
+"165","Great Falls, MT, United States",-111.2919,47.5049
+"166","Greeley, CO, United States",-104.7091,40.4233
+"167","Green Bay, WI, United States",-88.0248,44.5299
+"168","Greeneville, TN, United States",-82.831,36.1632
+"169","Greensboro, NC, United States",-79.792,36.0726
+"170","Greenville, NC, United States",-77.3664,35.6127
+"171","Greenville, SC, United States",-82.3985,34.8514
+"172","Greenwood, SC, United States",-82.1618,34.1954
+"173","Gulfport, MS, United States",-89.0928,30.3674
+"174","Hammond, LA, United States",-90.4612,30.5044
+"175","Hanford, CA, United States",-119.6457,36.3275
+"176","Harrisburg, PA, United States",-76.8861,40.2663
+"177","Harrisonburg, VA, United States",-78.8689,38.4493
+"178","Hartford, CT, United States",-72.6831,41.7635
+"179","Hattiesburg, MS, United States",-89.2903,31.3271
+"180","Helena, MT, United States",-112.0361,46.5927
+"181","Hickory, NC, United States",-81.3412,35.7332
+"182","Hilo, HI, United States",-155.0814,19.7068
+"183","Hilton Head Island, SC, United States",-80.7526,32.2163
+"184","Hinesville, GA, United States",-81.596,31.8477
+"185","Hobbs, NM, United States",-103.136,32.7026
+"186","Homosassa Springs, FL, United States",-82.57611,28.803331
+"187","Hot Springs, AR, United States",-93.071954,34.451901
+"188","Houma, LA, United States",-90.7195,29.5958
+"189","Houston, TX, United States",-95.3677,29.7589
+"190","Huntington, WV, United States",-82.4452,38.4192
+"191","Huntsville, AL, United States",-86.5859,34.7298
+"192","Huntsville, TX, United States",-95.5508,30.7235
+"193","Hutchinson, KS, United States",-97.9298,38.0608
+"194","Idaho Falls, ID, United States",-112.0443,43.4931
+"195","Indiana, PA, United States",-79.1525,40.6215
+"196","Indianapolis, IN, United States",-86.1584,39.7683
+"197","Iowa City, IA, United States",-91.5299,41.6613
+"198","Ithaca, NY, United States",-76.4968,42.4396
+"199","Jackson, MI, United States",-84.4017,42.2465
+"200","Jackson, MS, United States",-90.1848,32.299
+"201","Jackson, TN, United States",-88.8139,35.6145
+"202","Jacksonville, FL, United States",-81.6557,30.3322
+"203","Jacksonville, NC, United States",-77.4302,34.7541
+"204","Jamestown, NY, United States",-79.2353,42.097
+"205","Janesville, WI, United States",-88.9908,42.7152
+"206","Jefferson City, MO, United States",-92.1724,38.5774
+"207","Johnson City, TN, United States",-82.3535,36.3134
+"208","Johnstown, PA, United States",-78.922,40.3267
+"209","Jonesboro, AR, United States",-90.7035,35.8429
+"210","Joplin, MO, United States",-94.5133,37.0842
+"211","Kahului, HI, United States",-156.3853,20.8603
+"212","Kalamazoo, MI, United States",-85.5872,42.2917
+"213","Kalispell, MT, United States",-114.3167,48.2023
+"214","Kankakee, IL, United States",-87.8612,41.12
+"215","Kansas City, MO, United States",-94.563,39.0845
+"216","Kapaa, HI, United States",-159.3207,22.0743
+"217","Keene, NH, United States",-72.2784,42.9336
+"218","Kennewick, WA, United States",-119.1372,46.2112
+"219","Key West, FL, United States",-81.7724,24.5626
+"220","Killeen, TX, United States",-97.7278,31.1171
+"221","Kingsport, TN, United States",-82.5618,36.5484
+"222","Kingston, NY, United States",-74.0024,41.9288
+"223","Klamath Falls, OR, United States",-121.7817,42.2249
+"224","Knoxville, TN, United States",-83.921,35.9604
+"225","Kokomo, IN, United States",-86.1336,40.4864
+"226","La Crosse, WI, United States",-91.2396,43.8014
+"227","Lafayette, LA, United States",-92.0198,30.2241
+"228","LaGrange, GA, United States",-85.0313,33.0393
+"229","Lake Charles, LA, United States",-93.2174,30.2266
+"230","Lake City, FL, United States",-82.6393,30.1897
+"231","Lake Havasu City, AZ, United States",-114.3225,34.4839
+"232","Lakeland, FL, United States",-81.9498,28.0395
+"233","Lancaster, PA, United States",-76.3057,40.0381
+"234","Lansing, MI, United States",-84.5554,42.7338
+"235","Laredo, TX, United States",-99.5089,27.5061
+"236","Las Cruces, NM, United States",-106.7798,32.314
+"237","Las Vegas, NV, United States",-115.1492,36.1663
+"238","Laurel, MS, United States",-89.1306,31.6941
+"239","Lawrence, KS, United States",-95.2359,38.9719
+"240","Lawton, OK, United States",-98.3903,34.6087
+"241","Lebanon, PA, United States",-76.4284,40.3465
+"242","Lewiston, ID, United States",-117.0177,46.4166
+"243","Lewiston, ME, United States",-70.2148,44.1004
+"244","Lexington, KY, United States",-84.497,38.0464
+"245","Lima, OH, United States",-84.1052,40.7426
+"246","Lincoln, NE, United States",-96.6674,40.8001
+"247","Little Rock, AR, United States",-92.2896,34.7465
+"248","London, KY, United States",-84.0833,37.129
+"249","Longview, TX, United States",-94.7405,32.5007
+"250","Longview, WA, United States",-122.9556,46.1427
+"251","Lubbock, TX, United States",-101.8552,33.5779
+"252","Lufkin, TX, United States",-94.7289,31.3386
+"253","Lumberton, NC, United States",-79.0084,34.6183
+"254","Lynchburg, VA, United States",-79.1422,37.4138
+"255","Macon, GA, United States",-83.6324,32.8407
+"256","Madera, CA, United States",-120.0595,36.9623
+"257","Madison, WI, United States",-89.3838,43.0748
+"258","Manchester, NH, United States",-71.4548,42.9956
+"259","Manhattan, KS, United States",-96.5717,39.1836
+"260","Manitowoc, WI, United States",-87.6576,44.0886
+"261","Mankato, MN, United States",-93.9994,44.1635
+"262","Mansfield, OH, United States",-82.5154,40.7584
+"263","Marinette, WI, United States",-87.6307,45.1
+"264","Marion, IN, United States",-85.6591,40.5584
+"265","Marion, OH, United States",-83.1285,40.5887
+"266","Marquette, MI, United States",-87.3964,46.5435
+"267","Marshall, TX, United States",-94.3673,32.545
+"268","Martinsville, VA, United States",-79.8725,36.6915
+"269","McAllen, TX, United States",-98.2301,26.2044
+"270","Meadville, PA, United States",-80.1514,41.6414
+"271","Medford, OR, United States",-122.8719,42.3264
+"272","Memphis, TN, United States",-90.0516,35.149
+"273","Merced, CA, United States",-120.4843,37.303
+"274","Meridian, MS, United States",-88.7037,32.3643
+"275","Michigan City, IN, United States",-86.895,41.7075
+"276","Midland, MI, United States",-84.2472,43.6156
+"277","Midland, TX, United States",-102.0746,31.9969
+"278","Milwaukee, WI, United States",-87.9225,43.035
+"279","Minot, ND, United States",-101.2963,48.2325
+"280","Missoula, MT, United States",-113.9953,46.8701
+"281","Mobile, AL, United States",-88.1946,30.6488
+"282","Modesto, CA, United States",-120.9969,37.6391
+"283","Monroe, LA, United States",-92.1193,32.5093
+"284","Monroe, MI, United States",-83.3968,41.9145
+"285","Montgomery, AL, United States",-86.3006,32.367
+"286","Morehead City, NC, United States",-76.726,34.7229
+"287","Morgantown, WV, United States",-79.9559,39.6295
+"288","Morristown, TN, United States",-83.2949,36.214
+"289","Moses Lake, WA, United States",-119.2781,47.1301
+"290","Mount Airy, NC, United States",-80.6072,36.4993
+"291","Mount Pleasant, MI, United States",-84.7668,43.5976
+"292","Mount Vernon, WA, United States",-122.3264,48.42
+"293","Muncie, IN, United States",-85.3865,40.1937
+"294","Muskegon, MI, United States",-86.2484,43.2342
+"295","Muskogee, OK, United States",-95.3928,35.663
+"296","Myrtle Beach, SC, United States",-78.89,33.6956
+"297","Nacogdoches, TX, United States",-94.5927,31.5971
+"298","Napa, CA, United States",-122.2855,38.2971
+"299","Naples, FL, United States",-81.7948,26.142
+"300","Nashville, TN, United States",-86.7744,36.1622
+"301","New Bern, NC, United States",-77.0441,35.1085
+"302","New Castle, PA, United States",-80.347,41.0037
+"303","New Haven, CT, United States",-82.0702059,41.43395525
+"304","New Orleans, LA, United States",-90.0701,29.9499
+"305","New Philadelphia, OH, United States",-81.4457,40.4898
+"306","New York, NY, United States",-73.9826608125,40.76872225
+"307","Niles, MI, United States",-86.2542,41.8298
+"308","North Wilkesboro, NC, United States",-81.1476,36.1585
+"309","Oak Harbor, WA, United States",-122.6432,48.2932
+"310","Ocala, FL, United States",-82.1401,29.1872
+"311","Ocean City, NJ, United States",-74.5746,39.2776
+"312","Odessa, TX, United States",-102.3677,31.8457
+"313","Ogden, UT, United States",-111.9738,41.223
+"314","Ogdensburg, NY, United States",-75.4863,44.6942
+"315","Oklahoma City, OK, United States",-97.5171,35.473
+"316","Olean, NY, United States",-78.4297,42.0776
+"317","Olympia, WA, United States",-122.8949,47.045
+"318","Omaha, NE, United States",-95.9379,41.2587
+"319","Opelousas, LA, United States",-92.0815,30.5335
+"320","Orangeburg, SC, United States",-80.8556,33.4918
+"321","Orlando, FL, United States",-81.379,28.5421
+"322","Oshkosh, WI, United States",-88.5409,44.0207
+"323","Ottawa, IL, United States",-88.8454,41.3517
+"324","Owensboro, KY, United States",-87.1133,37.7742
+"325","Owosso, MI, United States",-84.1766,42.9978
+"326","Paducah, KY, United States",-88.6,37.0834
+"327","Palatka, FL, United States",-81.6372,29.6488
+"328","Panama City, FL, United States",-85.6546,30.1601
+"329","Parkersburg, WV, United States",-81.5615,39.2667
+"330","Pensacola, FL, United States",-87.2169,30.4213
+"331","Peoria, IL, United States",-89.5891,40.6939
+"332","Philadelphia, PA, United States",-75.1327,40.0115
+"333","Phoenix, AZ, United States",-112.0773,33.4486
+"334","Pine Bluff, AR, United States",-92.0032,34.2284
+"335","Pittsburgh, PA, United States",-79.9901,40.4417
+"336","Pittsfield, MA, United States",-73.2454,42.4501
+"337","Plattsburgh, NY, United States",-73.488,44.6968
+"338","Pocatello, ID, United States",-112.4401,42.8689
+"339","Port Angeles, WA, United States",-123.4307,48.1181
+"340","Port St. Lucie, FL, United States",-80.3503,27.2939
+"341","Portland, ME, United States",-70.2549,43.661
+"342","Portland, OR, United States",-122.6742,45.5202
+"343","Portsmouth, OH, United States",-82.9977,38.7317
+"344","Pottsville, PA, United States",-76.1954,40.6851
+"345","Prescott, AZ, United States",-112.4695,34.5403
+"346","Providence, RI, United States",-71.4128,41.824
+"347","Provo, UT, United States",-111.6585,40.2338
+"348","Pueblo, CO, United States",-104.6091,38.2544
+"349","Punta Gorda, FL, United States",-82.0454,26.9298
+"350","Quincy, IL, United States",-91.4099,39.9356
+"351","Racine, WI, United States",-87.7825,42.7261
+"352","Raleigh, NC, United States",-78.6391,35.7804
+"353","Rapid City, SD, United States",-103.228,44.0812
+"354","Reading, PA, United States",-75.9279,40.3353
+"355","Redding, CA, United States",-122.3917,40.5864
+"356","Reno, NV, United States",-119.8137,39.5293
+"357","Richmond, IN, United States",-84.8899,39.8287
+"358","Richmond, VA, United States",-77.4343,37.5385
+"359","Richmond, KY, United States",-84.2947,37.7479
+"360","Riverside, CA, United States",-117.3962,33.9534
+"361","Roanoke Rapids, NC, United States",-77.6541,36.4615
+"362","Roanoke, VA, United States",-79.9414,37.271
+"363","Rochester, MN, United States",-92.463,44.0233
+"364","Rochester, NY, United States",-77.6152,43.1573
+"365","Rockford, IL, United States",-89.094,42.2714
+"366","Rocky Mount, NC, United States",-77.7957,35.9424
+"367","Rome, GA, United States",-85.1647,34.257
+"368","Roseburg, OR, United States",-123.3417,43.2165
+"369","Roswell, NM, United States",-104.523,33.3943
+"370","Russellville, AR, United States",-93.1338,35.2784
+"371","Sacramento, CA, United States",-121.4939328,38.581021
+"372","Saginaw, MI, United States",-83.949,43.42
+"373","Salem, OR, United States",-123.0331,44.9392
+"374","Salinas, CA, United States",-121.656,36.6777
+"375","Salisbury, MD, United States",-75.6009,38.3662
+"376","Salt Lake City, UT, United States",-111.8904,40.767
+"377","San Angelo, TX, United States",-100.4398,31.4648
+"378","San Antonio, TX, United States",-98.4951,29.4246
+"379","San Diego, CA, United States",-117.1628,32.7174
+"380","San Francisco, CA, United States",-122.463,37.7648
+"381","San Jose, CA, United States",-121.8261,37.2751
+"382","San Luis Obispo, CA, United States",-120.6596,35.2828
+"383","Sandusky, OH, United States",-82.708,41.4489
+"384","Santa Cruz, CA, United States",-122.0294,36.9746
+"385","Santa Fe, NM, United States",-105.9378,35.687
+"386","Santa Rosa, CA, United States",-122.7144,38.4405
+"387","Savannah, GA, United States",-81.0998,32.0835
+"388","Scranton, PA, United States",-75.6621,41.4087
+"389","Searcy, AR, United States",-91.7362,35.2506
+"390","Seattle, WA, United States",-122.3301,47.6038
+"391","Sebring, FL, United States",-81.441,27.4957
+"392","Seneca, SC, United States",-82.9527,34.6865
+"393","Sevierville, TN, United States",-83.5618,35.8681
+"394","Shawnee, OK, United States",-96.9253,35.3273
+"395","Sheboygan, WI, United States",-87.7145,43.7508
+"396","Shelby, NC, United States",-81.5356,35.2924
+"397","Shelton, WA, United States",-123.1007,47.2151
+"398","Sherman, TX, United States",-96.6098,33.636
+"399","Show Low, AZ, United States",-110.0298,34.2542
+"400","Shreveport, LA, United States",-93.7652,32.5222
+"401","Sierra Vista, AZ, United States",-110.3037,31.5545
+"402","Sioux City, IA, United States",-96.4059,42.4967
+"403","Sioux Falls, SD, United States",-96.7003,43.55
+"404","Somerset, PA, United States",-79.0781,40.0084
+"405","South Bend, IN, United States",-86.25,41.6834
+"406","Spartanburg, SC, United States",-81.932,34.9498
+"407","Spokane, WA, United States",-117.4247,47.6589
+"408","Springfield, IL, United States",-89.6444,39.799
+"409","Springfield, MA, United States",-72.5898,42.1015
+"410","Springfield, MO, United States",-93.2983,37.2153
+"411","Springfield, OH, United States",-83.8088,39.9242
+"412","St. Cloud, MN, United States",-94.1642,45.5616
+"413","St. George, UT, United States",-113.56,37.11
+"414","St. Joseph, MO, United States",-94.8466,39.7686
+"415","St. Louis, MO, United States",-90.19,38.63
+"416","State College, PA, United States",-77.8607,40.794
+"417","Statesboro, GA, United States",-81.7833,32.449
+"418","Staunton, VA, United States",-79.0716,38.1493
+"419","Stevens Point, WI, United States",-89.5741,44.5229
+"420","Stillwater, OK, United States",-97.0586,36.1156
+"421","Stockton, CA, United States",-121.2908,37.9577
+"422","Sumter, SC, United States",-80.3415,33.9204
+"423","Sunbury, PA, United States",-76.7936,40.862
+"424","Syracuse, NY, United States",-76.1474,43.0481
+"425","Talladega, AL, United States",-86.1058,33.4359
+"426","Tallahassee, FL, United States",-84.2809,30.4381
+"427","Tampa, FL, United States",-82.4584,27.9478
+"428","Terre Haute, IN, United States",-87.4139,39.4667
+"429","Texarkana, TX, United States",-94.0477,33.4251
+"430","The Villages, FL, United States",-81.9599,28.9341
+"431","Toledo, OH, United States",-83.5127,41.6787
+"432","Topeka, KS, United States",-95.6776,39.049
+"433","Torrington, CT, United States",-73.1212,41.8007
+"434","Traverse City, MI, United States",-85.6165,44.7606
+"435","Trenton, NJ, United States",-74.7429,40.2171
+"436","Truckee, CA, United States",-120.1833,39.328
+"437","Tucson, AZ, United States",-110.9265,32.2217
+"438","Tullahoma, TN, United States",-86.2094,35.362
+"439","Tulsa, OK, United States",-95.9251,36.1012
+"440","Tupelo, MS, United States",-88.7034,34.2576
+"441","Tuscaloosa, AL, United States",-87.5675,33.2096
+"442","Twin Falls, ID, United States",-114.6972,42.2729
+"443","Tyler, TX, United States",-95.3011,32.3513
+"444","Ukiah, CA, United States",-123.2078,39.1502
+"445","Utica, NY, United States",-73.9258541,40.5574644
+"446","Valdosta, GA, United States",-83.2785,30.8327
+"447","Vallejo, CA, United States",-122.2566,38.1041
+"448","Vineland, NJ, United States",-75.0257,39.4862
+"449","Virginia Beach, VA, United States",-75.9774,36.853
+"450","Visalia, CA, United States",-119.2921,36.3302
+"451","Waco, TX, United States",-97.1467,31.5493
+"452","Walla Walla, WA, United States",-118.3303,46.065
+"453","Warner Robins, GA, United States",-83.5999,32.621
+"454","Warsaw, IN, United States",-85.8531,41.2381
+"455","Washington, DC, United States",-77.0366,38.895
+"456","Waterloo, IA, United States",-92.3369,42.4983
+"457","Watertown, WI, United States",-88.7286,43.1948
+"458","Watertown, NY, United States",-75.9108,43.9748
+"459","Wausau, WI, United States",-89.6298,44.9596
+"460","Wenatchee, WA, United States",-120.3103,47.4235
+"461","Whitewater, WI, United States",-88.7293,42.8336
+"462","Wichita Falls, TX, United States",-98.4934,33.9137
+"463","Wichita, KS, United States",-97.3375,37.6922
+"464","Williamsport, PA, United States",-77.0028,41.2493
+"465","Wilmington, NC, United States",-77.9447,34.2257
+"466","Wilson, NC, United States",-77.9155,35.7213
+"467","Winchester, VA, United States",-78.1631,39.1858
+"468","Winston-Salem, NC, United States",-80.2442,36.0999
+"469","Wooster, OH, United States",-81.9351,40.8051
+"470","Worcester, MA, United States",-71.8023,42.2626
+"471","Yakima, WA, United States",-120.5108,46.6016
+"472","York, PA, United States",-76.7274,39.9624
+"473","Youngstown, OH, United States",-80.6495,41.0998
+"474","Yuba City, CA, United States",-121.6169,39.1404
+"475","Yuma, AZ, United States",-114.6244,32.7253
+"476","Zanesville, OH, United States",-82.0132,39.9403
+"477","Bloomington, IL, United States",-88.9941,40.4731
+"478","California, MD, United States",-76.5075,38.3004
+"479","Crestview, FL, United States",-86.5705,30.7621
+"480","Glenwood Springs, CO, United States",-107.3255,39.5507
+"481","Greenfield Town, MA, United States",-72.6006,42.5878
+"482","Hermiston, OR, United States",-119.2895,45.8404
+"483","Holland, MI, United States",-86.1091,42.7876
+"484","Jefferson, GA, United States",-83.5724,34.1171
+"485","Lafayette, IN, United States",-86.8753,40.4167
+"486","Los Angeles, CA, United States",-118.2439,34.0544
+"487","Sarasota, FL, United States",-82.3609,27.1814
+"488","Salem, OH, United States",-80.8568,40.9009
+"489","Santa Maria, CA, United States",-120.4359,34.9531
+"490","Honolulu, HI, United States",-157.8557,21.3045
+"491","Wisconsin Rapids, WI, United States",-89.8173,44.3836
+"492","Stamford, CT, United States",-73.5387,41.0534
+"493","Fort Myers, FL, United States",-81.8723,26.6406
+"494","Dallas, TX, United States",-96.7969,32.7763
+"495","Davenport, IA, United States",-90.5776,41.5236
+"496","Daytona Beach, FL, United States",-81.0228,29.2108
+"497","Hagerstown, MD, United States",-77.7203,39.6419
+"498","Logan, UT, United States",-111.8349,41.7313
+"499","Louisville, KY, United States",-85.7594,38.2542
+"500","Miami, FL, United States",-80.18537321875,25.76513515625
+"501","Minneapolis, MN, United States",-93.2655,44.9773
+"502","Ventura, CA, United States",-119.2932,34.2783
+"503","Melbourne, FL, United States",-80.6081,28.0836
+"504","Vero Beach, FL, United States",-80.3975,27.6387
+"505","Weirton, WV, United States",-80.5895,40.419
+"506","Wheeling, WV, United States",-80.7209,40.064
+"507","New London, CT, United States",-72.0995,41.3557
+"508","Daphne, AL, United States",-87.9036,30.6035
+"509","Victoria, TX, United States",-97.0036,28.8053
+"510","Aberdeen, WA, United States",-123.8157,46.9754
