@@ -1,3 +1,4 @@
+# import packages
 library(tidyverse)
 library(magrittr)
 library(readxl)
@@ -410,6 +411,36 @@ County_Health_Rankings_Data_demography %>%
          `% Asian`,`% Native Hawaiian/Other Pacific Islander`,`% Hispanic`,`% Non-Hispanic White`,`% Female`,`% Rural`) %>% 
   left_join(dat,.,by=c("STCOUNTYFP" = "FIPS")) -> dat
 
+# read in hospital statistics
+Hospital_General_Information <- read_csv("data/hospitals/Hospital_General_Information.csv")
+Hospital_General_Information %<>% 
+  mutate_at(vars(contains("Count")), as.numeric) %>% 
+  mutate(`MORT Better %` = `Count of MORT Measures Better`/`Count of Facility MORT Measures`) %>% 
+  mutate(`MORT Worse %` = `Count of MORT Measures Worse`/`Count of Facility MORT Measures`) %>% 
+  mutate(`Safety Better %` = `Count of Safety Measures Better`/`Count of Facility Safety Measures`) %>% 
+  mutate(`Safety Worse %` = `Count of Safety Measures Worse`/`Count of Facility Safety Measures`) %>% 
+  mutate(`READM Better %` = `Count of READM Measures Better`/`Count of Facility READM Measures`) %>% 
+  mutate(`READM Worse %` = `Count of READM Measures Worse`/`Count of Facility READM Measures`) %>% 
+  select(`Facility Name`, `ZIP Code`,`Hospital overall rating`, 39:44) %>% 
+  left_join(.,ZIPdb_longlat, by = c("ZIP Code" = "zip")) %>% 
+  mutate(org_cleaned = `Facility Name`) %>% 
+  mutate_at(vars(`org_cleaned`), tolower) %>% 
+  mutate_at(vars(`org_cleaned`), ~gsub("[[:punct:][:blank:]]+", " ",.)) %>%
+  mutate(org_cleaned = lapply(`org_cleaned`, function(word) removeWords(word,stopwords)))
 
-
+Hospital_General_Information$`Hospital overall rating`[Hospital_General_Information$`Hospital overall rating` == "Not Available"] <- NA
   
+dat %>%
+  mutate(`Residency program name_lower` = tolower(`Residency program name`)) %>%
+  mutate_at(vars("Residency program name_lower"), ~gsub("[[:punct:][:blank:]]+", " ",.)) %>%
+  mutate(org_cleaned = lapply(`Residency program name_lower`, function(word) removeWords(word,stopwords))) %>% 
+  stringdist_left_join(Hospital_General_Information, by = c("org_cleaned"), distance_col = "match_distance",max_dist = 10) %>% 
+  mutate(geo_distance = distHaversine(bind_cols(longitude.x,latitude.x),bind_cols(longitude.y,latitude.y))*0.0006213712) %>%
+  filter(geo_distance <= 2) %>% #reducing mile radius based on calibration by eye
+  .[order(.$Specialty,.$`Residency program name`,.$match_distance),] %>% 
+  .[!duplicated(.$ID),] %>%
+  mutate(str_length = pmax(str_length(org_cleaned.x), str_length(org_cleaned.y))) %>%
+  mutate(dist_ratio = match_distance / str_length) %>%
+  filter(dist_ratio <= 0.5) %>%
+  select(`ID`,`Hospital overall rating`,`MORT Better %`, `MORT Worse %`,`Safety Better %`,`Safety Worse %`,`READM Better %`,`READM Worse %`) %>% 
+  left_join(dat,., by = "ID") -> dat
