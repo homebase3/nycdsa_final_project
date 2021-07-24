@@ -1,145 +1,145 @@
-,Specialty,Program,Link suffix
-0,Dermatology,Baylor College of Medicine Program,/Program/GetById/286
-1,Dermatology,Baylor University Medical Center Program,/Program/GetById/284
-2,Dermatology,Beaumont Health (Farmington Hills) Program,/Program/GetById/219
-3,Dermatology,Beaumont Health (Trenton) Program,/Program/GetById/221
-4,Dermatology,Boston University Medical Center Program,/Program/GetById/215
-5,Dermatology,Broward Health Program,/Program/GetById/187
-6,Dermatology,Brown University Program,/Program/GetById/276
-7,Dermatology,Campbell University Program,/Program/GetById/252
-8,Dermatology,Carilion Clinic-Virginia Tech Carilion School of Medicine Program,/Program/GetById/294
-9,Dermatology,Case Western Reserve University/University Hospitals Cleveland Medical Center Program,/Program/GetById/262
-10,Dermatology,Cleveland Clinic Foundation Program,/Program/GetById/259
-11,Dermatology,Cook County Health and Hospitals System Program,/Program/GetById/202
-12,Dermatology,Cooper Medical School of Rowan University/Cooper University Hospital Program,/Program/GetById/236
-13,Dermatology,Dartmouth-Hitchcock/Mary Hitchcock Memorial Hospital Program,/Program/GetById/234
-14,Dermatology,Duke University Hospital Program,/Program/GetById/254
-15,Dermatology,Eastern Virginia Medical School Program,/Program/GetById/298
-16,Dermatology,Emory University School of Medicine Program,/Program/GetById/199
-17,Dermatology,Florida State University College of Medicine Program,/Program/GetById/186
-18,Dermatology,Geisinger Health System Program,/Program/GetById/272
-19,Dermatology,George Washington University School of Medicine Program,/Program/GetById/182
-20,Dermatology,Hackensack University Medical Center (Palisades) Program,/Program/GetById/235
-21,Dermatology,HCA Healthcare Corpus Christi Medical Center - Bay Area Program,/Program/GetById/281
-22,Dermatology,HCA Healthcare LewisGale Hospital-Montgomery/VCOM Program,/Program/GetById/295
-23,Dermatology,HCA Healthcare/Mercer University School of Medicine/Orange Park Medical Center Program,/Program/GetById/189
-24,Dermatology,HCA Healthcare/USF Morsani College of Medicine GME: Largo Medical Center Program,/Program/GetById/188
-25,Dermatology,HCA Medical City Program,/Program/GetById/280
-26,Dermatology,HealthPartners Institute Program,/Program/GetById/225
-27,Dermatology,Henry Ford Hospital/Wayne State University Program,/Program/GetById/222
-28,Dermatology,HonorHealth Program,/Program/GetById/163
-29,Dermatology,Howard University Program,/Program/GetById/183
-30,Dermatology,Icahn School of Medicine at Mount Sinai Program,/Program/GetById/241
-31,Dermatology,Indiana University School of Medicine Program,/Program/GetById/207
-32,Dermatology,Johns Hopkins University Program,/Program/GetById/213
-33,Dermatology,Kaiser Permanente Southern California (Los Angeles) Program,/Program/GetById/170
-34,Dermatology,Kansas City University GME Consortium (KCU-GME Consortium) Phoenix Program,/Program/GetById/161
-35,Dermatology,Kansas City University GME Consortium (KCU-GME Consortium)/ADCS-Orlando Program,/Program/GetById/190
-36,Dermatology,Kansas City University GME Consortium (KCU-GME Consortium)/TCD-Apex Program,/Program/GetById/257
-37,Dermatology,Larkin Community Hospital Palm Springs Campus Program,/Program/GetById/192
-38,Dermatology,Larkin Community Hospital Program,/Program/GetById/191
-39,Dermatology,Lehigh Valley Health Network Program,/Program/GetById/268
-40,Dermatology,Loma Linda University Health Education Consortium Program,/Program/GetById/177
-41,Dermatology,Los Angeles County-Harbor-UCLA Medical Center Program,/Program/GetById/169
-42,Dermatology,Louisiana State University Program,/Program/GetById/212
-43,Dermatology,Loyola University Medical Center Program,/Program/GetById/203
-44,Dermatology,Marshfield Clinic Program,/Program/GetById/303
-45,Dermatology,Massachusetts General Hospital/Beth Israel Deaconess Medical Center/Brigham and Women's Hosp Program,/Program/GetById/218
-46,Dermatology,Mayo Clinic College of Medicine and Science (Arizona) Program,/Program/GetById/164
-47,Dermatology,Mayo Clinic College of Medicine and Science (Jacksonville) Program,/Program/GetById/196
-48,Dermatology,Mayo Clinic College of Medicine and Science (Rochester) Program,/Program/GetById/226
-49,Dermatology,McGaw Medical Center of Northwestern University Program,/Program/GetById/204
-50,Dermatology,Medical College of Georgia Program,/Program/GetById/198
-51,Dermatology,Medical College of Wisconsin Affiliated Hospitals Program,/Program/GetById/302
-52,Dermatology,Medical University of South Carolina Program,/Program/GetById/277
-53,Dermatology,MedStar Health/Washington Hospital Center Program,/Program/GetById/184
-54,Dermatology,Midwestern University GME Consortium / Advanced Desert Program,/Program/GetById/162
-55,Dermatology,Montefiore Medical Center/Albert Einstein College of Medicine Program,/Program/GetById/251
-56,Dermatology,National Capital Consortium Program,/Program/GetById/185
-57,Dermatology,Naval Medical Center (San Diego) Program,/Program/GetById/178
-58,Dermatology,New York Medical College (Metropolitan) Program,/Program/GetById/245
-59,Dermatology,New York Presbyterian Hospital (Columbia Campus) Program,/Program/GetById/249
-60,Dermatology,New York Presbyterian Hospital (Cornell Campus) Program,/Program/GetById/244
-61,Dermatology,Nuvance Health Program,/Program/GetById/239
-62,Dermatology,NYU Grossman School of Medicine Program,/Program/GetById/246
-63,Dermatology,Ohio State University Hospital Program,/Program/GetById/258
-64,Dermatology,OhioHealth/Riverside Methodist Hospital Program,/Program/GetById/256
-65,Dermatology,Oregon Health & Science University Program,/Program/GetById/266
-66,Dermatology,Penn State Milton S Hershey Medical Center Program,/Program/GetById/274
-67,Dermatology,Philadelphia College of Osteopathic Medicine Program,/Program/GetById/197
-68,Dermatology,Prime West Consortium/Newport Beach Program,/Program/GetById/167
-69,Dermatology,Rush University Medical Center Program,/Program/GetById/200
-70,Dermatology,Rutgers Health/Robert Wood Johnson Medical School Program,/Program/GetById/237
-71,Dermatology,Samaritan Health Services - Corvallis Program,/Program/GetById/265
-72,Dermatology,San Antonio Uniformed Services Health Education Consortium Program,/Program/GetById/289
-73,Dermatology,Sidney Kimmel Medical College at Thomas Jefferson University/TJUH Program,/Program/GetById/270
-74,Dermatology,Southern Illinois University Program,/Program/GetById/206
-75,Dermatology,St Barnabas Hospital Program,/Program/GetById/243
-76,Dermatology,St John's Episcopal Hospital-South Shore Program,/Program/GetById/242
-77,Dermatology,St Joseph Mercy Livingston Program,/Program/GetById/220
-78,Dermatology,St Louis University School of Medicine Program,/Program/GetById/232
-79,Dermatology,St Luke’s Hospital – Anderson Campus Program,/Program/GetById/269
-80,Dermatology,Stanford Health Care-Sponsored Stanford University Program,/Program/GetById/175
-81,Dermatology,Still OPTI Program,/Program/GetById/229
-82,Dermatology,Stony Brook Medicine/University Hospital Program,/Program/GetById/250
-83,Dermatology,SUNY Downstate Health Sciences University Program,/Program/GetById/247
-84,Dermatology,Temple University Hospital Program,/Program/GetById/267
-85,Dermatology,Texas A&M College of Medicine-Scott and White Medical Center (Temple) Program,/Program/GetById/290
-86,Dermatology,Texas Tech University Health Sciences Center at Lubbock Program,/Program/GetById/288
-87,Dermatology,The MetroHealth System/Case Western Reserve University Program,/Program/GetById/263
-88,Dermatology,Tufts Medical Center Program,/Program/GetById/217
-89,Dermatology,Tulane University Program,/Program/GetById/211
-90,Dermatology,UCLA David Geffen School of Medicine/UCLA Medical Center Program,/Program/GetById/172
-91,Dermatology,University of Alabama Medical Center Program,/Program/GetById/160
-92,Dermatology,University of Arizona College of Medicine-Tucson Program,/Program/GetById/165
-93,Dermatology,University of Arkansas for Medical Sciences (UAMS) College of Medicine Program,/Program/GetById/166
-94,Dermatology,University of California (Irvine) Program,/Program/GetById/171
-95,Dermatology,University of California (San Diego) Medical Center Program,/Program/GetById/173
-96,Dermatology,University of California (San Francisco) Program,/Program/GetById/174
-97,Dermatology,University of California Davis Health Program,/Program/GetById/176
-98,Dermatology,University of Chicago Program,/Program/GetById/201
-99,Dermatology,University of Cincinnati Medical Center/College of Medicine Program,/Program/GetById/260
-100,Dermatology,University of Colorado Program,/Program/GetById/179
-101,Dermatology,University of Connecticut Program,/Program/GetById/181
-102,Dermatology,University of Florida Program,/Program/GetById/195
-103,Dermatology,University of Illinois College of Medicine at Chicago Program,/Program/GetById/205
-104,Dermatology,University of Iowa Hospitals and Clinics Program,/Program/GetById/208
-105,Dermatology,University of Kansas School of Medicine Program,/Program/GetById/209
-106,Dermatology,University of Louisville School of Medicine Program,/Program/GetById/210
-107,Dermatology,University of Maryland Program,/Program/GetById/214
-108,Dermatology,University of Massachusetts Program,/Program/GetById/216
-109,Dermatology,University of Miami/Jackson Health System Program,/Program/GetById/193
-110,Dermatology,University of Michigan Health System Program,/Program/GetById/224
-111,Dermatology,University of Minnesota Program,/Program/GetById/227
-112,Dermatology,University of Mississippi School of Medicine Program,/Program/GetById/228
-113,Dermatology,University of Missouri-Columbia Program,/Program/GetById/230
-114,Dermatology,University of Nebraska Medical Center College of Medicine Program,/Program/GetById/233
-115,Dermatology,University of New Mexico School of Medicine Program,/Program/GetById/238
-116,Dermatology,University of North Carolina Hospitals Program,/Program/GetById/253
-117,Dermatology,University of Oklahoma Health Sciences Center Program,/Program/GetById/264
-118,Dermatology,University of Pennsylvania Health System Program,/Program/GetById/273
-119,Dermatology,University of Puerto Rico Program,/Program/GetById/275
-120,Dermatology,University of Rochester Program,/Program/GetById/248
-121,Dermatology,University of South Florida Morsani Program,/Program/GetById/194
-122,Dermatology,University of Southern California/LAC+USC Medical Center Program,/Program/GetById/168
-123,Dermatology,University of Tennessee Program,/Program/GetById/278
-124,Dermatology,University of Texas at Austin Dell Medical School Program,/Program/GetById/283
-125,Dermatology,University of Texas Health Science Center at Houston Program,/Program/GetById/287
-126,Dermatology,University of Texas Health Science Center San Antonio Joe and Teresa Lozano Long School of Medicine Program,/Program/GetById/291
-127,Dermatology,University of Texas Medical Branch Hospitals Program,/Program/GetById/282
-128,Dermatology,University of Texas Southwestern Medical Center Program,/Program/GetById/285
-129,Dermatology,University of Utah Health Program,/Program/GetById/292
-130,Dermatology,University of Vermont Medical Center Program,/Program/GetById/293
-131,Dermatology,University of Virginia Medical Center Program,/Program/GetById/296
-132,Dermatology,University of Washington Program,/Program/GetById/299
-133,Dermatology,University of Wisconsin Hospitals and Clinics Program,/Program/GetById/301
-134,Dermatology,UPMC Medical Education Program,/Program/GetById/271
-135,Dermatology,Vanderbilt University Medical Center Program,/Program/GetById/279
-136,Dermatology,Virginia Commonwealth University Health System Program,/Program/GetById/297
-137,Dermatology,Wake Forest University School of Medicine Program,/Program/GetById/255
-138,Dermatology,Washington University/B-JH/SLCH Consortium Program,/Program/GetById/231
-139,Dermatology,Wayne State University School of Medicine Program,/Program/GetById/223
-140,Dermatology,West Virginia University Program,/Program/GetById/300
-141,Dermatology,Wright State University Program,/Program/GetById/261
-142,Dermatology,Yale-New Haven Medical Center Program,/Program/GetById/180
-143,Dermatology,Zucker School of Medicine at Hofstra/Northwell Program,/Program/GetById/240
+,Specialty,Program,Link suffix,City,State
+0,Dermatology,University of Alabama Medical Center Program,/Program/GetById/160,Birmingham,AL
+1,Dermatology,Campbell University Program,/Program/GetById/252,Clinton,NC
+2,Dermatology,University of North Carolina Hospitals Program,/Program/GetById/253,Chapel Hill,NC
+3,Dermatology,Duke University Hospital Program,/Program/GetById/254,Durham,NC
+4,Dermatology,Wake Forest University School of Medicine Program,/Program/GetById/255,Winston-Salem,NC
+5,Dermatology,OhioHealth/Riverside Methodist Hospital Program,/Program/GetById/256,Columbus,OH
+6,Dermatology,Kansas City University GME Consortium (KCU-GME Consortium)/TCD-Apex Program,/Program/GetById/257,Cuyahoga Falls,OH
+7,Dermatology,Montefiore Medical Center/Albert Einstein College of Medicine Program,/Program/GetById/251,Bronx,NY
+8,Dermatology,Ohio State University Hospital Program,/Program/GetById/258,Gahanna,OH
+9,Dermatology,University of Cincinnati Medical Center/College of Medicine Program,/Program/GetById/260,Cincinnati,OH
+10,Dermatology,Wright State University Program,/Program/GetById/261,Dayton,OH
+11,Dermatology,Case Western Reserve University/University Hospitals Cleveland Medical Center Program,/Program/GetById/262,Cleveland,OH
+12,Dermatology,The MetroHealth System/Case Western Reserve University Program,/Program/GetById/263,Cleveland,OH
+13,Dermatology,University of Oklahoma Health Sciences Center Program,/Program/GetById/264,Oklahoma City,OK
+14,Dermatology,Samaritan Health Services - Corvallis Program,/Program/GetById/265,Salem,OR
+15,Dermatology,Cleveland Clinic Foundation Program,/Program/GetById/259,Cleveland,OH
+16,Dermatology,Oregon Health & Science University Program,/Program/GetById/266,Portland,OR
+17,Dermatology,Stony Brook Medicine/University Hospital Program,/Program/GetById/250,Stony Brook,NY
+18,Dermatology,University of Rochester Program,/Program/GetById/248,Rochester,NY
+19,Dermatology,Dartmouth-Hitchcock/Mary Hitchcock Memorial Hospital Program,/Program/GetById/234,Lebanon,NH
+20,Dermatology,Hackensack University Medical Center (Palisades) Program,/Program/GetById/235,North Bergen,NJ
+21,Dermatology,Cooper Medical School of Rowan University/Cooper University Hospital Program,/Program/GetById/236,Camden,NJ
+22,Dermatology,Rutgers Health/Robert Wood Johnson Medical School Program,/Program/GetById/237,Somerset,NJ
+23,Dermatology,University of New Mexico School of Medicine Program,/Program/GetById/238,Albuquerque,NM
+24,Dermatology,Nuvance Health Program,/Program/GetById/239,Poughkeepsie,NY
+25,Dermatology,New York Presbyterian Hospital (Columbia Campus) Program,/Program/GetById/249,New York,NY
+26,Dermatology,Zucker School of Medicine at Hofstra/Northwell Program,/Program/GetById/240,Lake Success,NY
+27,Dermatology,St John's Episcopal Hospital-South Shore Program,/Program/GetById/242,Far Rockaway,NY
+28,Dermatology,St Barnabas Hospital Program,/Program/GetById/243,Bronx,NY
+29,Dermatology,New York Presbyterian Hospital (Cornell Campus) Program,/Program/GetById/244,New York,NY
+30,Dermatology,New York Medical College (Metropolitan) Program,/Program/GetById/245,New York City,NY
+31,Dermatology,NYU Grossman School of Medicine Program,/Program/GetById/246,New York,NY
+32,Dermatology,SUNY Downstate Health Sciences University Program,/Program/GetById/247,Brooklyn,NY
+33,Dermatology,Icahn School of Medicine at Mount Sinai Program,/Program/GetById/241,New York,NY
+34,Dermatology,University of Nebraska Medical Center College of Medicine Program,/Program/GetById/233,Omaha,NE
+35,Dermatology,Temple University Hospital Program,/Program/GetById/267,Philadelphia,PA
+36,Dermatology,St Luke’s Hospital – Anderson Campus Program,/Program/GetById/269,Easton,PA
+37,Dermatology,Texas Tech University Health Sciences Center at Lubbock Program,/Program/GetById/288,Lubbock,TX
+38,Dermatology,San Antonio Uniformed Services Health Education Consortium Program,/Program/GetById/289,JBSA-Lackland,TX
+39,Dermatology,Texas A&M College of Medicine-Scott and White Medical Center (Temple) Program,/Program/GetById/290,Temple,TX
+40,Dermatology,University of Texas Health Science Center San Antonio Joe and Teresa Lozano Long School of Medicine Program,/Program/GetById/291,San Antonio,TX
+41,Dermatology,University of Utah Health Program,/Program/GetById/292,Salt Lake City,UT
+42,Dermatology,University of Vermont Medical Center Program,/Program/GetById/293,Burlington,VT
+43,Dermatology,University of Texas Health Science Center at Houston Program,/Program/GetById/287,Houston,TX
+44,Dermatology,Carilion Clinic-Virginia Tech Carilion School of Medicine Program,/Program/GetById/294,Roanoke,VA
+45,Dermatology,University of Virginia Medical Center Program,/Program/GetById/296,Charlottesville,VA
+46,Dermatology,Virginia Commonwealth University Health System Program,/Program/GetById/297,Richmond,VA
+47,Dermatology,Eastern Virginia Medical School Program,/Program/GetById/298,Norfolk,VA
+48,Dermatology,University of Washington Program,/Program/GetById/299,Seattle,WA
+49,Dermatology,West Virginia University Program,/Program/GetById/300,Morgantown,WV
+50,Dermatology,University of Wisconsin Hospitals and Clinics Program,/Program/GetById/301,Madison,WI
+51,Dermatology,HCA Healthcare LewisGale Hospital-Montgomery/VCOM Program,/Program/GetById/295,Blacksburg,VA
+52,Dermatology,Lehigh Valley Health Network Program,/Program/GetById/268,Allentown,PA
+53,Dermatology,Baylor College of Medicine Program,/Program/GetById/286,Houston,TX
+54,Dermatology,Baylor University Medical Center Program,/Program/GetById/284,Dallas,TX
+55,Dermatology,Sidney Kimmel Medical College at Thomas Jefferson University/TJUH Program,/Program/GetById/270,Philadelphia,PA
+56,Dermatology,UPMC Medical Education Program,/Program/GetById/271,Pittsburgh,PA
+57,Dermatology,Geisinger Health System Program,/Program/GetById/272,Danville,PA
+58,Dermatology,University of Pennsylvania Health System Program,/Program/GetById/273,Philadelphia,PA
+59,Dermatology,Penn State Milton S Hershey Medical Center Program,/Program/GetById/274,Hershey,PA
+60,Dermatology,University of Puerto Rico Program,/Program/GetById/275,San Juan,PR
+61,Dermatology,University of Texas Southwestern Medical Center Program,/Program/GetById/285,Dallas,TX
+62,Dermatology,Brown University Program,/Program/GetById/276,Providence,RI
+63,Dermatology,University of Tennessee Program,/Program/GetById/278,Memphis,TN
+64,Dermatology,Vanderbilt University Medical Center Program,/Program/GetById/279,Nashville,TN
+65,Dermatology,HCA Medical City Program,/Program/GetById/280,Weatherford,TX
+66,Dermatology,HCA Healthcare Corpus Christi Medical Center - Bay Area Program,/Program/GetById/281,McAllen,TX
+67,Dermatology,University of Texas Medical Branch Hospitals Program,/Program/GetById/282,Galveston,TX
+68,Dermatology,University of Texas at Austin Dell Medical School Program,/Program/GetById/283,Austin,TX
+69,Dermatology,Medical University of South Carolina Program,/Program/GetById/277,Charleston,SC
+70,Dermatology,St Louis University School of Medicine Program,/Program/GetById/232,St Louis,MO
+71,Dermatology,Washington University/B-JH/SLCH Consortium Program,/Program/GetById/231,St Louis,MO
+72,Dermatology,University of Missouri-Columbia Program,/Program/GetById/230,Columbia,MO
+73,Dermatology,University of Colorado Program,/Program/GetById/179,Aurora,CO
+74,Dermatology,Yale-New Haven Medical Center Program,/Program/GetById/180,New Haven,CT
+75,Dermatology,University of Connecticut Program,/Program/GetById/181,Farmington,CT
+76,Dermatology,George Washington University School of Medicine Program,/Program/GetById/182,Washington,DC
+77,Dermatology,Howard University Program,/Program/GetById/183,Washington,DC
+78,Dermatology,MedStar Health/Washington Hospital Center Program,/Program/GetById/184,Washington,DC
+79,Dermatology,Naval Medical Center (San Diego) Program,/Program/GetById/178,San Diego,CA
+80,Dermatology,National Capital Consortium Program,/Program/GetById/185,Bethesda,MD
+81,Dermatology,Broward Health Program,/Program/GetById/187,Fort Lauderdale,FL
+82,Dermatology,HCA Healthcare/USF Morsani College of Medicine GME: Largo Medical Center Program,/Program/GetById/188,Largo,FL
+83,Dermatology,HCA Healthcare/Mercer University School of Medicine/Orange Park Medical Center Program,/Program/GetById/189,Orange Park,FL
+84,Dermatology,Kansas City University GME Consortium (KCU-GME Consortium)/ADCS-Orlando Program,/Program/GetById/190,Maitland,FL
+85,Dermatology,Larkin Community Hospital Program,/Program/GetById/191,South Miami,FL
+86,Dermatology,Larkin Community Hospital Palm Springs Campus Program,/Program/GetById/192,Hialeah,FL
+87,Dermatology,Florida State University College of Medicine Program,/Program/GetById/186,Tallahassee,FL
+88,Dermatology,University of Miami/Jackson Health System Program,/Program/GetById/193,Miami,FL
+89,Dermatology,Loma Linda University Health Education Consortium Program,/Program/GetById/177,Loma Linda,CA
+90,Dermatology,Stanford Health Care-Sponsored Stanford University Program,/Program/GetById/175,Redwood City,CA
+91,Dermatology,Kansas City University GME Consortium (KCU-GME Consortium) Phoenix Program,/Program/GetById/161,Mesa,AZ
+92,Dermatology,Midwestern University GME Consortium / Advanced Desert Program,/Program/GetById/162,Peoria,AZ
+93,Dermatology,HonorHealth Program,/Program/GetById/163,Scottsdale,AZ
+94,Dermatology,Mayo Clinic College of Medicine and Science (Arizona) Program,/Program/GetById/164,Scottsdale,AZ
+95,Dermatology,University of Arizona College of Medicine-Tucson Program,/Program/GetById/165,Tucson,AZ
+96,Dermatology,University of Arkansas for Medical Sciences (UAMS) College of Medicine Program,/Program/GetById/166,Little Rock,AR
+97,Dermatology,University of California Davis Health Program,/Program/GetById/176,Sacramento,CA
+98,Dermatology,Prime West Consortium/Newport Beach Program,/Program/GetById/167,Newport Beach,CA
+99,Dermatology,Los Angeles County-Harbor-UCLA Medical Center Program,/Program/GetById/169,Torrance,CA
+100,Dermatology,Kaiser Permanente Southern California (Los Angeles) Program,/Program/GetById/170,Los Angeles,CA
+101,Dermatology,University of California (Irvine) Program,/Program/GetById/171,Irvine,CA
+102,Dermatology,UCLA David Geffen School of Medicine/UCLA Medical Center Program,/Program/GetById/172,Los Angeles,CA
+103,Dermatology,University of California (San Diego) Medical Center Program,/Program/GetById/173,La Jolla,CA
+104,Dermatology,University of California (San Francisco) Program,/Program/GetById/174,San Francisco,CA
+105,Dermatology,University of Southern California/LAC+USC Medical Center Program,/Program/GetById/168,Los Angeles,CA
+106,Dermatology,University of South Florida Morsani Program,/Program/GetById/194,Tampa,FL
+107,Dermatology,University of Florida Program,/Program/GetById/195,Gainesville,FL
+108,Dermatology,Mayo Clinic College of Medicine and Science (Jacksonville) Program,/Program/GetById/196,Jacksonville,FL
+109,Dermatology,University of Massachusetts Program,/Program/GetById/216,Worcester,MA
+110,Dermatology,Tufts Medical Center Program,/Program/GetById/217,Boston,MA
+111,Dermatology,Massachusetts General Hospital/Beth Israel Deaconess Medical Center/Brigham and Women's Hosp Program,/Program/GetById/218,Boston,MA
+112,Dermatology,Beaumont Health (Farmington Hills) Program,/Program/GetById/219,Commerce Twp,MI
+113,Dermatology,St Joseph Mercy Livingston Program,/Program/GetById/220,Ann Arbor,MI
+114,Dermatology,Beaumont Health (Trenton) Program,/Program/GetById/221,Trenton,MI
+115,Dermatology,Boston University Medical Center Program,/Program/GetById/215,Boston,MA
+116,Dermatology,Henry Ford Hospital/Wayne State University Program,/Program/GetById/222,Detroit,MI
+117,Dermatology,University of Michigan Health System Program,/Program/GetById/224,Ann Arbor,MI
+118,Dermatology,HealthPartners Institute Program,/Program/GetById/225,St. Louis Park,MN
+119,Dermatology,Mayo Clinic College of Medicine and Science (Rochester) Program,/Program/GetById/226,Rochester,MN
+120,Dermatology,University of Minnesota Program,/Program/GetById/227,Minneapolis,MN
+121,Dermatology,University of Mississippi School of Medicine Program,/Program/GetById/228,Jackson,MS
+122,Dermatology,Still OPTI Program,/Program/GetById/229,Kirksville,MO
+123,Dermatology,Wayne State University School of Medicine Program,/Program/GetById/223,Detroit,MI
+124,Dermatology,University of Maryland Program,/Program/GetById/214,Baltimore,MD
+125,Dermatology,Johns Hopkins University Program,/Program/GetById/213,Baltimore,MD
+126,Dermatology,Louisiana State University Program,/Program/GetById/212,New Orleans,LA
+127,Dermatology,Philadelphia College of Osteopathic Medicine Program,/Program/GetById/197,Roswell,GA
+128,Dermatology,Medical College of Georgia Program,/Program/GetById/198,Augusta,GA
+129,Dermatology,Emory University School of Medicine Program,/Program/GetById/199,Atlanta,GA
+130,Dermatology,Rush University Medical Center Program,/Program/GetById/200,Chicago,IL
+131,Dermatology,University of Chicago Program,/Program/GetById/201,Chicago,IL
+132,Dermatology,Cook County Health and Hospitals System Program,/Program/GetById/202,Chicago,IL
+133,Dermatology,Loyola University Medical Center Program,/Program/GetById/203,Maywood,IL
+134,Dermatology,McGaw Medical Center of Northwestern University Program,/Program/GetById/204,Chicago,IL
+135,Dermatology,University of Illinois College of Medicine at Chicago Program,/Program/GetById/205,Chicago,IL
+136,Dermatology,Southern Illinois University Program,/Program/GetById/206,Springfield,IL
+137,Dermatology,Indiana University School of Medicine Program,/Program/GetById/207,Indianapolis,IN
+138,Dermatology,University of Iowa Hospitals and Clinics Program,/Program/GetById/208,Iowa City,IA
+139,Dermatology,University of Kansas School of Medicine Program,/Program/GetById/209,Kansas City,KS
+140,Dermatology,University of Louisville School of Medicine Program,/Program/GetById/210,Louisville,KY
+141,Dermatology,Tulane University Program,/Program/GetById/211,New Orleans,LA
+142,Dermatology,Medical College of Wisconsin Affiliated Hospitals Program,/Program/GetById/302,Milwaukee,WI
+143,Dermatology,Marshfield Clinic Program,/Program/GetById/303,Marshfield,WI
