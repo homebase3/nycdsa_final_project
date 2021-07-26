@@ -1,0 +1,272 @@
+---
+title: "2021 Residency selection tool"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+    css: assets/extra.css
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+# import packages
+library(tidyverse)
+library(magrittr)
+library(readxl)
+library(data.table)
+library(janitor)
+library(readr)
+library(fuzzyjoin)
+library(zipcodeR)
+library(stringr)
+library(parallel)
+library(geosphere)
+library(tm)
+library(ggmap)
+library(numform)
+library(HistogramTools)
+library(plotly)
+library(reticulate)
+library(flexdashboard)
+library(shiny)
+library(reactable)
+library(shinydashboardPlus)
+library(bsplus)
+library(dqshiny)
+
+# load functions and objects
+base<- "/home/justin/Documents/Data Science Bootcamp/Final project/nycdsa_final_project/"
+for (obj in list.files(paste0(base,'objects/'))) {
+  load(paste0(base,'objects/',obj))
+}
+source("core/functions.R")
+```
+
+Applicant competitiveness
+=======================
+
+Inputs {.sidebar}
+--------------------
+```{r}
+selectInput(
+  "specialty",
+  "Specialty",
+  spec_dat$Specialty,
+  selected =spec_dat$Specialty[1],
+  multiple = FALSE,
+  selectize = TRUE
+)
+numericInput(
+  "step1",
+  "Step 1 score",
+  220,
+  min = 190,
+  max = 270,
+  step = 1,
+)
+numericInput(
+  "step2",
+  "Step 2 score",
+  220,
+  min = 190,
+  max = 270,
+  step = 1,
+)
+numericInput(
+  "research",
+  "Number of research experiences",
+  0,
+  min = 0,
+  max = 20,
+  step = 1,
+)
+numericInput(
+  "publications",
+  "Number of abstracts, presentations, and publications",
+  0,
+  min = 0,
+  max = 20,
+  step = 1,
+)
+numericInput(
+  "work",
+  "Number of work experiences",
+  0,
+  min = 0,
+  max = 20,
+  step = 1,
+)
+numericInput(
+  "volunteer",
+  "Number of volunteer experiences",
+  0,
+  min = 0,
+  max = 20,
+  step = 1,
+)
+```
+
+Row {data-height=300}
+----
+
+### Overall score
+```{r}
+renderValueBox({
+  c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>% 
+    score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights) %>%
+    `*`(100) -> score
+  score %>% 
+    round(.) %>% 
+    scales::ordinal(.) %>% 
+    tags$p(., style = "font-size: 200%;") %>% 
+    valueBox(., caption = tags$p(paste0("percentile overall in ",input$specialty),style = "font-size: 150%;"), icon = 'fa-star', color = ifelse(score <= 20, "danger", if_else(score <= 50, "warning", "success")),
+             href = NULL)
+})
+```
+
+Row {data-height=300}
+----
+
+### Step 1 score
+
+```{r}
+renderGauge({
+  score_step1(input$step1,input$specialty, spec_dat,dists)%>% 
+    `*`(100) %>% 
+    round(.) %>% 
+    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(50,100),
+                                                                warning = c(20,50),
+                                                                danger = c(0,20),
+                                                                colors = c("success", "warning",
+                                                                           "danger")))
+})
+```
+
+### Step 2 score
+
+```{r}
+renderGauge({
+  score_step2(input$step2,input$specialty, spec_dat,dists)%>% 
+    `*`(100) %>% 
+    round(.) %>% 
+    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100),
+                                                                warning = c(33,67),
+                                                                danger = c(0,33),
+                                                                colors = c("success", "warning",
+                                                                           "danger")))
+})
+```
+
+Row {data-height=400}
+----
+
+### Number of research experiences
+
+```{r}
+renderGauge({
+  score_research(input$research,input$specialty, spec_dat,dists)%>% 
+    `*`(100) %>% 
+    round(.) %>% 
+    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100),
+                                                                warning = c(33,67),
+                                                                danger = c(0,33),
+                                                                colors = c("success", "warning",
+                                                                           "danger")))
+})
+```
+
+### Number of abstracts, presentations, and publications
+
+```{r}
+renderGauge({
+  score_publications(input$publications,input$specialty, spec_dat,dists)%>% 
+    `*`(100) %>% 
+    round(.) %>% 
+    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100),
+                                                                warning = c(33,67),
+                                                                danger = c(0,33),
+                                                                colors = c("success", "warning",
+                                                                           "danger")))
+})
+```
+
+### Number of work experiences
+
+```{r}
+renderGauge({
+  score_work(input$work,input$specialty, spec_dat,dists)%>% 
+    `*`(100) %>% 
+    round(.) %>% 
+    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100),
+                                                                warning = c(33,67),
+                                                                danger = c(0,33),
+                                                                colors = c("success", "warning",
+                                                                           "danger")))
+})
+```
+
+### Number of volunteer experiences
+
+```{r}
+renderGauge({
+  score_volunteer(input$volunteer,input$specialty, spec_dat,dists)%>% 
+    `*`(100) %>% 
+    round(.) %>% 
+    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100),
+                                                                warning = c(33,67),
+                                                                danger = c(0,33),
+                                                                colors = c("success", "warning",
+                                                                           "danger")))
+})
+```
+
+Select programs
+================
+
+
+Row  {data-height=200}
+-----
+### Test 2
+
+```{r}
+# renderText({
+#   getReactableState("table", "selected")
+# })
+bs_accordion(id = "bootstrap_types") %>%
+  bs_set_opts(panel_type = "default") %>%
+  bs_append(title = "Default", content = NULL) %>%
+  bs_set_opts(panel_type = "primary") %>%
+  bs_append(title = "Primary", content = NULL) %>%
+  bs_set_opts(panel_type = "success") %>%
+  bs_append(title = "Success", content = NULL) %>%
+  bs_set_opts(panel_type = "info") %>%
+  bs_append(title = "Info", content = NULL) %>%
+  bs_set_opts(panel_type = "warning") %>%
+  bs_append(title = "Warning", content = NULL) %>%
+  bs_set_opts(panel_type = "danger") %>%
+  bs_append(title = "Danger", content = NULL)
+```
+
+### Test 3
+```{r}
+dq_accordion("myAccordion2", c("a","b"), c(1,2),
+        bg_color = NULL, options = list(animate = 500, collapsible = TRUE),
+        icons = c(open = "hand-point-down", closed = "hand-point-right")
+      )
+```
+
+Row {data-height=800}
+--------------
+
+### Test
+
+```{r}
+output$table <- renderReactable({
+  reactable(dat_list[[input$specialty]],
+            onClick = "select",
+            selection = "multiple")
+})
+reactableOutput("table")
+```
+
+

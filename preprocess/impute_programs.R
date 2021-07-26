@@ -15,6 +15,7 @@ library(ggmap)
 library(numform)
 library(doParallel)
 library(miceRanger)
+library(FactoMineR)
 
 # source
 source('preprocess/Preprocess_programs.R')
@@ -92,7 +93,7 @@ imputed_df <- completeData(miceObj)$Dataset_1 %>%
 
 #fix columanes again
 colnames(imputed_df) <- colnames(dat)
-imputed_df_MCA <- imputed_df %>%
+imputed_df_FAMD <- imputed_df %>%
   select(-ID_columns,-extraneous_columns)
 # Calculate rankings
 ## Calculate ranking weights
@@ -159,14 +160,12 @@ pediatrics_specialties <- c("Child Neurology", "Neurodevelopmental Disabilities"
 
 
 imputed_df[,rank_columns] %>% 
-  mutate_at(vars("Range of average USMLE Step 1 score of current residents"), ~as.numeric(str_sub(.,-3,-1))) %>% 
+  mutate_at(vars("Range of average USMLE Step 1 score of current residents"), ~ifelse(. == "Greater than 245", 250,as.numeric(str_sub(.,-3,-1))))%>% 
   mutate(`% of positions offered in 2021 that were filled` = `# of positions filled by this program in the 2021 NRMP Main Match` / `# of positions offered by this program in the 2021 NRMP Main Match`,
          .after = `Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)`) %>% 
   mutate(`Ratio of 2020 applicants to 2021 positions` = `# of applications submitted to this program in 2021`/`# of positions offered by this program in the 2021 NRMP Main Match`,
          .after = `% of applicants interviewed by the program in 2020`) %>% 
   select(-`# of positions offered by this program in the 2021 NRMP Main Match`,-`# of positions filled by this program in the 2021 NRMP Main Match`,-`# of applications submitted to this program in 2021`) %>%
-  mutate_at(vars("Program setting"), ~recode(., `University Hospital` = "1", Military = "1", `Affiliated Hospital` = "2", `Community Hospital` = "3", Other = "3", `Not Available` = "3")) %>% 
-  mutate_at(vars("Program setting"), ~as.numeric(.)) %>% 
   select(-`Program setting.1`) %>% 
   relocate(`Program setting`,.after = `2019 NIH specialty funding`) %>% 
   mutate(`Most relevant specialty board pass rate` = ifelse(`Specialty` %in% internal_medicine_specialties, `Internal medicine board pass rate`,
@@ -174,21 +173,35 @@ imputed_df[,rank_columns] %>%
                                                                    ifelse(`Specialty` %in% pediatrics_specialties, `Pediatrics board pass rate`,
                                                                           `Surgery board pass rate`)))) -> ranking_input_df
 
+ranking_input_df$`Ratio of 2020 applicants to 2021 positions`[is.na(ranking_input_df$`Ratio of 2020 applicants to 2021 positions`)] <- 0
+ranking_input_df$`Program setting` <- as.character(ranking_input_df$`Program setting`)
+ranking_input_df$`Program setting`[ranking_input_df$`Program setting` == "University Hospital"] <- "1"
+ranking_input_df$`Program setting`[ranking_input_df$`Program setting` == "Military"] <- "2"
+ranking_input_df$`Program setting`[ranking_input_df$`Program setting` == "Affiliated Hospital"] <- "2"
+ranking_input_df$`Program setting`[ranking_input_df$`Program setting` == "Community Hospital"] <- "3"
+ranking_input_df$`Program setting`[ranking_input_df$`Program setting` == "Not Available"] <- "3"
+ranking_input_df$`Program setting`[ranking_input_df$`Program setting` == "Other"] <- "3"
+ranking_input_df$`Program setting` <- as.numeric(ranking_input_df$`Program setting`)
+
 colnames_rank <- colnames(ranking_input_df)
 ranking_list <- list()
 for (spec in spec_dat$Specialty) {
   rank_df_it <- ranking_input_df %>% filter(Specialty == spec)
   # print(str(rank_df_it))
-  #calculate individual score
+  #calculate individual score, with adjustment for scaling
   for (col in 3:ncol(rank_df_it)) {
     direction <- ranking_methodology$Direction[col-2]
     ecdf_func <- ecdf(rank_df_it[[col]])
     if (direction == "Pos") {
-      rank_df_it[[paste0(colnames_rank[col], "_percentile")]] <- ecdf_func(rank_df_it[[col]])
+      vals <-  ecdf_func(rank_df_it[[col]])
+      # /(max(vals)-min(vals))
+      rank_df_it[[paste0(colnames_rank[col], "_percentile")]] <-  vals
     } else {
-      rank_df_it[[paste0(colnames_rank[col], "_percentile")]] <- 1 - ecdf_func(rank_df_it[[col]])
+      vals <- 1 - ecdf_func(rank_df_it[[col]])
+      rank_df_it[[paste0(colnames_rank[col], "_percentile")]] <-  vals
     }
   }
+  
   # claculate total ranking
   weights <- ranking_weights[ranking_weights$Specialty == spec, 2:ncol(ranking_weights)] %>% as.numeric(.)
   scores <- rank_df_it %>% select(contains("_percentile"))
@@ -200,8 +213,60 @@ for (spec in spec_dat$Specialty) {
     mutate(Overall_score = lapply(1:nrow(rank_df_it), function(i) score_row(i))) 
   overall_score_vec <- as.numeric(rank_df_it$Overall_score)
   rank_df_it[["Overall_percentile"]] <- ecdf(overall_score_vec)(overall_score_vec)
-  rank_df_it[["Overall_rank"]] <- rank(overall_score_vec)
+  rank_df_it[["Overall_rank"]] <- rank(-overall_score_vec)
   
   #save dataframe
   ranking_list[[spec]] <- rank_df_it
 }
+
+# build factor
+famd <- FAMD(imputed_df_FAMD, ncp = 20)
+factor_weights <- famd$eig %>%
+  as.data.frame(.) %>% 
+  select(eigenvalue) %>% 
+  .[[1]]
+
+factored_df <- famd$ind$coord %>% 
+  as.data.frame(.) %>% 
+  bind_cols(select(dat,ID,Specialty),.)
+
+# save objects
+dat_list <- list()
+for (spec in spec_dat$Specialty) {
+  to_join <- ranking_list[[spec]] %>% 
+    select(ID, contains("_percentile"), Overall_score, Overall_rank)
+  dat %>% 
+    filter(Specialty == spec) %>% 
+    left_join(., to_join, by = "ID") ->  dat_list[[spec]]
+}
+
+imputed_df_list <-list()
+
+for (spec in spec_dat$Specialty) {
+  imputed_df %>% 
+    filter(Specialty == spec) ->  imputed_df_list[[spec]]
+}
+
+factored_df_list <- list()
+
+for (spec in spec_dat$Specialty) {
+  factored_df %>% 
+    filter(Specialty == spec) %>% 
+    select(-Specialty) ->  factored_df_list[[spec]]
+}
+
+factor_weights_list <- list()
+factor_weights_list[["ID"]] <- 0
+for (i in 1:length(factor_weights)){
+  factor_weights_list[[paste0("Dim.",i)]] <- factor_weights[i]
+}
+
+save(spec_dat,file = 'objects/spec_dat.Rdata')
+save(dists,file = 'objects/dists.Rdata')
+save(dists_raw, file = 'objects/dists_raw.Rdata')
+save(dat_list,file = 'objects/dat_list.Rdata')
+save(imputed_df_list,file = 'objects/imputed_df_list.Rdata')
+save(factor_weights_list,file = 'objects/factor_weights_list.Rdata')
+save(factored_df_list,file = 'objects/factored_df_list.Rdata')
+save(PD_Survey_weights,file = 'objects/PD_Survey_weights.Rdata')
+

@@ -1,0 +1,50 @@
+---
+title: "model"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# import packages
+library(tidyverse)
+library(magrittr)
+library(readxl)
+library(data.table)
+library(janitor)
+library(readr)
+library(fuzzyjoin)
+library(zipcodeR)
+library(stringr)
+library(parallel)
+library(geosphere)
+library(tm)
+library(ggmap)
+library(numform)
+library(HistogramTools)
+library(plotly)
+library(reticulate)
+
+# load functions and objects
+getwd()
+base<- "/home/justin/Documents/Data Science Bootcamp/Final project/nycdsa_final_project/"
+for (obj in list.files(paste0(base,'objects/'))) {
+  load(paste0(base,'objects/',obj))
+}
+```
+
+## Turicreate code
+
+```{python}
+import turicreate
+import pandas as pd
+import numpy as np
+for key in r.dat_list.keys():
+  item_df = r.factored_df_list[key]
+  item_sf = turicreate.SFrame(item_df)
+  model = turicreate.item_content_recommender.create(item_sf, item_id = "ID", weights=r.factor_weights_list)
+  model.save('models/' + key)
+```
+

@@ -100,10 +100,10 @@ for (sheet in sheet_names) {
     mutate_at(vars(All), ~replace(., . == "-",0)) %>% 
     mutate(val = 18:27*10) %>% 
     mutate_at(1, as.numeric) %>% 
-    head(.,-1) -> step_1_df
+    head(.,-1) -> step_2_df
   
-  dists[["USMLE STEP 1 Score"]][[specialty_name]] <- make_distribution(step_1_df)
-  dists_raw[["USMLE STEP 1 Score"]][[specialty_name]]  <- make_distribution_raw(step_1_df)
+  dists[["USMLE STEP 2 CK Score"]][[specialty_name]] <- make_distribution(step_2_df)
+  dists_raw[["USMLE STEP 2 CK Score"]][[specialty_name]]  <- make_distribution_raw(step_2_df)
   
   read %>% 
     drop_na(...1) %>% 
@@ -112,10 +112,10 @@ for (sheet in sheet_names) {
     map_df(rev) %>% 
     mutate_at(vars(All), ~replace(., . == "-",0)) %>% 
     mutate(val = 18:26*10) %>% 
-    select(-...1) -> step_2_df
+    select(-...1) -> step_1_df
   
-  dists[["USMLE STEP 2 CK Score"]][[specialty_name]] <- make_distribution(step_2_df)
-  dists_raw[["USMLE STEP 2 CK Score"]][[specialty_name]] <- make_distribution_raw(step_2_df)
+  dists[["USMLE STEP 1 Score"]][[specialty_name]] <- make_distribution(step_1_df)
+  dists_raw[["USMLE STEP 1 Score"]][[specialty_name]] <- make_distribution_raw(step_1_df)
 }
 
 # read in experience distributions

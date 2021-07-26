@@ -454,4 +454,3 @@ dat %>%
   filter(dist_ratio <= 0.5) %>%
   select(`ID`,`Hospital overall rating`,`MORT Better %`, `MORT Worse %`,`Safety Better %`,`Safety Worse %`,`READM Better %`,`READM Worse %`) %>% 
   left_join(dat,., by = "ID") -> dat
-
