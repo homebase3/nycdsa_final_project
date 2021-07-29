@@ -15,7 +15,7 @@ from selenium import webdriver
 driver = webdriver.Firefox()
 
 # %%
-driver.get('https://www.residencyexplorer.org/Explore')
+driver.get('https://services.aamc.org/eras/erasstats/par/index.cfm?NAV_ROW=PAR')
 
 # %%
 soup = BeautifulSoup(driver.page_source,'html.parser')

@@ -59,3 +59,86 @@ lgbt_data %>%
   mutate(MSA = str_sub(Data,1, percent_key -4)) %>% 
   mutate(State = str_sub(MSA, -3, -2)) %>% 
   write.csv('lgbt_data_with_MSA.csv')
+
+# Program geocodes
+file_list <- list.files("data/AAMC")
+
+for (num in seq_along(file_list)) {
+  read_excel(paste0("data/AAMC/",file_list[num])) %>% 
+    colnames(.)[1] %>% 
+    colnames(.) %>% 
+    gsub(".*: ","",.) -> specialty_name
+  
+  read_excel(paste0("data/AAMC/",file_list[num]),skip = 1)  %>% 
+    colnames(.) %>% 
+    .[-1] -> ID
+  
+  read_excel(paste0("data/AAMC/",file_list[num]), skip = 1) %>% 
+    t(.) %>% 
+    as.data.frame(.) %>% 
+    row_to_names(row_number = 1) %>% 
+    mutate(Specialty = specialty_name, .before = 1) %>% 
+    mutate(ID = ID, .before = 1)-> out
+  
+  if(num == 1) {
+    dat <- out
+  } else {
+    dat <- bind_rows(dat,out)
+  }
+}
+
+# Remove duplicates and check to ensure have the correct number of programs in each speciality
+dat_geocodes <- unique(dat)
+
+dat_geocodes %<>% 
+  select(1:6) %>% 
+  mutate(submit = paste(str_sub(`Residency program name`,1,-9),City,State, Zip,"USA", sep = ", ")) %>% 
+  .[!duplicated(.$submit),] %>% 
+  mutate(len_submit = sapply(strsplit(submit, " "), length)) %>% 
+  mutate(submit_adj = if_else(len_submit > 20, paste(str_sub(`Residency program name`,1,-9), Zip,"USA", sep = ", "),submit )) 
+
+row.names(dat_geocodes) <- NULL
+
+
+### Expensive code
+len_run <- 100
+runs <- ceiling(nrow(dat_geocodes)/len_run)
+out <- list()
+for (i in 1:runs) {
+  out[[i]] <- sapply(dat_geocodes$submit_adj[(len_run*(i-1) + 1):min(nrow(dat_geocodes),len_run*i)], mb_geocode)
+}
+### 
+
+for (i in 1:runs) {
+  if (i == 1) {
+    out_full <- as.data.frame(out[[i]])
+  } else {
+    out_full <- bind_cols(out_full, as.data.frame(out[[i]]))
+  }
+}
+
+
+t(out_full) %>%
+  as.data.frame(.) %>% 
+  mutate(submit_adj = row.names(.)) %>% 
+  rename(longitude = V1) %>% 
+  rename(latitude = V2) %>% 
+  select(submit_adj, longitude, latitude) %>% 
+  left_join(dat_geocodes,.) %>% 
+  select(ID, longitude, latitude) %>% 
+  write.csv(., "geo/program_geocodes.csv")
+
+
+#NIH geocodes
+NIH <- read_excel("data/brimr/Worldwide_2019.xls", skip = 1)
+
+NIH %>% 
+  mutate(submit = if_else(is.na(`ZIP CODE`),
+                          str_c(`ORGANIZATION NAME`,CITY,`STATE OR COUNTRY NAME`, sep = ", "),
+                          str_c(`ORGANIZATION NAME`,CITY,`STATE OR COUNTRY NAME`,`ZIP CODE`, sep = ", "))) %>% 
+  .[!duplicated(.),] %>% 
+  .$submit %>% 
+  unique(.)
+
+
+  

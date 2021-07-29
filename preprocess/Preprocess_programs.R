@@ -501,3 +501,34 @@ eraslinks %>%
   rename(`Program website` = `Program website.x`) %>% 
   rename(Status = Status.x) -> missing_programs
 
+# Read in Doximity links
+Doximity_links <- read_csv("data/Doximity/Doximity_links.csv")
+
+dat %>% 
+  select(Specialty) %>% 
+  unique(.) %>% 
+  stringdist_left_join(.,unique(select(Doximity_links,Specialty)), distance_col = "match_distance",max_dist = 20) %>% 
+  .[order(.$Specialty.x,.$match_distance),] %>%
+  .[!duplicated(.$Specialty.x),] %>% 
+  rename(Specialty = Specialty.x) %>% 
+  rename(Doximity_specialty = Specialty.y) %>% 
+  select(-match_distance)-> doximity_name_helper
+
+row.names(doximity_name_helper) <- NULL
+doximity_name_helper[doximity_name_helper$Specialty == "Otolaryngology - Head and Neck Surgery", 2] <- "Otolaryngology"
+doximity_name_helper[doximity_name_helper$Specialty == "Surgery-General - Categorical Track", 2] <- "Surgery"
+doximity_name_helper[doximity_name_helper$Specialty == "Surgery-General - Preliminary Track", 2] <- "Surgery"
+doximity_name_helper[doximity_name_helper$Specialty == "Transitional Year", 2] <- NA
+
+
+dat %>% 
+  left_join(doximity_name_helper) %>% 
+  mutate(`Program name` = str_sub(`Residency program name`,1,-9)) %>% 
+  select(ID, Doximity_specialty, `Program name`) %>% 
+  drop_na(.) %>% 
+  stringdist_left_join(.,select(Doximity_links,-...1), by = c("Doximity_specialty" = "Specialty", "Program name" = "Program name" ), distance_col = "match_distance",max_dist = c(0,1)) %>% 
+  filter(`Doximity_specialty.match_distance` == 0) %>% 
+  .[order(.$`Program name.x`,.$`Program name.match_distance`),] %>%
+  .[!duplicated(.$`ID`),] %>% 
+  select(ID,`Doximity link`) %>% 
+  left_join(dat,.) -> dat

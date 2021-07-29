@@ -30,3 +30,13 @@ e@https://db4z6a5e2pfi5.cloudfront.net/packs/js/dox_analytics_init-2b91a62f3916f
 
 JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
 JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: resource://devtools/server/actors/network-monitor/network-event-actor.js, line 108: Error: Got a request https://d21bwsro39u3ec.cloudfront.net/assets/application-5b874d28309fa53a5f17ef944ac4bb35e4354fd99177dc633520ff88e2ce0b0b.css without a browsingContextID set
+JavaScript error: resource://devtools/server/actors/network-monitor/network-event-actor.js, line 108: Error: Got a request https://d21bwsro39u3ec.cloudfront.net/assets/program_search-f46e344bc800d2e268e1f36ace53b1c093b26967b277ba20b98e009f75c647e0.css without a browsingContextID set
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x6B0025,name=PNecko::Msg_RemoveRequestContext) Channel closing: too late to send/recv, messages will be lost
+
+1627522766676	Marionette	INFO	Stopped listening on port 45579
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
