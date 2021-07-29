@@ -454,3 +454,50 @@ dat %>%
   filter(dist_ratio <= 0.5) %>%
   select(`ID`,`Hospital overall rating`,`MORT Better %`, `MORT Worse %`,`Safety Better %`,`Safety Worse %`,`READM Better %`,`READM Worse %`) %>% 
   left_join(dat,., by = "ID") -> dat
+
+# read in ERAS links
+file_list <- list.files("data/ERAS_links")
+for (num in seq_along(file_list)) {
+  read_csv(paste0("data/ERAS_links/",file_list[num])) -> out
+  
+  out %<>% 
+    mutate(Specialty =  str_sub(gsub("-","/",file_list[num]),1,-5)) %>% 
+    mutate_at(vars("ID", "ERAS link"), as.character)  %>% 
+    # filter(Status == "Participating") %>% 
+    select(-Blank) %>% 
+    select(ID, Specialty, `Program name`, City, State, `ERAS link`, Status) %>% 
+    rename(`Program website` = `ERAS link`)
+  
+  if(num == 1) {
+    eraslinks <- out
+  } else {
+    eraslinks <- bind_rows(eraslinks,out)
+  }
+}
+
+eraslinks_join <- eraslinks %>%  
+  select(ID, `Program website`,Status) 
+
+dat %>% 
+  mutate(ID2 = gsub("[^[:digit:]., ]", "", ID)) %>% #deal with categorical vs. preliminary codes
+  left_join(eraslinks_join, by = c("ID2" = "ID")) %>% 
+  select(-ID2)
+
+dat_keys <- dat %>% 
+  mutate(key= str_sub(ID,1,3)) %>% 
+  select(key) %>% 
+  unique(.) %>% 
+  .[[1]]
+
+eraslinks %>% 
+  mutate(key= str_sub(ID,1,3)) %>%
+  filter(key %in% dat_keys) %>% 
+  left_join(., mutate(dat, ID2 = gsub("[^[:digit:]., ]", "", ID)),by = c("ID" = "ID2")) %>% 
+  filter(is.na(Specialty.y)) %>% 
+  select(1:7) %>% 
+  rename(Specialty = Specialty.x) %>% 
+  rename(City = City.x) %>% 
+  rename(State = State.x) %>% 
+  rename(`Program website` = `Program website.x`) %>% 
+  rename(Status = Status.x) -> missing_programs
+

@@ -30,9 +30,9 @@ library(reticulate)
 library(flexdashboard)
 library(shiny)
 library(reactable)
-library(shinydashboardPlus)
 library(bsplus)
 library(dqshiny)
+library(DT)
 
 # load functions and objects
 base<- "/home/justin/Documents/Data Science Bootcamp/Final project/nycdsa_final_project/"
@@ -255,18 +255,32 @@ dq_accordion("myAccordion2", c("a","b"), c(1,2),
       )
 ```
 
+
+### Test text
+
+```{r}
+renderText({
+  input$table_rows_selected
+})
+```
+
 Row {data-height=800}
 --------------
 
 ### Test
 
 ```{r}
-output$table <- renderReactable({
-  reactable(dat_list[[input$specialty]],
-            onClick = "select",
-            selection = "multiple")
+output$table <- renderDT({
+  datatable(dat_list[[input$specialty]], 
+            style = 'bootstrap',
+            extensions = c('Buttons','Responsive'), options = list(dom = 'Bfrtip', buttons = I('colvis')))
 })
-reactableOutput("table")
+DTOutput("table")
 ```
 
 
+
+Test page
+=====
+
+<a target="_blank" href="https://www.residencyexplorer.org/Program/GetById/4979">Link</a>
