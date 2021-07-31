@@ -54,6 +54,15 @@ dat %<>%
   select(-contains("Comparison to Matched Applicants:")) %>% 
   arrange(Specialty, `Residency program name`)
 
+# layer in geocodes
+program_geocodes <- read_csv("data/geo/program_geocodes.csv") %>% 
+  select(-...1)
+dat %<>%
+  mutate(submit = paste(str_sub(`Residency program name`,1,-9),City,State, Zip,"USA", sep = ", ")) %>% 
+  mutate(len_submit = sapply(strsplit(submit, " "), length)) %>% 
+  mutate(submit_adj = if_else(len_submit > 20, paste(str_sub(`Residency program name`,1,-9), Zip,"USA", sep = ", "),submit )) %>% 
+  left_join(program_geocodes)
+
 # Process and join link files
 file_list <- list.files("data/AAMC_links")
 for (num in seq_along(file_list)) {
@@ -84,21 +93,29 @@ NIH_cleaning_func <- function(df) {
   mutate(org_cleaned = lapply(`ORGANIZATION NAME`, function(word) removeWords(word,stopwords))) %>% 
   return(.)
 }
+NIH_geocodes <- read_csv("data/geo/NIH_geocodes.csv") %>% 
+  select(-...1)
 
+NIH %<>% 
+  left_join(NIH_geocodes)
 
 totals <- NIH %>% 
-  group_by(`ORGANIZATION NAME`,`ORGANIZATION ID (IPF)`, `ZIP CODE`) %>% 
+  group_by(`ORGANIZATION NAME`,`ORGANIZATION ID (IPF)`, longitude, latitude) %>% 
   summarize(tot = sum(FUNDING, na.rm = T)) %>% 
+  ungroup() %>% 
   NIH_cleaning_func()
 
 nih_specialty_lookup <- read_csv("data/brimr/nih_specialty_lookup.csv")
 
 spec_totals <- NIH %>% 
   left_join(nih_specialty_lookup,by = "NIH DEPT COMBINING NAME") %>% 
-  group_by(`ORGANIZATION ID (IPF)`, `Specialty`) %>% 
+  group_by(`ORGANIZATION NAME`, `ORGANIZATION ID (IPF)`, `Specialty`,  longitude, latitude) %>% 
   summarize(`2019 NIH specialty funding` = sum(FUNDING))
 
-
+# NIH_geocodes %>% 
+#   select(latitude) %>% 
+#   is.na %>% 
+#   sum
 ## Read in Zip codes and make sure both orders of pairs are included
 ZIPdb <- read_excel("data/geo/zip_code_database.xls")
 ZIPdb_longlat <- ZIPdb %>% 
@@ -109,26 +126,42 @@ ZIPdb_longlat <- ZIPdb %>%
 dat %<>%
   mutate(`Residency program name_lower` = tolower(`Residency program name`)) %>%
   mutate_at(vars("Residency program name_lower"), ~gsub("[[:punct:][:blank:]]+", " ",.)) %>%
-  mutate(org_cleaned = lapply(`Residency program name_lower`, function(word) removeWords(word,stopwords))) %>% 
-  stringdist_left_join(totals, by = c("org_cleaned"), distance_col = "match_distance",max_dist = 10) %>%
-  mutate(zip1 = str_sub(Zip,1,5)) %>%
-  mutate(zip2 = str_sub(`ZIP CODE`,1,5)) %>%
-  filter(str_length(zip1) == 5) %>%
-  filter(str_length(zip2) == 5) %>%
-  # mutate_at(vars(zip1,zip2), as.numeric) %>%
-  left_join(.,ZIPdb_longlat, by = c("zip1" = "zip")) %>%
-  left_join(.,ZIPdb_longlat, by = c("zip2" = "zip")) %>%
-  mutate(geo_distance = distHaversine(bind_cols(longitude.x,latitude.x),bind_cols(longitude.y,latitude.y))*0.0006213712) %>%
-  filter(geo_distance <= 5) %>%
-  .[order(.$Specialty,.$`Residency program name`,.$match_distance),] %>%
-  .[!duplicated(.$ID),] %>% 
-  mutate(str_length = pmax(str_length(org_cleaned.x), str_length(org_cleaned.y))) %>% 
-  mutate(dist_ratio = match_distance / str_length) %>%
-  filter(dist_ratio <= 0.5) %>% 
-  select(ID, `ORGANIZATION ID (IPF)`, tot) %>% 
-  rename(`2019 NIH total funding` = tot) %>% 
-  left_join(dat,.,by = "ID") %>% 
-  left_join(.,spec_totals, by = c("Specialty", "ORGANIZATION ID (IPF)")) #specialty-funding
+  mutate(org_cleaned = as.character(sapply(`Residency program name_lower`, function(word) removeWords(word,stopwords)))) %>%
+  geo_left_join(.,totals[!is.na(totals$longitude),], max_dist = 5, distance_col = "match_distance",by= c("longitude","latitude")) %>% 
+  mutate(string_dist = stringdist(org_cleaned.x,org_cleaned.y, method = "jw")) %>%
+  filter(string_dist <0.35) %>% 
+  .[order(.$Specialty,.$`Residency program name`,.$string_dist),] %>%
+  .[!duplicated(.$ID),] %>%
+  select(ID, `ORGANIZATION ID (IPF)`, tot) %>%
+  rename(`2019 NIH total funding` = tot) %>%
+  left_join(dat,.,by = "ID") %>%
+  left_join(.,spec_totals, by = c("Specialty", "ORGANIZATION ID (IPF)")) %>% #specialty-funding 
+  .[!duplicated(.$ID),] #assume first match for spec and organization ID is correct
+
+  
+# dat %<>%
+#   mutate(`Residency program name_lower` = tolower(`Residency program name`)) %>%
+#   mutate_at(vars("Residency program name_lower"), ~gsub("[[:punct:][:blank:]]+", " ",.)) %>%
+#   mutate(org_cleaned = lapply(`Residency program name_lower`, function(word) removeWords(word,stopwords))) %>% 
+#   stringdist_left_join(totals, by = c("org_cleaned"), distance_col = "match_distance",max_dist = 10) %>%
+#   mutate(zip1 = str_sub(Zip,1,5)) %>%
+#   mutate(zip2 = str_sub(`ZIP CODE`,1,5)) %>%
+#   filter(str_length(zip1) == 5) %>%
+#   filter(str_length(zip2) == 5) %>%
+#   # mutate_at(vars(zip1,zip2), as.numeric) %>%
+#   left_join(.,ZIPdb_longlat, by = c("zip1" = "zip")) %>%
+#   left_join(.,ZIPdb_longlat, by = c("zip2" = "zip")) %>%
+#   mutate(geo_distance = distHaversine(bind_cols(longitude.x,latitude.x),bind_cols(longitude.y,latitude.y))*0.0006213712) %>%
+#   filter(geo_distance <= 5) %>%
+#   .[order(.$Specialty,.$`Residency program name`,.$match_distance),] %>%
+#   .[!duplicated(.$ID),] %>% 
+#   mutate(str_length = pmax(str_length(org_cleaned.x), str_length(org_cleaned.y))) %>% 
+#   mutate(dist_ratio = match_distance / str_length) %>%
+#   filter(dist_ratio <= 0.5) %>% 
+#   select(ID, `ORGANIZATION ID (IPF)`, tot) %>% 
+#   rename(`2019 NIH total funding` = tot) %>% 
+#   left_join(dat,.,by = "ID") %>% 
+#   left_join(.,spec_totals, by = c("Specialty", "ORGANIZATION ID (IPF)")) #specialty-funding
 
 # Join in Board scores
 ## Family medicine
@@ -244,57 +277,56 @@ best_weather_geocode_match <- function(lat,lng) {
     return(.)
 }
 
-dat %<>%
-  mutate(zip5 = str_sub(Zip,1,5)) %>%
-  left_join(.,ZIPdb_longlat, by = c("zip5" = "zip")) %>% 
-  mutate(weather_key = mapply(best_weather_geocode_match, latitude, longitude)) 
-  
 dat %<>% 
-  mutate(weather_key_5 = str_sub(weather_key,1,5)) #separated to reduce key errors
+  left_join(program_geocodes) %>% 
+  mutate(weather_key = mapply(best_weather_geocode_match, latitude, longitude)) 
+#   
+# dat %<>% 
+#   mutate(weather_key_5 = str_sub(weather_key,1,5)) #separated to reduce key errors
 
 ## join in sun percentage
 sunny_percentage <- read_csv("data/weather/sunny_percentage.csv")
 sunny_percentage %>% 
   mutate(`Mean % sunny` = ANN/100) %>% 
-  mutate(weather_key_5 = str_sub(...1,1,5)) %>% 
-  select(weather_key_5, `Mean % sunny`) %>% 
+  mutate(weather_key = ...1) %>% 
+  select(weather_key, `Mean % sunny`) %>% 
   left_join(dat,.) -> dat
 
 ## join in precipitation data
 precipitation_days <- read_csv("data/weather/precipitation_days.csv")
 precipitation_days %>% 
   mutate(`% days with precipitation` = ANN/365.25) %>% 
-  mutate(weather_key_5 = str_sub(...1,1,5)) %>% 
-  select(weather_key_5, `% days with precipitation`) %>% 
+  mutate(weather_key = ...1) %>% 
+  select(weather_key, `% days with precipitation`) %>% 
   left_join(dat,.) -> dat
 
 ## join in snow
 snowfall_average <- read_csv("data/weather/snowfall_average.csv")
 snowfall_average %>% 
   mutate(`Annual snowfall` = ANN) %>% 
-  mutate(weather_key_5 = str_sub(...1,1,5)) %>% 
-  select(weather_key_5, `Annual snowfall`) %>% 
+  mutate(weather_key = ...1) %>% 
+  select(weather_key, `Annual snowfall`) %>% 
   left_join(dat,.) -> dat
 
 ## join in cold data
 mean_days_32 <- read_csv("data/weather/mean_days_<32.csv")
 mean_days_32 %>% 
   mutate(`% days below freezing` = ANN/365.25) %>% 
-  mutate(weather_key_5 = str_sub(...1,1,5)) %>% 
-  select(weather_key_5, `% days below freezing`) %>% 
+  mutate(weather_key = ...1) %>% 
+  select(weather_key, `% days below freezing`) %>% 
   left_join(dat,.) -> dat
 
 ## join in heat data
 mean_days_90 <- read_csv("data/weather/mean_days_>90.csv")
 mean_days_90 %>% 
   mutate(`% days above 90F` = ANN/365.25) %>% 
-  mutate(weather_key_5 = str_sub(...1,1,5)) %>% 
-  select(weather_key_5, `% days above 90F`) %>% 
+  mutate(weather_key = ...1) %>% 
+  select(weather_key, `% days above 90F`) %>% 
   left_join(dat,.) -> dat
 
 ## remove joining variables
 dat %<>%
-  select(-weather_key,-weather_key_5)
+  select(-weather_key)
 
 # Join in cost of living index
 ## Build cost of living lookup
@@ -309,6 +341,7 @@ best_cost_of_living_geocode_match <- function(lat,lng) {
 }
 
 dat %<>%
+  left_join(program_geocodes) %>% 
   mutate(cost_of_living_key = mapply(best_cost_of_living_geocode_match, latitude, longitude)) %>% 
   mutate_at(vars("cost_of_living_key"), as.character)
 
@@ -321,6 +354,9 @@ cost_of_living_index %>%
 
 # Join in geographical identifiers
 ## Join in FIPS
+dat %<>% 
+  mutate(zip5 = if_else(str_length(Zip)<5,as.character(NA),str_sub(Zip,1,5)))
+  
 ZIP_COUNTY_FIPS <- read_csv("data/geo/ZIP-COUNTY-FIPS_2018-03.csv")
 ZIP_COUNTY_FIPS %>% 
   .[!duplicated(.$ZIP),] %>% #Some ZIPs are in multiple counties. Assuming first county for simplicity
@@ -439,21 +475,37 @@ Hospital_General_Information %<>%
   mutate(org_cleaned = lapply(`org_cleaned`, function(word) removeWords(word,stopwords)))
 
 Hospital_General_Information$`Hospital overall rating`[Hospital_General_Information$`Hospital overall rating` == "Not Available"] <- NA
-  
+
+hospital_geocodes <- read_csv("data/geo/hospital_geocodes.csv") %>% 
+  select(-...1)
+
+Hospital_General_Information %<>% 
+  left_join(hospital_geocodes) %>% 
+  select(-`Facility ID`)
+
 dat %>%
+  select(-longitude.x,-latitude.x,-longitude.y,-latitude.y) %>% 
   mutate(`Residency program name_lower` = tolower(`Residency program name`)) %>%
   mutate_at(vars("Residency program name_lower"), ~gsub("[[:punct:][:blank:]]+", " ",.)) %>%
   mutate(org_cleaned = lapply(`Residency program name_lower`, function(word) removeWords(word,stopwords))) %>% 
-  stringdist_left_join(Hospital_General_Information, by = c("org_cleaned"), distance_col = "match_distance",max_dist = 10) %>% 
-  mutate(geo_distance = distHaversine(bind_cols(longitude.x,latitude.x),bind_cols(longitude.y,latitude.y))*0.0006213712) %>%
-  filter(geo_distance <= 2) %>% #reducing mile radius based on calibration by eye
-  .[order(.$Specialty,.$`Residency program name`,.$match_distance),] %>% 
+  geo_left_join(.,Hospital_General_Information[!is.na(Hospital_General_Information$longitude),], max_dist = 5, distance_col = "match_distance",by= c("longitude","latitude")) %>% 
+  mutate(string_dist = stringdist(org_cleaned.x,org_cleaned.y, method = "jw")) %>%
+  filter(string_dist <0.35) %>% 
+  .[order(.$Specialty,.$`Residency program name`,.$string_dist),] %>%
   .[!duplicated(.$ID),] %>%
-  mutate(str_length = pmax(str_length(org_cleaned.x), str_length(org_cleaned.y))) %>%
-  mutate(dist_ratio = match_distance / str_length) %>%
-  filter(dist_ratio <= 0.5) %>%
   select(`ID`,`Hospital overall rating`,`MORT Better %`, `MORT Worse %`,`Safety Better %`,`Safety Worse %`,`READM Better %`,`READM Worse %`) %>% 
   left_join(dat,., by = "ID") -> dat
+  
+# stringdist_left_join(Hospital_General_Information, by = c("org_cleaned"), distance_col = "match_distance",max_dist = 10) %>% 
+#   mutate(geo_distance = distHaversine(bind_cols(longitude.x,latitude.x),bind_cols(longitude.y,latitude.y))*0.0006213712) %>%
+#   filter(geo_distance <= 2) %>% #reducing mile radius based on calibration by eye
+#   .[order(.$Specialty,.$`Residency program name`,.$match_distance),] %>% 
+#   .[!duplicated(.$ID),] %>%
+#   mutate(str_length = pmax(str_length(org_cleaned.x), str_length(org_cleaned.y))) %>%
+#   mutate(dist_ratio = match_distance / str_length) %>%
+#   filter(dist_ratio <= 0.5) %>%
+#   select(`ID`,`Hospital overall rating`,`MORT Better %`, `MORT Worse %`,`Safety Better %`,`Safety Worse %`,`READM Better %`,`READM Worse %`) %>% 
+#   left_join(dat,., by = "ID") -> dat
 
 # read in ERAS links
 file_list <- list.files("data/ERAS_links")
@@ -478,10 +530,11 @@ for (num in seq_along(file_list)) {
 eraslinks_join <- eraslinks %>%  
   select(ID, `Program website`,Status) 
 
-dat %>% 
+dat %<>% 
   mutate(ID2 = gsub("[^[:digit:]., ]", "", ID)) %>% #deal with categorical vs. preliminary codes
   left_join(eraslinks_join, by = c("ID2" = "ID")) %>% 
-  select(-ID2)
+  select(-ID2) %>% 
+  .[!duplicated(.$ID),] #remove accidental duplicates in case of join IDs
 
 dat_keys <- dat %>% 
   mutate(key= str_sub(ID,1,3)) %>% 
@@ -498,7 +551,7 @@ eraslinks %>%
   rename(Specialty = Specialty.x) %>% 
   rename(City = City.x) %>% 
   rename(State = State.x) %>% 
-  rename(`Program website` = `Program website.x`) %>% 
+  rename(`Program website` = `Program website.x`) %>%
   rename(Status = Status.x) -> missing_programs
 
 # Read in Doximity links

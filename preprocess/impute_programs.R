@@ -21,10 +21,33 @@ library(FactoMineR)
 source('preprocess/Preprocess_programs.R')
 source('preprocess/Preprocess_residents.R')
 
-# correct not truly missing values
+# correct missing values that are not truly missing
 dat$`Number of current residents  who were graduates of a joint MD-PhD program`[
   is.na(dat$`Number of current residents  who were graduates of a joint MD-PhD program`)
 ] <- 0
+dat$`2019 NIH total funding`[is.na(dat$`2019 NIH total funding`)] <- 0
+dat$`2019 NIH specialty funding`[is.na(dat$`2019 NIH specialty funding`)] <- 0
+
+dat %<>% 
+  mutate(`# of positions offered by this program in the 2021 NRMP Main Match` = 
+           if_else(is.na(`# of positions offered by this program in the 2021 NRMP Main Match`),
+                   as.numeric(`# of categorical positions offered by this program in the 2021 NRMP Main Match`) +
+                     as.numeric(`# of advanced positions offered by this program in the 2021 NRMP Main Match`),
+                   as.numeric(`# of positions offered by this program in the 2021 NRMP Main Match`))) %>% 
+  mutate(`# of positions filled by this program in the 2021 NRMP Main Match` = 
+           if_else(is.na(`# of positions filled by this program in the 2021 NRMP Main Match`),
+                   as.numeric(`# of categorical positions filled by this program in the 2021 NRMP Main Match`) +
+                     as.numeric(`# of advanced positions filled by this program in the 2021 NRMP Main Match`),
+                   as.numeric(`# of positions filled by this program in the 2021 NRMP Main Match`)))
+
+dat %<>%
+  select(-`Percentage of matched applicants who were members of Sigma Sigma Phi (at the time of application)`)
+  
+
+# remove extraneous columns
+dat %<>% 
+  select(-submit, -len_submit, -submit_adj, -longitude.x,-longitude.y, -latitude.x,-latitude.y,-`ORGANIZATION NAME`,
+         -zip5, -`ORGANIZATION ID (IPF)`)
 
 ID_columns <- 
   c("ID", 
@@ -32,7 +55,8 @@ ID_columns <-
     "Residency program name",
     "STCOUNTYFP",
     "Metro Area Name",
-    "ORGANIZATION ID (IPF)"
+    "Program website",
+    "Doximity link"
   )
 extraneous_columns <- 
   c("Zip", 
@@ -51,6 +75,8 @@ extraneous_columns <-
 #   
 #   
 # )
+
+# correctly categorize columns as numeric and convert true character columns to factor
 
 dat %>% 
   select(-all_of(ID_columns)) %>% 

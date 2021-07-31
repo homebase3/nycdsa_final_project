@@ -101,44 +101,57 @@ row.names(dat_geocodes) <- NULL
 
 
 ### Expensive code
-len_run <- 100
-runs <- ceiling(nrow(dat_geocodes)/len_run)
-out <- list()
-for (i in 1:runs) {
-  out[[i]] <- sapply(dat_geocodes$submit_adj[(len_run*(i-1) + 1):min(nrow(dat_geocodes),len_run*i)], mb_geocode)
-}
+out <- sapply(dat_geocodes$submit_adj, mb_geocode)
 ### 
 
-for (i in 1:runs) {
-  if (i == 1) {
-    out_full <- as.data.frame(out[[i]])
-  } else {
-    out_full <- bind_cols(out_full, as.data.frame(out[[i]]))
-  }
-}
 
-
-t(out_full) %>%
+t(out) %>%
   as.data.frame(.) %>% 
   mutate(submit_adj = row.names(.)) %>% 
   rename(longitude = V1) %>% 
   rename(latitude = V2) %>% 
   select(submit_adj, longitude, latitude) %>% 
-  left_join(dat_geocodes,.) %>% 
-  select(ID, longitude, latitude) %>% 
   write.csv(., "geo/program_geocodes.csv")
 
 
 #NIH geocodes
 NIH <- read_excel("data/brimr/Worldwide_2019.xls", skip = 1)
 
-NIH %>% 
+NIH_geocode <- NIH %>% 
   mutate(submit = if_else(is.na(`ZIP CODE`),
                           str_c(`ORGANIZATION NAME`,CITY,`STATE OR COUNTRY NAME`, sep = ", "),
                           str_c(`ORGANIZATION NAME`,CITY,`STATE OR COUNTRY NAME`,`ZIP CODE`, sep = ", "))) %>% 
-  .[!duplicated(.),] %>% 
-  .$submit %>% 
-  unique(.)
+  .[!duplicated(.$submit),] 
 
+### Expensive code
+out <- sapply(NIH_geocode$submit, mb_geocode)
+###
 
-  
+t(out) %>%
+  as.data.frame(.) %>% 
+  mutate(submit = row.names(.)) %>% 
+  rename(longitude = V1) %>% 
+  rename(latitude = V2) %>% 
+  bind_cols(NIH_geocode,.) %>% 
+  select(`ORGANIZATION ID (IPF)`, longitude, latitude) %>% 
+  write.csv(., "data/geo/NIH_geocodes.csv")
+
+#Medicare
+Hospital_General_Information <- read_csv("data/hospitals/Hospital_General_Information.csv")
+
+hospital_geocode <- Hospital_General_Information %>% 
+  mutate(submit = paste(Address, City, State, ... = `ZIP Code`,sep=', ')) 
+
+### Expensive code
+out <- sapply(hospital_geocode$submit, mb_geocode)
+###
+
+t(out) %>%
+  as.data.frame(.) %>% 
+  mutate(submit = row.names(.)) %>% 
+  rename(longitude = V1) %>% 
+  rename(latitude = V2) %>% 
+  bind_cols(hospital_geocode,.) %>% 
+  unique(.) %>% 
+  select(`Facility ID`, `Facility Name`, longitude, latitude) %>% 
+  write.csv(., "data/geo/hospital_geocodes.csv")
