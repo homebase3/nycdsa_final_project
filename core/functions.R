@@ -76,3 +76,25 @@ score_overall <- function(scores,specialty_func,spec_dat_func,dists_func, weight
   adj <- weight * !is.na(vec)
   return(sum(vec, na.rm = T)/sum(adj, na.rm = T))
 }
+
+UI_code_gen <- function() {
+  for (group in filter_groups) {
+    cat("<details>\n")
+    cat(paste0("<summary>",group,"</summary>\n"))
+    cat("```{r}\n")
+    cat(paste0("uiOutput(paste0('UI_','",group,"'))"))
+    cat("\n```\n")
+    cat("</details>\n\n")
+  }
+}
+
+UI_code_gen_2 <- function() {
+  for (group in filter_groups) {
+    cat("<details>\n")
+    cat(paste0("<summary>",group,"</summary>\n"))
+    cat("```{r}\n")
+    cat(paste0("renderGroupUI('",group,"')"))
+    cat("\n```\n")
+    cat("</details>\n\n")
+  }
+}

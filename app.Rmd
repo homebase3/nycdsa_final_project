@@ -97,8 +97,29 @@ filter_groups <- unique(filters$Class) %>% .[!is.na(.)]
 filters %<>% 
   drop_na() %>%
   arrange(Colname)
-filter_groups <- unique(filters$Class)
 classes <- lapply(imputed_df_list[[1]], class)
+UI_helper_func <- function(var) {
+  if (!is.null(classes[[var]])) {
+      if (as.character(classes[[var]]) == "numeric") {
+        min <- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T))
+        max <- ceiling(max(combined_df_list[[input$specialty]][[var]], na.rm = T))
+        sliderInput(var,var,min,max,c(min,max),round=T)
+    } else {
+        vals <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
+        pickerInput(var,var, choices=vals,selected = vals, multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10, `selected-text-format` = "count > 3"))
+    }
+  }
+
+}
+renderGroupUI <- function(group) {
+  renderUI({
+    filters %>% 
+      filter(Class %in% group) %>% 
+      dplyr::select(Colname) %>% 
+      .[[1]] -> vars_ 
+    lapply(vars_, UI_helper_func)
+  })
+}
 ```
 
 Applicant competitiveness
@@ -297,38 +318,110 @@ renderUI({
 })
 ```
 
-
 <details>
-    <summary>Program size</summary>
+<summary>Program basics</summary>
 ```{r}
-renderUI({
-  filters %>% 
-    filter(Class == "Program size") %>% 
-    dplyr::select(Colname) %>% 
-    .[[1]] %>% 
-    lapply(., function(var) {
-      if (classes[[var]] %in% c("character","factor")) {
-        vals <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
-        pickerInput(var,var, choices=vals,selected = vals, multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10, `selected-text-format` = "count > 3"))
-      } else {
-        min <- min(combined_df_list[[input$specialty]][[var]], na.rm = T)
-        max <- max(combined_df_list[[input$specialty]][[var]], na.rm = T)
-        sliderInput(var,var,min,max,c(min,max))
-      }
-      }
-    )
-})
-#   pickerInput("test","ID", choices=unique(combined_df_list[[input$specialty]]$ID),selected = unique(combined_df_list[[input$specialty]]$`ID`),  multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,
-#     `selected-text-format` = "count > 3"))
-# })
+renderGroupUI('Program basics')
 ```
 </details>
 
-<!-- ```{r} -->
-<!-- py$models$`Internal Medicine - Categorical Track`$recommend_from_interactions(observed_items=list('1400531051C'),k=as.integer(1000))$to_dataframe()[,c("ID","rank")] %>%  -->
-<!--   as.data.frame(.) %>%  -->
-<!--   rename(recommend_rank = rank) -->
-<!-- ``` -->
+<details>
+<summary>Geography</summary>
+```{r}
+renderGroupUI('Geography')
+```
+</details>
+
+<details>
+<summary>Resident demographics</summary>
+```{r}
+renderGroupUI('Resident demographics')
+```
+</details>
+
+<details>
+<summary>Accreditation</summary>
+```{r}
+renderGroupUI('Accreditation')
+```
+</details>
+
+<details>
+<summary>Program size</summary>
+```{r}
+renderGroupUI('Program size')
+```
+</details>
+
+<details>
+<summary>Applicant competitiveness</summary>
+```{r}
+renderGroupUI('Applicant competitiveness')
+```
+</details>
+
+<details>
+<summary>International student considerations</summary>
+```{r}
+renderGroupUI('International student considerations')
+```
+</details>
+
+<details>
+<summary>Program experience</summary>
+```{r}
+renderGroupUI('Program experience')
+```
+</details>
+
+<details>
+<summary>Research</summary>
+```{r}
+renderGroupUI('Research')
+```
+</details>
+
+<details>
+<summary>Teaching</summary>
+```{r}
+renderGroupUI('Teaching')
+```
+</details>
+
+<details>
+<summary>Weather</summary>
+```{r}
+renderGroupUI('Weather')
+```
+</details>
+
+<details>
+<summary>Cost of living</summary>
+```{r}
+renderGroupUI('Cost of living')
+```
+</details>
+
+<details>
+<summary>County health characteristics</summary>
+```{r}
+renderGroupUI('County health characteristics')
+```
+</details>
+
+<details>
+<summary>County demographics</summary>
+```{r}
+renderGroupUI('County demographics')
+```
+</details>
+
+<details>
+<summary>Hospital outcomes</summary>
+```{r}
+renderGroupUI('Hospital outcomes')
+```
+</details>
 
 Row {data-height=150}
 -----
@@ -405,9 +498,7 @@ observeEvent(input$specialty,{
   selectedIDs(c())
   difficulty_counts(list("Reach" = 0,"Target" = 0, "Safer" = 0))
 })
-
 ```
-
 
 ### Reach program
 
@@ -435,22 +526,6 @@ output$valuebox_safer <- renderValueBox({
 })
 valueBoxOutput("valuebox_safer")
 ```
-
-<!-- ### Test 1a -->
-<!-- ```{r} -->
-<!-- renderPrint({ -->
-<!--   py$models[[input$specialty]]$recommend_from_interactions(observed_items=as.list(selectedIDs()),k=as.integer(1000))$to_dataframe()[,] -->
-<!-- }) -->
-<!-- ``` -->
-
-<!-- ### Test 2 -->
-
-<!-- ```{r} -->
-<!-- renderDT({ -->
-<!--   val <- to_join() -->
-<!--   datatable(val) -->
-<!-- }) -->
-<!-- ``` -->
 
 Row {data-height=800}
 -----
@@ -483,26 +558,27 @@ output$table <- DT::renderDT({
     relocate(City, .after=`Residency program name`)
   
   #filter core dataframe
-  for (group in c("Program size")) {
+  for (group in filter_groups) {
     vars_ <- filters %>% 
       filter(Class == group) %>% 
       dplyr::select(Colname) %>% 
       .[[1]]
     for (var in vars_) {
-      if (classes[[var]] %in% c("character","factor")) {
-        df %<>%
-          filter_at(vars(var), any_vars((. %in% input[[var]])))
-      } else {
-        df %<>%
-          filter_at(vars(var), any_vars((. >= input[[var]][1] & . <= input[[var]][2])))
+      if (!is.null(classes[[var]])) {
+        if (classes[[var]] %in% c("character","factor")) {
+          df %<>%
+            filter_at(vars(var), any_vars((. %in% input[[var]])))
+          } else {
+            df %<>%
+              filter_at(vars(var), any_vars((. >= input[[var]][1] & . <= input[[var]][2])))
+          }
       }
     }
   }
 
   # create and style DR
   val <- to_join()
-  vis <- c("Range","Residency program name", "City", "State", "Overall rank","Program","Freida","AAMC","Doximity",
-           "# Residents on Duty Year 1","Current residents Step 1 range")
+  vis <- c("Range","Residency program name", "City", "State", "Overall rank","Program website","Freida","AAMC link","Doximity link", "# Residents on Duty Year 1","Range of average USMLE Step 1 score of current residents")
   df %<>%
     dplyr::select(.,-any_of(c("recommend_rank"))) %>%
     left_join(.,val,by="ID")  %>%
@@ -529,18 +605,18 @@ output$table <- DT::renderDT({
   colname_change_list[["Doximity link"]] <- "Doximity"
   colname_change_list[["# Residents on Duty Year 1"]] <- "# Year 1 Residents"
   colname_change_list[["Range of average USMLE Step 1 score of current residents"]] <- "Current residents Step 1 range"
-  colname_change_vec <- as.numeric(lapply(names(colname_change_list), function(i) which(colnames(df) %in% i)))
+  colname_change_vec <- as.numeric(lapply(names(colname_change_list), function(i) which(colnames(df) == i) + 1))
   names(colname_change_vec) <- as.character(colname_change_list)
 
   # create datatable
   datatable(df, escape = F,
+            colnames = colname_change_vec,
             options= list(autoWidth = TRUE, 
                           columnDefs = list(list(visible=FALSE, targets=c(to_hide1,to_hide2,to_hide3))),
                           order = list(list(ncol(df),'desc'),list(ncol(df)-1,'asc'))),
             extensions = 'Responsive',
             class = "display nowrap",
-            selection = list(mode = "multiple", target = "row", selected = selectedRows),
-            colnames = colname_change_vec) %>% 
+            selection = list(mode = "multiple", target = "row", selected = selectedRows)) %>% 
     formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff")))
   
   }
