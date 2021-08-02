@@ -1,11 +1,42 @@
 ---
 title: "2021 Residency selection tool"
+runtime: shiny
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
+    theme:
+      version: 4
+      bootswatch: cosmo
     vertical_layout: fill
-    css: assets/extra.css
-runtime: shiny
+---
+<style>
+.html-widget.gauge {
+  height: 100%; /*or try sth like 320px instead of 100%, whatever you prefer*/
+}
+
+.html-widget.gauge svg {
+  height: 100%; /*or try sth like 320px instead of 100%, whatever you prefer*/
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.btn-1 {
+  background-color: #1F2041;
+  color: #fff;
+}
+.btn-2 {
+  background-color: #4B3F72;
+  color: #fff;
+}
+.btn-3 {
+  background-color: #119DA4;
+  color: #fff;
+}
+.btn-4 {
+  background-color: #19647E;
+  color: #fff;
+}
+</style>
 ---
 
 ```{r setup, include=FALSE}
@@ -31,15 +62,43 @@ library(flexdashboard)
 library(shiny)
 library(reactable)
 library(bsplus)
-library(dqshiny)
 library(DT)
+library(shiny)
+library(shinyWidgets)
+library(datamods)
+library(MASS)
+library(datamods)
+library(crosstalk)
+library(bslib)
+library(thematic)
+library(reticulate)
+library(stringr)
 
 # load functions and objects
 base<- "/home/justin/Documents/Data Science Bootcamp/Final project/nycdsa_final_project/"
 for (obj in list.files(paste0(base,'objects/'))) {
   load(paste0(base,'objects/',obj))
 }
+
 source("core/functions.R")
+bslib::bs_themer()
+```
+
+```{python import_models, include = FALSE}
+import turicreate as tc
+models = dict()
+for key in r.dat_list.keys():
+  models[key] = tc.load_model(r.base + 'models/' + key + '/')
+```
+
+```{r}
+filters <- read_csv("config/filters.csv")
+filter_groups <- unique(filters$Class) %>% .[!is.na(.)]
+filters %<>% 
+  drop_na() %>%
+  arrange(Colname)
+filter_groups <- unique(filters$Class)
+classes <- lapply(imputed_df_list[[1]], class)
 ```
 
 Applicant competitiveness
@@ -111,17 +170,18 @@ Row {data-height=300}
 
 ### Overall score
 ```{r}
-renderValueBox({
+output$valuebox <- renderValueBox({
   c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>% 
     score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights) %>%
     `*`(100) -> score
+  col <- if_else(score >= 50, "#3fb618", if_else(score >= 20, "#ff7518", "#ff0039"))
   score %>% 
     round(.) %>% 
     scales::ordinal(.) %>% 
-    tags$p(., style = "font-size: 200%;") %>% 
-    valueBox(., caption = tags$p(paste0("percentile overall in ",input$specialty),style = "font-size: 150%;"), icon = 'fa-star', color = ifelse(score <= 20, "danger", if_else(score <= 50, "warning", "success")),
-             href = NULL)
+    tags$p(., style = "font-size: 200%; color: #fff") %>% 
+    valueBox(., caption = tags$p(paste0("percentile overall in ",input$specialty),style = "font-size: 150%; color: #fff"), icon = 'fa-star', color = col, href = NULL)
 })
+valueBoxOutput("valuebox")
 ```
 
 Row {data-height=300}
@@ -223,64 +283,374 @@ renderGauge({
 Select programs
 ================
 
-
-Row  {data-height=200}
------
-### Test 2
-
+Input {.sidebar data-width=300}
+--------------------
 ```{r}
-# renderText({
-#   getReactableState("table", "selected")
-# })
-bs_accordion(id = "bootstrap_types") %>%
-  bs_set_opts(panel_type = "default") %>%
-  bs_append(title = "Default", content = NULL) %>%
-  bs_set_opts(panel_type = "primary") %>%
-  bs_append(title = "Primary", content = NULL) %>%
-  bs_set_opts(panel_type = "success") %>%
-  bs_append(title = "Success", content = NULL) %>%
-  bs_set_opts(panel_type = "info") %>%
-  bs_append(title = "Info", content = NULL) %>%
-  bs_set_opts(panel_type = "warning") %>%
-  bs_append(title = "Warning", content = NULL) %>%
-  bs_set_opts(panel_type = "danger") %>%
-  bs_append(title = "Danger", content = NULL)
-```
-
-### Test 3
-```{r}
-dq_accordion("myAccordion2", c("a","b"), c(1,2),
-        bg_color = NULL, options = list(animate = 500, collapsible = TRUE),
-        icons = c(open = "hand-point-down", closed = "hand-point-right")
-      )
-```
-
-
-### Test text
-
-```{r}
-renderText({
-  input$table_rows_selected
+renderUI({
+  actionButton("button","Make recommendations and resort")
 })
 ```
+
+```{r}
+renderUI({
+  downloadButton("downloadData", "Download selections")
+})
+```
+
+
+<details>
+    <summary>Program size</summary>
+```{r}
+renderUI({
+  filters %>% 
+    filter(Class == "Program size") %>% 
+    dplyr::select(Colname) %>% 
+    .[[1]] %>% 
+    lapply(., function(var) {
+      if (classes[[var]] %in% c("character","factor")) {
+        vals <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
+        pickerInput(var,var, choices=vals,selected = vals, multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10, `selected-text-format` = "count > 3"))
+      } else {
+        min <- min(combined_df_list[[input$specialty]][[var]], na.rm = T)
+        max <- max(combined_df_list[[input$specialty]][[var]], na.rm = T)
+        sliderInput(var,var,min,max,c(min,max))
+      }
+      }
+    )
+})
+#   pickerInput("test","ID", choices=unique(combined_df_list[[input$specialty]]$ID),selected = unique(combined_df_list[[input$specialty]]$`ID`),  multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,
+#     `selected-text-format` = "count > 3"))
+# })
+```
+</details>
+
+<!-- ```{r} -->
+<!-- py$models$`Internal Medicine - Categorical Track`$recommend_from_interactions(observed_items=list('1400531051C'),k=as.integer(1000))$to_dataframe()[,c("ID","rank")] %>%  -->
+<!--   as.data.frame(.) %>%  -->
+<!--   rename(recommend_rank = rank) -->
+<!-- ``` -->
+
+Row {data-height=150}
+-----
+
+```{r server_logic, include = F}
+# keep track of selections
+`%notin%` <- Negate(`%in%`)
+
+#initialize reactive vals
+to_join <- reactiveVal(data.frame(ID = "", recommend_rank=0))
+selectedID_list <- reactiveVal()
+selectedIDs <- reactiveVal()
+difficulty_counts <- reactiveVal(list("Reach" = 0,"Target" = 0, "Safer" = 0))
+df_save <- reactiveVal()
+
+# initialize global variables
+hardcode_selectedIDs <- NULL
+
+#log selections
+observeEvent(input$table_row_last_clicked,{
+  ID <- as.character(combined_df_list[[input$specialty]][input$table_row_last_clicked,"ID"])
+  if (ID %notin% names(selectedID_list())) {
+    lis_ <- selectedID_list()
+    lis_[[ID]] <- 1
+    selectedID_list(lis_)
+  } else {
+    lis_ <- selectedID_list()
+    lis_[[ID]] <- lis_[[ID]] + 1
+    selectedID_list(lis_)
+  }
+  newVal <- names(selectedID_list())[as.vector(unlist(lapply(selectedID_list(),function(i) mod(i,2)==1)))]
+  selectedIDs(newVal)
+  harcode_selectedIDs <<- selectedIDs()
+  
+  #make scoring calculations
+  score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>% 
+    score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights)
+  safer <- pnorm(qnorm(score) - input$rangeset)
+  reach <- pnorm(qnorm(score) + input$rangeset)
+  
+  combined_df_list[[input$specialty]] %>% 
+    mutate(Range = if_else(Overall_score > reach, "Reach", if_else(Overall_score > safer, "Target","Safer")), .before=1) %>% 
+    filter(ID %in% selectedIDs()) %>% 
+    dplyr::select(Range) %>% 
+    table(.) -> value_counts
+  
+  new_lis <- list("Reach" = 0,"Target" = 0, "Safer" = 0)
+  for (name in c("Reach","Target","Safer")) {
+    if (name %in% names(value_counts)) {
+      new_lis[[name]] <- value_counts[[name]][[1]]
+    }
+  }
+  difficulty_counts(new_lis)
+  
+  #prepare download helper
+  data <- reactive({
+    out <- df_save() 
+    out %>% 
+      filter(ID %in% selectedIDs())
+  })
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      paste0(Sys.Date(), "_output.csv")
+    },
+    content = function(file) {
+      vroom::vroom_write(data(), file, delim = ",")
+    }
+)
+})
+
+#reinitialize selections if specialty is switched
+observeEvent(input$specialty,{
+  selectedID_list(list())
+  selectedIDs(c())
+  difficulty_counts(list("Reach" = 0,"Target" = 0, "Safer" = 0))
+})
+
+```
+
+
+### Reach program
+
+```{r}
+output$valuebox_reach <- renderValueBox({
+    valueBox(tags$p(difficulty_counts()[["Reach"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("reach programs selected"),style = "font-size: 150%; color: #fff"), color = "info", href = NULL)
+})
+valueBoxOutput("valuebox_reach")
+```
+
+### Target program
+
+```{r}
+output$valuebox_target <- renderValueBox({
+    valueBox(tags$p(difficulty_counts()[["Target"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("target programs selected"),style = "font-size: 150%; color: #fff"), color = "warning", href = NULL)
+})
+valueBoxOutput("valuebox_target")
+```
+
+### Safer program
+
+```{r}
+output$valuebox_safer <- renderValueBox({
+    valueBox(tags$p(difficulty_counts()[["Safer"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("safer programs selected"),style = "font-size: 150%; color: #fff"), color = "success", href = NULL)
+})
+valueBoxOutput("valuebox_safer")
+```
+
+<!-- ### Test 1a -->
+<!-- ```{r} -->
+<!-- renderPrint({ -->
+<!--   py$models[[input$specialty]]$recommend_from_interactions(observed_items=as.list(selectedIDs()),k=as.integer(1000))$to_dataframe()[,] -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- ### Test 2 -->
+
+<!-- ```{r} -->
+<!-- renderDT({ -->
+<!--   val <- to_join() -->
+<!--   datatable(val) -->
+<!-- }) -->
+<!-- ``` -->
 
 Row {data-height=800}
---------------
-
-### Test
-
+-----
+### 
 ```{r}
-output$table <- renderDT({
-  datatable(dat_list[[input$specialty]], 
-            style = 'bootstrap',
-            extensions = c('Buttons','Responsive'), options = list(dom = 'Bfrtip', buttons = I('colvis')))
+observeEvent(input$button,{
+  #join recommendations to the dataframe
+  inter <- py$models[[input$specialty]]$recommend_from_interactions(observed_items=as.list(selectedIDs()),k=as.integer(1000))$to_dataframe()[,] %>% 
+    as.data.frame(.) %>% 
+    rename(recommend_rank = rank)
+  to_join(inter)
 })
+
+
+output$table <- DT::renderDT({
+  
+  #make scoring calculations
+  score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>% 
+    score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights)
+  safer <- pnorm(qnorm(score) - input$rangeset)
+  reach <- pnorm(qnorm(score) + input$rangeset)
+  
+  #build core dataframe
+  df <- combined_df_list[[input$specialty]] %>% 
+    mutate(Range = if_else(Overall_score > reach, "Reach", if_else(Overall_score > safer, "Target","Safer")), .before=1) %>%  
+    mutate(`Program website` = if_else(is.na(`Program website`),as.character(NA),paste0('<a href="', `Program website`,'" target="_blank" class="btn btn-1">Link</a>'))) %>% 
+    mutate(`Freida` = if_else(is.na(`ID`),as.character(NA),paste0('<a href="https://freida.ama-assn.org/program/', `ID`,'" target="_blank" class="btn btn-2">Link</a>'))) %>% 
+    mutate(`AAMC link` = if_else(is.na(`AAMC link`),as.character(NA),paste0('<a href="', `AAMC link`,'" target="_blank" class="btn btn-3">Link</a>'))) %>%
+    mutate(`Doximity link` = if_else(is.na(`Doximity link`),as.character(NA),paste0('<a href="', `Doximity link`,'" target="_blank" class="btn btn-4">Link</a>'))) %>% 
+    relocate(City, .after=`Residency program name`)
+  
+  #filter core dataframe
+  for (group in c("Program size")) {
+    vars_ <- filters %>% 
+      filter(Class == group) %>% 
+      dplyr::select(Colname) %>% 
+      .[[1]]
+    for (var in vars_) {
+      if (classes[[var]] %in% c("character","factor")) {
+        df %<>%
+          filter_at(vars(var), any_vars((. %in% input[[var]])))
+      } else {
+        df %<>%
+          filter_at(vars(var), any_vars((. >= input[[var]][1] & . <= input[[var]][2])))
+      }
+    }
+  }
+
+  # create and style DR
+  val <- to_join()
+  vis <- c("Range","Residency program name", "City", "State", "Overall rank","Program","Freida","AAMC","Doximity",
+           "# Residents on Duty Year 1","Current residents Step 1 range")
+  df %<>%
+    dplyr::select(.,-any_of(c("recommend_rank"))) %>%
+    left_join(.,val,by="ID")  %>%
+    relocate(any_of(vis))
+  
+  # create helper to move selected items to the top
+  df$prev_select <- if_else(df$ID %in% isolate(selectedIDs()),c(TRUE),c(FALSE))
+  
+  # select previous rows
+  selectedRows <- which(df$ID %in% isolate(selectedIDs()))
+  
+  # find columns to hide
+  to_hide1 <- which(str_detect(colnames(df),"_1"))
+  to_hide2 <- which(colnames(df) %in% c("score","recommend_rank","prev_select","Specialty"))
+  to_hide3 <- which(str_detect(colnames(df),"_percentile"))
+  
+  # save df for downloading
+  df_save(df)
+  
+  # prepare colname changes
+  colname_change_list = list()
+  colname_change_list[["Program website"]] <- "Program"
+  colname_change_list[["AAMC link"]] <- "AAMC"
+  colname_change_list[["Doximity link"]] <- "Doximity"
+  colname_change_list[["# Residents on Duty Year 1"]] <- "# Year 1 Residents"
+  colname_change_list[["Range of average USMLE Step 1 score of current residents"]] <- "Current residents Step 1 range"
+  colname_change_vec <- as.numeric(lapply(names(colname_change_list), function(i) which(colnames(df) %in% i)))
+  names(colname_change_vec) <- as.character(colname_change_list)
+
+  # create datatable
+  datatable(df, escape = F,
+            options= list(autoWidth = TRUE, 
+                          columnDefs = list(list(visible=FALSE, targets=c(to_hide1,to_hide2,to_hide3))),
+                          order = list(list(ncol(df),'desc'),list(ncol(df)-1,'asc'))),
+            extensions = 'Responsive',
+            class = "display nowrap",
+            selection = list(mode = "multiple", target = "row", selected = selectedRows),
+            colnames = colname_change_vec) %>% 
+    formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff")))
+  
+  }
+)
+#output DT
 DTOutput("table")
 ```
 
+Settings 
+================
+
+Row
+-------
+
+### 
+
+```{r}
+sliderInput("rangeset", "±x standard deviations from current score", min =0, max = 1, value = 0.4, step = 0.05)
+```
 
 
-Test page
-=====
+<!-- ```{r} -->
+<!-- shinyApp( -->
+<!--   ui = fillPage(filter_data_ui("filtering", max_height = "500px"),  dataTableOutput("table")), -->
+<!--   server = function(input, output, session) { -->
+<!--     res_filter <- filter_data_server( -->
+<!--       id = "filtering", -->
+<!--       data = reactive(combined_df_list[["Psychiatry"]]), -->
+<!--       name = reactive(input$specialty), -->
+<!--       vars = "ID", -->
+<!--       widget_num = "slider", -->
+<!--       widget_date = "slider", -->
+<!--       label_na = "Missing" -->
+<!--     ) -->
+<!--     output$table <- DT::renderDT({ -->
+<!--       res_filter$filtered() -->
+<!--       }, style = 'bootstrap', -->
+<!--       extensions = c('Buttons','Responsive'), options = list(dom = 'Bfrtip', buttons = I('colvis'))) -->
+<!--   } -->
+<!-- ) -->
+<!-- ``` -->
 
-<a target="_blank" href="https://www.residencyexplorer.org/Program/GetById/4979">Link</a>
+
+<!-- Row -->
+<!-- ------ -->
+
+<!-- ```{r} -->
+<!-- callModule(server, "test") -->
+<!-- dataTableOutput("t") -->
+<!-- ``` -->
+
+
+
+
+
+<!-- Test page -->
+<!-- ===== -->
+
+<!-- <a target="_blank" href="https://www.residencyexplorer.org/Program/GetById/4979">Link</a> -->
+
+<!-- Row  {data-height=200} -->
+<!-- ----- -->
+<!-- ### Test 2 -->
+
+<!-- ```{r} -->
+<!-- # renderText({ -->
+<!-- #   getReactableState("table", "selected") -->
+<!-- # }) -->
+<!-- bs_accordion(id = "bootstrap_types") %>% -->
+<!--   bs_set_opts(panel_type = "default") %>% -->
+<!--   bs_append(title = "Default", content = NULL) %>% -->
+<!--   bs_set_opts(panel_type = "primary") %>% -->
+<!--   bs_append(title = "Primary", content = NULL) %>% -->
+<!--   bs_set_opts(panel_type = "success") %>% -->
+<!--   bs_append(title = "Success", content = NULL) %>% -->
+<!--   bs_set_opts(panel_type = "info") %>% -->
+<!--   bs_append(title = "Info", content = NULL) %>% -->
+<!--   bs_set_opts(panel_type = "warning") %>% -->
+<!--   bs_append(title = "Warning", content = NULL) %>% -->
+<!--   bs_set_opts(panel_type = "danger") %>% -->
+<!--   bs_append(title = "Danger", content = NULL) -->
+<!-- ``` -->
+
+<!-- ### Test 3 -->
+<!-- ```{r} -->
+<!-- dq_accordion("myAccordion2", c("a","b"), c(1,2), -->
+<!--         bg_color = NULL, options = list(animate = 500, collapsible = TRUE), -->
+<!--         icons = c(open = "hand-point-down", closed = "hand-point-right") -->
+<!--       ) -->
+<!-- ``` -->
+
+
+<!-- ### Test text -->
+
+<!-- ```{r} -->
+<!-- renderText({ -->
+<!--   input$table_rows_selected -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- Row {data-height=800} -->
+<!-- -------------- -->
+
+<!-- ### Test -->
+
+<!-- ```{r} -->
+<!-- output$table <- renderDT({ -->
+<!--   datatable(combined_df_list[[input$specialty]], -->
+<!--             style = 'bootstrap', -->
+<!--             extensions = c('Buttons','Responsive'), options = list(dom = 'Bfrtip', buttons = I('colvis'))) -->
+<!-- }) -->
+<!-- DTOutput("table") -->
+<!-- ``` -->

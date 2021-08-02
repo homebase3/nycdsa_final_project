@@ -14,6 +14,7 @@ library(tm)
 library(ggmap)
 library(numform)
 library(mice)
+library(stringdist)
 
 # read in aamc data files
 file_list <- list.files("data/AAMC")
@@ -51,7 +52,7 @@ dat <- unique(dat)
 
 # Remove unnecessary columns
 dat %<>%
-  select(-contains("Comparison to Matched Applicants:")) %>% 
+  select(-contains("Comparison to Matched Applicants"))%>% 
   arrange(Specialty, `Residency program name`)
 
 # layer in geocodes

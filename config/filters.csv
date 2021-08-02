@@ -1,0 +1,139 @@
+Colname,Class
+ID,                                                                                                                      
+Specialty,                                                                                                               
+Residency program name,Program basics
+Zip,
+City,Geography
+STCOUNTYFP,
+Metro Area Name,Geography
+Program website,                                                                                                         
+Doximity link,                                                                                                           
+AAMC link,                                                                                                               
+State,Geography
+Program setting,Program basics
+Participates in ERAS,Program basics
+Participates in the NRMP Main Match,Program basics
+Number of current residents  who were graduates of a joint MD-PhD program,Resident demographics
+Program accreditation status,Accreditation
+Osteopathic Recognition,Accreditation
+Total # Residents on Duty,Program size
+# Residents on Duty Year 1,Program size
+# of categorical positions offered by this program in the 2021 NRMP Main Match,Program size
+# of categorical positions filled by this program in the 2021 NRMP Main Match,Program size
+# of advanced positions offered by this program in the 2021 NRMP Main Match,Program size
+# of advanced positions filled by this program in the 2021 NRMP Main Match,Program size
+# of applications submitted to this program in 2021,Program size
+% of applicants interviewed by the program in 2020,Program size
+Average number of work experiences among matched applicants,Applicant competitiveness
+Average number of volunteer experiences among matched applicants,Applicant competitiveness
+Average number of research experiences among matched applicants,Applicant competitiveness
+Average number of peer-reviewed publications among matched applicants,Applicant competitiveness
+Range of average USMLE Step 1 score of current residents,Applicant competitiveness
+Range of average COMLEX Level 1 score of current residents,Applicant competitiveness
+Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application),Applicant competitiveness
+Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application),Applicant competitiveness
+Program consider applicants with J-1 visa?,International student considerations
+Program consider applicants with H-1B visa?,International student considerations
+Program consider applicants with F-1 Visa (OPT 1st year)?,International student considerations
+Average hours/week in year one that resident works (excluding beeper call),Program experience
+Maximum consecutive hours resident is allowed to work in year one (excluding beeper call),Program experience
+Program allows residents (beyond PGY1) to moonlight?,Program experience
+% of training spent in year 1 in hospital outpatient clinics,Program experience
+% of training spent in year 1 in ambulatory nonhospital community-based settings,Program experience
+"Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)",Program experience
+Program curriculum includes a dedicated research rotation,Program experience
+Percentage of residents who were US MD graduates,Resident demographics
+Percentage of residents who were US DO graduates,Resident demographics
+Percentage of residents who were US-citizen IMGs,Resident demographics
+Percentage of residents who were non-US-citizen IMGs,Resident demographics
+Percentage of completed residents with non-academic U.S. practice career plans,Resident demographics
+Percentage of completed residents with plans to continue training in another program,Resident demographics
+Percentage of completed residents with plans to obtain a full-time or part-time academic position,Resident demographics
+Percentage of completed residents with other career plans,Resident demographics
+# of positions offered by this program in the 2021 NRMP Main Match,Program size
+# of positions filled by this program in the 2021 NRMP Main Match,Program size
+2019 NIH total funding,Research
+2019 NIH specialty funding,Research
+Family medicine board pass rate,Teaching
+Internal medicine board pass rate,Teaching
+Pediatrics board pass rate,Teaching
+Surgery board pass rate,Teaching
+longitude,                                                                                                               
+latitude,                                                                                                                
+Mean % sunny,Weather
+% days with precipitation,Weather
+Annual snowfall,Weather
+% days below freezing,Weather
+% days above 90F,Weather
+Cost of Living Index,Cost of living
+Health outcomes (percentile),County health characteristics
+Health factors (percentile),County health characteristics
+Health behaviors (percentile),County health characteristics
+Clinical care (percentile),County health characteristics
+Social & economic factors (percentile),County health characteristics
+Physical environment (percentile),County health characteristics
+Length of Life (percentile),County health characteristics
+Quality of Life (percentile),County health characteristics
+Tobacco Use (percentile),County health characteristics
+Diet and Exercise (percentile),County health characteristics
+Alcohol and Drug Use (percentile),County health characteristics
+Sexual Activity (percentile),County health characteristics
+Access to Care (percentile),County health characteristics
+Quality of Care (percentile),County health characteristics
+Education (percentile),County health characteristics
+Employment (percentile),County health characteristics
+Income Ratio,County health characteristics
+Income Ratio (percentile),County health characteristics
+Income (percentile),County health characteristics
+Family and Social Support (percentile),County health characteristics
+Community Safety (percentile),County health characteristics
+Air and Water Quality (percentile),County health characteristics
+Housing and Transit (percentile),County health characteristics
+Population,County demographics
+% Less Than 18 Years of Age,County demographics
+% 65 and Over,County demographics
+% Black,County demographics
+% American Indian & Alaska Native,County demographics
+% Asian,County demographics
+% Native Hawaiian/Other Pacific Islander,County demographics
+% Hispanic,County demographics
+% Non-Hispanic White,County demographics
+% Female,County demographics
+% Rural,County demographics
+Hospital overall rating,Hospital outcomes
+MORT Better %,Hospital outcomes
+MORT Worse %,Hospital outcomes
+Safety Better %,Hospital outcomes
+Safety Worse %,Hospital outcomes
+READM Better %,Hospital outcomes
+READM Worse %,Hospital outcomes
+Status,Program basics
+Range of average USMLE Step 1 score of current residents_percentile,                                                     
+Average number of work experiences among matched applicants_percentile,                                                  
+Average number of volunteer experiences among matched applicants_percentile,                                             
+Average number of research experiences among matched applicants_percentile,                                              
+Average number of peer-reviewed publications among matched applicants_percentile,                                        
+Percentage of residents who were US MD graduates_percentile,                                                             
+Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)_percentile,          
+Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)_percentile,
+% of positions offered in 2021 that were filled_percentile,                                                              
+% of applicants interviewed by the program in 2020_percentile,                                                           
+Ratio of 2020 applicants to 2021 positions_percentile,                                                                   
+Hospital overall rating_percentile,                                                                                      
+MORT Better %_percentile,                                                                                                
+MORT Worse %_percentile,                                                                                                 
+Safety Better %_percentile,                                                                                              
+Safety Worse %_percentile,                                                                                               
+READM Better %_percentile,                                                                                               
+READM Worse %_percentile,                                                                                                
+2019 NIH total funding_percentile,                                                                                       
+2019 NIH specialty funding_percentile,                                                                                   
+Program setting_percentile,                                                                                              
+Family medicine board pass rate_percentile,                                                                              
+Internal medicine board pass rate_percentile,                                                                            
+Pediatrics board pass rate_percentile,                                                                                   
+Surgery board pass rate_percentile,                                                                                      
+Most relevant specialty board pass rate_percentile,                                                                      
+Overall_percentile,                                                                                                      
+Overall_score,                                                                                                           
+Overall_rank,

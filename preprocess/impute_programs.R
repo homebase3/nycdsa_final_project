@@ -44,26 +44,27 @@ dat %<>%
   select(-`Percentage of matched applicants who were members of Sigma Sigma Phi (at the time of application)`)
   
 
-# remove extraneous columns
+# remove and or extraneous columns
 dat %<>% 
   select(-submit, -len_submit, -submit_adj, -longitude.x,-longitude.y, -latitude.x,-latitude.y,-`ORGANIZATION NAME`,
-         -zip5, -`ORGANIZATION ID (IPF)`)
+         -zip5, -`ORGANIZATION ID (IPF)`, -`Link suffix`)
+
+dat %<>% 
+  rename(`AAMC link` = link)
 
 ID_columns <- 
   c("ID", 
     "Specialty", 
-    "Residency program name",
-    "STCOUNTYFP",
-    "Metro Area Name",
-    "Program website",
-    "Doximity link"
+    "Residency program name"
   )
 extraneous_columns <- 
   c("Zip", 
-    "Percentage of matched applicants who were members of Sigma Sigma Phi (at the time of application)",
     "City",
-    "link",
-    "Link suffix")
+    "STCOUNTYFP",
+    "Metro Area Name",
+    "Program website",
+    "Doximity link",
+    "AAMC link")
 
 # numeric_character_columns <- c(
 #   "Number of current residents  who were graduates of a joint MD-PhD program",
@@ -258,20 +259,24 @@ factored_df <- famd$ind$coord %>%
 
 # save objects
 dat_list <- list()
+imputed_df_list <-list()
+combined_df_list <- list()
 for (spec in spec_dat$Specialty) {
   to_join <- ranking_list[[spec]] %>% 
     select(ID, contains("_percentile"), Overall_score, Overall_rank)
   dat %>% 
     filter(Specialty == spec) %>% 
-    left_join(., to_join, by = "ID") ->  dat_list[[spec]]
-}
-
-imputed_df_list <-list()
-
-for (spec in spec_dat$Specialty) {
+    left_join(., to_join, by = "ID") ->  int_df
+  dat_list[[spec]]<- int_df
+  
+  colnames(int_df) <- paste0(colnames(int_df),"_1")
   imputed_df %>% 
-    filter(Specialty == spec) ->  imputed_df_list[[spec]]
+    filter(Specialty == spec) %>% 
+    left_join(., to_join, by = "ID")  ->  imputed_df_list[[spec]] 
+
+  combined_df_list[[spec]] <- bind_cols(imputed_df_list[[spec]],int_df)
 }
+
 
 factored_df_list <- list()
 
@@ -292,6 +297,7 @@ save(dists,file = 'objects/dists.Rdata')
 save(dists_raw, file = 'objects/dists_raw.Rdata')
 save(dat_list,file = 'objects/dat_list.Rdata')
 save(imputed_df_list,file = 'objects/imputed_df_list.Rdata')
+save(combined_df_list,file = 'objects/combined_df_list.Rdata')
 save(factor_weights_list,file = 'objects/factor_weights_list.Rdata')
 save(factored_df_list,file = 'objects/factored_df_list.Rdata')
 save(PD_Survey_weights,file = 'objects/PD_Survey_weights.Rdata')
