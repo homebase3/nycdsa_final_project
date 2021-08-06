@@ -1,13 +1,18 @@
 ---
 title: "2021 Residency selection tool"
 runtime: shiny_prerendered
-output: 
+output:
   flexdashboard::flex_dashboard:
     theme:
       version: 4
       bootswatch: cosmo
     orientation: rows
     vertical_layout: fill
+resource_files:
+- renv.lock
+- renv/activate.R
+- renv/activate.R
+- renv.lock
 ---
 <style>
 .html-widget.gauge {
@@ -74,11 +79,13 @@ library(thematic)
 library(reticulate)
 library(stringr)
 library(rintrojs)
+library(here)
 
 # load functions and objects
-base<- "/home/justin/Documents/Data Science Bootcamp/Final project/nycdsa_final_project/"
-for (obj in list.files(paste0(base,'objects/'))) {
-  load(paste0(base,'objects/',obj))
+base<- getwd()
+models_loc <- here("models")
+for (obj in list.files(paste0(here("objects"),"/"))) {
+  load(paste0(here("objects",obj)))
 }
 
 source("core/functions.R")
@@ -89,7 +96,7 @@ source("core/functions.R")
 import turicreate as tc
 models = dict()
 for key in r.dat_list.keys():
-  models[key] = tc.load_model(r.base + 'models/' + key + '/')
+  models[key] = tc.load_model(r.models_loc + '/' + key + '/')
 ```
 
 ```{r, context="setup"}
