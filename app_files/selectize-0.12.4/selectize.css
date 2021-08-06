@@ -32,7 +32,6 @@
   box-sizing: border-box;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0.25rem;
 }
 
 .selectize-control.multi .selectize-input.has-items {
@@ -50,10 +49,6 @@
 .selectize-input.focus {
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
-}
-
-.selectize-input.dropdown-active {
-  border-radius: 0.25rem 0.25rem 0 0;
 }
 
 .selectize-input > * {
@@ -138,7 +133,6 @@
   box-sizing: border-box;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border-radius: 0 0 0.25rem 0.25rem;
 }
 
 .selectize-dropdown [data-selectable] {
@@ -148,7 +142,6 @@
 
 .selectize-dropdown [data-selectable] .highlight {
   background: rgba(255, 237, 40, 0.4);
-  border-radius: 1px;
 }
 
 .selectize-dropdown .option, .selectize-dropdown .optgroup-header {
@@ -260,7 +253,6 @@
   padding: 3px 0.75rem;
   border-bottom: 1px solid #d0d0d0;
   background: #f8f8f8;
-  border-radius: 0.25rem 0.25rem 0 0;
 }
 
 .selectize-dropdown-header-close {
@@ -321,7 +313,6 @@
   display: inline-block;
   padding: 1px 0 0 0;
   border-left: 1px solid #ced4da;
-  border-radius: 0 2px 2px 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -358,7 +349,6 @@
   background: #fff;
   color: #212529;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem;
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 }
@@ -406,10 +396,6 @@
   }
 }
 
-.selectize-input.dropdown-active {
-  border-radius: 0.25rem;
-}
-
 .selectize-input.dropdown-active::before {
   display: none;
 }
@@ -445,10 +431,6 @@
   padding-right: calc(0.75rem - 3px);
 }
 
-.selectize-control.multi .selectize-input > div {
-  border-radius: calc(0.25rem - 1px);
-}
-
 .form-control.selectize-control {
   padding: 0;
   height: auto;
@@ -456,10 +438,8 @@
   background: none;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0;
 }
 
 .input-group .selectize-input {
   overflow: unset;
-  border-radius: 0 0.25rem 0.25rem 0;
 }
