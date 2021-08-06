@@ -92,8 +92,11 @@ UI_code_gen_2 <- function() {
   for (group in filter_groups) {
     cat("<details>\n")
     cat(paste0("<summary>",group,"</summary>\n"))
-    cat("```{r}\n")
-    cat(paste0("renderGroupUI('",group,"')"))
+    cat("```{r, context='server'}\n")
+    cat(paste0("output$UI",gsub(" ","_",group),"<- renderGroupUI('",group,"')"))
+    cat("\n```\n")
+    cat("```{r, context='render'}\n")
+    cat(paste0("uiOutput('UI",gsub(" ","_",group),"')"))
     cat("\n```\n")
     cat("</details>\n\n")
   }
