@@ -3,10 +3,10 @@ title: "2021 Residency selection tool"
 runtime: shiny_prerendered
 output: 
   flexdashboard::flex_dashboard:
-    orientation: rows
     theme:
       version: 4
       bootswatch: cosmo
+    orientation: rows
     vertical_layout: fill
 ---
 <style>
