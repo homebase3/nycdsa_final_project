@@ -74,6 +74,8 @@ for (obj in list.files(paste0(here("objects"),"/"))) {
 
 source("core/functions.R")
 # bslib::bs_themer()
+
+py_install("turicreate",pip=T)
 ```
 
 ```{python import_models, context="setup", include = FALSE}
