@@ -76,6 +76,7 @@ for (obj in list.files(paste0(here("objects"),"/"))) {
 
 source("core/functions.R")
 # bslib::bs_themer()
+renv::hydrate()
 ```
 
 ```{python import_models, context="setup", include = FALSE}
