@@ -8,13 +8,6 @@ output:
       bootswatch: cosmo
     orientation: rows
     vertical_layout: fill
-resource_files:
-- renv.lock
-- renv/activate.R
-- renv.lock
-- renv/activate.R
-- renv.lock
-- renv/activate.R
 ---
 <style>
 .html-widget.gauge {
@@ -77,7 +70,6 @@ for (obj in list.files(paste0(here("objects"),"/"))) {
 
 source("core/functions.R")
 # bslib::bs_themer()
-renv::hydrate()
 ```
 
 ```{python import_models, context="setup", include = FALSE}
