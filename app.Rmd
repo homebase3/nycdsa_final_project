@@ -60,6 +60,7 @@ library(reticulate)
 library(stringr)
 library(rintrojs)
 library(here)
+library(shinycssloaders)
 
 # load functions and objects
 base<- getwd()
@@ -633,7 +634,7 @@ output$valuebox_reach <- renderValueBox({
 ```
 
 ```{r, context="render"}
-valueBoxOutput("valuebox_reach")
+valueBoxOutput("valuebox_reach") %>% withSpinner()
 ```
 
 ### Target program
@@ -645,7 +646,7 @@ output$valuebox_target <- renderValueBox({
 ```
 
 ```{r, context="render"}
-valueBoxOutput("valuebox_target")
+valueBoxOutput("valuebox_target") %>% withSpinner(type=8)
 ```
 
 ### Safer program
