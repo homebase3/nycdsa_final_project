@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e # fail fast
+
+# install turicreate
+pip install turicreate
+
+# reduce the image size by removing unnecessary Apt files
+apt-get autoclean
