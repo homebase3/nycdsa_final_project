@@ -2595,7 +2595,10 @@ hardcode_selectedIDs <- NULL
 
 #log selections
 observeEvent(input$table_row_last_clicked,{
-  ID <- as.character(combined_df_list[[input$specialty]][input$table_row_last_clicked,"ID"])
+  ID <- combined_df_list[[input$specialty]] %>% 
+    arrange(Overall_rank) %>% 
+    .[input$table_row_last_clicked,"ID"] %>% 
+    as.character(.)
   if (ID %notin% names(selectedID_list())) {
     lis_ <- selectedID_list()
     lis_[[ID]] <- 1
