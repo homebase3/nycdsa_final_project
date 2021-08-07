@@ -1,6 +1,6 @@
 ---
 title: "2021 Residency selection tool"
-runtime: shiny_prerendered
+runtime: shiny
 output:
   flexdashboard::flex_dashboard:
     theme:
