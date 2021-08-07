@@ -48,7 +48,8 @@ resource_files:
 
 ```{r setup, context="setup", include=FALSE}
 # import packages
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 library(magrittr)
 library(readr)
 library(stringr)
