@@ -1,6 +1,6 @@
 ---
 title: "2021 Residency selection tool"
-runtime: shiny
+runtime: shiny_prerendered
 output:
   flexdashboard::flex_dashboard:
     theme:
@@ -8,6 +8,8 @@ output:
       bootswatch: cosmo
     orientation: rows
     vertical_layout: fill
+    navbar:
+      - { icon: "fa-twitter", href: "https://www.linkedin.com/in/justin-leder-3401904b/",align: right}
 ---
 <style>
 .html-widget.gauge {
@@ -36,6 +38,11 @@ output:
   background-color: #19647E;
   color: #fff;
 }
+
+hr {
+  border-top: none !important;
+}
+
 </style>
 ---
 
@@ -617,8 +624,14 @@ observeEvent(input$table_row_last_clicked,{
 )
 })
 
-#reinitialize selections if specialty is switched
+#reinitialize selections if specialty is switched or if bucketing cut-offs are updated
 observeEvent(input$specialty,{
+  selectedID_list(list())
+  selectedIDs(c())
+  difficulty_counts(list("Reach" = 0,"Target" = 0, "Safer" = 0))
+})
+
+observeEvent(input$rangeset,{
   selectedID_list(list())
   selectedIDs(c())
   difficulty_counts(list("Reach" = 0,"Target" = 0, "Safer" = 0))
