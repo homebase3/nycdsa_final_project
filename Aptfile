@@ -1,3 +1,11 @@
 python3-venv
 libssl-dev
 libxml2-dev
+r-cran-dplyr
+r-cran-tidyr
+r-cran-shiny
+r-cran-DT
+r-cran-stringi
+r-cran-stringr
+r-cran-ggplot2
+r-cran-plotly
