@@ -13,6 +13,8 @@ resource_files:
 - renv/activate.R
 - renv.lock
 - renv/activate.R
+- renv.lock
+- renv/activate.R
 ---
 <style>
 .html-widget.gauge {
@@ -74,8 +76,6 @@ for (obj in list.files(paste0(here("objects"),"/"))) {
 
 source("core/functions.R")
 # bslib::bs_themer()
-
-py_install("turicreate",pip=T)
 ```
 
 ```{python import_models, context="setup", include = FALSE}
