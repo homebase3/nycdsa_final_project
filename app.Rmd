@@ -9,7 +9,7 @@ output:
     orientation: rows
     vertical_layout: fill
     navbar:
-      - { icon: "fa-twitter", href: "https://www.linkedin.com/in/justin-leder-3401904b/",align: right}
+      - { icon: "fa-linkedin", href: "https://www.linkedin.com/in/justin-leder-3401904b/",align: right}
 ---
 <style>
 .html-widget.gauge {
@@ -63,8 +63,6 @@ library(shiny)
 library(shinyWidgets)
 library(bslib)
 library(thematic)
-library(reticulate)
-library(stringr)
 library(rintrojs)
 library(here)
 library(shinycssloaders)
