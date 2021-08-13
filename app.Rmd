@@ -1,6 +1,6 @@
 ---
 title: "2021 Residency selection tool"
-runtime: shiny_prerendered
+runtime: shiny
 output:
   flexdashboard::flex_dashboard:
     theme:
@@ -8,11 +8,8 @@ output:
       bootswatch: cosmo
     orientation: rows
     vertical_layout: fill
-resource_files:
-- renv.lock
-- renv/activate.R
-- renv/activate.R
-- renv.lock
+    navbar:
+      - { icon: "fa-twitter", href: "https://www.linkedin.com/in/justin-leder-3401904b/",align: right}
 ---
 <style>
 .html-widget.gauge {
@@ -41,45 +38,36 @@ resource_files:
   background-color: #19647E;
   color: #fff;
 }
+
+hr {
+  border-top: none !important;
+}
+
 </style>
 ---
 
 ```{r setup, context="setup", include=FALSE}
 # import packages
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 library(magrittr)
-library(readxl)
-library(data.table)
-library(janitor)
 library(readr)
-library(fuzzyjoin)
-library(zipcodeR)
 library(stringr)
-library(parallel)
-library(geosphere)
-library(tm)
-library(ggmap)
-library(numform)
-library(HistogramTools)
 library(plotly)
 library(reticulate)
 library(flexdashboard)
 library(shiny)
 library(reactable)
-library(bsplus)
 library(DT)
 library(shiny)
 library(shinyWidgets)
-library(datamods)
-library(MASS)
-library(datamods)
-library(crosstalk)
 library(bslib)
 library(thematic)
 library(reticulate)
 library(stringr)
 library(rintrojs)
 library(here)
+library(shinycssloaders)
 
 # load functions and objects
 base<- getwd()
@@ -636,8 +624,14 @@ observeEvent(input$table_row_last_clicked,{
 )
 })
 
-#reinitialize selections if specialty is switched
+#reinitialize selections if specialty is switched or if bucketing cut-offs are updated
 observeEvent(input$specialty,{
+  selectedID_list(list())
+  selectedIDs(c())
+  difficulty_counts(list("Reach" = 0,"Target" = 0, "Safer" = 0))
+})
+
+observeEvent(input$rangeset,{
   selectedID_list(list())
   selectedIDs(c())
   difficulty_counts(list("Reach" = 0,"Target" = 0, "Safer" = 0))
@@ -653,7 +647,7 @@ output$valuebox_reach <- renderValueBox({
 ```
 
 ```{r, context="render"}
-valueBoxOutput("valuebox_reach")
+valueBoxOutput("valuebox_reach") %>% withSpinner()
 ```
 
 ### Target program
@@ -665,7 +659,7 @@ output$valuebox_target <- renderValueBox({
 ```
 
 ```{r, context="render"}
-valueBoxOutput("valuebox_target")
+valueBoxOutput("valuebox_target") %>% withSpinner(type=8)
 ```
 
 ### Safer program
