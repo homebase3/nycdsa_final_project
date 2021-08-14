@@ -804,7 +804,8 @@ output$table <- DT::renderDT({
             class = "display nowrap",
             selection = list(mode = "multiple", target = "row", selected = selectedRows)) %>% 
     formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff"))) %>% 
-    formatStyle(.,columns = to_color,valueColumns = from_color,color = styleEqual(c(1),c("#ff0039")))
+    formatStyle(.,columns = to_color,valueColumns = from_color,color = styleEqual(c(1),c("#ff0039"))) %>% 
+    formatStyle(columns = colnames(.), fontSize = '50%')
   
   }
 )
