@@ -587,10 +587,8 @@ observeEvent(input$table_row_last_clicked,{
   safer <- pnorm(qnorm(score) - input$rangeset)
   reach <- pnorm(qnorm(score) + input$rangeset)
   
-  df_loc <- combined_df_list[[input$specialty]] 
-  ecdf_loc <- ecdf(df_loc$Overall_score)
-  df_loc %>% 
-    mutate(Range = if_else(ecdf_loc(Overall_score) > reach, "Reach", if_else(ecdf_loc(Overall_score) > safer, "Target","Safer")), .before=1) %>% 
+  combined_df_list[[input$specialty]] %>% 
+    mutate(Range = if_else(Overall_percentile > reach, "Reach", if_else(Overall_percentile > safer, "Target","Safer")), .before=1) %>% 
     filter(ID %in% selectedIDs()) %>% 
     dplyr::select(Range) %>% 
     table(.) -> value_counts
