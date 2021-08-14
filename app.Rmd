@@ -784,9 +784,6 @@ output$table <- DT::renderDT({
   colnames(df) %<>% wrap_title
   to_color %<>% wrap_title
   from_color %<>% wrap_title
-  to_hide1 %<>% wrap_title
-  to_hide2 %<>% wrap_title
-  to_hide3 %<>% wrap_title
   names(colname_change_vec) %<>% wrap_title
   
   # mutate NAs and round numbers
