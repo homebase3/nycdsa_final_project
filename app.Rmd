@@ -49,6 +49,10 @@ form-group.shiny-input-container {
     margin-bottom: 0;
 }
 
+button{
+    margin: 20px;
+}
+
 </style>
 ---
 
