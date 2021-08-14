@@ -250,8 +250,8 @@ output$valuebox <- renderValueBox({
   score %>% 
     round(.) %>% 
     scales::ordinal(.) %>% 
-    tags$p(., style = "font-size: 200%; color: #fff") %>% 
-    valueBox(., caption = tags$p(paste0("percentile overall in ",input$specialty),style = "font-size: 150%; color: #fff"), icon = 'fa-star', color = col, href = NULL)
+    tags$p(., style = "font-size: 100%; color: #fff") %>% 
+    valueBox(., caption = tags$p(paste0("percentile overall in ",input$specialty),style = "font-size: 100%; color: #fff"), icon = 'fa-star', color = col, href = NULL)
 })
 ```
 
@@ -804,8 +804,7 @@ output$table <- DT::renderDT({
             class = "display nowrap",
             selection = list(mode = "multiple", target = "row", selected = selectedRows)) %>% 
     formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff"))) %>% 
-    formatStyle(.,columns = to_color,valueColumns = from_color,color = styleEqual(c(1),c("#ff0039"))) %>% 
-    formatStyle(.,columns = to_color, fontSize = '25%')
+    formatStyle(.,columns = to_color,valueColumns = from_color,color = styleEqual(c(1),c("#ff0039")))
   
   }
 )
