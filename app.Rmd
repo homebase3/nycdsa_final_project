@@ -45,6 +45,10 @@ hr {
   border-top: none !important;
 }
 
+form-group.shiny-input-container {
+    margin-bottom: 0;
+}
+
 </style>
 ---
 
