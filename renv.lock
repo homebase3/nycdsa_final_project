@@ -9,8 +9,9 @@
     ]
   },
   "Python": {
-    "Version": "3.6.13",
-    "Type": "virtualenv"
+    "Version": "3.8.2",
+    "Type": "virtualenv",
+    "Name": "./renv/python/virtualenvs/renv-python-3.8"
   },
   "Packages": {
     "BH": {

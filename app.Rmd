@@ -10,6 +10,8 @@ output:
     vertical_layout: fill
     navbar:
       - { icon: "fa-linkedin", href: "https://www.linkedin.com/in/justin-leder-3401904b/",align: right}
+      - { icon: "fa-github", href: "https://github.com/homebase3",align: right}
+      - { icon: "fa-coffee", href: "https://www.buymeacoffee.com/justinleder",align: right}
 ---
 <style>
 .html-widget.gauge {
