@@ -639,7 +639,7 @@ observeEvent(input$rangeset,{
 
 ```{r, context="server"}
 output$valuebox_reach <- renderValueBox({
-    valueBox(tags$p(paste0(difficulty_counts()[["Reach"]]," reach programs selected"), style = "font-size: 100%; color: #fff"), color = "info", href = NULL)
+    valueBox(tags$p(difficulty_counts()[["Reach"]], style = "font-size: 100%; color: #fff"), caption = tags$p(paste0("target programs selected"), style = "font-size: 100%; color: #fff"), color = "info", href = NULL)
 })
 ```
 
