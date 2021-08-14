@@ -696,10 +696,10 @@ output$table <- DT::renderDT({
   df <- combined_df_list[[input$specialty]] %>% 
     arrange(Overall_rank) %>% 
     mutate(Range = if_else(Overall_score > reach, "Reach", if_else(Overall_score > safer, "Target","Safer")), .before=1) %>%  
-    mutate(`Program website` = if_else(is.na(`Program website`),as.character(NA),paste0('<a style="font-size:75%" href="', `Program website`,'" target="_blank" class="btn btn-1">Link</a>'))) %>% 
-    mutate(`Freida` = if_else(is.na(`ID`),as.character(NA),paste0('<a style="font-size:75%" href="https://freida.ama-assn.org/program/', `ID`,'" target="_blank" class="btn btn-2">Link</a>'))) %>% 
-    mutate(`AAMC link` = if_else(is.na(`AAMC link`),as.character(NA),paste0('<a style="font-size:75%" href="', `AAMC link`,'" target="_blank" class="btn btn-3">Link</a>'))) %>%
-    mutate(`Doximity link` = if_else(is.na(`Doximity link`),as.character(NA),paste0('<a style="font-size:75%" href="', `Doximity link`,'" target="_blank" class="btn btn-4">Link</a>'))) %>% 
+    mutate(`Program website` = if_else(is.na(`Program website`),as.character(NA),paste0('<a style="font-size:100%" href="', `Program website`,'" target="_blank" class="btn btn-1">Link</a>'))) %>% 
+    mutate(`Freida` = if_else(is.na(`ID`),as.character(NA),paste0('<a style="font-size:100%" href="https://freida.ama-assn.org/program/', `ID`,'" target="_blank" class="btn btn-2">Link</a>'))) %>% 
+    mutate(`AAMC link` = if_else(is.na(`AAMC link`),as.character(NA),paste0('<a style="font-size:100%" href="', `AAMC link`,'" target="_blank" class="btn btn-3">Link</a>'))) %>%
+    mutate(`Doximity link` = if_else(is.na(`Doximity link`),as.character(NA),paste0('<a style="font-size:100%" href="', `Doximity link`,'" target="_blank" class="btn btn-4">Link</a>'))) %>% 
     relocate(City, .after=`Residency program name`)
   
   #
@@ -798,7 +798,7 @@ output$table <- DT::renderDT({
             options= list(autoWidth = TRUE, 
                           headerCallback = DT::JS(
                             "function(thead) {",
-                            "  $(thead).css('font-size', '75%');",
+                            "  $(thead).css('font-size', '100%');",
                             "}"),
                           pageLength = 10,
                           lengthMenu = c(6, 8, 10, 12),
@@ -812,7 +812,7 @@ output$table <- DT::renderDT({
             selection = list(mode = "multiple", target = "row", selected = selectedRows)) %>% 
     formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff"))) %>% 
     formatStyle(.,columns = to_color,valueColumns = from_color,color = styleEqual(c(1),c("#ff0039"))) %>% 
-    formatStyle(.,columns = 1:ncol(df), fontSize = '75%')
+    formatStyle(.,columns = 1:ncol(df), fontSize = '100%')
   
   }
 )
