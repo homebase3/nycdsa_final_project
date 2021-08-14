@@ -136,7 +136,7 @@ steps1 <- data.frame(element = c("#specialty-selectized","#section-inputs","#sec
                                          "Your competitiveness for the individual components can also be found below. For example, this is your score based on your step 1 score alone",
                                "Once you're done, click 'Select programs' in the navbar to move to the next section. Give it a few seconds to load :)"))
                               
-steps2 <-data.frame(element = c("#table", ".navbar ","#table","#table","#table","#section-row-2",".btn",".section-inputs2","#UIProgram_basics","#UIProgram_basics","#UIProgram_basics","#UIdownload"
+steps2 <-data.frame(element = c("#table", ".navbar ","#table","#table","#table","#section-row-2",".btn",".section-inputs2","#UIProgram_basics","#UIProgram_basics","#UIProgram_basics","#UIbuttons"
                                ),
                                intro = c("First off, you'll see a list of (nearly) every program in your specialty. Programs are bucketted into \"Reach\", \"Target\", and \"Safer\" based on (1) your competitiveness in the specialty and (2) our assessment of the program based on applicant competitiveness, research quality, teaching quality, and patient outcomes. The initial order of the programs is based on this rank list, with the top program at the top.",
                                          "You can find more detail on how your specialty was ranked by clicking \"More info on specialty ranking\" in the Navbar.",
@@ -246,7 +246,7 @@ output$valuebox <- renderValueBox({
   score %>% 
     round(.) %>% 
     scales::ordinal(.) %>% 
-    tags$p(., style = "font-size: 20%; color: #fff") %>% 
+    tags$p(., style = "font-size: 200%; color: #fff") %>% 
     valueBox(., caption = tags$p(paste0("percentile overall in ",input$specialty),style = "font-size: 150%; color: #fff"), icon = 'fa-star', color = col, href = NULL)
 })
 ```
