@@ -381,7 +381,7 @@ output$UIbuttons <- renderUI({
   list(
   actionButton("button","Make recommendations and resort"),
   actionButton("tour2","Take tour of this page",icon("paper-plane")),
-  downloadButton("downloadData", "Download selections"),
+  downloadButton("downloadData", "Download selections")
   )
 })
 ```
