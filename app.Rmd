@@ -49,6 +49,10 @@ button {
   margin-bottom: 5px;
 }
 
+.value-box {
+  height: 100px;
+}
+
 </style>
 ---
 
