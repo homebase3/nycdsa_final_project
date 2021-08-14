@@ -10,6 +10,8 @@ output:
     vertical_layout: fill
     navbar:
       - { icon: "fa-linkedin", href: "https://www.linkedin.com/in/justin-leder-3401904b/",align: right}
+      - { icon: "fa-github", href: "https://github.com/homebase3",align: right}
+      - { icon: "fa-coffee", href: "https://www.buymeacoffee.com/justinleder",align: right}
 ---
 <style>
 .html-widget.gauge {
@@ -65,13 +67,12 @@ library(bslib)
 library(thematic)
 library(rintrojs)
 library(here)
-library(shinycssloaders)
 
 # load functions and objects
 base<- getwd()
 models_loc <- here("models")
 for (obj in list.files(paste0(here("objects"),"/"))) {
-  load(paste0(here("objects",obj)))
+  base::load(paste0(here("objects",obj)))
 }
 
 source("core/functions.R")
@@ -645,7 +646,7 @@ output$valuebox_reach <- renderValueBox({
 ```
 
 ```{r, context="render"}
-valueBoxOutput("valuebox_reach") %>% withSpinner()
+valueBoxOutput("valuebox_reach")
 ```
 
 ### Target program
@@ -657,7 +658,7 @@ output$valuebox_target <- renderValueBox({
 ```
 
 ```{r, context="render"}
-valueBoxOutput("valuebox_target") %>% withSpinner(type=8)
+valueBoxOutput("valuebox_target")
 ```
 
 ### Safer program
@@ -744,6 +745,16 @@ output$table <- DT::renderDT({
   to_hide2 <- which(colnames(df) %in% c("score","recommend_rank","prev_select","Specialty"))
   to_hide3 <- which(str_detect(colnames(df),"_percentile"))
   
+  # find colnames to color
+  from_color <- colSums(is.na(df)) %>% 
+    .[.>0] %>% 
+    names(.) %>% 
+    .[!is.na(str_locate(.,"_1")[,1])]
+  
+  to_color <- from_color %>% 
+    str_sub(.,1,-3)
+  
+  
   # save df for downloading
   df_save(df)
   
@@ -757,17 +768,45 @@ output$table <- DT::renderDT({
   colname_change_vec <- as.numeric(lapply(names(colname_change_list), function(i) which(colnames(df) == i) + 1))
   names(colname_change_vec) <- as.character(colname_change_list)
 
+  #adjust to_color for new column names
+  replace_indices_base <- sapply( names(colname_change_list), function(i) which(to_color == i)) %>% 
+    as.numeric(.) 
+  replace_indices_non_na <- replace_indices_base %>% 
+    is.na(.) %>% 
+    as.numeric(.) %>% 
+    multiply_by(-1) %>% 
+    add(1) %>% 
+    as.logical(.) %>% 
+    which(.)
+  to_color <- replace(to_color, replace_indices_base[replace_indices_non_na], as.character(colname_change_list)[replace_indices_non_na])
+  
+  # wrap column names and adjust variable names accordingly
+  colnames(df) %<>% wrap_title
+  to_color %<>% wrap_title
+  from_color %<>% wrap_title
+  names(colname_change_vec) %<>% wrap_title
+  
+  # mutate NAs and round numbers
+  df %<>% 
+    mutate_at(vars(contains("_1")), ~as.numeric(is.na(.))) %>% 
+    mutate_if(is.numeric, ~round(.,2))
+  
   # create datatable
   datatable(df, escape = F,
             colnames = colname_change_vec,
             options= list(autoWidth = TRUE, 
                           columnDefs = list(list(visible=FALSE, targets=c(to_hide1,to_hide2,to_hide3))),
                           order = list(list(ncol(df),'desc'),list(ncol(df)-1,'asc')),
-                          displayStart=floor(length(selectedRows)/10)*10),
-            extensions = 'Responsive',
+                          displayStart=floor(length(selectedRows)/10)*10,
+                          dom = 't',
+                          scrollX = TRUE,
+                          fixedColumns = list(leftColumns = 3)),
+            # extensions = 'Responsive',
+            extensions = 'FixedColumns',
             class = "display nowrap",
             selection = list(mode = "multiple", target = "row", selected = selectedRows)) %>% 
-    formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff")))
+    formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff"))) %>% 
+    formatStyle(.,columns = to_color,valueColumns = from_color,color = styleEqual(c(1,0),c("red","black")))
   
   }
 )
