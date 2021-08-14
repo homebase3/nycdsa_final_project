@@ -49,7 +49,7 @@ button {
   margin-bottom: 5px;
 }
 
-.value-box {
+.shiny-valuebox-output {
   height: 100px;
 }
 
