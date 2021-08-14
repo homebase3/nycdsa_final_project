@@ -796,6 +796,10 @@ output$table <- DT::renderDT({
   datatable(df, escape = F,
             colnames = colname_change_vec,
             options= list(autoWidth = TRUE, 
+                          headerCallback = DT::JS(
+                            "function(thead) {",
+                            "  $(thead).css('font-size', '75%');",
+                            "}"),
                           pageLength = 10,
                           lengthMenu = c(6, 8, 10, 12),
                           columnDefs = list(list(visible=FALSE, targets=c(to_hide1,to_hide2,to_hide3))),
