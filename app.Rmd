@@ -45,10 +45,6 @@ hr {
   border-top: none !important;
 }
 
-button{
-    margin-bottom: 5px;
-}
-
 </style>
 ---
 
