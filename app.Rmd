@@ -65,7 +65,6 @@ library(bslib)
 library(thematic)
 library(rintrojs)
 library(here)
-library(shinycssloaders)
 
 # load functions and objects
 base<- getwd()
