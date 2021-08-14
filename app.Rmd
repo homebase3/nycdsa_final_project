@@ -795,8 +795,8 @@ output$table <- DT::renderDT({
                           dom = 't',
                           scrollX = TRUE,
                           fixedColumns = list(leftColumns = 3)),
-            # extensions = 'Responsive',
-            extensions = 'FixedColumns',
+            extensions = 'Responsive',
+            # extensions = 'FixedColumns',
             class = "display nowrap",
             selection = list(mode = "multiple", target = "row", selected = selectedRows)) %>% 
     formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff"))) %>% 
