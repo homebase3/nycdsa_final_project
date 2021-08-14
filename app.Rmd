@@ -49,10 +49,6 @@ button {
   margin-bottom: 5px;
 }
 
-.shiny-valuebox-output {
-  height: 50px;
-}
-
 </style>
 ---
 
