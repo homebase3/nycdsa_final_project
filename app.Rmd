@@ -646,7 +646,7 @@ output$valuebox_reach <- renderValueBox({
 ```
 
 ```{r, context="render"}
-valueBoxOutput("valuebox_reach") %>% withSpinner()
+valueBoxOutput("valuebox_reach")
 ```
 
 ### Target program
@@ -658,7 +658,7 @@ output$valuebox_target <- renderValueBox({
 ```
 
 ```{r, context="render"}
-valueBoxOutput("valuebox_target") %>% withSpinner(type=8)
+valueBoxOutput("valuebox_target")
 ```
 
 ### Safer program
