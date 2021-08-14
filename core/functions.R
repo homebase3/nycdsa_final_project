@@ -1,7 +1,7 @@
 # source incoming data
 score_step1 <- function(score, specialty_func, spec_dat_func,dists_func) {
-  print(specialty_func)
-  print(spec_dat_func$Specialty)
+  # print(specialty_func)
+  # print(spec_dat_func$Specialty)
   spec_dist <- spec_dat_func[spec_dat_func$Specialty == specialty_func, 2]
   func <- dists_func[["USMLE STEP 1 Score"]][[spec_dist]]
   if (is.null(func)) {

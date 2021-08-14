@@ -72,7 +72,7 @@ library(here)
 base<- getwd()
 models_loc <- here("models")
 for (obj in list.files(paste0(here("objects"),"/"))) {
-  load(paste0(here("objects",obj)))
+  base::load(paste0(here("objects",obj)))
 }
 
 source("core/functions.R")
@@ -742,12 +742,18 @@ output$table <- DT::renderDT({
   
   # find columns to hide
   to_hide1 <- which(str_detect(colnames(df),"_1"))
-  colnames(df)[to_hide1] %>% 
-    str_sub(.,1,-3) %>% 
-    sapply(.,function(i) which(colnames(df) == i)) %>% 
-    as.character(.) -> to_color
   to_hide2 <- which(colnames(df) %in% c("score","recommend_rank","prev_select","Specialty"))
   to_hide3 <- which(str_detect(colnames(df),"_percentile"))
+  
+  # find colnames to color
+  from_color <- colSums(is.na(df)) %>% 
+    .[.>0] %>% 
+    names(.) %>% 
+    .[!is.na(str_locate(.,"_1")[,1])]
+  
+  to_color <- from_color %>% 
+    str_sub(.,1,-3)
+  
   
   # save df for downloading
   df_save(df)
@@ -762,6 +768,11 @@ output$table <- DT::renderDT({
   colname_change_vec <- as.numeric(lapply(names(colname_change_list), function(i) which(colnames(df) == i) + 1))
   names(colname_change_vec) <- as.character(colname_change_list)
 
+  #adjust to_color for new column names
+  replace_indices <- sapply( names(colname_change_list), function(i) which(to_color == i)) %>% 
+    as.numeric(.)
+  to_color <- replace(to_color, replace_indices, as.character(colname_change_list))
+  
   # create datatable
   datatable(df, escape = F,
             colnames = colname_change_vec,
@@ -773,7 +784,7 @@ output$table <- DT::renderDT({
             class = "display nowrap",
             selection = list(mode = "multiple", target = "row", selected = selectedRows)) %>% 
     formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff"))) %>% 
-    formatStyle(.,columns=to_hide1,valueColumns=to_color,color = styleEqual(c(NA),c("red")))
+    formatStyle(.,columns = from_color[14],valueColumns = to_color[14],color = styleEqual(c(NA),c("#9954bb"),default = "#000"))
   
   }
 )
