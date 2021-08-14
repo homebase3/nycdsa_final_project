@@ -377,27 +377,15 @@ Select programs
 Input {.sidebar data-width=300}
 --------------------
 ```{r, context="server"}
-output$UIbutton <- renderUI({
+output$UIbuttons <- renderUI({
   actionButton("button","Make recommendations and resort")
-})
-```
-
-```{r, context="render"}
-actionButton("tour2","Take tour of this page",icon("paper-plane"))
-```
-
-```{r, context="render"}
-uiOutput("UIbutton")
-```
-
-```{r, context="server"}
-output$UIdownload <- renderUI({
+  actionButton("tour2","Take tour of this page",icon("paper-plane"))
   downloadButton("downloadData", "Download selections")
 })
 ```
 
 ```{r, context="render"}
-uiOutput("UIdownload")
+uiOutput("UIbuttons")
 ```
 
 <details>
