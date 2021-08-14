@@ -545,7 +545,7 @@ uiOutput('UIHospital_outcomes')
 ```
 </details>
 
-Row {data-height=150}
+Row {data-height=100}
 -----
 
 ```{r server_logic, context="server", include = F}
@@ -667,7 +667,7 @@ output$valuebox_safer <- renderValueBox({
 valueBoxOutput("valuebox_safer")
 ```
 
-Row {data-height=800}
+Row {data-height=900}
 -----
 ### 
 ```{r, context="server"}
@@ -790,7 +790,7 @@ output$table <- DT::renderDT({
             colnames = colname_change_vec,
             options= list(autoWidth = TRUE, 
                           pageLength = 10,
-                          lengthMenu = c(5, 10, 15, 20),
+                          lengthMenu = c(6, 8, 10, 12),
                           columnDefs = list(list(visible=FALSE, targets=c(to_hide1,to_hide2,to_hide3))),
                           order = list(list(ncol(df),'desc'),list(ncol(df)-1,'asc')),
                           displayStart=floor(length(selectedRows)/10)*10,
