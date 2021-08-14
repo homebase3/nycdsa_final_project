@@ -80,7 +80,7 @@ for (obj in list.files(paste0(here("objects"),"/"))) {
 }
 
 source("core/functions.R")
-bslib::bs_themer()
+# bslib::bs_themer()
 ```
 
 ```{python import_models, context="setup", include = FALSE}
@@ -635,7 +635,7 @@ observeEvent(input$rangeset,{
 
 ```{r, context="server"}
 output$valuebox_reach <- renderValueBox({
-    valueBox(tags$p(difficulty_counts()[["Reach"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("reach programs selected"),style = "font-size: 150%; color: #fff"), color = "info", href = NULL)
+    valueBox(tags$p(difficulty_counts()[["Reach"]], style = "font-size: 100%; color: #fff"), caption = tags$p(paste0("reach programs selected"),style = "font-size: 100%; color: #fff"), color = "info", href = NULL)
 })
 ```
 
@@ -647,7 +647,7 @@ valueBoxOutput("valuebox_reach")
 
 ```{r, context="server"}
 output$valuebox_target <- renderValueBox({
-    valueBox(tags$p(difficulty_counts()[["Target"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("target programs selected"),style = "font-size: 150%; color: #fff"), color = "warning", href = NULL)
+    valueBox(tags$p(difficulty_counts()[["Target"]], style = "font-size: 100%; color: #fff"), caption = tags$p(paste0("target programs selected"),style = "font-size: 100%; color: #fff"), color = "warning", href = NULL)
 })
 ```
 
@@ -659,7 +659,7 @@ valueBoxOutput("valuebox_target")
 
 ```{r, context="server"}
 output$valuebox_safer <- renderValueBox({
-    valueBox(tags$p(difficulty_counts()[["Safer"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("safer programs selected"),style = "font-size: 150%; color: #fff"), color = "success", href = NULL)
+    valueBox(tags$p(difficulty_counts()[["Safer"]], style = "font-size: 100%; color: #fff"), caption = tags$p(paste0("safer programs selected"),style = "font-size: 100%; color: #fff"), color = "success", href = NULL)
 })
 ```
 
