@@ -1,7 +1,7 @@
 # source incoming data
 score_step1 <- function(score, specialty_func, spec_dat_func,dists_func) {
-  print(specialty_func)
-  print(spec_dat_func$Specialty)
+  # print(specialty_func)
+  # print(spec_dat_func$Specialty)
   spec_dist <- spec_dat_func[spec_dat_func$Specialty == specialty_func, 2]
   func <- dists_func[["USMLE STEP 1 Score"]][[spec_dist]]
   if (is.null(func)) {
@@ -65,11 +65,11 @@ score_volunteer <- function(score, specialty_func,spec_dat_func,dists_func) {
 
 score_overall <- function(scores,specialty_func,spec_dat_func,dists_func, weights_func) {
   percentiles <- c(score_step1(scores[1], specialty_func,spec_dat_func,dists_func),
-             score_step2(scores[2], specialty_func, spec_dat_func,dists_func),
-             score_research(scores[3], specialty_func,spec_dat_func,dists_func),
-             score_publications(scores[4], specialty_func,spec_dat_func,dists_func),
-             score_work(scores[5], specialty_func, spec_dat_func,dists_func),
-             score_volunteer(scores[6], specialty_func, spec_dat_func,dists_func))
+                   score_step2(scores[2], specialty_func, spec_dat_func,dists_func),
+                   score_research(scores[3], specialty_func,spec_dat_func,dists_func),
+                   score_publications(scores[4], specialty_func,spec_dat_func,dists_func),
+                   score_work(scores[5], specialty_func, spec_dat_func,dists_func),
+                   score_volunteer(scores[6], specialty_func, spec_dat_func,dists_func))
   spec_weights <- spec_dat_func[spec_dat_func$Specialty == specialty_func, 8]
   weight <- as.numeric(weights_func[weights_func$Specialty == spec_weights,2:ncol(weights_func)])
   vec <- weight*percentiles
@@ -100,4 +100,10 @@ UI_code_gen_2 <- function() {
     cat("\n```\n")
     cat("</details>\n\n")
   }
+}
+
+wrap_title <- function(vec) {
+  sapply(vec, function(i) paste(str_wrap(i, width = 30), sep = "\n")) %>% as.character(.) %>% 
+    gsub(.,pattern = "\n", replacement = "<br/>") %>% 
+    return(.)
 }
