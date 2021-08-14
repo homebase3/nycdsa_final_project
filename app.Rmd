@@ -769,9 +769,30 @@ output$table <- DT::renderDT({
   names(colname_change_vec) <- as.character(colname_change_list)
 
   #adjust to_color for new column names
-  replace_indices <- sapply( names(colname_change_list), function(i) which(to_color == i)) %>% 
-    as.numeric(.)
-  to_color <- replace(to_color, replace_indices, as.character(colname_change_list))
+  replace_indices_base <- sapply( names(colname_change_list), function(i) which(to_color == i)) %>% 
+    as.numeric(.) 
+  replace_indices_non_na <- replace_indices_base %>% 
+    is.na(.) %>% 
+    as.numeric(.) %>% 
+    multiply_by(-1) %>% 
+    add(1) %>% 
+    as.logical(.) %>% 
+    which(.)
+  to_color <- replace(to_color, replace_indices_base[replace_indices_non_na], as.character(colname_change_list)[replace_indices_non_na])
+  
+  # wrap column names and adjust variable names accordingly
+  colnames(df) %<>% wrap_title
+  to_color %<>% wrap_title
+  from_color %<>% wrap_title
+  to_hide1 %<>% wrap_title
+  to_hide2 %<>% wrap_title
+  to_hide3 %<>% wrap_title
+  names(colname_change_vec) %<>% wrap_title
+  
+  # mutate NAs and round numbers
+  df %<>% 
+    mutate_at(vars(contains("_1")), ~as.numeric(is.na(.))) %>% 
+    mutate_if(is.numeric, ~round(.,2))
   
   # create datatable
   datatable(df, escape = F,
@@ -779,12 +800,16 @@ output$table <- DT::renderDT({
             options= list(autoWidth = TRUE, 
                           columnDefs = list(list(visible=FALSE, targets=c(to_hide1,to_hide2,to_hide3))),
                           order = list(list(ncol(df),'desc'),list(ncol(df)-1,'asc')),
-                          displayStart=floor(length(selectedRows)/10)*10),
-            extensions = 'Responsive',
+                          displayStart=floor(length(selectedRows)/10)*10,
+                          dom = 't',
+                          scrollX = TRUE,
+                          fixedColumns = list(leftColumns = 3)),
+            # extensions = 'Responsive',
+            extensions = 'FixedColumns',
             class = "display nowrap",
             selection = list(mode = "multiple", target = "row", selected = selectedRows)) %>% 
     formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff"))) %>% 
-    formatStyle(.,columns = from_color[14],valueColumns = to_color[14],color = styleEqual(c(NA),c("#9954bb"),default = "#000"))
+    formatStyle(.,columns = to_color,valueColumns = from_color,color = styleEqual(c(1,0),c("red","black")))
   
   }
 )

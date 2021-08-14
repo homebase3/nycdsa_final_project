@@ -101,3 +101,9 @@ UI_code_gen_2 <- function() {
     cat("</details>\n\n")
   }
 }
+
+wrap_title <- function(vec) {
+  sapply(vec, function(i) paste(str_wrap(i, width = 30), sep = "\n")) %>% as.character(.) %>% 
+    gsub(.,pattern = "\n", replacement = "<br/>") %>% 
+    return(.)
+}
