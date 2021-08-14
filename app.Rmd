@@ -788,9 +788,9 @@ output$table <- DT::renderDT({
   # create datatable
   datatable(df, escape = F,
             colnames = colname_change_vec,
-            pageLength = 10,
-            lengthMenu = c(5, 10, 15, 20),
             options= list(autoWidth = TRUE, 
+                          pageLength = 10,
+                          lengthMenu = c(5, 10, 15, 20),
                           columnDefs = list(list(visible=FALSE, targets=c(to_hide1,to_hide2,to_hide3))),
                           order = list(list(ncol(df),'desc'),list(ncol(df)-1,'asc')),
                           displayStart=floor(length(selectedRows)/10)*10,
