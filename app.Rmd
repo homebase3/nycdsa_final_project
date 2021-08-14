@@ -819,7 +819,7 @@ output$table <- DT::renderDT({
 DTOutput("table")
 ```
 
-> Red text indicates values
+> Red text indicates values imputed through machine learning.
 
 Settings 
 ================
