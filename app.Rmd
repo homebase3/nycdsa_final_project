@@ -250,7 +250,7 @@ output$valuebox <- renderValueBox({
   score %>% 
     round(.) %>% 
     scales::ordinal(.) %>% 
-    tags$p(., style = "font-size: 100%; color: #fff") %>% 
+    tags$p(., style = "font-size: 175%; color: #fff") %>% 
     valueBox(., caption = tags$p(paste0("percentile overall in ",input$specialty),style = "font-size: 100%; color: #fff"), icon = 'fa-star', color = col, href = NULL)
 })
 ```
@@ -789,6 +789,9 @@ output$table <- DT::renderDT({
     mutate_at(vars(contains("_1")), ~as.numeric(is.na(.))) %>% 
     mutate_if(is.numeric, ~round(.,2))
   
+  # get full colnames
+  colnames(df)
+  
   # create datatable
   datatable(df, escape = F,
             colnames = colname_change_vec,
@@ -804,7 +807,8 @@ output$table <- DT::renderDT({
             class = "display nowrap",
             selection = list(mode = "multiple", target = "row", selected = selectedRows)) %>% 
     formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff"))) %>% 
-    formatStyle(.,columns = to_color,valueColumns = from_color,color = styleEqual(c(1),c("#ff0039")))
+    formatStyle(.,columns = to_color,valueColumns = from_color,color = styleEqual(c(1),c("#ff0039"))) %>% 
+    formatStyle(.,columns = 1:ncol(df), fontSize = '75%')
   
   }
 )
