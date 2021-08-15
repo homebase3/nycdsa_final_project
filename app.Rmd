@@ -151,148 +151,146 @@ source("core/functions.R")
 <!--   models[key] = tc.load_model(r.models_loc + '/' + key + '/') -->
 <!-- ``` -->
 
-<!-- ```{r, context="setup"} -->
-<!-- filters <- read_csv("config/filters.csv") -->
-<!-- filter_groups <- unique(filters$Class) %>% .[!is.na(.)] -->
-<!-- filters %<>% -->
-<!--   drop_na() %>% -->
-<!--   arrange(Colname) -->
-<!-- classes <- lapply(imputed_df_list[[1]], class) -->
-<!-- ``` -->
+```{r, context="setup"}
+filters <- read_csv("config/filters.csv")
+filter_groups <- unique(filters$Class) %>% .[!is.na(.)]
+filters %<>%
+  drop_na() %>%
+  arrange(Colname)
+classes <- lapply(imputed_df_list[[1]], class)
+```
 
-<!-- ```{r, context="server"} -->
-<!-- UI_helper_func <- function(var) { -->
-<!--   if (!is.null(classes[[var]])) { -->
-<!--       if (as.character(classes[[var]]) == "numeric") { -->
-<!--         min <- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T)) -->
-<!--         max <- ceiling(max(combined_df_list[[input$specialty]][[var]], na.rm = T)) -->
-<!--         sliderInput(var,var,min,max,c(min,max),round=T) -->
-<!--     } else { -->
-<!--         vals <- unique(as.character(combined_df_list[[input$specialty]][[var]])) -->
-<!--         pickerInput(var,var, choices=vals,selected = vals, multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10, `selected-text-format` = "count > 3")) -->
-<!--     } -->
-<!--   } -->
-<!-- } -->
+```{r, context="server"}
+UI_helper_func <- function(var) {
+  if (!is.null(classes[[var]])) {
+      if (as.character(classes[[var]]) == "numeric") {
+        min <- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T))
+        max <- ceiling(max(combined_df_list[[input$specialty]][[var]], na.rm = T))
+        sliderInput(var,var,min,max,c(min,max),round=T)
+    } else {
+        vals <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
+        pickerInput(var,var, choices=vals,selected = vals, multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10, `selected-text-format` = "count > 3"))
+    }
+  }
+}
 
-<!-- renderGroupUI <- function(group) { -->
-<!--   renderUI({ -->
-<!--     filters %>% -->
-<!--       filter(Class %in% group) %>% -->
-<!--       dplyr::select(Colname) %>% -->
-<!--       .[[1]] -> vars_ -->
-<!--     lapply(vars_, UI_helper_func) -->
-<!--   }) -->
-<!-- } -->
-<!-- ``` -->
+renderGroupUI <- function(group) {
+  renderUI({
+    filters %>%
+      filter(Class %in% group) %>%
+      dplyr::select(Colname) %>%
+      .[[1]] -> vars_
+    lapply(vars_, UI_helper_func)
+  })
+}
+```
 
-<!-- Applicant competitiveness -->
-<!-- ======================= -->
+Applicant competitiveness
+=======================
 
-<!-- ```{r, context="server"} -->
+```{r, context="server"}
 
-<!-- steps1 <- data.frame(element = c("#specialty-selectized","#section-inputs","#section-overall-score","#step1Gauge", ".navbar"), -->
-<!--                      intro = c("To get started, select your desired specialty.", -->
-<!--                                "Then enter information about your step scores. Please note that these values are not logged or saved, and no one will have access to them other than you.", -->
-<!--                                "Once you've made your entries, you can see an assessment of your competitiveness in that specialty here versus matched applicants in the prior few years. This aggregates your scores on each individual components based on their relative importance accroding to program director surveys in your chosen specialty.", -->
-<!--                                "Your competitiveness for the individual components can also be found below. For example, this is your score based on your step 1 score alone", -->
-<!--                                "Once you're done, click 'Select programs' in the navbar to move to the next section. Give it a few seconds to load :)")) -->
+steps1 <- data.frame(element = c("#specialty-selectized","#section-inputs","#section-overall-score","#step1Gauge", ".navbar"),
+                     intro = c("To get started, select your desired specialty.",
+                               "Then enter information about your step scores. Please note that these values are not logged or saved, and no one will have access to them other than you.",
+                               "Once you've made your entries, you can see an assessment of your competitiveness in that specialty here versus matched applicants in the prior few years. This aggregates your scores on each individual components based on their relative importance accroding to program director surveys in your chosen specialty.",
+                               "Your competitiveness for the individual components can also be found below. For example, this is your score based on your step 1 score alone",
+                               "Once you're done, click 'Select programs' in the navbar to move to the next section. Give it a few seconds to load :)"))
 
-<!-- steps2 <-data.frame(element = c("#table", ".navbar ","#table","#table","#table","#section-row-2",".btn",".section-inputs2","#UIProgram_basics","#UIProgram_basics","#UIProgram_basics","#UIbuttons"), -->
-<!--                     intro = c("First off, you'll see a list of (nearly) every program in your specialty. Programs are bucketted into \"Reach\", \"Target\", and \"Safer\" based on (1) your competitiveness in the specialty and (2) our assessment of the program based on applicant competitiveness, research quality, teaching quality, and patient outcomes. The initial order of the programs is based on this rank list, with the top program at the top.", -->
-<!--                               "You can find more detail on how your specialty was ranked by clicking \"More info on specialty ranking\" in the Navbar.", -->
-<!--                               "For each program, you can quickly see its details as well as links to all major relevant sites, including the Program website itself, Freida, AAMC, and Doximity where available.", -->
-<!--                               "To see additional information collected on an individual program, click the plus sign at the right of the table.", -->
-<!--                               "To select a program, simply click on the row in the table and it will highlight.", -->
-<!--                               "As you make your selections, the boxes at the top of the page will keep a tally of how many programs you've selected and at what level of competitiveness to help you craft a full, well-balanced program portfolio", -->
-<!--                               "If you would like help finding programs, click the \"Make recommendations and resort\" button. This will make recommendations based on a machine learning algorithm that tries to find similarities between your current selections and the other remaining programs. Once this loads, your current selections will be at the top, then the programs will be listed in the order of recommendation. I.e. the top recommended program will be first after your current selections.", -->
-<!--                               "You can also filter programs based on the menus contained below. These include all the traditional filters (e.g. Geography), but also some unique ones, including weather, cost of living, county health characteristics, and county divserity. We hope you find these useful.", -->
-<!--                               "To access the filters, click on an arrow to open the respective menu", -->
-<!--                               "Then set your filters, the table with automatically adjust, and don't worry, your prior selections will be saved, even if the filter removes them", -->
-<!--                               "You can continue this way until you find all your programs", -->
-<!--                               "Once you are satisfied with your list, click \"Download selections\" to dowload a csv file with all of the information about your chosen programs. Please note that the app will not save your selections ion, so make sure to do this to keep a record of your selection. Otherwise, you'll be starting from scratch the next time you open the app.")) -->
+steps2 <-data.frame(element = c("#table", ".navbar ","#table","#table","#table","#section-row-2",".btn",".section-inputs2","#UIProgram_basics","#UIProgram_basics","#UIProgram_basics","#UIbuttons"),
+                    intro = c("First off, you'll see a list of (nearly) every program in your specialty. Programs are bucketted into \"Reach\", \"Target\", and \"Safer\" based on (1) your competitiveness in the specialty and (2) our assessment of the program based on applicant competitiveness, research quality, teaching quality, and patient outcomes. The initial order of the programs is based on this rank list, with the top program at the top.",
+                              "You can find more detail on how your specialty was ranked by clicking \"More info on specialty ranking\" in the Navbar.",
+                              "For each program, you can quickly see its details as well as links to all major relevant sites, including the Program website itself, Freida, AAMC, and Doximity where available.",
+                              "To see additional information collected on an individual program, click the plus sign at the right of the table.",
+                              "To select a program, simply click on the row in the table and it will highlight.",
+                              "As you make your selections, the boxes at the top of the page will keep a tally of how many programs you've selected and at what level of competitiveness to help you craft a full, well-balanced program portfolio",
+                              "If you would like help finding programs, click the \"Make recommendations and resort\" button. This will make recommendations based on a machine learning algorithm that tries to find similarities between your current selections and the other remaining programs. Once this loads, your current selections will be at the top, then the programs will be listed in the order of recommendation. I.e. the top recommended program will be first after your current selections.",
+                              "You can also filter programs based on the menus contained below. These include all the traditional filters (e.g. Geography), but also some unique ones, including weather, cost of living, county health characteristics, and county divserity. We hope you find these useful.",
+                              "To access the filters, click on an arrow to open the respective menu",
+                              "Then set your filters, the table with automatically adjust, and don't worry, your prior selections will be saved, even if the filter removes them",
+                              "You can continue this way until you find all your programs",
+                              "Once you are satisfied with your list, click \"Download selections\" to dowload a csv file with all of the information about your chosen programs. Please note that the app will not save your selections ion, so make sure to do this to keep a record of your selection. Otherwise, you'll be starting from scratch the next time you open the app."))
 
-<!-- observeEvent(input$tour1,{ -->
-<!--   introjs(session,options = list(steps=steps1)) -->
-<!-- }) -->
+observeEvent(input$tour1,{
+  introjs(session,options = list(steps=steps1))
+})
 
-<!-- observeEvent(input$tour2,{ -->
-<!--   introjs(session,options = list(steps=steps2)) -->
-<!-- }) -->
-<!-- ``` -->
+observeEvent(input$tour2,{
+  introjs(session,options = list(steps=steps2))
+})
+```
 
-<!-- ```{r, context="server"} -->
-<!-- output$introJShelper <- renderUI({ -->
-<!--   introjsUI() -->
-<!-- }) -->
-<!-- ``` -->
+```{r, context="server"}
+output$introJShelper <- renderUI({
+  introjsUI()
+})
+```
 
-<!-- Inputs {.sidebar} -->
+Inputs {.sidebar}
+------
+```{r}
+uiOutput("introJShelper")
+actionButton("tour1","Take tour of this page",icon("paper-plane"))
+selectInput(
+  "specialty",
+  "Specialty",
+  spec_dat$Specialty,
+  selected =spec_dat$Specialty[1],
+  multiple = FALSE,
+  selectize = TRUE
+)
+numericInput(
+  "step1",
+  "Step 1 score",
+  220,
+  min = 190,
+  max = 270,
+  step = 1,
+)
+numericInput(
+  "step2",
+  "Step 2 score",
+  220,
+  min = 190,
+  max = 270,
+  step = 1,
+)
+numericInput(
+  "research",
+  "Number of research experiences",
+  0,
+  min = 0,
+  max = 20,
+  step = 1,
+)
+numericInput(
+  "publications",
+  "Number of abstracts, presentations, and publications",
+  0,
+  min = 0,
+  max = 20,
+  step = 1,
+)
+numericInput(
+  "work",
+  "Number of work experiences",
+  0,
+  min = 0,
+  max = 20,
+  step = 1,
+)
+numericInput(
+  "volunteer",
+  "Number of volunteer experiences",
+  0,
+  min = 0,
+  max = 20,
+  step = 1,
+)
+```
 
-<!-- ------ -->
-
-<!-- ```{r} -->
-<!-- uiOutput("introJShelper") -->
-<!-- actionButton("tour1","Take tour of this page",icon("paper-plane")) -->
-<!-- selectInput( -->
-<!--   "specialty", -->
-<!--   "Specialty", -->
-<!--   spec_dat$Specialty, -->
-<!--   selected =spec_dat$Specialty[1], -->
-<!--   multiple = FALSE, -->
-<!--   selectize = TRUE -->
-<!-- ) -->
-<!-- numericInput( -->
-<!--   "step1", -->
-<!--   "Step 1 score", -->
-<!--   220, -->
-<!--   min = 190, -->
-<!--   max = 270, -->
-<!--   step = 1, -->
-<!-- ) -->
-<!-- numericInput( -->
-<!--   "step2", -->
-<!--   "Step 2 score", -->
-<!--   220, -->
-<!--   min = 190, -->
-<!--   max = 270, -->
-<!--   step = 1, -->
-<!-- ) -->
-<!-- numericInput( -->
-<!--   "research", -->
-<!--   "Number of research experiences", -->
-<!--   0, -->
-<!--   min = 0, -->
-<!--   max = 20, -->
-<!--   step = 1, -->
-<!-- ) -->
-<!-- numericInput( -->
-<!--   "publications", -->
-<!--   "Number of abstracts, presentations, and publications", -->
-<!--   0, -->
-<!--   min = 0, -->
-<!--   max = 20, -->
-<!--   step = 1, -->
-<!-- ) -->
-<!-- numericInput( -->
-<!--   "work", -->
-<!--   "Number of work experiences", -->
-<!--   0, -->
-<!--   min = 0, -->
-<!--   max = 20, -->
-<!--   step = 1, -->
-<!-- ) -->
-<!-- numericInput( -->
-<!--   "volunteer", -->
-<!--   "Number of volunteer experiences", -->
-<!--   0, -->
-<!--   min = 0, -->
-<!--   max = 20, -->
-<!--   step = 1, -->
-<!-- ) -->
-<!-- ``` -->
-
-<!-- Row {data-height=300} -->
-<!-- ---- -->
+Row {data-height=300}
+----
 
 <!-- ### Overall score -->
 <!-- ```{r, context="server"} -->
@@ -895,9 +893,11 @@ source("core/functions.R")
 FAQ
 ===
 
-<button class="accordion">How does the app determine your competitiveness score in the specialty?</button>
+###
 
-::: {.panel1}
+<details>
+<summary> How does the app determine your competitiveness score in the specialty?</summary>
+
 In short, the app compares you to matched applicants in the specialty
 you've chosen:
 
@@ -917,120 +917,178 @@ based on [feedback provided by program
 directors](https://mk0nrmp3oyqui6wqfm.kinstacdn.com/wp-content/uploads/2020/08/2020-PD-Survey.pdf)
 on which factors matter most in selecting candidates to interview.
 
-```{r}
-tags$p(paste0("For your chosen specialty of ", "Anesthesiology",", the factors are weighted as follows:"))
-PD_Survey_weights %>% 
-  filter(Specialty == "Anesthesiology") %>% 
-  t() %>% 
-  as.data.frame(.) %>% 
-  janitor::row_to_names(.,1) %>% 
-  rename(Weights = 1) %>% 
-  mutate_at(1, as.numeric) %>% 
-  mutate_at(1, scales::percent) %>% 
-  kbl(.) %>% 
-  kable_styling(.)
+```{r, context="server"}
+output$text1 <- renderText({
+  paste0("For your chosen specialty of ", input$specialty,", the factors are weighted as follows:")
+})
 ```
-:::
 
-<button class="accordion">How does the app rank programs?</button>
+```{r, context="render"}
+textOutput("text1")
+```
 
-::: {.panel1}
+```{r, context="server"}
+output$kable_factors <- function() {
+  req(input$specialty)
+  PD_Survey_weights %>% 
+    filter(Specialty == input$specialty) %>% 
+    t() %>% 
+    as.data.frame(.) %>% 
+    janitor::row_to_names(.,1) %>% 
+    rename(Weights = 1) %>% 
+    mutate_at(1, as.numeric) %>% 
+    mutate_at(1, scales::percent) %>% 
+    kbl(.) %>% 
+    kable_styling(.)
+}
+```
+
+```{r, context="render"}
+tableOutput("kable_factors")
+```
+
+</details>
+
+<details>
+<summary>How does the app rank programs?</summary>
+
 Program ranking is a bit more complicated. It's a weighted averaged of many factors. 30% of the ranking is tied to same six applicant competitive measures used to determine individual competitiveness. This is done by looking at the data each program provides on their respective residents. Note that programs don't provide data on Step 2 scores, so Step 1 scores are used as a proxy for both. 
 
 The other 70% of the ranking is tied to remaining applicant characteristics, program selectivity, the quality of care at the hospital, research funding at the hospital, and teaching quality at the hospital, measured by board scores in common specialties. 
 
-```{r}
-tags$p(paste0("For your chosen specialty of ", "Anesthesiology",", the factors are weighted as follows:"))
-categories <- c(rep("Applicant competitiveness (core)",5),
-                rep("Applicant competitiveness (other)",3),
-                rep("Program selectivity",3),
-                rep("Care quality",7),
-                rep("Research quality",3),
-                rep("Teaching quality",5)
-                )
-ranking_weights %>% 
-  filter(Specialty == "Anesthesiology") %>% 
-  t() %>% 
-  as.data.frame(.) %>% 
-  janitor::row_to_names(.,1) %>% 
-  rename(Weight = 1) %>% 
-  mutate_at(1, as.numeric) %>%
-  tibble::rownames_to_column(.,"Metric") %>% 
-  mutate(Category = categories,.before=1) -> save
-
-save %>% 
-  group_by(Category) %>% 
-  summarize(`Total weight`=sum(Weight)) %>% 
-  left_join(save,.) %>% 
-  relocate(`Total weight`,.after=Category) %>% 
-  mutate_at(vars(all_of(c("Total weight","Weight"))), ~scales::percent(., accuracy = 0.1)) %>% 
-  kbl(.) %>% 
-  kableExtra::collapse_rows(.,columns = 1:2, valign = 'middle') %>%
-  kable_styling(.) 
+```{r, context="server"}
+output$text2 <- renderText({
+  paste0("For your chosen specialty of ", "Anesthesiology",", the factors are weighted as follows:")
+})
 ```
-
-:::
-
-<button class="accordion"> How does the app determine whether a program is a Target, Reach, or Safer program?</button>
-
-::: {.panel1}
-```{r}
-plot(mtcars)
-```
-:::
-
-<button class="accordion">How does the app handle missing information?</button>
-
-::: {.panel1}
-```{r}
-plot(mtcars)
-```
-:::
-
-<button class="accordion">Where does your data come from?</button>
-
-::: {.panel1}
-```{r}
-plot(mtcars)
-```
-:::
-
-<button class="accordion">Why doesn't the app include all ERAS specialties?</button>
-
-::: {.panel1}
-```{r}
-plot(mtcars)
-```
-:::
-
-<button class="accordion">For the included specialties, are you missing any programs. If so, why? </button>
-
-::: {.panel1}
-```{r}
-plot(mtcars)
-```
-:::
-
-<button class="accordion">
-
-What should I do if I have more questions?
-
-</button>
-
-::: {.panel1}
-```{r}
-plot(mtcars)
-```
-:::
-
-Settings
-===
-
-Row
-----
-
-### 
 
 ```{r, context="render"}
-sliderInput("rangeset", "±x standard deviations from current score", min =0, max = 1, value = 0.4, step = 0.05)
+textOutput("text2")
 ```
+
+```{r, context="server"}
+output$kable_factors2 <- function() {
+  req(input$specialty)
+  categories <- c(rep("Applicant competitiveness (core)",5),
+                  rep("Applicant competitiveness (other)",3),
+                  rep("Program selectivity",3),
+                  rep("Care quality",7),
+                  rep("Research quality",3),
+                  rep("Teaching quality",5)
+                  )
+  ranking_weights %>% 
+    filter(Specialty == "Anesthesiology") %>% 
+    t() %>% 
+    as.data.frame(.) %>% 
+    janitor::row_to_names(.,1) %>% 
+    rename(Weight = 1) %>% 
+    mutate_at(1, as.numeric) %>%
+    tibble::rownames_to_column(.,"Metric") %>% 
+    mutate(Category = categories,.before=1) -> save
+  
+  save %>% 
+    group_by(Category) %>% 
+    summarize(`Total weight`=sum(Weight)) %>% 
+    left_join(save,.) %>% 
+    relocate(`Total weight`,.after=Category) %>% 
+    mutate_at(vars(all_of(c("Total weight","Weight"))), ~scales::percent(., accuracy = 0.1)) %>% 
+    kbl(.) %>% 
+    kableExtra::collapse_rows(.,columns = 1:2, valign = 'middle') %>%
+    kable_styling(.) 
+}
+```
+
+```{r, context="render"}
+tableOutput("kable_factors2")
+```
+</details>
+
+<details>
+<summary>How does the app determine whether a program is a Target, Reach, or Safer program?</summary>
+
+```{r, context="server"}
+output$text3 <- renderText({
+  paste0("In short, it merges your own competitiveness with the school rankings above. Since both are ranked on a percentile scale between 0 and 1, a simple suggestion might be to set the Target range at ±x percentile of your competitiveness score. But this has a major flaw: there are many more successful applicants near the middle of the distribution. Because these applicants are more similar to each other, the Target range should be wider. Effectively, they look similar to other applicants at a larger portion of schools than at either end (low or high) of the distribution.
+  
+  ","Instead, the app translates your competitiveness score and the school rankings in terms of the normal distibution. It arbitrarily considers any school with a rating within ±",input$rangeset, " standard deviations of your score to be in the Target range. Anything below is considered Safer and above is considered a Reach. You can adjust this setting below.")
+})
+```
+
+```{r, context="render"}
+textOutput("text3")
+```
+
+```{r, context="render"}
+sliderInput("rangeset", "target range set at ±x standard deviations",0,1,0.4)
+```
+
+```{r, context="server"}
+output$text4 <- renderText({
+  score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
+    score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights)
+  safer <- pnorm(qnorm(score) - input$rangeset)
+  reach <- pnorm(qnorm(score) + input$rangeset)
+  paste0("For example, based on the information you've provided and your chosen specialty of ","Anesthesiology",", you rank at the",scales::ordinal(100*score)," percentile in your specialty. As shown in the chart below, this sets your Target range for schools ranked between the ", .29, " and ", .52," Anything above the ",.52, " is considerded a reach, and anything below ",.29, "is considered Safer")
+})
+```
+
+
+```{r, context="render"}
+textOutput("text4")
+```
+
+If you prefer to think visually, 
+
+```{r}
+renderPlot({
+  score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
+    score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights)
+  safer <- qnorm(score) - input$rangeset
+  reach <- qnorm(score) + input$rangeset
+  actual <- qnorm(score)
+  lbound <- min(-3,safer)
+  ubound <- max(3, reach)
+  ggplot(data = data.frame(x = c(lbound,ubound)), aes(x)) +
+    stat_function(aes(fill = "Safer"), xlim = c(lbound, safer), fun = dnorm, n = 101, args = list(mean = 0, sd = 1), geom="area") +
+    stat_function(aes(fill = "Target"), xlim = c(safer, reach), fun = dnorm, n = 101, args = list(mean = 0, sd = 1), geom="area") +
+    stat_function(aes(fill = "Reach"), xlim = c(reach, ubound), fun = dnorm, n = 101, args = list(mean = 0, sd = 1), geom="area") +
+    xlim(lbound-1, ubound+1) +
+    ylab("") +
+    xlab("Standard deviations from mean") +
+    scale_fill_manual(values = c("#9954bb","#3fb618","#ff7518")) +
+    geom_point(data=data.frame(x=actual,y=dnorm(actual)), aes(x=x, y=y), color="blue") + 
+    geom_text(data=data.frame(x=actual+if_else(actual>0,.1,-.1),y=dnorm(actual)), aes(x=x, y=y, label=paste0("You: ",scales::ordinal(score*100), " percentile")), color="blue", hjust = if_else(actual>0,0,1)) +
+    geom_point(data=data.frame(x=safer,y=dnorm(safer)), aes(x=x, y=y), color="#3fb618") + 
+    geom_text(data=data.frame(x=safer+if_else(safer>0,.1,-.1),y=dnorm(safer)), aes(x=x, y=y, label=paste0(scales::ordinal(pnorm(safer)*100), " percentile")), color="#3fb618", hjust = if_else(safer>0,0,1)) +
+    geom_point(data=data.frame(x=reach,y=dnorm(reach)), aes(x=x, y=y), color="#9954bb") + 
+    geom_text(data=data.frame(x=reach+if_else(reach>0,.1,-.1),y=dnorm(reach)), aes(x=x, y=y, label=paste0(scales::ordinal(pnorm(reach)*100), " percentile")), color="#9954bb", hjust = if_else(reach>0,0,1)) +
+    guides(fill=guide_legend(title="School category")) +
+    theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) -> gg 
+gg
+})
+```
+
+
+
+
+</details>
+
+<details>
+<summary>How does the app handle missing information?</summary>
+</details>
+
+<details>
+<summary>Where does your data come from?</summary>
+</details>
+
+<details>
+<summary>Why doesn't the app include all ERAS specialties?</summary>
+</details>
+
+<details>
+<summary>For the included specialties, are you missing any programs. If so, why? </summary>
+</details>
+
+<details>
+<summary>What should I do if I have more questions? </summary>
+</details>
