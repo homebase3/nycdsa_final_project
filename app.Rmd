@@ -1007,7 +1007,7 @@ tableOutput("kable_factors2")
 
 ```{r, context="server"}
 output$text3 <- renderText({
-  paste0("In short, it merges your own competitiveness with the school rankings above. Since both are ranked on a percentile scale between 0 and 1, a simple suggestion might be to set the Target range at ±x percentile of your competitiveness score. But this has a major flaw: there are many more successful applicants near the middle of the distribution. Because these applicants are more similar to each other, the Target range should be wider. Effectively, they look similar to other applicants at a larger portion of schools than at either end (low or high) of the distribution.\n\n","Instead, the app translates your competitiveness score and the school rankings in terms of the normal distibution. It arbitrarily considers any school with a rating within ±",input$rangeset, " standard deviations of your score to be in the Target range. Anything below is considered Safer and above is considered a Reach. You can adjust this setting below.")
+  paste0("In short, it merges your own competitiveness with the school rankings above. Since both are ranked on a percentile scale between 0 and 1, a simple suggestion might be to set the Target range at ±x percentile of your competitiveness score. But this has a major flaw: there are many more successful applicants near the middle of the distribution. Because these applicants are more similar to each other, the Target range should be wider. Effectively, they look similar to other applicants at a larger portion of schools than at either end (low or high) of the distribution.\n\n","Instead, the app translates your competitiveness score and the school rankings in terms of the normal distibution. It arbitrarily considers any school with a rating within ±",input$rangeset, " standard deviations of your score to be in the Target range. Anything below is considered Safer and above is considered a Reach. You can adjust this setting below.\n\n")
 })
 ```
 
@@ -1034,7 +1034,7 @@ output$text4 <- renderText({
 textOutput("text4")
 ```
 <br>
-If you prefer to think visually, 
+If you prefer to think visually, the chart below indicates where you sit within the distribution:
 
 ```{r}
 output$gg <- renderPlotly({
@@ -1054,11 +1054,11 @@ output$gg <- renderPlotly({
     xlab("Standard deviations from mean") +
     scale_fill_manual(values = c("#9954bb","#3fb618","#ff7518")) +
     geom_point(data=data.frame(x=actual,y=dnorm(actual)), aes(x=x, y=y), color="blue") + 
-    geom_text(data=data.frame(x=actual,y=dnorm(actual)), aes(x=x, y=y, label=paste0("You: ",scales::ordinal(score*100), " percentile")), color="blue", nudge_x = if_else(actual>0,0.5,-0.5)) +
+    geom_text(data=data.frame(x=actual,y=dnorm(actual)), aes(x=x, y=y, label=paste0("You: ",scales::ordinal(score*100), " percentile")), color="blue", nudge_x = if_else(actual>0,0.55,-0.55)) +
     geom_point(data=data.frame(x=safer,y=dnorm(safer)), aes(x=x, y=y), color="#3fb618") + 
-    geom_text(data=data.frame(x=safer+if_else(safer>0,.1,-.1),y=dnorm(safer)), aes(x=x, y=y, label=paste0(scales::ordinal(pnorm(safer)*100), " percentile")), color="#3fb618", nudge_x = if_else(safer>0,0.5,-0.5)) +
+    geom_text(data=data.frame(x=safer+if_else(safer>0,.1,-.1),y=dnorm(safer)), aes(x=x, y=y, label=paste0(scales::ordinal(pnorm(safer)*100), " percentile")), color="#3fb618", nudge_x = if_else(safer>0,0.45,-0.45)) +
     geom_point(data=data.frame(x=reach,y=dnorm(reach)), aes(x=x, y=y), color="#9954bb") + 
-    geom_text(data=data.frame(x=reach+if_else(reach>0,.1,-.1),y=dnorm(reach)), aes(x=x, y=y, label=paste0(scales::ordinal(pnorm(reach)*100), " percentile")), color="#9954bb", nudge_x = if_else(reach>0,0.5,-0.5)) +
+    geom_text(data=data.frame(x=reach+if_else(reach>0,.1,-.1),y=dnorm(reach)), aes(x=x, y=y, label=paste0(scales::ordinal(pnorm(reach)*100), " percentile")), color="#9954bb", nudge_x = if_else(reach>0,0.45,-0.45)) +
     guides(fill=guide_legend(title="Category")) +
     theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) -> gg 
 ggplotly(gg)
