@@ -301,4 +301,8 @@ save(combined_df_list,file = 'objects/combined_df_list.Rdata')
 save(factor_weights_list,file = 'objects/factor_weights_list.Rdata')
 save(factored_df_list,file = 'objects/factored_df_list.Rdata')
 save(PD_Survey_weights,file = 'objects/PD_Survey_weights.Rdata')
+save(ranking_weights,file = 'objects/ranking_weights.Rdata')
+save(missing_programs, file = 'objects/missing_programs.Rdata')
 
+bibliography <- read_csv("data/bibliography.csv")
+save(bibliography, file = 'objects/bibliography.Rdata')
