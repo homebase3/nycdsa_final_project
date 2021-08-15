@@ -141,10 +141,12 @@ for (spec in spec_dat$Specialty) {
   spec_weights <- spec_dat[spec_dat$Specialty == spec, 8]
   #step scores
   weight_step <- sum(as.numeric(PD_Survey_weights_adj[PD_Survey_weights_adj$Specialty == spec_weights,2:3]))
-  vec[2] <- ranking_methodology[1,"Weight"][[1]]/ranking_methodology[1,"Category weight"][[1]] * weight_step
+  weight_all <- as.numeric(PD_Survey_weights_adj[PD_Survey_weights_adj$Specialty == spec_weights,2:7])
+  vec[2] <- ranking_methodology[1,"Category weight"][[1]] * sum(weight_all[1:2])/sum(weight_all)
   #other weights
   weight_others <- as.numeric(PD_Survey_weights_adj[PD_Survey_weights_adj$Specialty == spec_weights,4:7])
-  vec[3:6] <- ranking_methodology[2:5,"Weight"][[1]]/ranking_methodology[2:5,"Category weight"][[1]] * weight_others/sum(weight_others)
+  # vec[3:6] <- (ranking_methodology[1,"Category weight"][[1]] - as.numeric(vec[2])) * weight_others/sum(weight_others)
+  vec[3:6] <- ranking_methodology[1,"Category weight"][[1]] * weight_all[3:6]/sum(weight_all)
   ranking_weights_it[1,] <- vec
   ranking_weights <- bind_rows(ranking_weights,ranking_weights_it)
 }
