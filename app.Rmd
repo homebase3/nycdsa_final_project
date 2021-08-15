@@ -935,24 +935,40 @@ PD_Survey_weights %>%
 <button class="accordion">How does the app rank programs?</button>
 
 ::: {.panel1}
-Program ranking is a bit more complicated. It's a weighted averaged of many factors. 30% of the ranking is tied to applicant competitiveness, i.e. the same six measures represented above. This is done by looking at the data each program provides on their respective residents. Note that programs don't provide data on Step 2 scores, so Step 1 scores are used as a proxy for both. 
+Program ranking is a bit more complicated. It's a weighted averaged of many factors. 30% of the ranking is tied to same six applicant competitive measures used to determine individual competitiveness. This is done by looking at the data each program provides on their respective residents. Note that programs don't provide data on Step 2 scores, so Step 1 scores are used as a proxy for both. 
 
-The other 70% of the ranking is tied to other applicant characteristics, the quality of care at the hospital, research funding at the hospital, and teaching quality at the hospital, measured by board scores in common specialties. 
+The other 70% of the ranking is tied to remaining applicant characteristics, program selectivity, the quality of care at the hospital, research funding at the hospital, and teaching quality at the hospital, measured by board scores in common specialties. 
 
 ```{r}
 tags$p(paste0("For your chosen specialty of ", "Anesthesiology",", the factors are weighted as follows:"))
+categories <- c(rep("Applicant competitiveness (core)",5),
+                rep("Applicant competitiveness (other)",3),
+                rep("Program selectivity",3),
+                rep("Care quality",7),
+                rep("Research quality",3),
+                rep("Teaching quality",5)
+                )
 ranking_weights %>% 
   filter(Specialty == "Anesthesiology") %>% 
   t() %>% 
   as.data.frame(.) %>% 
   janitor::row_to_names(.,1) %>% 
-  rename(Weights = 1) %>% 
-  mutate_at(1, as.numeric) %>% 
-  mutate_at(1, scales::percent) %>% 
+  rename(Weight = 1) %>% 
+  mutate_at(1, as.numeric) %>%
+  tibble::rownames_to_column(.,"Metric") %>% 
+  mutate(Category = categories,.before=1) -> save
+
+save %>% 
+  group_by(Category) %>% 
+  summarize(`Total weight`=sum(Weight)) %>% 
+  left_join(save,.) %>% 
+  relocate(`Total weight`,.after=Category) %>% 
+  mutate_at(vars(all_of(c("Total weight","Weight"))), ~scales::percent(., accuracy = 0.1)) %>% 
   kbl(.) %>% 
-  kable_styling(.)
+  kableExtra::collapse_rows(.,columns = 1, valign = 'top') %>%
+  kable_styling(.) 
 ```
-```
+
 :::
 
 <button class="accordion"> How does the app determine whether a program is a Target, Reach, or Safer program?</button>
