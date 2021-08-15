@@ -1068,7 +1068,7 @@ ggplotly(gg)
 ```
 
 ```{r}
-plotlyOutput("gg")
+plotlyOutput("gg", width="400px")
 ```
 
 
