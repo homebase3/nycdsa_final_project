@@ -1068,7 +1068,7 @@ gg
 ```
 
 ```{r}
-plotOutput("gg")
+plotOutput("gg", height = "1000px")
 ```
 
 
