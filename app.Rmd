@@ -965,7 +965,7 @@ save %>%
   relocate(`Total weight`,.after=Category) %>% 
   mutate_at(vars(all_of(c("Total weight","Weight"))), ~scales::percent(., accuracy = 0.1)) %>% 
   kbl(.) %>% 
-  kableExtra::collapse_rows(.,columns = 1, valign = 'top') %>%
+  kableExtra::collapse_rows(.,columns = 1:2, valign = 'middle') %>%
   kable_styling(.) 
 ```
 
