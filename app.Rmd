@@ -144,753 +144,753 @@ source("core/functions.R")
 # bslib::bs_themer()
 ```
 
-```{python import_models, context="setup", include = FALSE}
-import turicreate as tc
-models = dict()
-for key in r.dat_list.keys():
-  models[key] = tc.load_model(r.models_loc + '/' + key + '/')
-```
-
-```{r, context="setup"}
-filters <- read_csv("config/filters.csv")
-filter_groups <- unique(filters$Class) %>% .[!is.na(.)]
-filters %<>%
-  drop_na() %>%
-  arrange(Colname)
-classes <- lapply(imputed_df_list[[1]], class)
-```
-
-```{r, context="server"}
-UI_helper_func <- function(var) {
-  if (!is.null(classes[[var]])) {
-      if (as.character(classes[[var]]) == "numeric") {
-        min <- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T))
-        max <- ceiling(max(combined_df_list[[input$specialty]][[var]], na.rm = T))
-        sliderInput(var,var,min,max,c(min,max),round=T)
-    } else {
-        vals <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
-        pickerInput(var,var, choices=vals,selected = vals, multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10, `selected-text-format` = "count > 3"))
-    }
-  }
-}
-
-renderGroupUI <- function(group) {
-  renderUI({
-    filters %>%
-      filter(Class %in% group) %>%
-      dplyr::select(Colname) %>%
-      .[[1]] -> vars_
-    lapply(vars_, UI_helper_func)
-  })
-}
-```
-
-Applicant competitiveness
-=======================
-
-```{r, context="server"}
-
-steps1 <- data.frame(element = c("#specialty-selectized","#section-inputs","#section-overall-score","#step1Gauge", ".navbar"),
-                     intro = c("To get started, select your desired specialty.",
-                               "Then enter information about your step scores. Please note that these values are not logged or saved, and no one will have access to them other than you.",
-                               "Once you've made your entries, you can see an assessment of your competitiveness in that specialty here versus matched applicants in the prior few years. This aggregates your scores on each individual components based on their relative importance accroding to program director surveys in your chosen specialty.",
-                               "Your competitiveness for the individual components can also be found below. For example, this is your score based on your step 1 score alone",
-                               "Once you're done, click 'Select programs' in the navbar to move to the next section. Give it a few seconds to load :)"))
-
-steps2 <-data.frame(element = c("#table", ".navbar ","#table","#table","#table","#section-row-2",".btn",".section-inputs2","#UIProgram_basics","#UIProgram_basics","#UIProgram_basics","#UIbuttons"),
-                    intro = c("First off, you'll see a list of (nearly) every program in your specialty. Programs are bucketted into \"Reach\", \"Target\", and \"Safer\" based on (1) your competitiveness in the specialty and (2) our assessment of the program based on applicant competitiveness, research quality, teaching quality, and patient outcomes. The initial order of the programs is based on this rank list, with the top program at the top.",
-                              "You can find more detail on how your specialty was ranked by clicking \"More info on specialty ranking\" in the Navbar.",
-                              "For each program, you can quickly see its details as well as links to all major relevant sites, including the Program website itself, Freida, AAMC, and Doximity where available.",
-                              "To see additional information collected on an individual program, click the plus sign at the right of the table.",
-                              "To select a program, simply click on the row in the table and it will highlight.",
-                              "As you make your selections, the boxes at the top of the page will keep a tally of how many programs you've selected and at what level of competitiveness to help you craft a full, well-balanced program portfolio",
-                              "If you would like help finding programs, click the \"Make recommendations and resort\" button. This will make recommendations based on a machine learning algorithm that tries to find similarities between your current selections and the other remaining programs. Once this loads, your current selections will be at the top, then the programs will be listed in the order of recommendation. I.e. the top recommended program will be first after your current selections.",
-                              "You can also filter programs based on the menus contained below. These include all the traditional filters (e.g. Geography), but also some unique ones, including weather, cost of living, county health characteristics, and county divserity. We hope you find these useful.",
-                              "To access the filters, click on an arrow to open the respective menu",
-                              "Then set your filters, the table with automatically adjust, and don't worry, your prior selections will be saved, even if the filter removes them",
-                              "You can continue this way until you find all your programs",
-                              "Once you are satisfied with your list, click \"Download selections\" to dowload a csv file with all of the information about your chosen programs. Please note that the app will not save your selections ion, so make sure to do this to keep a record of your selection. Otherwise, you'll be starting from scratch the next time you open the app."))
-
-observeEvent(input$tour1,{
-  introjs(session,options = list(steps=steps1))
-})
-
-observeEvent(input$tour2,{
-  introjs(session,options = list(steps=steps2))
-})
-```
-
-```{r, context="server"}
-output$introJShelper <- renderUI({
-  introjsUI()
-})
-```
-
-Inputs {.sidebar}
-
-------
-
-```{r}
-uiOutput("introJShelper")
-actionButton("tour1","Take tour of this page",icon("paper-plane"))
-selectInput(
-  "specialty",
-  "Specialty",
-  spec_dat$Specialty,
-  selected =spec_dat$Specialty[1],
-  multiple = FALSE,
-  selectize = TRUE
-)
-numericInput(
-  "step1",
-  "Step 1 score",
-  220,
-  min = 190,
-  max = 270,
-  step = 1,
-)
-numericInput(
-  "step2",
-  "Step 2 score",
-  220,
-  min = 190,
-  max = 270,
-  step = 1,
-)
-numericInput(
-  "research",
-  "Number of research experiences",
-  0,
-  min = 0,
-  max = 20,
-  step = 1,
-)
-numericInput(
-  "publications",
-  "Number of abstracts, presentations, and publications",
-  0,
-  min = 0,
-  max = 20,
-  step = 1,
-)
-numericInput(
-  "work",
-  "Number of work experiences",
-  0,
-  min = 0,
-  max = 20,
-  step = 1,
-)
-numericInput(
-  "volunteer",
-  "Number of volunteer experiences",
-  0,
-  min = 0,
-  max = 20,
-  step = 1,
-)
-```
-
-Row {data-height=300}
-----
-
-### Overall score
-```{r, context="server"}
-output$valuebox <- renderValueBox({
-  c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
-    score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights) %>%
-    `*`(100) -> score
-  col <- if_else(score >= 50, "#3fb618", if_else(score >= 20, "#ff7518", "#ff0039"))
-  score %>%
-    round(.) %>%
-    scales::ordinal(.) %>%
-    tags$p(., style = "font-size: 200%; color: #fff") %>%
-    valueBox(., caption = tags$p(paste0("percentile overall in ",input$specialty),style = "font-size: 150%; color: #fff"), icon = 'fa-star', color = col, href = NULL)
-})
-```
-
-```{r, context="render"}
-valueBoxOutput("valuebox")
-```
-
-Row {data-height=300}
-----
-
-### Step 1 score
-
-```{r, context="server"}
-output$step1Gauge<- renderGauge({
-  score_step1(input$step1,input$specialty, spec_dat,dists)%>%
-    `*`(100) %>%
-    round(.) %>%
-    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(50,100),
-                                                                warning = c(20,50),
-                                                                danger = c(0,20),
-                                                                colors = c("success", "warning","danger")))
-})
-```
-
-```{r, context="render"}
-gaugeOutput("step1Gauge")
-```
-
-### Step 2 score
-
-```{r, context="server"}
-output$step2Gauge <- renderGauge({
-  score_step2(input$step2,input$specialty, spec_dat,dists)%>%
-    `*`(100) %>%
-    round(.) %>%
-    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100),
-                                                                warning = c(33,67),
-                                                                danger = c(0,33),
-                                                                colors = c("success", "warning","danger")))
-})
-```
-
-```{r, context="render"}
-gaugeOutput("step2Gauge")
-```
-
-Row {data-height=400}
-----
-
-### Number of research experiences
-
-```{r, context="server"}
-output$researchGauge <- renderGauge({
-  score_research(input$research,input$specialty, spec_dat,dists)%>%
-    `*`(100) %>%
-    round(.) %>%
-    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100),
-                                                                warning = c(33,67),
-                                                                danger = c(0,33),
-                                                                colors = c("success", "warning","danger")))
-})
-```
-
-```{r, context="render"}
-gaugeOutput("researchGauge")
-```
-
-### Number of abstracts, presentations, and publications
-
-```{r, context="server"}
-output$publicationsGauge <- renderGauge({
-  score_publications(input$publications,input$specialty, spec_dat,dists)%>%
-    `*`(100) %>%
-    round(.) %>%
-    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100),
-                                                                warning = c(33,67),
-                                                                danger = c(0,33),
-                                                                colors = c("success", "warning","danger")))
-})
-```
-
-```{r, context="render"}
-gaugeOutput("publicationsGauge")
-```
-
-### Number of work experiences
-
-```{r, context="server"}
-
-output$workGauge <- renderGauge({
-  score_work(input$work,input$specialty, spec_dat,dists)%>%
-    `*`(100) %>%
-    round(.) %>%
-    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100),
-                                                                warning = c(33,67),
-                                                                danger = c(0,33),
-                                                                colors = c("success", "warning","danger")))
-})
-```
-
-```{r, context="render"}
-gaugeOutput("workGauge")
-```
-
-### Number of volunteer experiences
-
-```{r, context="server"}
-output$volunteerGauge <- renderGauge({
-  score_volunteer(input$volunteer,input$specialty, spec_dat,dists)%>%
-    `*`(100) %>%
-    round(.) %>%
-    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100),
-                                                                warning = c(33,67),
-                                                                danger = c(0,33),
-                                                                colors = c("success", "warning",
-                                                                           "danger")))
-})
-```
-
-```{r, context="render"}
-gaugeOutput("volunteerGauge")
-```
-
-Select programs
-================
-
-Input {.sidebar data-width=300}
---------------------
-
-```{r, context="server"}
-output$UIbuttons <- renderUI({
-  list(
-  actionButton("button","Make recommendations and resort"),
-  actionButton("tour2","Take tour of this page",icon("paper-plane")),
-  downloadButton("downloadData", "Download selections")
-  )
-})
-```
-
-```{r, context="render"}
-uiOutput("UIbuttons")
-```
-
-<details>
-
-<summary>Program basics</summary>
-```{r, context='server'}
-output$UIProgram_basics<- renderGroupUI('Program basics')
-```
-
-```{r, context='render'}
-uiOutput('UIProgram_basics')
-```
-</details>
-
-<details>
-<summary>Geography</summary>
-```{r, context='server'}
-output$UIGeography<- renderGroupUI('Geography')
-```
-
-```{r, context='render'}
-uiOutput('UIGeography')
-```
-</details>
-
-<details>
-<summary>Resident demographics</summary>
-```{r, context='server'}
-output$UIResident_demographics<- renderGroupUI('Resident demographics')
-```
-
-```{r, context='render'}
-uiOutput('UIResident_demographics')
-```
-</details>
-
-<details>
-<summary>Accreditation</summary>
-```{r, context='server'}
-output$UIAccreditation<- renderGroupUI('Accreditation')
-```
-
-```{r, context='render'}
-uiOutput('UIAccreditation')
-```
-</details>
-
-<details>
-<summary>Program size</summary>
-```{r, context='server'}
-output$UIProgram_size<- renderGroupUI('Program size')
-```
-
-```{r, context='render'}
-uiOutput('UIProgram_size')
-```
-</details>
-
-<details>
-<summary>Applicant competitiveness</summary>
-```{r, context='server'}
-output$UIApplicant_competitiveness<- renderGroupUI('Applicant competitiveness')
-```
-
-```{r, context='render'}
-uiOutput('UIApplicant_competitiveness')
-```
-</details>
-
-<details>
-<summary>International student considerations</summary>
-```{r, context='server'}
-output$UIInternational_student_considerations<- renderGroupUI('International student considerations')
-```
-
-```{r, context='render'}
-uiOutput('UIInternational_student_considerations')
-```
-</details>
-
-<details>
-<summary>Program experience</summary>
-```{r, context='server'}
-output$UIProgram_experience<- renderGroupUI('Program experience')
-```
-
-```{r, context='render'}
-uiOutput('UIProgram_experience')
-```
-</details>
-
-<details>
-<summary>Research</summary>
-```{r, context='server'}
-output$UIResearch<- renderGroupUI('Research')
-```
-
-```{r, context='render'}
-uiOutput('UIResearch')
-```
-</details>
-
-<details>
-<summary>Teaching</summary>
-```{r, context='server'}
-output$UITeaching<- renderGroupUI('Teaching')
-```
-
-```{r, context='render'}
-uiOutput('UITeaching')
-```
-</details>
-
-<details>
-<summary>Weather</summary>
-```{r, context='server'}
-output$UIWeather<- renderGroupUI('Weather')
-```
-
-```{r, context='render'}
-uiOutput('UIWeather')
-```
-
-</details>
-
-<details>
-<summary>Cost of living</summary>
-```{r, context='server'}
-output$UICost_of_living<- renderGroupUI('Cost of living')
-```
-
-```{r, context='render'}
-uiOutput('UICost_of_living')
-```
-</details>
-
-<details>
-<summary>County health characteristics</summary>
-```{r, context='server'}
-output$UICounty_health_characteristics<- renderGroupUI('County health characteristics')
-```
-
-```{r, context='render'}
-uiOutput('UICounty_health_characteristics')
-```
-</details>
-
-<details>
-<summary>County demographics</summary>
-```{r, context='server'}
-output$UICounty_demographics<- renderGroupUI('County demographics')
-```
-
-```{r, context='render'}
-uiOutput('UICounty_demographics')
-```
-</details>
-
-<details>
-<summary>Hospital outcomes</summary>
-```{r, context='server'}
-output$UIHospital_outcomes<- renderGroupUI('Hospital outcomes')
-```
-
-```{r, context='render'}
-uiOutput('UIHospital_outcomes')
-```
-</details>
-
-Row {data-height=50}
-
------
-
-```{r server_logic, context="server", include = F}
-# keep track of selections
-`%notin%` <- Negate(`%in%`)
-
-#initialize reactive vals
-to_join <- reactiveVal(data.frame(ID = "", recommend_rank=0))
-selectedID_list <- reactiveVal()
-selectedIDs <- reactiveVal()
-difficulty_counts <- reactiveVal(list("Reach" = 0,"Target" = 0, "Safer" = 0))
-df_save <- reactiveVal()
-
-# initialize global variables
-
-hardcode_selectedIDs <- NULL
-
-#log selections
-
-observeEvent(input$table_row_last_clicked,{
-  ID <- combined_df_list[[input$specialty]] %>%
-    arrange(Overall_rank) %>%
-    .[input$table_row_last_clicked,"ID"] %>%
-    as.character(.)
-
-  if (ID %notin% names(selectedID_list())) {
-    lis_ <- selectedID_list()
-    lis_[[ID]] <- 1
-    selectedID_list(lis_)
-  } else {
-    lis_ <- selectedID_list()
-    lis_[[ID]] <- lis_[[ID]] + 1
-    selectedID_list(lis_)
-  }
-
-  newVal <- names(selectedID_list())[as.vector(unlist(lapply(selectedID_list(),function(i) mod(i,2)==1)))]
-  selectedIDs(newVal)
-  harcode_selectedIDs <<- selectedIDs()
-
-  #make scoring calculations
-
-  score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
-    score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights)
-  safer <- pnorm(qnorm(score) - input$rangeset)
-  reach <- pnorm(qnorm(score) + input$rangeset)
-
-  combined_df_list[[input$specialty]] %>%
-    mutate(Range = if_else(Overall_percentile > reach, "Reach", if_else(Overall_percentile > safer, "Target","Safer")), .before=1) %>%
-    filter(ID %in% selectedIDs()) %>%
-    dplyr::select(Range) %>%
-    table(.) -> value_counts
-  new_lis <- list("Reach" = 0,"Target" = 0, "Safer" = 0)
-  for (name in c("Reach","Target","Safer")) {
-    if (name %in% names(value_counts)) {
-      new_lis[[name]] <- value_counts[[name]][[1]]
-    }
-  }
-  difficulty_counts(new_lis)
-
-  #prepare download helper
-  data <- reactive({
-    out <- df_save()
-    out %>%
-      filter(ID %in% selectedIDs())
-  })
-  output$downloadData <- downloadHandler(
-    filename = function() {
-      paste0(Sys.Date(), "_output.csv")
-    },
-    content = function(file) {
-      vroom::vroom_write(data(), file, delim = ",")
-    }
-)
-})
-
-#reinitialize selections if specialty is switched or if bucketing cut-offs are updated
-observeEvent(input$specialty,{
-  selectedID_list(list())
-  selectedIDs(c())
-  difficulty_counts(list("Reach" = 0,"Target" = 0, "Safer" = 0))
-})
-
-observeEvent(input$rangeset,{
-  selectedID_list(list())
-  selectedIDs(c())
-  difficulty_counts(list("Reach" = 0,"Target" = 0, "Safer" = 0))
-})
-```
-
-### Reach program
-
-```{r, context="server"}
-
-output$valuebox_reach <- renderValueBox({
-    valueBox(tags$p(difficulty_counts()[["Reach"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("target programs selected"), style = "font-size: 150%; color: #fff"), color = "info", href = NULL)
-})
-```
-
-```{r, context="render"}
-valueBoxOutput("valuebox_reach")
-```
-
-### Target program
-
-```{r, context="server"}
-output$valuebox_target <- renderValueBox({
-    valueBox(tags$p(difficulty_counts()[["Target"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("target programs selected"),style = "font-size: 150%; color: #fff"), color = "warning", href = NULL)
-})
-```
-
-```{r, context="render"}
-valueBoxOutput("valuebox_target")
-```
-
-### Safer program
-
-```{r, context="server"}
-output$valuebox_safer <- renderValueBox({
-    valueBox(tags$p(difficulty_counts()[["Safer"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("safer programs selected"),style = "font-size: 150%; color: #fff"), color = "success", href = NULL)
-})
-```
-
-```{r, context="render"}
-valueBoxOutput("valuebox_safer")
-```
-
-Row {data-height=900}
-
------
-
-###
-
-```{r, context="server"}
-observeEvent(input$button,{
-  #join recommendations to the dataframe
-  inter <- py$models[[input$specialty]]$recommend_from_interactions(observed_items=as.list(selectedIDs()),k=as.integer(1000))$to_dataframe()[,] %>%
-    as.data.frame(.) %>%
-    rename(recommend_rank = rank)
-  to_join(inter)
-})
-
-output$table <- DT::renderDT({
-  #make scoring calculations
-  score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
-    score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights)
-  safer <- pnorm(qnorm(score) - input$rangeset)
-  reach <- pnorm(qnorm(score) + input$rangeset)
-
-  #build core dataframe
-  df <- combined_df_list[[input$specialty]] %>%
-    arrange(Overall_rank) %>%
-    mutate(Range = if_else(Overall_percentile > reach, "Reach", if_else(Overall_percentile > safer, "Target","Safer")), .before=1) %>%
-    mutate(`Program website` = if_else(is.na(`Program website`),as.character(NA),paste0('<a style="font-size:100%" href="', `Program website`,'" target="_blank" class="btn btn-1">Link</a>'))) %>%
-    mutate(`Freida` = if_else(is.na(`ID`),as.character(NA),paste0('<a style="font-size:100%" href="https://freida.ama-assn.org/program/', `ID`,'" target="_blank" class="btn btn-2">Link</a>'))) %>%
-    mutate(`AAMC link` = if_else(is.na(`AAMC link`),as.character(NA),paste0('<a style="font-size:100%" href="', `AAMC link`,'" target="_blank" class="btn btn-3">Link</a>'))) %>%
-    mutate(`Doximity link` = if_else(is.na(`Doximity link`),as.character(NA),paste0('<a style="font-size:100%" href="', `Doximity link`,'" target="_blank" class="btn btn-4">Link</a>'))) %>%
-    relocate(City, .after=`Residency program name`)
-
-  #filter core dataframe
-  for (group in filter_groups) {
-    vars_ <- filters %>%
-      filter(Class == group) %>%
-      dplyr::select(Colname) %>%
-      .[[1]]
-    for (var in vars_) {
-      if (!is.null(classes[[var]])) {
-        if (classes[[var]] %in% c("character","factor")) {
-          df %<>%
-            filter_at(vars(var), any_vars((. %in% input[[var]])))
-          } else {
-            df %<>%
-              filter_at(vars(var), any_vars((. >= input[[var]][1] & . <= input[[var]][2])))
-          }
-      }
-    }
-  }
-
-  # create and style DR
-  val <- to_join()
-  vis <- c("Range","Residency program name", "City", "State", "Overall rank","Program website","Freida","AAMC link","Doximity link", "# Residents on Duty Year 1","Range of average USMLE Step 1 score of current residents")
-  df %<>%
-    dplyr::select(.,-any_of(c("recommend_rank"))) %>%
-    left_join(.,val,by="ID")  %>%
-    relocate(any_of(vis))
-
-  # create helper to move selected items to the top
-  df$prev_select <- if_else(df$ID %in% isolate(selectedIDs()),c(TRUE),c(FALSE))
-
-  # select previous rows
-  selectedRows <- which(df$ID %in% isolate(selectedIDs()))
-
-  # find columns to hide
-  to_hide1 <- which(str_detect(colnames(df),"_1"))
-  to_hide2 <- which(colnames(df) %in% c("score","recommend_rank","prev_select","Specialty"))
-  to_hide3 <- which(str_detect(colnames(df),"_percentile"))
-
-  # find colnames to color
-
-  from_color <- colSums(is.na(df)) %>%
-    .[.>0] %>%
-    names(.) %>%
-    .[!is.na(str_locate(.,"_1")[,1])]
-
-  to_color <- from_color %>%
-    str_sub(.,1,-3)
-
-  # save df for downloading
-  df_save(df)
-
-  # prepare colname changes
-
-  colname_change_list = list()
-  colname_change_list[["Program website"]] <- "Program"
-  colname_change_list[["AAMC link"]] <- "AAMC"
-  colname_change_list[["Doximity link"]] <- "Doximity"
-  colname_change_list[["# Residents on Duty Year 1"]] <- "# Year 1 Residents"
-  colname_change_list[["Range of average USMLE Step 1 score of current residents"]] <- "Current residents Step 1 range"
-  colname_change_vec <- as.numeric(lapply(names(colname_change_list), function(i) which(colnames(df) == i) + 1))
-  names(colname_change_vec) <- as.character(colname_change_list)
-
-  #adjust to_color for new column names
-  replace_indices_base <- sapply( names(colname_change_list), function(i) which(to_color == i)) %>%
-    as.numeric(.)
-  replace_indices_non_na <- replace_indices_base %>%
-    is.na(.) %>%
-    as.numeric(.) %>%
-    multiply_by(-1) %>%
-    add(1) %>%
-    as.logical(.) %>%
-    which(.)
-  to_color <- replace(to_color, replace_indices_base[replace_indices_non_na], as.character(colname_change_list)[replace_indices_non_na])
-
-  # wrap column names and adjust variable names accordingly
-  colnames(df) %<>% wrap_title
-  to_color %<>% wrap_title
-  from_color %<>% wrap_title
-  names(colname_change_vec) %<>% wrap_title
-
-  # mutate NAs and round numbers
-  df %<>%
-    mutate_at(vars(contains("_1")), ~as.numeric(is.na(.))) %>%
-    mutate_if(is.numeric, ~round(.,2))
-  
-  # get full colnames
-  colnames(df)
-
-  # create datatable
-  datatable(df, escape = F,
-            colnames = colname_change_vec,
-            options= list(autoWidth = TRUE,
-                          pageLength = 10,
-                          lengthMenu = c(6, 8, 10, 12),
-                          columnDefs = list(list(visible=FALSE, targets=c(to_hide1,to_hide2,to_hide3))),
-                          order = list(list(ncol(df),'desc'),list(ncol(df)-1,'asc')),
-                          displayStart=floor(length(selectedRows)/10)*10,
-                          scrollX = TRUE,
-                          fixedColumns = list(leftColumns = 3)),
-            extensions = 'FixedColumns',
-            class = "display nowrap",
-            selection = list(mode = "multiple", target = "row", selected = selectedRows)) %>%
-    formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff"))) %>%
-    formatStyle(.,columns = to_color,valueColumns = from_color,color = styleEqual(c(1),c("#ff0039"))) %>%
-    formatStyle(.,columns = 1:ncol(df), fontSize = '100%')
-  }
-)
-```
-
-```{r, context="render"}
-#output DT
-DTOutput("table")
-```
-
-> Red text indicates values imputed through machine learning.
+<!-- ```{python import_models, context="setup", include = FALSE} -->
+<!-- import turicreate as tc -->
+<!-- models = dict() -->
+<!-- for key in r.dat_list.keys(): -->
+<!--   models[key] = tc.load_model(r.models_loc + '/' + key + '/') -->
+<!-- ``` -->
+
+<!-- ```{r, context="setup"} -->
+<!-- filters <- read_csv("config/filters.csv") -->
+<!-- filter_groups <- unique(filters$Class) %>% .[!is.na(.)] -->
+<!-- filters %<>% -->
+<!--   drop_na() %>% -->
+<!--   arrange(Colname) -->
+<!-- classes <- lapply(imputed_df_list[[1]], class) -->
+<!-- ``` -->
+
+<!-- ```{r, context="server"} -->
+<!-- UI_helper_func <- function(var) { -->
+<!--   if (!is.null(classes[[var]])) { -->
+<!--       if (as.character(classes[[var]]) == "numeric") { -->
+<!--         min <- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T)) -->
+<!--         max <- ceiling(max(combined_df_list[[input$specialty]][[var]], na.rm = T)) -->
+<!--         sliderInput(var,var,min,max,c(min,max),round=T) -->
+<!--     } else { -->
+<!--         vals <- unique(as.character(combined_df_list[[input$specialty]][[var]])) -->
+<!--         pickerInput(var,var, choices=vals,selected = vals, multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10, `selected-text-format` = "count > 3")) -->
+<!--     } -->
+<!--   } -->
+<!-- } -->
+
+<!-- renderGroupUI <- function(group) { -->
+<!--   renderUI({ -->
+<!--     filters %>% -->
+<!--       filter(Class %in% group) %>% -->
+<!--       dplyr::select(Colname) %>% -->
+<!--       .[[1]] -> vars_ -->
+<!--     lapply(vars_, UI_helper_func) -->
+<!--   }) -->
+<!-- } -->
+<!-- ``` -->
+
+<!-- Applicant competitiveness -->
+<!-- ======================= -->
+
+<!-- ```{r, context="server"} -->
+
+<!-- steps1 <- data.frame(element = c("#specialty-selectized","#section-inputs","#section-overall-score","#step1Gauge", ".navbar"), -->
+<!--                      intro = c("To get started, select your desired specialty.", -->
+<!--                                "Then enter information about your step scores. Please note that these values are not logged or saved, and no one will have access to them other than you.", -->
+<!--                                "Once you've made your entries, you can see an assessment of your competitiveness in that specialty here versus matched applicants in the prior few years. This aggregates your scores on each individual components based on their relative importance accroding to program director surveys in your chosen specialty.", -->
+<!--                                "Your competitiveness for the individual components can also be found below. For example, this is your score based on your step 1 score alone", -->
+<!--                                "Once you're done, click 'Select programs' in the navbar to move to the next section. Give it a few seconds to load :)")) -->
+
+<!-- steps2 <-data.frame(element = c("#table", ".navbar ","#table","#table","#table","#section-row-2",".btn",".section-inputs2","#UIProgram_basics","#UIProgram_basics","#UIProgram_basics","#UIbuttons"), -->
+<!--                     intro = c("First off, you'll see a list of (nearly) every program in your specialty. Programs are bucketted into \"Reach\", \"Target\", and \"Safer\" based on (1) your competitiveness in the specialty and (2) our assessment of the program based on applicant competitiveness, research quality, teaching quality, and patient outcomes. The initial order of the programs is based on this rank list, with the top program at the top.", -->
+<!--                               "You can find more detail on how your specialty was ranked by clicking \"More info on specialty ranking\" in the Navbar.", -->
+<!--                               "For each program, you can quickly see its details as well as links to all major relevant sites, including the Program website itself, Freida, AAMC, and Doximity where available.", -->
+<!--                               "To see additional information collected on an individual program, click the plus sign at the right of the table.", -->
+<!--                               "To select a program, simply click on the row in the table and it will highlight.", -->
+<!--                               "As you make your selections, the boxes at the top of the page will keep a tally of how many programs you've selected and at what level of competitiveness to help you craft a full, well-balanced program portfolio", -->
+<!--                               "If you would like help finding programs, click the \"Make recommendations and resort\" button. This will make recommendations based on a machine learning algorithm that tries to find similarities between your current selections and the other remaining programs. Once this loads, your current selections will be at the top, then the programs will be listed in the order of recommendation. I.e. the top recommended program will be first after your current selections.", -->
+<!--                               "You can also filter programs based on the menus contained below. These include all the traditional filters (e.g. Geography), but also some unique ones, including weather, cost of living, county health characteristics, and county divserity. We hope you find these useful.", -->
+<!--                               "To access the filters, click on an arrow to open the respective menu", -->
+<!--                               "Then set your filters, the table with automatically adjust, and don't worry, your prior selections will be saved, even if the filter removes them", -->
+<!--                               "You can continue this way until you find all your programs", -->
+<!--                               "Once you are satisfied with your list, click \"Download selections\" to dowload a csv file with all of the information about your chosen programs. Please note that the app will not save your selections ion, so make sure to do this to keep a record of your selection. Otherwise, you'll be starting from scratch the next time you open the app.")) -->
+
+<!-- observeEvent(input$tour1,{ -->
+<!--   introjs(session,options = list(steps=steps1)) -->
+<!-- }) -->
+
+<!-- observeEvent(input$tour2,{ -->
+<!--   introjs(session,options = list(steps=steps2)) -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- ```{r, context="server"} -->
+<!-- output$introJShelper <- renderUI({ -->
+<!--   introjsUI() -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- Inputs {.sidebar} -->
+
+<!-- ------ -->
+
+<!-- ```{r} -->
+<!-- uiOutput("introJShelper") -->
+<!-- actionButton("tour1","Take tour of this page",icon("paper-plane")) -->
+<!-- selectInput( -->
+<!--   "specialty", -->
+<!--   "Specialty", -->
+<!--   spec_dat$Specialty, -->
+<!--   selected =spec_dat$Specialty[1], -->
+<!--   multiple = FALSE, -->
+<!--   selectize = TRUE -->
+<!-- ) -->
+<!-- numericInput( -->
+<!--   "step1", -->
+<!--   "Step 1 score", -->
+<!--   220, -->
+<!--   min = 190, -->
+<!--   max = 270, -->
+<!--   step = 1, -->
+<!-- ) -->
+<!-- numericInput( -->
+<!--   "step2", -->
+<!--   "Step 2 score", -->
+<!--   220, -->
+<!--   min = 190, -->
+<!--   max = 270, -->
+<!--   step = 1, -->
+<!-- ) -->
+<!-- numericInput( -->
+<!--   "research", -->
+<!--   "Number of research experiences", -->
+<!--   0, -->
+<!--   min = 0, -->
+<!--   max = 20, -->
+<!--   step = 1, -->
+<!-- ) -->
+<!-- numericInput( -->
+<!--   "publications", -->
+<!--   "Number of abstracts, presentations, and publications", -->
+<!--   0, -->
+<!--   min = 0, -->
+<!--   max = 20, -->
+<!--   step = 1, -->
+<!-- ) -->
+<!-- numericInput( -->
+<!--   "work", -->
+<!--   "Number of work experiences", -->
+<!--   0, -->
+<!--   min = 0, -->
+<!--   max = 20, -->
+<!--   step = 1, -->
+<!-- ) -->
+<!-- numericInput( -->
+<!--   "volunteer", -->
+<!--   "Number of volunteer experiences", -->
+<!--   0, -->
+<!--   min = 0, -->
+<!--   max = 20, -->
+<!--   step = 1, -->
+<!-- ) -->
+<!-- ``` -->
+
+<!-- Row {data-height=300} -->
+<!-- ---- -->
+
+<!-- ### Overall score -->
+<!-- ```{r, context="server"} -->
+<!-- output$valuebox <- renderValueBox({ -->
+<!--   c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>% -->
+<!--     score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights) %>% -->
+<!--     `*`(100) -> score -->
+<!--   col <- if_else(score >= 50, "#3fb618", if_else(score >= 20, "#ff7518", "#ff0039")) -->
+<!--   score %>% -->
+<!--     round(.) %>% -->
+<!--     scales::ordinal(.) %>% -->
+<!--     tags$p(., style = "font-size: 200%; color: #fff") %>% -->
+<!--     valueBox(., caption = tags$p(paste0("percentile overall in ",input$specialty),style = "font-size: 150%; color: #fff"), icon = 'fa-star', color = col, href = NULL) -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- ```{r, context="render"} -->
+<!-- valueBoxOutput("valuebox") -->
+<!-- ``` -->
+
+<!-- Row {data-height=300} -->
+<!-- ---- -->
+
+<!-- ### Step 1 score -->
+
+<!-- ```{r, context="server"} -->
+<!-- output$step1Gauge<- renderGauge({ -->
+<!--   score_step1(input$step1,input$specialty, spec_dat,dists)%>% -->
+<!--     `*`(100) %>% -->
+<!--     round(.) %>% -->
+<!--     gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(50,100), -->
+<!--                                                                 warning = c(20,50), -->
+<!--                                                                 danger = c(0,20), -->
+<!--                                                                 colors = c("success", "warning","danger"))) -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- ```{r, context="render"} -->
+<!-- gaugeOutput("step1Gauge") -->
+<!-- ``` -->
+
+<!-- ### Step 2 score -->
+
+<!-- ```{r, context="server"} -->
+<!-- output$step2Gauge <- renderGauge({ -->
+<!--   score_step2(input$step2,input$specialty, spec_dat,dists)%>% -->
+<!--     `*`(100) %>% -->
+<!--     round(.) %>% -->
+<!--     gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100), -->
+<!--                                                                 warning = c(33,67), -->
+<!--                                                                 danger = c(0,33), -->
+<!--                                                                 colors = c("success", "warning","danger"))) -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- ```{r, context="render"} -->
+<!-- gaugeOutput("step2Gauge") -->
+<!-- ``` -->
+
+<!-- Row {data-height=400} -->
+<!-- ---- -->
+
+<!-- ### Number of research experiences -->
+
+<!-- ```{r, context="server"} -->
+<!-- output$researchGauge <- renderGauge({ -->
+<!--   score_research(input$research,input$specialty, spec_dat,dists)%>% -->
+<!--     `*`(100) %>% -->
+<!--     round(.) %>% -->
+<!--     gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100), -->
+<!--                                                                 warning = c(33,67), -->
+<!--                                                                 danger = c(0,33), -->
+<!--                                                                 colors = c("success", "warning","danger"))) -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- ```{r, context="render"} -->
+<!-- gaugeOutput("researchGauge") -->
+<!-- ``` -->
+
+<!-- ### Number of abstracts, presentations, and publications -->
+
+<!-- ```{r, context="server"} -->
+<!-- output$publicationsGauge <- renderGauge({ -->
+<!--   score_publications(input$publications,input$specialty, spec_dat,dists)%>% -->
+<!--     `*`(100) %>% -->
+<!--     round(.) %>% -->
+<!--     gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100), -->
+<!--                                                                 warning = c(33,67), -->
+<!--                                                                 danger = c(0,33), -->
+<!--                                                                 colors = c("success", "warning","danger"))) -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- ```{r, context="render"} -->
+<!-- gaugeOutput("publicationsGauge") -->
+<!-- ``` -->
+
+<!-- ### Number of work experiences -->
+
+<!-- ```{r, context="server"} -->
+
+<!-- output$workGauge <- renderGauge({ -->
+<!--   score_work(input$work,input$specialty, spec_dat,dists)%>% -->
+<!--     `*`(100) %>% -->
+<!--     round(.) %>% -->
+<!--     gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100), -->
+<!--                                                                 warning = c(33,67), -->
+<!--                                                                 danger = c(0,33), -->
+<!--                                                                 colors = c("success", "warning","danger"))) -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- ```{r, context="render"} -->
+<!-- gaugeOutput("workGauge") -->
+<!-- ``` -->
+
+<!-- ### Number of volunteer experiences -->
+
+<!-- ```{r, context="server"} -->
+<!-- output$volunteerGauge <- renderGauge({ -->
+<!--   score_volunteer(input$volunteer,input$specialty, spec_dat,dists)%>% -->
+<!--     `*`(100) %>% -->
+<!--     round(.) %>% -->
+<!--     gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100), -->
+<!--                                                                 warning = c(33,67), -->
+<!--                                                                 danger = c(0,33), -->
+<!--                                                                 colors = c("success", "warning", -->
+<!--                                                                            "danger"))) -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- ```{r, context="render"} -->
+<!-- gaugeOutput("volunteerGauge") -->
+<!-- ``` -->
+
+<!-- Select programs -->
+<!-- ================ -->
+
+<!-- Input {.sidebar data-width=300} -->
+<!-- -------------------- -->
+
+<!-- ```{r, context="server"} -->
+<!-- output$UIbuttons <- renderUI({ -->
+<!--   list( -->
+<!--   actionButton("button","Make recommendations and resort"), -->
+<!--   actionButton("tour2","Take tour of this page",icon("paper-plane")), -->
+<!--   downloadButton("downloadData", "Download selections") -->
+<!--   ) -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- ```{r, context="render"} -->
+<!-- uiOutput("UIbuttons") -->
+<!-- ``` -->
+
+<!-- <details> -->
+
+<!-- <summary>Program basics</summary> -->
+<!-- ```{r, context='server'} -->
+<!-- output$UIProgram_basics<- renderGroupUI('Program basics') -->
+<!-- ``` -->
+
+<!-- ```{r, context='render'} -->
+<!-- uiOutput('UIProgram_basics') -->
+<!-- ``` -->
+<!-- </details> -->
+
+<!-- <details> -->
+<!-- <summary>Geography</summary> -->
+<!-- ```{r, context='server'} -->
+<!-- output$UIGeography<- renderGroupUI('Geography') -->
+<!-- ``` -->
+
+<!-- ```{r, context='render'} -->
+<!-- uiOutput('UIGeography') -->
+<!-- ``` -->
+<!-- </details> -->
+
+<!-- <details> -->
+<!-- <summary>Resident demographics</summary> -->
+<!-- ```{r, context='server'} -->
+<!-- output$UIResident_demographics<- renderGroupUI('Resident demographics') -->
+<!-- ``` -->
+
+<!-- ```{r, context='render'} -->
+<!-- uiOutput('UIResident_demographics') -->
+<!-- ``` -->
+<!-- </details> -->
+
+<!-- <details> -->
+<!-- <summary>Accreditation</summary> -->
+<!-- ```{r, context='server'} -->
+<!-- output$UIAccreditation<- renderGroupUI('Accreditation') -->
+<!-- ``` -->
+
+<!-- ```{r, context='render'} -->
+<!-- uiOutput('UIAccreditation') -->
+<!-- ``` -->
+<!-- </details> -->
+
+<!-- <details> -->
+<!-- <summary>Program size</summary> -->
+<!-- ```{r, context='server'} -->
+<!-- output$UIProgram_size<- renderGroupUI('Program size') -->
+<!-- ``` -->
+
+<!-- ```{r, context='render'} -->
+<!-- uiOutput('UIProgram_size') -->
+<!-- ``` -->
+<!-- </details> -->
+
+<!-- <details> -->
+<!-- <summary>Applicant competitiveness</summary> -->
+<!-- ```{r, context='server'} -->
+<!-- output$UIApplicant_competitiveness<- renderGroupUI('Applicant competitiveness') -->
+<!-- ``` -->
+
+<!-- ```{r, context='render'} -->
+<!-- uiOutput('UIApplicant_competitiveness') -->
+<!-- ``` -->
+<!-- </details> -->
+
+<!-- <details> -->
+<!-- <summary>International student considerations</summary> -->
+<!-- ```{r, context='server'} -->
+<!-- output$UIInternational_student_considerations<- renderGroupUI('International student considerations') -->
+<!-- ``` -->
+
+<!-- ```{r, context='render'} -->
+<!-- uiOutput('UIInternational_student_considerations') -->
+<!-- ``` -->
+<!-- </details> -->
+
+<!-- <details> -->
+<!-- <summary>Program experience</summary> -->
+<!-- ```{r, context='server'} -->
+<!-- output$UIProgram_experience<- renderGroupUI('Program experience') -->
+<!-- ``` -->
+
+<!-- ```{r, context='render'} -->
+<!-- uiOutput('UIProgram_experience') -->
+<!-- ``` -->
+<!-- </details> -->
+
+<!-- <details> -->
+<!-- <summary>Research</summary> -->
+<!-- ```{r, context='server'} -->
+<!-- output$UIResearch<- renderGroupUI('Research') -->
+<!-- ``` -->
+
+<!-- ```{r, context='render'} -->
+<!-- uiOutput('UIResearch') -->
+<!-- ``` -->
+<!-- </details> -->
+
+<!-- <details> -->
+<!-- <summary>Teaching</summary> -->
+<!-- ```{r, context='server'} -->
+<!-- output$UITeaching<- renderGroupUI('Teaching') -->
+<!-- ``` -->
+
+<!-- ```{r, context='render'} -->
+<!-- uiOutput('UITeaching') -->
+<!-- ``` -->
+<!-- </details> -->
+
+<!-- <details> -->
+<!-- <summary>Weather</summary> -->
+<!-- ```{r, context='server'} -->
+<!-- output$UIWeather<- renderGroupUI('Weather') -->
+<!-- ``` -->
+
+<!-- ```{r, context='render'} -->
+<!-- uiOutput('UIWeather') -->
+<!-- ``` -->
+
+<!-- </details> -->
+
+<!-- <details> -->
+<!-- <summary>Cost of living</summary> -->
+<!-- ```{r, context='server'} -->
+<!-- output$UICost_of_living<- renderGroupUI('Cost of living') -->
+<!-- ``` -->
+
+<!-- ```{r, context='render'} -->
+<!-- uiOutput('UICost_of_living') -->
+<!-- ``` -->
+<!-- </details> -->
+
+<!-- <details> -->
+<!-- <summary>County health characteristics</summary> -->
+<!-- ```{r, context='server'} -->
+<!-- output$UICounty_health_characteristics<- renderGroupUI('County health characteristics') -->
+<!-- ``` -->
+
+<!-- ```{r, context='render'} -->
+<!-- uiOutput('UICounty_health_characteristics') -->
+<!-- ``` -->
+<!-- </details> -->
+
+<!-- <details> -->
+<!-- <summary>County demographics</summary> -->
+<!-- ```{r, context='server'} -->
+<!-- output$UICounty_demographics<- renderGroupUI('County demographics') -->
+<!-- ``` -->
+
+<!-- ```{r, context='render'} -->
+<!-- uiOutput('UICounty_demographics') -->
+<!-- ``` -->
+<!-- </details> -->
+
+<!-- <details> -->
+<!-- <summary>Hospital outcomes</summary> -->
+<!-- ```{r, context='server'} -->
+<!-- output$UIHospital_outcomes<- renderGroupUI('Hospital outcomes') -->
+<!-- ``` -->
+
+<!-- ```{r, context='render'} -->
+<!-- uiOutput('UIHospital_outcomes') -->
+<!-- ``` -->
+<!-- </details> -->
+
+<!-- Row {data-height=50} -->
+
+<!-- ----- -->
+
+<!-- ```{r server_logic, context="server", include = F} -->
+<!-- # keep track of selections -->
+<!-- `%notin%` <- Negate(`%in%`) -->
+
+<!-- #initialize reactive vals -->
+<!-- to_join <- reactiveVal(data.frame(ID = "", recommend_rank=0)) -->
+<!-- selectedID_list <- reactiveVal() -->
+<!-- selectedIDs <- reactiveVal() -->
+<!-- difficulty_counts <- reactiveVal(list("Reach" = 0,"Target" = 0, "Safer" = 0)) -->
+<!-- df_save <- reactiveVal() -->
+
+<!-- # initialize global variables -->
+
+<!-- hardcode_selectedIDs <- NULL -->
+
+<!-- #log selections -->
+
+<!-- observeEvent(input$table_row_last_clicked,{ -->
+<!--   ID <- combined_df_list[[input$specialty]] %>% -->
+<!--     arrange(Overall_rank) %>% -->
+<!--     .[input$table_row_last_clicked,"ID"] %>% -->
+<!--     as.character(.) -->
+
+<!--   if (ID %notin% names(selectedID_list())) { -->
+<!--     lis_ <- selectedID_list() -->
+<!--     lis_[[ID]] <- 1 -->
+<!--     selectedID_list(lis_) -->
+<!--   } else { -->
+<!--     lis_ <- selectedID_list() -->
+<!--     lis_[[ID]] <- lis_[[ID]] + 1 -->
+<!--     selectedID_list(lis_) -->
+<!--   } -->
+
+<!--   newVal <- names(selectedID_list())[as.vector(unlist(lapply(selectedID_list(),function(i) mod(i,2)==1)))] -->
+<!--   selectedIDs(newVal) -->
+<!--   harcode_selectedIDs <<- selectedIDs() -->
+
+<!--   #make scoring calculations -->
+
+<!--   score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>% -->
+<!--     score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights) -->
+<!--   safer <- pnorm(qnorm(score) - input$rangeset) -->
+<!--   reach <- pnorm(qnorm(score) + input$rangeset) -->
+
+<!--   combined_df_list[[input$specialty]] %>% -->
+<!--     mutate(Range = if_else(Overall_percentile > reach, "Reach", if_else(Overall_percentile > safer, "Target","Safer")), .before=1) %>% -->
+<!--     filter(ID %in% selectedIDs()) %>% -->
+<!--     dplyr::select(Range) %>% -->
+<!--     table(.) -> value_counts -->
+<!--   new_lis <- list("Reach" = 0,"Target" = 0, "Safer" = 0) -->
+<!--   for (name in c("Reach","Target","Safer")) { -->
+<!--     if (name %in% names(value_counts)) { -->
+<!--       new_lis[[name]] <- value_counts[[name]][[1]] -->
+<!--     } -->
+<!--   } -->
+<!--   difficulty_counts(new_lis) -->
+
+<!--   #prepare download helper -->
+<!--   data <- reactive({ -->
+<!--     out <- df_save() -->
+<!--     out %>% -->
+<!--       filter(ID %in% selectedIDs()) -->
+<!--   }) -->
+<!--   output$downloadData <- downloadHandler( -->
+<!--     filename = function() { -->
+<!--       paste0(Sys.Date(), "_output.csv") -->
+<!--     }, -->
+<!--     content = function(file) { -->
+<!--       vroom::vroom_write(data(), file, delim = ",") -->
+<!--     } -->
+<!-- ) -->
+<!-- }) -->
+
+<!-- #reinitialize selections if specialty is switched or if bucketing cut-offs are updated -->
+<!-- observeEvent(input$specialty,{ -->
+<!--   selectedID_list(list()) -->
+<!--   selectedIDs(c()) -->
+<!--   difficulty_counts(list("Reach" = 0,"Target" = 0, "Safer" = 0)) -->
+<!-- }) -->
+
+<!-- observeEvent(input$rangeset,{ -->
+<!--   selectedID_list(list()) -->
+<!--   selectedIDs(c()) -->
+<!--   difficulty_counts(list("Reach" = 0,"Target" = 0, "Safer" = 0)) -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- ### Reach program -->
+
+<!-- ```{r, context="server"} -->
+
+<!-- output$valuebox_reach <- renderValueBox({ -->
+<!--     valueBox(tags$p(difficulty_counts()[["Reach"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("target programs selected"), style = "font-size: 150%; color: #fff"), color = "info", href = NULL) -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- ```{r, context="render"} -->
+<!-- valueBoxOutput("valuebox_reach") -->
+<!-- ``` -->
+
+<!-- ### Target program -->
+
+<!-- ```{r, context="server"} -->
+<!-- output$valuebox_target <- renderValueBox({ -->
+<!--     valueBox(tags$p(difficulty_counts()[["Target"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("target programs selected"),style = "font-size: 150%; color: #fff"), color = "warning", href = NULL) -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- ```{r, context="render"} -->
+<!-- valueBoxOutput("valuebox_target") -->
+<!-- ``` -->
+
+<!-- ### Safer program -->
+
+<!-- ```{r, context="server"} -->
+<!-- output$valuebox_safer <- renderValueBox({ -->
+<!--     valueBox(tags$p(difficulty_counts()[["Safer"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("safer programs selected"),style = "font-size: 150%; color: #fff"), color = "success", href = NULL) -->
+<!-- }) -->
+<!-- ``` -->
+
+<!-- ```{r, context="render"} -->
+<!-- valueBoxOutput("valuebox_safer") -->
+<!-- ``` -->
+
+<!-- Row {data-height=900} -->
+
+<!-- ----- -->
+
+<!-- ### -->
+
+<!-- ```{r, context="server"} -->
+<!-- observeEvent(input$button,{ -->
+<!--   #join recommendations to the dataframe -->
+<!--   inter <- py$models[[input$specialty]]$recommend_from_interactions(observed_items=as.list(selectedIDs()),k=as.integer(1000))$to_dataframe()[,] %>% -->
+<!--     as.data.frame(.) %>% -->
+<!--     rename(recommend_rank = rank) -->
+<!--   to_join(inter) -->
+<!-- }) -->
+
+<!-- output$table <- DT::renderDT({ -->
+<!--   #make scoring calculations -->
+<!--   score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>% -->
+<!--     score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights) -->
+<!--   safer <- pnorm(qnorm(score) - input$rangeset) -->
+<!--   reach <- pnorm(qnorm(score) + input$rangeset) -->
+
+<!--   #build core dataframe -->
+<!--   df <- combined_df_list[[input$specialty]] %>% -->
+<!--     arrange(Overall_rank) %>% -->
+<!--     mutate(Range = if_else(Overall_percentile > reach, "Reach", if_else(Overall_percentile > safer, "Target","Safer")), .before=1) %>% -->
+<!--     mutate(`Program website` = if_else(is.na(`Program website`),as.character(NA),paste0('<a style="font-size:100%" href="', `Program website`,'" target="_blank" class="btn btn-1">Link</a>'))) %>% -->
+<!--     mutate(`Freida` = if_else(is.na(`ID`),as.character(NA),paste0('<a style="font-size:100%" href="https://freida.ama-assn.org/program/', `ID`,'" target="_blank" class="btn btn-2">Link</a>'))) %>% -->
+<!--     mutate(`AAMC link` = if_else(is.na(`AAMC link`),as.character(NA),paste0('<a style="font-size:100%" href="', `AAMC link`,'" target="_blank" class="btn btn-3">Link</a>'))) %>% -->
+<!--     mutate(`Doximity link` = if_else(is.na(`Doximity link`),as.character(NA),paste0('<a style="font-size:100%" href="', `Doximity link`,'" target="_blank" class="btn btn-4">Link</a>'))) %>% -->
+<!--     relocate(City, .after=`Residency program name`) -->
+
+<!--   #filter core dataframe -->
+<!--   for (group in filter_groups) { -->
+<!--     vars_ <- filters %>% -->
+<!--       filter(Class == group) %>% -->
+<!--       dplyr::select(Colname) %>% -->
+<!--       .[[1]] -->
+<!--     for (var in vars_) { -->
+<!--       if (!is.null(classes[[var]])) { -->
+<!--         if (classes[[var]] %in% c("character","factor")) { -->
+<!--           df %<>% -->
+<!--             filter_at(vars(var), any_vars((. %in% input[[var]]))) -->
+<!--           } else { -->
+<!--             df %<>% -->
+<!--               filter_at(vars(var), any_vars((. >= input[[var]][1] & . <= input[[var]][2]))) -->
+<!--           } -->
+<!--       } -->
+<!--     } -->
+<!--   } -->
+
+<!--   # create and style DR -->
+<!--   val <- to_join() -->
+<!--   vis <- c("Range","Residency program name", "City", "State", "Overall rank","Program website","Freida","AAMC link","Doximity link", "# Residents on Duty Year 1","Range of average USMLE Step 1 score of current residents") -->
+<!--   df %<>% -->
+<!--     dplyr::select(.,-any_of(c("recommend_rank"))) %>% -->
+<!--     left_join(.,val,by="ID")  %>% -->
+<!--     relocate(any_of(vis)) -->
+
+<!--   # create helper to move selected items to the top -->
+<!--   df$prev_select <- if_else(df$ID %in% isolate(selectedIDs()),c(TRUE),c(FALSE)) -->
+
+<!--   # select previous rows -->
+<!--   selectedRows <- which(df$ID %in% isolate(selectedIDs())) -->
+
+<!--   # find columns to hide -->
+<!--   to_hide1 <- which(str_detect(colnames(df),"_1")) -->
+<!--   to_hide2 <- which(colnames(df) %in% c("score","recommend_rank","prev_select","Specialty")) -->
+<!--   to_hide3 <- which(str_detect(colnames(df),"_percentile")) -->
+
+<!--   # find colnames to color -->
+
+<!--   from_color <- colSums(is.na(df)) %>% -->
+<!--     .[.>0] %>% -->
+<!--     names(.) %>% -->
+<!--     .[!is.na(str_locate(.,"_1")[,1])] -->
+
+<!--   to_color <- from_color %>% -->
+<!--     str_sub(.,1,-3) -->
+
+<!--   # save df for downloading -->
+<!--   df_save(df) -->
+
+<!--   # prepare colname changes -->
+
+<!--   colname_change_list = list() -->
+<!--   colname_change_list[["Program website"]] <- "Program" -->
+<!--   colname_change_list[["AAMC link"]] <- "AAMC" -->
+<!--   colname_change_list[["Doximity link"]] <- "Doximity" -->
+<!--   colname_change_list[["# Residents on Duty Year 1"]] <- "# Year 1 Residents" -->
+<!--   colname_change_list[["Range of average USMLE Step 1 score of current residents"]] <- "Current residents Step 1 range" -->
+<!--   colname_change_vec <- as.numeric(lapply(names(colname_change_list), function(i) which(colnames(df) == i) + 1)) -->
+<!--   names(colname_change_vec) <- as.character(colname_change_list) -->
+
+<!--   #adjust to_color for new column names -->
+<!--   replace_indices_base <- sapply( names(colname_change_list), function(i) which(to_color == i)) %>% -->
+<!--     as.numeric(.) -->
+<!--   replace_indices_non_na <- replace_indices_base %>% -->
+<!--     is.na(.) %>% -->
+<!--     as.numeric(.) %>% -->
+<!--     multiply_by(-1) %>% -->
+<!--     add(1) %>% -->
+<!--     as.logical(.) %>% -->
+<!--     which(.) -->
+<!--   to_color <- replace(to_color, replace_indices_base[replace_indices_non_na], as.character(colname_change_list)[replace_indices_non_na]) -->
+
+<!--   # wrap column names and adjust variable names accordingly -->
+<!--   colnames(df) %<>% wrap_title -->
+<!--   to_color %<>% wrap_title -->
+<!--   from_color %<>% wrap_title -->
+<!--   names(colname_change_vec) %<>% wrap_title -->
+
+<!--   # mutate NAs and round numbers -->
+<!--   df %<>% -->
+<!--     mutate_at(vars(contains("_1")), ~as.numeric(is.na(.))) %>% -->
+<!--     mutate_if(is.numeric, ~round(.,2)) -->
+
+<!--   # get full colnames -->
+<!--   colnames(df) -->
+
+<!--   # create datatable -->
+<!--   datatable(df, escape = F, -->
+<!--             colnames = colname_change_vec, -->
+<!--             options= list(autoWidth = TRUE, -->
+<!--                           pageLength = 10, -->
+<!--                           lengthMenu = c(6, 8, 10, 12), -->
+<!--                           columnDefs = list(list(visible=FALSE, targets=c(to_hide1,to_hide2,to_hide3))), -->
+<!--                           order = list(list(ncol(df),'desc'),list(ncol(df)-1,'asc')), -->
+<!--                           displayStart=floor(length(selectedRows)/10)*10, -->
+<!--                           scrollX = TRUE, -->
+<!--                           fixedColumns = list(leftColumns = 3)), -->
+<!--             extensions = 'FixedColumns', -->
+<!--             class = "display nowrap", -->
+<!--             selection = list(mode = "multiple", target = "row", selected = selectedRows)) %>% -->
+<!--     formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff"))) %>% -->
+<!--     formatStyle(.,columns = to_color,valueColumns = from_color,color = styleEqual(c(1),c("#ff0039"))) %>% -->
+<!--     formatStyle(.,columns = 1:ncol(df), fontSize = '100%') -->
+<!--   } -->
+<!-- ) -->
+<!-- ``` -->
+
+<!-- ```{r, context="render"} -->
+<!-- #output DT -->
+<!-- DTOutput("table") -->
+<!-- ``` -->
+
+<!-- > Red text indicates values imputed through machine learning. -->
 
 FAQ
 ===
