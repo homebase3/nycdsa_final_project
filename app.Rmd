@@ -130,7 +130,6 @@ library(bslib)
 library(thematic)
 library(rintrojs)
 library(here)
-library(bsplus)
 library(kableExtra)
 
 # load functions and objects
