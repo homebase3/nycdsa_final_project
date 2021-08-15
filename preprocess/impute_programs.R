@@ -131,17 +131,20 @@ ranking_weights <- as.data.frame(matrix(ncol=1 + nrow(ranking_methodology), nrow
 colnames(ranking_weights) <- c("Specialty",ranking_methodology$Metric)
 ranking_weights_it <- ranking_weights
 
+PD_Survey_weights_adj <- PD_Survey_weights %>% 
+  relocate(`Number of work experiences`,.after = 3) %>% 
+  relocate(`Number of volunteer experiences`,.after = 4) %>% 
+  relocate(`Number of research experiences`,.after = 5) 
+  
 for (spec in spec_dat$Specialty) {
   vec <- c(spec, ranking_methodology$Weight)
   spec_weights <- spec_dat[spec_dat$Specialty == spec, 8]
-  print(vec)
   #step scores
-  weight_step <- sum(as.numeric(PD_Survey_weights[PD_Survey_weights$Specialty == spec_weights,2:3]))
+  weight_step <- sum(as.numeric(PD_Survey_weights_adj[PD_Survey_weights_adj$Specialty == spec_weights,2:3]))
   vec[2] <- ranking_methodology[1,"Weight"][[1]]/ranking_methodology[1,"Category weight"][[1]] * weight_step
-  print(vec)
-  #orther weights
-  weight_others <- as.numeric(PD_Survey_weights[PD_Survey_weights$Specialty == spec_weights,4:7])
-  vec[3:6] <- ranking_methodology[2:5,"Weight"][[1]]/ranking_methodology[2:5,"Category weight"][[1]] *weight_others
+  #other weights
+  weight_others <- as.numeric(PD_Survey_weights_adj[PD_Survey_weights_adj$Specialty == spec_weights,4:7])
+  vec[3:6] <- ranking_methodology[2:5,"Weight"][[1]]/ranking_methodology[2:5,"Category weight"][[1]] * weight_others/sum(weight_others)
   ranking_weights_it[1,] <- vec
   ranking_weights <- bind_rows(ranking_weights,ranking_weights_it)
 }
