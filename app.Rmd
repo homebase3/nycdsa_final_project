@@ -10,6 +10,7 @@ output:
     vertical_layout: fill
     navbar:
       - { icon: "fa-linkedin", href: "https://www.linkedin.com/in/justin-leder-3401904b/",align: right}
+      - { icon: "fa-mail", href: "mailto:justin.leder.2@gmail.com",align: right}
       - { icon: "fa-github", href: "https://github.com/homebase3",align: right}
       - { icon: "fa-coffee", href: "https://www.buymeacoffee.com/justinleder",align: right}
 ---
@@ -1078,14 +1079,14 @@ Data is missing from the app for two reasons:
 <ul>
 <li> Programs did not provide relevant info (e.g. step scores) to the AAMC </li>
 <li> Auxiliary information (e.g. Medicare Hospital data) could not be joined to the underlying program data due to an inadequate match </li>
-<br>
+</ul>
 <br>
 
 ```{r, context="server"}
 output$text5 <- renderText({
   missing <- sum(is.na(dat_list[[input$specialty]]))
   total <- nrow(dat_list[[input$specialty]]) * (ncol(dat_list[[input$specialty]])-2) #subtract two due to name and ID
-   paste0("Note that this is common, but not alarmingly so. In your chosen specialty of ",input$specialty," approximately ",scales::percent(missing/total), "Unfortunately, this still presents a significant issue in ranking schools, since missing data would interfere with the ranking algorithm above. Fortunately, missing data is a well studied phenomenon. This app uses random forest imputation, a nonlinear machine learning algorithm, to help fill in the blanks. In the main program table on the \"Select programs\" tab, all imputed values are marked in red for transparency.")
+   paste0("Note that this is common, but not alarmingly so. In your chosen specialty of ",input$specialty," approximately ",scales::percent(missing/total), ". Unfortunately, this still presents a significant issue in ranking schools, since missing data would interfere with the ranking algorithm above. Fortunately, missing data is a well studied phenomenon. This app uses random forest imputation, a nonlinear machine learning algorithm, to help fill in the blanks. In the main program table on the \"Select programs\" tab, all imputed values are marked in red for transparency.")
 })
 ```
 
