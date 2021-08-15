@@ -934,11 +934,24 @@ PD_Survey_weights %>%
 
 <button class="accordion">How does the app rank programs?</button>
 
-Program ranking is a bit more complicated. 
-
 ::: {.panel1}
+Program ranking is a bit more complicated. It's a weighted averaged of many factors. 30% of the ranking is tied to applicant competitiveness, i.e. the same six measures represented above. This is done by looking at the data each program provides on their respective residents. Note that programs don't provide data on Step 2 scores, so Step 1 scores are used as a proxy for both. 
+
+The other 70% of the ranking is tied to other applicant characteristics, the quality of care at the hospital, research funding at the hospital, and teaching quality at the hospital, measured by board scores in common specialties. 
+
 ```{r}
-plot(mtcars)
+tags$p(paste0("For your chosen specialty of ", "Anesthesiology",", the factors are weighted as follows:"))
+ranking_weights %>% 
+  filter(Specialty == "Anesthesiology") %>% 
+  t() %>% 
+  as.data.frame(.) %>% 
+  janitor::row_to_names(.,1) %>% 
+  rename(Weights = 1) %>% 
+  mutate_at(1, as.numeric) %>% 
+  mutate_at(1, scales::percent) %>% 
+  kbl(.) %>% 
+  kable_styling(.)
+```
 ```
 :::
 
