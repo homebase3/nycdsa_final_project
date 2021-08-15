@@ -1056,7 +1056,7 @@ output$gg <- renderPlotly({
     xlab("Standard deviations from mean") +
     scale_fill_manual(values = c("#9954bb","#3fb618","#ff7518")) +
     geom_point(data=data.frame(x=actual,y=dnorm(actual)), aes(x=x, y=y), color="blue") + 
-    geom_text(data=data.frame(x=actual+if_else(actual>0,.1,-.1),y=dnorm(actual)), aes(x=x, y=y, label=paste0("You: ",scales::ordinal(score*100), " percentile")), color="blue", hjust = if_else(actual>0,0,1),nudge_x = 0.3) +
+    geom_text(data=data.frame(x=actual,y=dnorm(actual)), aes(x=x, y=y, label=paste0("You: ",scales::ordinal(score*100), " percentile")), color="blue", nudge_x = if_else(actual>0,1,-1)) +
     geom_point(data=data.frame(x=safer,y=dnorm(safer)), aes(x=x, y=y), color="#3fb618") + 
     geom_text(data=data.frame(x=safer+if_else(safer>0,.1,-.1),y=dnorm(safer)), aes(x=x, y=y, label=paste0(scales::ordinal(pnorm(safer)*100), " percentile")), color="#3fb618", hjust = if_else(safer>0,0,1)) +
     geom_point(data=data.frame(x=reach,y=dnorm(reach)), aes(x=x, y=y), color="#9954bb") + 
