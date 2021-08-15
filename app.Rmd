@@ -1039,7 +1039,7 @@ textOutput("text4")
 If you prefer to think visually, 
 
 ```{r}
-output$gg <- renderPlot({
+output$gg <- renderPlotly({
   score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
     score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights)
   safer <- qnorm(score) - input$rangeset
@@ -1063,12 +1063,12 @@ output$gg <- renderPlot({
     geom_text(data=data.frame(x=reach+if_else(reach>0,.1,-.1),y=dnorm(reach)), aes(x=x, y=y, label=paste0(scales::ordinal(pnorm(reach)*100), " percentile")), color="#9954bb", hjust = if_else(reach>0,0,1)) +
     guides(fill=guide_legend(title="School category")) +
     theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) -> gg 
-gg
+ggplotly(gg)
 })
 ```
 
 ```{r}
-plotOutput("gg", width = "500px",height = "1000px")
+plotlyOutput("gg")
 ```
 
 
