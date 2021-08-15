@@ -1039,7 +1039,7 @@ textOutput("text4")
 If you prefer to think visually, 
 
 ```{r}
-renderPlot({
+output$gg <- renderPlot({
   score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
     score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights)
   safer <- qnorm(score) - input$rangeset
@@ -1065,6 +1065,10 @@ renderPlot({
     theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) -> gg 
 gg
 })
+```
+
+```{r}
+plotOutput("gg")
 ```
 
 
