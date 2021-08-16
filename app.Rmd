@@ -763,6 +763,7 @@ Row {data-height=900}
 renderPrint({
   print(val1())
   print(val2())
+  print(val3())
 })
 ```
 
@@ -771,6 +772,7 @@ renderPrint({
 ```{r, context="server"}
 val1 <- reactiveVal()
 val2 <- reactiveVal()
+val3 <- reactiveVal()
 observeEvent(input$button,{
   #join recommendations to the dataframe
   inter <- py$models[[input$specialty]]$recommend_from_interactions(observed_items=as.list(selectedIDs()),k=as.integer(1000))$to_dataframe()[,] %>%
@@ -807,6 +809,7 @@ output$table <- DT::renderDT({
         if (classes[[var]] %in% c("character","factor")) {
           val1(input[[gsub(" ","_",var)]])
           val2(unique(df$var))
+          val3(var)
           df %<>%
             filter(!!rlang::sym(var) %in% isolate(input[[gsub(" ","_",var)]]))
             # filter_at(vars(any_of(var)), any_vars((. %in% input[[gsub(" ","_",var)]])))
