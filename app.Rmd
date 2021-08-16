@@ -764,6 +764,7 @@ renderPrint({
   print(val1())
   print(val2())
   print(val3())
+  print(val4())
 })
 ```
 
@@ -773,6 +774,7 @@ renderPrint({
 val1 <- reactiveVal()
 val2 <- reactiveVal()
 val3 <- reactiveVal()
+val4 <- reactiveVal()
 observeEvent(input$button,{
   #join recommendations to the dataframe
   inter <- py$models[[input$specialty]]$recommend_from_interactions(observed_items=as.list(selectedIDs()),k=as.integer(1000))$to_dataframe()[,] %>%
@@ -810,8 +812,10 @@ output$table <- DT::renderDT({
           val1(input[[gsub(" ","_",var)]])
           val2(unique(df[[var]]))
           val3(var)
-          df %<>%
-            filter(!!rlang::sym(var) %in% isolate(input[[gsub(" ","_",var)]]))
+          val4(df[[var]] %in% input[[gsub(" ","_",var)]])
+          df <- df[df[[var]] %in% input[[gsub(" ","_",var)]],]
+          # df %<>%
+          #   filter(!!rlang::sym(var) %in% isolate(input[[gsub(" ","_",var)]]))
             # filter_at(vars(any_of(var)), any_vars((. %in% input[[gsub(" ","_",var)]])))
           } else {
             df %<>%
