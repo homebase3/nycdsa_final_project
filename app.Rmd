@@ -398,16 +398,17 @@ uiOutput("UIbuttons")
 
 <summary>Program basics</summary>
 ```{r, context="render", results="asis"}
-reactive({
-  filters %>%
-  filter(Class %in% "Program basics") %>%
-    dplyr::select(Colname) %>%
-    .[[1]] -> vars_
-  lis_ <- lapply(vars_, UI_helper_func)
-  for (el in as.character(lis_)) {
-    knitr::knit_print(el)
-  }
-})
+filters %>%
+filter(Class %in% "Program basics") %>%
+  dplyr::select(Colname) %>%
+  .[[1]] -> vars_
+lis_ <- lapply(vars_, UI_helper_func)
+for (el in lis_) {
+  knitr::knit_print(as.character(el))
+}
+# for (el in as.character(lis_)) {
+#   shiny::tagList(.)
+# }
 ```
 </details>
 
