@@ -1135,12 +1135,12 @@ dat %>%
 <div>
 ```{r, context="server"}
 output$text6 <- renderText({
-  paste0("Even for the included specialties, AAMC residency explorer is not a complete dataset, or is very close. In total, it is missing ",nrow(missing_programs), "In your chosen specialty, it is missing ",nrow(missing_programs %>% filter(Specialty == input$Specialty)), ". Those programs are:")
+  paste0("Even for the included specialties, AAMC residency explorer is not a complete dataset, or is very close. In total, it is missing ",nrow(missing_programs), "In your chosen specialty, it is missing ",nrow(missing_programs %>% filter(Specialty == input$specialty)), ". Those programs are:")
 })
 ```
 
 ```{r, context="render"}
-textOutput("text5")
+textOutput("text6")
 ```
 
 ```{r, context="server"}
@@ -1173,7 +1173,7 @@ Hit the envelope button on the top right of the page. It's a link to send me an 
 </details>
 
 <details>
-<summary>How can I support the site if I'd like to  </summary>
+<summary>How can I support the site if I'd like to?  </summary>
 
 Hit the coffee button on the top right of the page. It's a link to my "Buy me a coffee page". Any support you'd be willing to provide is much appreciated. It costs me ~$12 per month to keep up the Jupyterhub that hosts this site.
 </details>
