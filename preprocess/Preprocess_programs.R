@@ -130,7 +130,7 @@ dat %<>%
   mutate(org_cleaned = as.character(sapply(`Residency program name_lower`, function(word) removeWords(word,stopwords)))) %>%
   geo_left_join(.,totals[!is.na(totals$longitude),], max_dist = 5, distance_col = "match_distance",by= c("longitude","latitude")) %>% 
   mutate(string_dist = stringdist(org_cleaned.x,org_cleaned.y, method = "jw")) %>%
-  filter(string_dist <0.35) %>% 
+  filter(string_dist <0.5) %>% 
   .[order(.$Specialty,.$`Residency program name`,.$string_dist),] %>%
   .[!duplicated(.$ID),] %>%
   select(ID, `ORGANIZATION ID (IPF)`, tot) %>%

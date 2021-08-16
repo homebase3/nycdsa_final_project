@@ -25,8 +25,8 @@ source('preprocess/Preprocess_residents.R')
 dat$`Number of current residents  who were graduates of a joint MD-PhD program`[
   is.na(dat$`Number of current residents  who were graduates of a joint MD-PhD program`)
 ] <- 0
-dat$`2019 NIH total funding`[is.na(dat$`2019 NIH total funding`)] <- 0
-dat$`2019 NIH specialty funding`[is.na(dat$`2019 NIH specialty funding`)] <- 0
+# dat$`2019 NIH total funding`[is.na(dat$`2019 NIH total funding`)] <- 0
+# dat$`2019 NIH specialty funding`[is.na(dat$`2019 NIH specialty funding`)] <- 0
 
 dat %<>% 
   mutate(`# of positions offered by this program in the 2021 NRMP Main Match` = 
@@ -109,7 +109,7 @@ dat %<>%
 
 #### Computationally expensive
 set.seed(1)
-miceObj <- miceRanger(dat_impute, m = 1, returnModels = F, verbose = T, maxiter = 1)
+miceObj <- miceRanger(dat_impute, m = 1, returnModels = F, verbose = T, maxiter = 5)
 ####
 
 
@@ -299,6 +299,8 @@ for (i in 1:length(factor_weights)){
 
 save(spec_dat,file = 'objects/spec_dat.Rdata')
 save(dists,file = 'objects/dists.Rdata')
+save(dat, file = 'objects/dat.Rdata')
+save(dat_impute, file = 'objects/dat_impute.Rdata')
 save(dists_raw, file = 'objects/dists_raw.Rdata')
 save(dat_list,file = 'objects/dat_list.Rdata')
 save(imputed_df_list,file = 'objects/imputed_df_list.Rdata')
