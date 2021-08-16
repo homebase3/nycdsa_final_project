@@ -81,6 +81,7 @@ library(thematic)
 library(rintrojs)
 library(here)
 library(kableExtra)
+library(waiter)
 
 # load functions and objects
 base<- getwd()
@@ -173,7 +174,24 @@ observeEvent(input$tour2,{
 ```{r, context="server"}
 output$introJShelper <- renderUI({
   introjsUI()
+  useWaiter()
+  useHostess()
+  waiterShowOnLoad(
+    color = "#f7fff7",
+    hostess_loader(
+      "loader", 
+      preset = "circle", 
+      text_color = "black",
+      class = "label-center",
+      center_page = TRUE
+  ))
 })
+```
+
+```{r start_hostess, context="server"}
+hostess <- Hostess$new("loader", infinite = TRUE)
+
+hostess$start()
 ```
 
 Inputs {.sidebar id="applicant_sidebar"}
@@ -1232,3 +1250,8 @@ Hit the envelope button on the top right of the page. It's a link to send me an 
 
 Hit the coffee button on the top right of the page. It's a link to my "Buy me a coffee page". Any support you'd be willing to provide is much appreciated. It costs me ~$12 per month to keep up the Jupyterhub that hosts this site.
 </details>
+
+```{r waiter_hide, context="server"}
+hostess$close()
+waiter_hide()
+```
