@@ -397,12 +397,12 @@ uiOutput("UIbuttons")
 <details>
 
 <summary>Program basics</summary>
-```{r, context='server'}
-output$UIProgram_basics<- renderGroupUI('Program basics')
-```
-
-```{r, context='render'}
-uiOutput('UIProgram_basics')
+```{r, context="render"}
+filters %>%
+  filter(Class %in% group) %>%
+  dplyr::select(Colname) %>%
+  .[[1]] -> vars_
+lapply(vars_, UI_helper_func)
 ```
 </details>
 
