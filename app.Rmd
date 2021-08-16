@@ -808,7 +808,7 @@ output$table <- DT::renderDT({
       if (!is.null(classes[[var]])) {
         if (classes[[var]] %in% c("character","factor")) {
           val1(input[[gsub(" ","_",var)]])
-          val2(unique(df$var))
+          val2(unique(df[[var]]))
           val3(var)
           df %<>%
             filter(!!rlang::sym(var) %in% isolate(input[[gsub(" ","_",var)]]))
