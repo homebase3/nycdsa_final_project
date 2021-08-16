@@ -61,7 +61,7 @@ button {
 
 ---
 
-```{r setup, context="setup", include=FALSE}
+```{r setup, context="setup", include=FALSE, cache=T}
 # import packages
 library(dplyr)
 library(tidyr)
@@ -81,7 +81,6 @@ library(thematic)
 library(rintrojs)
 library(here)
 library(kableExtra)
-library(waiter)
 
 # load functions and objects
 base<- getwd()
@@ -1251,7 +1250,3 @@ Hit the envelope button on the top right of the page. It's a link to send me an 
 Hit the coffee button on the top right of the page. It's a link to my "Buy me a coffee page". Any support you'd be willing to provide is much appreciated. It costs me ~$12 per month to keep up the Jupyterhub that hosts this site.
 </details>
 
-```{r waiter_hide, context="server"}
-hostess$close()
-waiter_hide()
-```
