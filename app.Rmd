@@ -816,7 +816,8 @@ output$table <- DT::renderDT({
       dplyr::select(Colname) %>%
       .[[1]]
     for (var in vars_) {
-      vec6 <- c(val6(),var)
+      int <- val6()
+      vec6 <- c(int,var)
       val6(vec6)
       if (!is.null(classes[[var]])) {
         if (classes[[var]] %in% c("character","factor")) {
@@ -836,7 +837,8 @@ output$table <- DT::renderDT({
               # filter_at(vars(any_of(var)), any_vars((. >= input[[gsub(" ","_",var)]][1] & . <= input[[gsub(" ","_",var)]][2])))
           }
       }
-      vec7 <- c(val7(),nrow(df))
+      int2 <- val7()
+      vec7 <- c(int2(),nrow(df))
       val7(vec7)
     }
   }
