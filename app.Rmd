@@ -386,7 +386,7 @@ Input {.sidebar data-width=300 id="selectbar"}
 actionButton("button","Make recommendations and resort",icon("thumbs-up"))
 actionButton("tour2","Take tour of this page",icon("paper-plane"))
 actionButton("show","Remove all filters", icon("broom"))
-pickerInput('selected_filter','Show selected',choices = c("Selected","Not selected","Both"),selected = "Both", 
+pickerInput('selected_filter','Selection mode',choices = c("Selected","Not selected","All"),selected = "All", 
             multiple = F,options=list(`liveSearch` = T, `actions-box` = TRUE,size =10,
                                       `selected-text-format` = 'count > 3'))
 ```
@@ -394,9 +394,17 @@ pickerInput('selected_filter','Show selected',choices = c("Selected","Not select
 <!-- ```{r, context="render"} -->
 <!-- uiOutput("UIbuttons") -->
 <!-- ``` -->
+<details>
+<summary>Program basics</summary>
+```{r}
+pickerInput('range_filter','Program range',choices = c("Reach","Target","Safer"),
+            multiple = T,options=list(`liveSearch` = T, `actions-box` = TRUE,size =10,
+                                      `selected-text-format` = 'count > 3'))
+```
+</details>
+
 
 <!-- Dropdown selection inputs below generated -->
-
 <details>
 <summary>Program basics</summary>
 ```{r, context='render'}
@@ -807,6 +815,8 @@ output$table <- DT::renderDataTable({
     relocate(City, .after=`Residency program name`)
 
   #filter core dataframe
+  df %<>% 
+    filter(Range %in% input$range_filter)
   if (input$selected_filter == "Selected") {
     df %<>% 
       filter(ID %in% selectedIDs())
