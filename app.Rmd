@@ -759,24 +759,7 @@ Row {data-height=900}
 
 ###
 
-```{r, context="render"}
-renderPrint({
-  print(val1())
-  print(val2())
-  print(val3())
-  print(val4())
-  print(val5())
-})
-```
-
-###
-
 ```{r, context="server"}
-val1 <- reactiveVal()
-val2 <- reactiveVal()
-val3 <- reactiveVal()
-val4 <- reactiveVal()
-val5 <- reactiveVal()
 observeEvent(input$button,{
   #join recommendations to the dataframe
   inter <- py$models[[input$specialty]]$recommend_from_interactions(observed_items=as.list(selectedIDs()),k=as.integer(1000))$to_dataframe()[,] %>%
@@ -814,23 +797,15 @@ output$table <- DT::renderDT({
     for (var in vars_) {
       if (!is.null(classes[[var]])) {
         if (classes[[var]] %in% c("character","factor")) {
-          # val4(df[[var]] %in% input[[gsub(" ","_",var)]])
-          # df <- df[df[[var]] %in% input[[gsub(" ","_",var)]],]
+
           df %<>%
-            # filter(!!rlang::sym(var) %in% isolate(input[[gsub(" ","_",var)]]))
             filter_at(vars(var), any_vars((. %in% input[[gsub(" ","_",var)]])))
           } else {
-          val1(input[[gsub(" ","_",var)]])
-          val2(df[[var]])
-          val3(var)
-          val5(colnames(df))
-           # df <- df[df[[var]] >= input[[gsub(" ","_",var)]][1] & df[[var]] >= input[[gsub(" ","_",var)]][2],]
+
             df %<>%
-              # filter(!!rlang::sym(var) >= isolate(input[[gsub(" ","_",var)]][1]) & !!rlang::sym(var) <= isolate(input[[gsub(" ","_",var)]][2]))
               filter_at(vars(var), any_vars((. >= input[[gsub(" ","_",var)]][1] & . <= input[[gsub(" ","_",var)]][2])))
           }
       }
-      cat(file=stderr(),nrow(df))
     }
   }
 
