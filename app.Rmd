@@ -413,160 +413,207 @@ observeEvent(input$specialty,{
 #   shiny::tagList(.)
 # }
 ```
+<details>
+<summary>Program basics</summary>
+```{r, context='render'}
+pickerInput('Participates in ERAS','Participates in ERAS',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Participates in the NRMP Main Match','Participates in the NRMP Main Match',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Program setting','Program setting',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Residency program name','Residency program name',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Status','Status',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+
+```
 </details>
 
 <details>
 <summary>Geography</summary>
-```{r, context='server'}
-output$UIGeography<- renderGroupUI('Geography')
-```
-
 ```{r, context='render'}
-uiOutput('UIGeography')
+pickerInput('City','City',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Metro Area Name','Metro Area Name',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('State','State',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+
 ```
 </details>
 
 <details>
 <summary>Resident demographics</summary>
-```{r, context='server'}
-output$UIResident_demographics<- renderGroupUI('Resident demographics')
-```
-
 ```{r, context='render'}
-uiOutput('UIResident_demographics')
+sliderInput('Percentage of completed residents with non-academic U.S. practice career plans','Percentage of completed residents with non-academic U.S. practice career plans',0,1, c(0,1),round=T)
+sliderInput('Percentage of completed residents with other career plans','Percentage of completed residents with other career plans',0,1, c(0,1),round=T)
+sliderInput('Percentage of completed residents with plans to continue training in another program','Percentage of completed residents with plans to continue training in another program',0,1, c(0,1),round=T)
+sliderInput('Percentage of completed residents with plans to obtain a full-time or part-time academic position','Percentage of completed residents with plans to obtain a full-time or part-time academic position',0,1, c(0,1),round=T)
+sliderInput('Percentage of residents who were non-US-citizen IMGs','Percentage of residents who were non-US-citizen IMGs',0,1, c(0,1),round=T)
+sliderInput('Percentage of residents who were US DO graduates','Percentage of residents who were US DO graduates',0,1, c(0,1),round=T)
+sliderInput('Percentage of residents who were US MD graduates','Percentage of residents who were US MD graduates',0,1, c(0,1),round=T)
+sliderInput('Percentage of residents who were US-citizen IMGs','Percentage of residents who were US-citizen IMGs',0,1, c(0,1),round=T)
+
 ```
 </details>
 
 <details>
 <summary>Accreditation</summary>
-```{r, context='server'}
-output$UIAccreditation<- renderGroupUI('Accreditation')
-```
-
 ```{r, context='render'}
-uiOutput('UIAccreditation')
+pickerInput('Osteopathic Recognition','Osteopathic Recognition',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Program accreditation status','Program accreditation status',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+
 ```
 </details>
 
 <details>
 <summary>Program size</summary>
-```{r, context='server'}
-output$UIProgram_size<- renderGroupUI('Program size')
-```
-
 ```{r, context='render'}
-uiOutput('UIProgram_size')
+sliderInput('# of advanced positions filled by this program in the 2021 NRMP Main Match','# of advanced positions filled by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
+sliderInput('# of advanced positions offered by this program in the 2021 NRMP Main Match','# of advanced positions offered by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
+sliderInput('# of applications submitted to this program in 2021','# of applications submitted to this program in 2021',0,1, c(0,1),round=T)
+sliderInput('# of categorical positions filled by this program in the 2021 NRMP Main Match','# of categorical positions filled by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
+sliderInput('# of categorical positions offered by this program in the 2021 NRMP Main Match','# of categorical positions offered by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
+sliderInput('# of positions filled by this program in the 2021 NRMP Main Match','# of positions filled by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
+sliderInput('# of positions offered by this program in the 2021 NRMP Main Match','# of positions offered by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
+sliderInput('# Residents on Duty Year 1','# Residents on Duty Year 1',0,1, c(0,1),round=T)
+sliderInput('% of applicants interviewed by the program in 2020','% of applicants interviewed by the program in 2020',0,1, c(0,1),round=T)
+sliderInput('Total # Residents on Duty','Total # Residents on Duty',0,1, c(0,1),round=T)
+
 ```
 </details>
 
 <details>
 <summary>Applicant competitiveness</summary>
-```{r, context='server'}
-output$UIApplicant_competitiveness<- renderGroupUI('Applicant competitiveness')
-```
-
 ```{r, context='render'}
-uiOutput('UIApplicant_competitiveness')
+sliderInput('Average number of peer-reviewed publications among matched applicants','Average number of peer-reviewed publications among matched applicants',0,1, c(0,1),round=T)
+sliderInput('Average number of research experiences among matched applicants','Average number of research experiences among matched applicants',0,1, c(0,1),round=T)
+sliderInput('Average number of volunteer experiences among matched applicants','Average number of volunteer experiences among matched applicants',0,1, c(0,1),round=T)
+sliderInput('Average number of work experiences among matched applicants','Average number of work experiences among matched applicants',0,1, c(0,1),round=T)
+sliderInput('Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)','Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)',0,1, c(0,1),round=T)
+sliderInput('Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)','Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)',0,1, c(0,1),round=T)
+pickerInput('Range of average COMLEX Level 1 score of current residents','Range of average COMLEX Level 1 score of current residents',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Range of average USMLE Step 1 score of current residents','Range of average USMLE Step 1 score of current residents',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+
 ```
 </details>
 
 <details>
 <summary>International student considerations</summary>
-```{r, context='server'}
-output$UIInternational_student_considerations<- renderGroupUI('International student considerations')
-```
-
 ```{r, context='render'}
-uiOutput('UIInternational_student_considerations')
+pickerInput('Program consider applicants with F-1 Visa (OPT 1st year)?','Program consider applicants with F-1 Visa (OPT 1st year)?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Program consider applicants with H-1B visa?','Program consider applicants with H-1B visa?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Program consider applicants with J-1 visa?','Program consider applicants with J-1 visa?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+
 ```
 </details>
 
 <details>
 <summary>Program experience</summary>
-```{r, context='server'}
-output$UIProgram_experience<- renderGroupUI('Program experience')
-```
-
 ```{r, context='render'}
-uiOutput('UIProgram_experience')
+sliderInput('% of training spent in year 1 in ambulatory nonhospital community-based settings','% of training spent in year 1 in ambulatory nonhospital community-based settings',0,1, c(0,1),round=T)
+sliderInput('% of training spent in year 1 in hospital outpatient clinics','% of training spent in year 1 in hospital outpatient clinics',0,1, c(0,1),round=T)
+sliderInput('Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)','Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)',0,1, c(0,1),round=T)
+sliderInput('Average hours/week in year one that resident works (excluding beeper call)','Average hours/week in year one that resident works (excluding beeper call)',0,1, c(0,1),round=T)
+sliderInput('Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)','Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)',0,1, c(0,1),round=T)
+pickerInput('Program allows residents (beyond PGY1) to moonlight?','Program allows residents (beyond PGY1) to moonlight?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Program curriculum includes a dedicated research rotation','Program curriculum includes a dedicated research rotation',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+
 ```
 </details>
 
 <details>
 <summary>Research</summary>
-```{r, context='server'}
-output$UIResearch<- renderGroupUI('Research')
-```
-
 ```{r, context='render'}
-uiOutput('UIResearch')
+sliderInput('2019 NIH specialty funding','2019 NIH specialty funding',0,1, c(0,1),round=T)
+sliderInput('2019 NIH total funding','2019 NIH total funding',0,1, c(0,1),round=T)
+
 ```
 </details>
 
 <details>
 <summary>Teaching</summary>
-```{r, context='server'}
-output$UITeaching<- renderGroupUI('Teaching')
-```
-
 ```{r, context='render'}
-uiOutput('UITeaching')
+sliderInput('Family medicine board pass rate','Family medicine board pass rate',0,1, c(0,1),round=T)
+sliderInput('Internal medicine board pass rate','Internal medicine board pass rate',0,1, c(0,1),round=T)
+sliderInput('Pediatrics board pass rate','Pediatrics board pass rate',0,1, c(0,1),round=T)
+sliderInput('Surgery board pass rate','Surgery board pass rate',0,1, c(0,1),round=T)
+
 ```
 </details>
 
 <details>
 <summary>Weather</summary>
-```{r, context='server'}
-output$UIWeather<- renderGroupUI('Weather')
-```
-
 ```{r, context='render'}
-uiOutput('UIWeather')
-```
+sliderInput('% days above 90F','% days above 90F',0,1, c(0,1),round=T)
+sliderInput('% days below freezing','% days below freezing',0,1, c(0,1),round=T)
+sliderInput('% days with precipitation','% days with precipitation',0,1, c(0,1),round=T)
+sliderInput('Annual snowfall','Annual snowfall',0,1, c(0,1),round=T)
+sliderInput('Mean % sunny','Mean % sunny',0,1, c(0,1),round=T)
 
+```
 </details>
 
 <details>
 <summary>Cost of living</summary>
-```{r, context='server'}
-output$UICost_of_living<- renderGroupUI('Cost of living')
-```
-
 ```{r, context='render'}
-uiOutput('UICost_of_living')
+sliderInput('Cost of Living Index','Cost of Living Index',0,1, c(0,1),round=T)
+
 ```
 </details>
 
 <details>
 <summary>County health characteristics</summary>
-```{r, context='server'}
-output$UICounty_health_characteristics<- renderGroupUI('County health characteristics')
-```
-
 ```{r, context='render'}
-uiOutput('UICounty_health_characteristics')
+sliderInput('Access to Care (percentile)','Access to Care (percentile)',0,1, c(0,1),round=T)
+sliderInput('Air and Water Quality (percentile)','Air and Water Quality (percentile)',0,1, c(0,1),round=T)
+sliderInput('Alcohol and Drug Use (percentile)','Alcohol and Drug Use (percentile)',0,1, c(0,1),round=T)
+sliderInput('Clinical care (percentile)','Clinical care (percentile)',0,1, c(0,1),round=T)
+sliderInput('Community Safety (percentile)','Community Safety (percentile)',0,1, c(0,1),round=T)
+sliderInput('Diet and Exercise (percentile)','Diet and Exercise (percentile)',0,1, c(0,1),round=T)
+sliderInput('Education (percentile)','Education (percentile)',0,1, c(0,1),round=T)
+sliderInput('Employment (percentile)','Employment (percentile)',0,1, c(0,1),round=T)
+sliderInput('Family and Social Support (percentile)','Family and Social Support (percentile)',0,1, c(0,1),round=T)
+sliderInput('Health behaviors (percentile)','Health behaviors (percentile)',0,1, c(0,1),round=T)
+sliderInput('Health factors (percentile)','Health factors (percentile)',0,1, c(0,1),round=T)
+sliderInput('Health outcomes (percentile)','Health outcomes (percentile)',0,1, c(0,1),round=T)
+sliderInput('Housing and Transit (percentile)','Housing and Transit (percentile)',0,1, c(0,1),round=T)
+sliderInput('Income (percentile)','Income (percentile)',0,1, c(0,1),round=T)
+sliderInput('Income Ratio','Income Ratio',0,1, c(0,1),round=T)
+sliderInput('Income Ratio (percentile)','Income Ratio (percentile)',0,1, c(0,1),round=T)
+sliderInput('Length of Life (percentile)','Length of Life (percentile)',0,1, c(0,1),round=T)
+sliderInput('Physical environment (percentile)','Physical environment (percentile)',0,1, c(0,1),round=T)
+sliderInput('Quality of Care (percentile)','Quality of Care (percentile)',0,1, c(0,1),round=T)
+sliderInput('Quality of Life (percentile)','Quality of Life (percentile)',0,1, c(0,1),round=T)
+sliderInput('Sexual Activity (percentile)','Sexual Activity (percentile)',0,1, c(0,1),round=T)
+sliderInput('Social & economic factors (percentile)','Social & economic factors (percentile)',0,1, c(0,1),round=T)
+sliderInput('Tobacco Use (percentile)','Tobacco Use (percentile)',0,1, c(0,1),round=T)
+
 ```
 </details>
 
 <details>
 <summary>County demographics</summary>
-```{r, context='server'}
-output$UICounty_demographics<- renderGroupUI('County demographics')
-```
-
 ```{r, context='render'}
-uiOutput('UICounty_demographics')
+sliderInput('% 65 and Over','% 65 and Over',0,1, c(0,1),round=T)
+sliderInput('% American Indian & Alaska Native','% American Indian & Alaska Native',0,1, c(0,1),round=T)
+sliderInput('% Asian','% Asian',0,1, c(0,1),round=T)
+sliderInput('% Black','% Black',0,1, c(0,1),round=T)
+sliderInput('% Female','% Female',0,1, c(0,1),round=T)
+sliderInput('% Hispanic','% Hispanic',0,1, c(0,1),round=T)
+sliderInput('% Less Than 18 Years of Age','% Less Than 18 Years of Age',0,1, c(0,1),round=T)
+sliderInput('% Native Hawaiian/Other Pacific Islander','% Native Hawaiian/Other Pacific Islander',0,1, c(0,1),round=T)
+sliderInput('% Non-Hispanic White','% Non-Hispanic White',0,1, c(0,1),round=T)
+sliderInput('% Rural','% Rural',0,1, c(0,1),round=T)
+sliderInput('Population','Population',0,1, c(0,1),round=T)
+
 ```
 </details>
 
 <details>
 <summary>Hospital outcomes</summary>
-```{r, context='server'}
-output$UIHospital_outcomes<- renderGroupUI('Hospital outcomes')
-```
-
 ```{r, context='render'}
-uiOutput('UIHospital_outcomes')
+sliderInput('Hospital overall rating','Hospital overall rating',0,1, c(0,1),round=T)
+sliderInput('MORT Better %','MORT Better %',0,1, c(0,1),round=T)
+sliderInput('MORT Worse %','MORT Worse %',0,1, c(0,1),round=T)
+sliderInput('READM Better %','READM Better %',0,1, c(0,1),round=T)
+sliderInput('READM Worse %','READM Worse %',0,1, c(0,1),round=T)
+sliderInput('Safety Better %','Safety Better %',0,1, c(0,1),round=T)
+sliderInput('Safety Worse %','Safety Worse %',0,1, c(0,1),round=T)
+
 ```
 </details>
 
@@ -574,6 +621,25 @@ Row {data-height=50}
 -----
 
 ```{r server_logic, context="server", include = F}
+# immediately update dummy inputs
+observeEvent(input$specialty, {
+  for (group in filter_groups) {
+    for (var in group) {
+       if (!is.null(classes[[var]])) {
+            if (as.character(classes[[var]]) == "numeric") {
+              min <- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T))
+              max <- ceiling(max(combined_df_list[[input$specialty]][[var]], na.rm = T))
+              updateSliderInput(inputId=var,min=min,max=max,value=c(min,max))
+          } else {
+              vals <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
+              updatePickerInput(inputId = var, choices=vals,selected = vals)
+          }
+       }
+    }
+  }
+})
+
+
 # keep track of selections
 `%notin%` <- Negate(`%in%`)
 

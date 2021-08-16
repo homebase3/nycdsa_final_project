@@ -102,8 +102,40 @@ UI_code_gen_2 <- function() {
   }
 }
 
+UI_code_gen_3 <- function() {
+  for (group in filter_groups) {
+    cat("<details>\n")
+    cat(paste0("<summary>",group,"</summary>\n"))
+    cat("```{r, context='render'}\n")
+    UI_helper_group(group)
+    cat("\n```\n")
+    cat("</details>\n\n")
+  }
+}
+
 wrap_title <- function(vec) {
   sapply(vec, function(i) paste(str_wrap(i, width = 30), sep = "\n")) %>% as.character(.) %>% 
     gsub(.,pattern = "\n", replacement = "<br/>") %>% 
     return(.)
+}
+
+UI_helper_func <- function(var, min_default = 0, max_default = 1, choices_default = c("0","1")) {
+  if (!is.null(classes[[var]])) {
+    if (as.character(classes[[var]]) == "numeric") {
+      paste0("sliderInput('",var,"','",var,"',",min_default,",",1,", c(0,1),round=T)\n") %>% 
+        cat(.)
+    } else {
+      paste0("pickerInput('",var,"','",var,"',","choices= c(",paste(choices_default, collapse = ', '), "), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))\n") %>% 
+        cat(.)
+    }
+  }
+}
+UI_helper_group <- function(group) {
+  filters %>%
+    filter(Class %in% group) %>%
+    dplyr::select(Colname) %>%
+    .[[1]] -> vars_
+  for (var in vars_) {
+    cat(UI_helper_func(var))
+  }
 }
