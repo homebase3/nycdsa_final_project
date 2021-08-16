@@ -761,8 +761,8 @@ Row {data-height=900}
 
 ```{r, context="render"}
 renderPrint({
-  val1()
-  val2()
+  print(val1())
+  print(val2())
 })
 ```
 
