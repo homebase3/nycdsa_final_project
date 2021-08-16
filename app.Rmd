@@ -832,7 +832,7 @@ output$table <- DT::renderDT({
               # filter_at(vars(any_of(var)), any_vars((. >= input[[gsub(" ","_",var)]][1] & . <= input[[gsub(" ","_",var)]][2])))
           }
       }
-      var6[[var]] <- nrow(df)
+      val6[[var]] <- nrow(df)
     }
   }
 
