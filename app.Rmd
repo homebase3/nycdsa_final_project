@@ -386,18 +386,16 @@ Input {.sidebar data-width=300 id="selectbar"}
 actionButton("button","Make recommendations and resort",icon("thumbs-up"))
 actionButton("tour2","Take tour of this page",icon("paper-plane"))
 actionButton("show","Remove all filters", icon("broom"))
-pickerInput('selected_filter','Selection mode',choices = c("Selected","Not selected","All"),selected = "All", 
-            multiple = F,options=list(`liveSearch` = T, `actions-box` = TRUE,size =10,
-                                      `selected-text-format` = 'count > 3'))
+switchInput(inputId = "selected_switch", label = "Export mode", value = FALSE,   onLabel = "ON",offLabel = "OFF")
 ```
 
 <!-- ```{r, context="render"} -->
 <!-- uiOutput("UIbuttons") -->
 <!-- ``` -->
 <details>
-<summary>Program basics</summary>
+<summary>Program range</summary>
 ```{r}
-pickerInput('range_filter','Program range',choices = c("Reach","Target","Safer"),
+pickerInput('range_filter','Program range',choices = c("Reach","Target","Safer"), selected=c("Reach","Target","Safer")
             multiple = T,options=list(`liveSearch` = T, `actions-box` = TRUE,size =10,
                                       `selected-text-format` = 'count > 3'))
 ```
@@ -817,15 +815,9 @@ output$table <- DT::renderDataTable({
   #filter core dataframe
   df %<>% 
     filter(Range %in% input$range_filter)
-  if (input$selected_filter == "Selected") {
+  if (input$selected_switch == TRUE) {
     df %<>% 
       filter(ID %in% selectedIDs())
-  }
-  else if (input$selected_filter == "Not selected") {
-    df %<>% 
-      filter(ID %notin% selectedIDs())
-  } else {
-    df <- df
   }
   for (group in filter_groups) {
     vars_ <- filters %>%
