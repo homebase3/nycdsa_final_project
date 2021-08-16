@@ -398,7 +398,7 @@ uiOutput("UIbuttons")
 
 <summary>Program basics</summary>
 ```{r, context="render", results="asis"}
-observe(input$specialty{
+observeEvent(input$specialty,{
   filters %>%
   filter(Class %in% "Program basics") %>%
     dplyr::select(Colname) %>%
