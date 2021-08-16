@@ -139,14 +139,14 @@ Applicant competitiveness
 
 ```{r, context="server"}
 
-steps1 <- data.frame(element = c("#specialty-selectized","#section-inputs","#section-overall-score","#step1Gauge", ".navbar"),
+steps1 <- data.frame(element = c("#specialty-selectized","#section-applicant_sidebar","#section-overall-score","#step1Gauge", ".navbar"),
                      intro = c("To get started, select your desired specialty.",
                                "Then enter information about your step scores. Please note that these values are not logged or saved, and no one will have access to them other than you.",
                                "Once you've made your entries, you can see an assessment of your competitiveness in that specialty here versus matched applicants in the prior few years. This aggregates your scores on each individual components based on their relative importance accroding to program director surveys in your chosen specialty.",
                                "Your competitiveness for the individual components can also be found below. For example, this is your score based on your step 1 score alone",
                                "Once you're done, click 'Select programs' in the navbar to move to the next section. Give it a few seconds to load :)"))
 
-steps2 <-data.frame(element = c("#table", ".navbar ","#table","#table","#table","#section-row-2","#section-selectbar","#section-selectbar","#section-selectbar","#section-selectbar","#section-selectbar","#selected_switch","#table"),
+steps2 <-data.frame(element = c("#table", ".navbar ","#table","#table","#table","#section-range_gauge","#section-selectbar","#section-selectbar","#section-selectbar","#section-selectbar","#section-selectbar","#section-selectbar","#table"),
                     intro = c("First off, you'll see a list of (nearly) every program in your specialty. Programs are bucketted into \"Reach\", \"Target\", and \"Safer\" based on (1) your competitiveness in the specialty and (2) our assessment of the program based on applicant competitiveness, research quality, teaching quality, and patient outcomes. The initial order of the programs is based on this rank list, with the top program at the top.",
                               "You can find more detail on how your specialty was ranked by clicking \"More info on specialty ranking\" in the Navbar.",
                               "For each program, you can quickly see its details as well as links to all major relevant sites, including the Program website itself, Freida, AAMC, and Doximity where available.",
@@ -176,7 +176,7 @@ output$introJShelper <- renderUI({
 })
 ```
 
-Inputs2 {.sidebar}
+Inputs {.sidebar id="applicant_sidebar"}
 ------
 ```{r}
 uiOutput("introJShelper")
