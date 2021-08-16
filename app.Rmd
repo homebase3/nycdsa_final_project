@@ -786,22 +786,22 @@ output$table <- DT::renderDT({
     relocate(City, .after=`Residency program name`)
 
   #filter core dataframe
-  # for (group in filter_groups) {
-  #   vars_ <- filters %>%
-  #     filter(Class == group) %>%
-  #     dplyr::select(Colname) %>%
-  #     .[[1]]
-  #   for (var in vars_) {
-  #     if (!is.null(classes[[var]])) {
-  #       if (classes[[var]] %in% c("character","factor")) {
-  #         df %<>%
-  #           filter_at(vars(any_of(var)), any_vars((. %in% input[[gsub(" ","_",var)]])))
-  #         } else {
-  #           df %<>%
-  #             filter_at(vars(any_of(var)), any_vars((. >= input[[gsub(" ","_",var)]][1] & . <= input[[gsub(" ","_",var)]][2])))
-  #         }
-  #     }
-  #   }
+  for (group in filter_groups) {
+    vars_ <- filters %>%
+      filter(Class == group) %>%
+      dplyr::select(Colname) %>%
+      .[[1]]
+    for (var in vars_) {
+      if (!is.null(classes[[var]])) {
+        if (classes[[var]] %in% c("character","factor")) {
+          df %<>%
+            filter_at(vars(any_of(var)), any_vars((. %in% input[[gsub(" ","_",var)]])))
+          } else {
+            df %<>%
+              filter_at(vars(any_of(var)), any_vars((. >= input[[gsub(" ","_",var)]][1] & . <= input[[gsub(" ","_",var)]][2])))
+          }
+      }
+    }
   # }
 
   # create and style DR
