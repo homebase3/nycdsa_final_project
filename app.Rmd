@@ -802,7 +802,7 @@ output$table <- DT::renderDT({
           }
       }
     }
-  # }
+  }
 
   # create and style DR
   val <- to_join()
