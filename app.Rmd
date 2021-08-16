@@ -807,8 +807,8 @@ output$table <- DT::renderDT({
     relocate(City, .after=`Residency program name`)
 
   #filter core dataframe
-  val6(c())
-  val7(c())
+  # val6(c())
+  # val7(c())
 
   for (group in filter_groups) {
     vars_ <- filters %>%
@@ -838,7 +838,7 @@ output$table <- DT::renderDT({
           }
       }
       int2 <- val7()
-      vec7 <- c(int2(),nrow(df))
+      vec7 <- c(int2,as.numeric(nrow(df)))
       val7(vec7)
     }
   }
