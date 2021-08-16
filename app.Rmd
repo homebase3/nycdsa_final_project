@@ -791,7 +791,7 @@ output$table <- DT::renderDT({
       filter(Class == group) %>%
       dplyr::select(Colname) %>%
       .[[1]]
-    for (var in vars_) {
+    for (var in vars_[1]) {
       if (!is.null(classes[[var]])) {
         if (classes[[var]] %in% c("character","factor")) {
           df %<>%
