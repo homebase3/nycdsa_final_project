@@ -146,7 +146,7 @@ steps1 <- data.frame(element = c("#specialty-selectized","#section-inputs","#sec
                                "Your competitiveness for the individual components can also be found below. For example, this is your score based on your step 1 score alone",
                                "Once you're done, click 'Select programs' in the navbar to move to the next section. Give it a few seconds to load :)"))
 
-steps2 <-data.frame(element = c("#table", ".navbar ","#table","#table","#table","#section-row-2","#section-selectbar","#section-selectbar","#section-selectbar","#section-selectbar","#section-selectbar","#UIbuttons"),
+steps2 <-data.frame(element = c("#table", ".navbar ","#table","#table","#table","#section-row-2","#section-selectbar","#section-selectbar","#section-selectbar","#section-selectbar","#section-selectbar","#selected_switch","#table"),
                     intro = c("First off, you'll see a list of (nearly) every program in your specialty. Programs are bucketted into \"Reach\", \"Target\", and \"Safer\" based on (1) your competitiveness in the specialty and (2) our assessment of the program based on applicant competitiveness, research quality, teaching quality, and patient outcomes. The initial order of the programs is based on this rank list, with the top program at the top.",
                               "You can find more detail on how your specialty was ranked by clicking \"More info on specialty ranking\" in the Navbar.",
                               "For each program, you can quickly see its details as well as links to all major relevant sites, including the Program website itself, Freida, AAMC, and Doximity where available.",
@@ -158,7 +158,8 @@ steps2 <-data.frame(element = c("#table", ".navbar ","#table","#table","#table",
                               "To access the filters, click on an arrow to open the respective menu",
                               "Then set your filters, the table with automatically adjust, and don't worry, your prior selections will be saved, even if the filter removes them",
                               "You can continue this way until you find all your programs",
-                              "Once you are satisfied with your list, click \"Download selections\" to dowload a csv file with all of the information about your chosen programs. Please note that the app will not save your selections ion, so make sure to do this to keep a record of your selection. Otherwise, you'll be starting from scratch the next time you open the app."))
+                              "To export your list, first toggle on the \"Export toggle\" tag.",
+                              "Then click dowload a csv file with all of the information about your chosen programs. Please note that the app will not save your selections on, so make sure to do this to keep a record of your selection. Otherwise, you'll be starting from scratch the next time you open the app."))
 
 observeEvent(input$tour1,{
   introjs(session,options = list(steps=steps1))
@@ -383,8 +384,8 @@ Input {.sidebar data-width=300 id="selectbar"}
 --------------------
 
 ```{r, context="render"}
-actionButton("button","Make recommendations and resort",icon("thumbs-up"))
 actionButton("tour2","Take tour of this page",icon("paper-plane"))
+actionButton("button","Make recommendations and resort",icon("thumbs-up"))
 actionButton("show","Remove all filters", icon("broom"))
 materialSwitch(inputId = "selected_switch", label = "Export mode", value = FALSE)
 ```
@@ -606,7 +607,7 @@ sliderInput('Safety_Worse_%','Safety Worse %',0,1, c(0,1),round=T)
 ```
 </details>
 
-Row {data-height=50}
+Row {data-height=50 id="range_gauge"}
 -----
 
 ```{r server_logic_1, context="server"}
