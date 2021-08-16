@@ -386,7 +386,7 @@ Input {.sidebar data-width=300 id="selectbar"}
 actionButton("button","Make recommendations and resort",icon("thumbs-up"))
 actionButton("tour2","Take tour of this page",icon("paper-plane"))
 actionButton("show","Remove all filters", icon("broom"))
-switchInput(inputId = "selected_switch", label = "Export mode", value = FALSE,   onLabel = "ON",offLabel = "OFF")
+materialSwitch(inputId = "selected_switch", label = "Export mode", value = FALSE)
 ```
 
 <!-- ```{r, context="render"} -->
