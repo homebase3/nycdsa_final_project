@@ -380,19 +380,15 @@ Select programs
 Input {.sidebar data-width=300 id="selectbar"}
 --------------------
 
-```{r, context="server"}
-output$UIbuttons <- renderUI({
-  list(
-  actionButton("button","Make recommendations and resort"),
-  actionButton("tour2","Take tour of this page",icon("paper-plane")),
-  downloadButton("downloadData", "Download selections")
-  )
-})
+```{r, context="render"}
+actionButton("button","Make recommendations and resort")
+actionButton("tour2","Take tour of this page",icon("paper-plane"))
+downloadButton("downloadData", "Download selections")
 ```
 
-```{r, context="render"}
-uiOutput("UIbuttons")
-```
+<!-- ```{r, context="render"} -->
+<!-- uiOutput("UIbuttons") -->
+<!-- ``` -->
 
 Dropdown selection inputs below generated
 
@@ -883,8 +879,7 @@ output$table <- DT::renderDataTable({
                           columnDefs = list(list(visible=FALSE, targets=c(to_hide1,to_hide2,to_hide3))),
                           order = list(list(ncol(df),'desc'),list(ncol(df)-1,'asc')),
                           displayStart=floor(length(selectedRows)/10)*10,
-                          scrollX = TRUE,
-                          server = F,
+                          # scrollX = TRUE,
                           fixedColumns = list(leftColumns = 3)),
             extensions = 'FixedColumns',
             class = "display nowrap",
@@ -892,7 +887,7 @@ output$table <- DT::renderDataTable({
     formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff"))) %>%
     formatStyle(.,columns = to_color,valueColumns = from_color,color = styleEqual(c(1),c("#ff0039"))) %>%
     formatStyle(.,columns = 1:ncol(df), fontSize = '100%')
-  }
+  },  server = F
 )
 ```
 
