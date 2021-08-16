@@ -625,7 +625,7 @@ Row {data-height=50}
 
 ```{r server_logic_1, context="server"}
 # immediately update dummy inputs
-observe({
+observeEvent(input$specialty, {
   mins = list()
   maxs = list()
   vals = list()
