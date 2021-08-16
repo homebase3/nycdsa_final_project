@@ -381,7 +381,7 @@ Input {.sidebar data-width=300 id="selectbar"}
 --------------------
 
 ```{r, context="render"}
-actionButton("button","Make recommendations and resort",icon("thumbs-up"))
+actionButton("button","Make recommendations and resort",icon("comment-medical"))
 actionButton("tour2","Take tour of this page",icon("paper-plane"))
 actionButton("save","Save table state for download",icon("save"))
 renderUI({
@@ -683,25 +683,24 @@ observeEvent(input$table_row_last_clicked,{
     }
   }
   difficulty_counts(new_lis)
-
-  #prepare download helper
-  data <- reactive({
-    out <- df_save()
-    out %>%
-      filter(ID %in% selectedIDs())
-  })
 })
 
-observeEvent(input$save,{
-  output$downloadData <- downloadHandler(
-    filename = function() {
-      paste0(Sys.Date(), "_output.csv")
-    },
-    content = function(file) {
-      vroom::vroom_write(data(), file, delim = ",")
-    }
+#prepare download helper
+observeEvent(input$save, {
+  out <- df_save()
+  out %<>%
+    filter(ID %in% selectedIDs())
+  data(out)
+})
+
+output$downloadData <- downloadHandler(
+  filename = function() {
+    paste0(Sys.Date(), "_output.csv")
+  },
+  content = function(file) {
+    vroom::vroom_write(data(), file, delim = ",")
+  }
 )
-})
 
 #reinitialize selections if specialty is switched or if bucketing cut-offs are updated
 observeEvent(input$specialty,{
