@@ -630,7 +630,11 @@ observe({
   maxs = list()
   vals = list()
   for (group in filter_groups) {
-    for (var in group) {
+    filters %>%
+      filter(Class %in% group) %>%
+      dplyr::select(Colname) %>%
+      .[[1]] -> vars_
+    for (var in vars_) {
       if (!is.null(classes[[var]])) {
         if (as.character(classes[[var]]) == "numeric") {
           mins[[var]] <- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T))
