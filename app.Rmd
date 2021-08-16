@@ -405,7 +405,7 @@ observeEvent(input$specialty,{
     .[[1]] -> vars_
   lis_ <- lapply(vars_, UI_helper_func)
   for (el in lis_) {
-    knitr::knit_print(as.character(el))
+    cat(as.character(el))
   }
 })
 
