@@ -53,6 +53,8 @@ hr {
 
 button {
   margin-bottom: 5px;
+  margin-right: 3px;
+  margin-left: 3px;
 }
 
 </style>
@@ -380,17 +382,10 @@ Select programs
 Input {.sidebar data-width=300 id="selectbar"}
 --------------------
 
-```{r, context="server"}
-output$downloadUI <- renderUI({
-  downloadButton("downloadData", "Download selections")
-})
-```
-
 ```{r, context="render"}
 actionButton("button","Make recommendations and resort",icon("thumbs-up"))
 actionButton("tour2","Take tour of this page",icon("paper-plane"))
-actionButton("save","Save table state for download",icon("save"))
-uiOutput("downloadUI")
+actionButton("show","show all selections", icon("share-all"))
 ```
 
 <!-- ```{r, context="render"} -->
@@ -608,7 +603,10 @@ Row {data-height=50}
 
 ```{r server_logic_1, context="server"}
 # immediately update dummy inputs
-observeEvent(input$specialty, {
+toListen <- reactive({
+    list(input$specialty,input$show)
+  })
+observeEvent(toListen(), {
   for (group in filter_groups) {
     filters %>%
       filter(Class %in% group) %>%
