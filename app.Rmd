@@ -93,14 +93,14 @@ source("core/functions.R")
 # bslib::bs_themer()
 ```
 
-```{python import_models, context="setup", include = FALSE}
+```{python import_models, context="setup", include = FALSE, cache=T}
 import turicreate as tc
 models = dict()
 for key in r.dat_list.keys():
   models[key] = tc.load_model(r.models_loc + '/' + key + '/')
 ```
 
-```{r, context="setup"}
+```{r, context="setup", cache=T}
 filters <- read_csv("config/filters.csv")
 filter_groups <- unique(filters$Class) %>% .[!is.na(.)]
 filters %<>%
@@ -257,7 +257,7 @@ output$valuebox <- renderValueBox({
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 valueBoxOutput("valuebox")
 ```
 
@@ -383,7 +383,7 @@ Select programs
 Input {.sidebar data-width=300 id="selectbar"}
 --------------------
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 actionButton("tour2","Take tour of this page",icon("paper-plane"))
 actionButton("button","Make recommendations and resort",icon("thumbs-up"))
 actionButton("show","Remove all filters", icon("broom"))
