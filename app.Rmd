@@ -395,9 +395,8 @@ switchInput(inputId = "selected_switch", label = "Export mode", value = FALSE,  
 <details>
 <summary>Program range</summary>
 ```{r}
-pickerInput('range_filter','Program range',choices = c("Reach","Target","Safer"), selected=c("Reach","Target","Safer")
-            multiple = T,options=list(`liveSearch` = T, `actions-box` = TRUE,size =10,
-                                      `selected-text-format` = 'count > 3'))
+pickerInput('range_filter','Program range',choices = c("Reach","Target","Safer"),
+            selected=c("Reach","Target","Safer"), multiple = T,options=list(`liveSearch` = T,`actions-box` = TRUE,size =10,`selected-text-format` = 'count > 3'))
 ```
 </details>
 
