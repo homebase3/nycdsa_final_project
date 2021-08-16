@@ -767,7 +767,6 @@ renderPrint({
   print(val4())
   print(val5())
   print(val6())
-  print(val7())
 })
 ```
 
@@ -779,8 +778,7 @@ val2 <- reactiveVal()
 val3 <- reactiveVal()
 val4 <- reactiveVal()
 val5 <- reactiveVal()
-val6 <- reactiveVal()
-val7 <- reactiveVal()
+val6 <- reactiveValues()
 observeEvent(input$button,{
   #join recommendations to the dataframe
   inter <- py$models[[input$specialty]]$recommend_from_interactions(observed_items=as.list(selectedIDs()),k=as.integer(1000))$to_dataframe()[,] %>%
@@ -816,9 +814,6 @@ output$table <- DT::renderDT({
       dplyr::select(Colname) %>%
       .[[1]]
     for (var in vars_) {
-      int <- val6()
-      vec6 <- c(int,var)
-      val6(vec6)
       if (!is.null(classes[[var]])) {
         if (classes[[var]] %in% c("character","factor")) {
           val4(df[[var]] %in% input[[gsub(" ","_",var)]])
@@ -837,9 +832,7 @@ output$table <- DT::renderDT({
               # filter_at(vars(any_of(var)), any_vars((. >= input[[gsub(" ","_",var)]][1] & . <= input[[gsub(" ","_",var)]][2])))
           }
       }
-      int2 <- val7()
-      vec7 <- c(int2,as.numeric(nrow(df)))
-      val7(vec7)
+      var6[[var]] <- nrow(df)
     }
   }
 
