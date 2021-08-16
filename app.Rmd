@@ -51,64 +51,7 @@ button {
   margin-bottom: 5px;
 }
 
-.accordion {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  text-align: left;
-  border: none;
-  outline: none;
-  transition: 0.4s;
-}
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active1, .accordion:hover {
-  background-color: #ccc;
-}
-
-/* Style the accordion panel. Note: hidden by default */
-.panel1 {
-  padding: 0 18px;
-  background-color: white;
-  display: none;
-  overflow: hidden;
-}
-
-.accordion:after {
-  content: '\02795'; /* Unicode character for "plus" sign (+) */
-  font-size: 13px;
-  color: #777;
-  float: right;
-  margin-left: 5px;
-}
-
-.active1:after {
-  content: "\2796"; /* Unicode character for "minus" sign (-) */
-}
-
 </style>
-<script>
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    /* Toggle between adding and removing the "active1" class,
-    to highlight the button that controls the panel */
-    this.classList.toggle("active1");
-
-    /* Toggle between hiding and showing the active panel */
-    var panel = this.nextElementSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
-    } else {
-      panel.style.display = "block";
-    }
-  });
-}
-</script>
 
 ---
 
@@ -1027,7 +970,7 @@ output$text4 <- renderText({
     score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights)
   safer <- pnorm(qnorm(score) - input$rangeset)
   reach <- pnorm(qnorm(score) + input$rangeset)
-  paste0("For example, based on the information you've provided and your chosen specialty of ","Anesthesiology",", you rank at the ",scales::ordinal(100*score)," percentile in your specialty. As shown in the chart below, this sets your Target range for schools ranked between the ", scales::ordinal(100*safer), "percentile and the ", scales::ordinal(100*reach)," percentile. Anything above the ",scales::ordinal(100*reach), " is considerded a reach, and anything below ",scales::ordinal(100*safer), "is considered Safer.\n\n")
+  paste0("For example, based on the information you've provided and your chosen specialty of ","Anesthesiology",", you rank at the ",scales::ordinal(100*score)," percentile in your specialty. As shown in the chart below, this sets your Target range for schools ranked between the ", scales::ordinal(100*safer), " percentile and the ", scales::ordinal(100*reach)," percentile. Anything above the ",scales::ordinal(100*reach), " is considerded a reach, and anything below the ",scales::ordinal(100*safer), " percentil is considered Safer.\n\n")
 })
 ```
 
@@ -1101,7 +1044,7 @@ textOutput("text5")
 <div>
 ```{r}
 paste0("The app relies on ", nrow(bibliography)," main sources. The full list of sources can be found below:") %>% 
-  cat(.)
+  tags$p(.)
 ```
 
 ```{r}
@@ -1121,7 +1064,7 @@ Note that this data is under fair use only for non-commercial purposes, so pleas
 <div>
 ```{r}
 paste0("Unfortunately, the main data source for this app, AAMC residency explorer, only carries ",length(names(dat_list)), "specialties. This represents the vast majority of total programs, including all specialties with over 100 programs except Opthamology and Urology. The full list of included specialties below, along with the number of programs for each specialty.") %>% 
-  cat(.)
+  tags$p(.)
 ```
 
 ```{r}
