@@ -386,10 +386,9 @@ Input {.sidebar data-width=300 id="selectbar"}
 actionButton("button","Make recommendations and resort",icon("thumbs-up"))
 actionButton("tour2","Take tour of this page",icon("paper-plane"))
 actionButton("show","Remove all filters", icon("broom"))
-pickerInput('selected_filter','Show selected',choices= c(TRUE, FALSE),
-            choicesOpt = c("Selected","Not selected"), multiple = T,
-            options=list(`liveSearch` = T, `actions-box` = TRUE,size =10,
-                         `selected-text-format` = 'count > 3'))
+pickerInput('selected_filter','Show selected',choices = c("Selected","Not selected"), 
+            multiple = T,options=list(`liveSearch` = T, `actions-box` = TRUE,size =10,
+                                      `selected-text-format` = 'count > 3'))
 ```
 
 <!-- ```{r, context="render"} -->
@@ -808,11 +807,11 @@ output$table <- DT::renderDataTable({
     relocate(City, .after=`Residency program name`)
 
   #filter core dataframe
-  if (input$selected_filter == TRUE) {
+  if (input$selected_filter == "Selected") {
     df %<>% 
       filter(ID %in% selectedIDs())
   }
-  if (input$selected_filter == FALSE) {
+  if (input$selected_filter == "Not selected") {
     df %<>% 
       filter(ID %notin% selectedIDs())
   }
