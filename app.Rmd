@@ -766,6 +766,8 @@ renderPrint({
 })
 ```
 
+###
+
 ```{r, context="server"}
 val1 <- reactiveVal()
 val2 <- reactiveVal()
@@ -804,7 +806,7 @@ output$table <- DT::renderDT({
       if (!is.null(classes[[var]])) {
         if (classes[[var]] %in% c("character","factor")) {
           val1(input[[gsub(" ","_",var)]])
-          val2(print(unique(df$var)))
+          val2(unique(df$var))
           df %<>%
             filter(!!rlang::sym(var) %in% isolate(input[[gsub(" ","_",var)]]))
             # filter_at(vars(any_of(var)), any_vars((. %in% input[[gsub(" ","_",var)]])))
