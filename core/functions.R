@@ -139,3 +139,23 @@ UI_helper_group <- function(group) {
     cat(UI_helper_func(var))
   }
 }
+UI_update_helper <- function() {
+  for (group in filter_groups) {
+    filters %>%
+      filter(Class %in% group) %>%
+      dplyr::select(Colname) %>%
+      .[[1]] -> vars_
+    for (var in vars_) {
+      print(var)
+      if (!is.null(classes[[var]])) {
+        print(var)
+        if (as.character(classes[[var]]) == "numeric") {
+          cat(paste0("updateSliderInput(session,inputId='",var,"', min=mins[['",var,"']], max= maxs[['",
+                     var,"']], value=c(mins[['",var,"']],maxs[['",var,"']]))\n"))
+        } else {
+          cat(paste0("updatePickerInput(session, inputId ='", var,"', choices=vals[['",var,"']],selected = vals[['",var,"']])\n"))
+        }
+      }
+    }
+  }
+}
