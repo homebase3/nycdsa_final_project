@@ -690,11 +690,11 @@ observeEvent(input$table_row_last_clicked,{
 })
 
 #prepare download helper
-observeEvent(input$save, {
+data <- reactive({
   out <- df_save()
   out %<>%
     filter(ID %in% selectedIDs())
-  data(out)
+  out
 })
 
 output$downloadData <- downloadHandler(
