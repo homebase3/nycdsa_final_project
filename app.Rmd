@@ -144,7 +144,7 @@ steps1 <- data.frame(element = c("#specialty-selectized","#section-inputs","#sec
                                "Your competitiveness for the individual components can also be found below. For example, this is your score based on your step 1 score alone",
                                "Once you're done, click 'Select programs' in the navbar to move to the next section. Give it a few seconds to load :)"))
 
-steps2 <-data.frame(element = c("#table", ".navbar ","#table","#table","#table","#section-row-2",".btn",".section-selectbar",".section-selectbar",".section-selectbar",".section-selectbar","#UIbuttons"),
+steps2 <-data.frame(element = c("#table", ".navbar ","#table","#table","#table","#section-row-2",".btn","#section-selectbar","#section-selectbar","#section-selectbar","#section-selectbar","#UIbuttons"),
                     intro = c("First off, you'll see a list of (nearly) every program in your specialty. Programs are bucketted into \"Reach\", \"Target\", and \"Safer\" based on (1) your competitiveness in the specialty and (2) our assessment of the program based on applicant competitiveness, research quality, teaching quality, and patient outcomes. The initial order of the programs is based on this rank list, with the top program at the top.",
                               "You can find more detail on how your specialty was ranked by clicking \"More info on specialty ranking\" in the Navbar.",
                               "For each program, you can quickly see its details as well as links to all major relevant sites, including the Program website itself, Freida, AAMC, and Doximity where available.",
