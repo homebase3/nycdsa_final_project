@@ -146,9 +146,7 @@ UI_update_helper <- function() {
       dplyr::select(Colname) %>%
       .[[1]] -> vars_
     for (var in vars_) {
-      print(var)
       if (!is.null(classes[[var]])) {
-        print(var)
         if (as.character(classes[[var]]) == "numeric") {
           cat(paste0("updateSliderInput(session,inputId='",var,"', min=mins[['",var,"']], max= maxs[['",
                      var,"']], value=c(mins[['",var,"']],maxs[['",var,"']]))\n"))

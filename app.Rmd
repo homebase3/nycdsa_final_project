@@ -394,6 +394,8 @@ output$UIbuttons <- renderUI({
 uiOutput("UIbuttons")
 ```
 
+Dropdown selection inputs below generated
+
 <details>
 
 <summary>Program basics</summary>
@@ -621,9 +623,9 @@ sliderInput('Safety Worse %','Safety Worse %',0,1, c(0,1),round=T)
 Row {data-height=50}
 -----
 
-```{r server_logic, context="server", include = F}
+```{r server_logic1, context="server"}
 # immediately update dummy inputs
-observeEvent(input$specialty, {
+observe({
   mins = list()
   maxs = list()
   vals = list()
@@ -741,8 +743,9 @@ observeEvent(input$specialty, {
   updateSliderInput(session,inputId='Safety Worse %', min=mins[['Safety Worse %']], max= maxs[['Safety Worse %']], value=c(mins[['Safety Worse %']],maxs[['Safety Worse %']]))
   
 })
+```
 
-
+```{r server_logic_2, context="server',include=F}
 # keep track of selections
 `%notin%` <- Negate(`%in%`)
 
