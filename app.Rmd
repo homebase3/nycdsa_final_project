@@ -10,7 +10,7 @@ output:
     vertical_layout: fill
     navbar:
       - { icon: "fa-linkedin", href: "https://www.linkedin.com/in/justin-leder-3401904b/",align: right}
-      - { icon: "fa-mail", href: "mailto:justin.leder.2@gmail.com",align: right}
+      - { icon: "fa-envelope", href: "mailto:justin.leder.2@gmail.com",align: right}
       - { icon: "fa-github", href: "https://github.com/homebase3",align: right}
       - { icon: "fa-coffee", href: "https://www.buymeacoffee.com/justinleder",align: right}
 ---
@@ -226,7 +226,7 @@ output$introJShelper <- renderUI({
 })
 ```
 
-Inputs {.sidebar}
+Inputs2 {.sidebar}
 ------
 ```{r}
 uiOutput("introJShelper")
@@ -893,11 +893,11 @@ Row {data-height=300}
 FAQ
 ===
 
-###
+### Frequently asked questions
 
 <details>
 <summary> How does the app determine your competitiveness score in the specialty?</summary>
-
+<div>
 In short, the app compares you to matched applicants in the specialty
 you've chosen:
 
@@ -930,15 +930,15 @@ textOutput("text1")
 ```{r, context="server"}
 output$kable_factors <- function() {
   req(input$specialty)
-  PD_Survey_weights %>% 
-    filter(Specialty == input$specialty) %>% 
-    t() %>% 
-    as.data.frame(.) %>% 
-    janitor::row_to_names(.,1) %>% 
-    rename(Weights = 1) %>% 
-    mutate_at(1, as.numeric) %>% 
-    mutate_at(1, scales::percent) %>% 
-    kbl(.) %>% 
+  PD_Survey_weights %>%
+    filter(Specialty == input$specialty) %>%
+    t() %>%
+    as.data.frame(.) %>%
+    janitor::row_to_names(.,1) %>%
+    rename(Weights = 1) %>%
+    mutate_at(1, as.numeric) %>%
+    mutate_at(1, scales::percent) %>%
+    kbl(.) %>%
     kable_styling(.)
 }
 ```
@@ -946,12 +946,12 @@ output$kable_factors <- function() {
 ```{r, context="render"}
 tableOutput("kable_factors")
 ```
-
+</div>
 </details>
 
 <details>
 <summary>How does the app rank programs?</summary>
-
+<div>
 Program ranking is a bit more complicated. It's a weighted averaged of many factors. 30% of the ranking is tied to same six applicant competitive measures used to determine individual competitiveness. This is done by looking at the data each program provides on their respective residents. Note that programs don't provide data on Step 2 scores, so Step 1 scores are used as a proxy for both. 
 
 The other 70% of the ranking is tied to remaining applicant characteristics, program selectivity, the quality of care at the hospital, research funding at the hospital, and teaching quality at the hospital, measured by board scores in common specialties. 
@@ -1001,6 +1001,7 @@ output$kable_factors2 <- function() {
 ```{r, context="render"}
 tableOutput("kable_factors2")
 ```
+</div>
 </details>
 
 <details>
@@ -1067,7 +1068,7 @@ ggplotly(gg)
 ```
 
 ```{r, context="render"}
-plotlyOutput("gg", width="400px")
+plotlyOutput("gg")
 ```
 
 </details>
@@ -1097,16 +1098,82 @@ textOutput("text5")
 
 <details>
 <summary>Where does your data come from?</summary>
+<div>
+```{r}
+paste0("The app relies on ", nrow(bibliography)," main sources. The full list of sources can be found below:")
+
+bibliography %>% 
+  mutate(Link = paste0('<a style="font-size:100%" href="', Link,'" target="_blank" class="btn btn-1">Link</a>')) %>% 
+  kbl(., escape = F) %>% 
+  kable_styling(.)
+```
+
+Note that this data is under fair use only for non-commercial purposes, so please do not use commercially.
+
+</div>
 </details>
 
 <details>
 <summary>Why doesn't the app include all ERAS specialties?</summary>
+<div>
+```{r}
+paste0("Unfortunately, the main data source for this app, AAMC residency explorer, only carries ",length(names(dat_list)), "specialties. This represents the vast majority of total programs, including all specialties with over 100 programs except Opthamology and Urology. The full list of included specialties below, along with the number of programs for each specialty.")
+```
+
+```{r}
+dat %>% 
+  group_by(Specialty) %>% 
+  summarize(`Total programs` = n())  %>% 
+  kbl(.) %>% 
+  kable_styling(.)
+```
+</div>
 </details>
 
 <details>
 <summary>For the included specialties, are you missing any programs. If so, why? </summary>
+<div>
+```{r, context="server"}
+output$text6 <- renderText({
+  paste0("Even for the included specialties, AAMC residency explorer is not a complete dataset, or is very close. In total, it is missing ",nrow(missing_programs), "In your chosen specialty, it is missing ",nrow(missing_programs %>% filter(Specialty == input$Specialty)), ". Those programs are:")
+})
+```
+
+```{r, context="render"}
+textOutput("text5")
+```
+
+```{r, context="server"}
+output$kable_missing <- function() {
+  req(input$specialty)
+  missing_programs %>% 
+    filter(Specialty == input$Specialty) %>% 
+    kbl(.) %>% 
+    kable_styling(.)
+}
+```
+  
+```{r, context="render"}
+tableOutput("kable_missing")
+```
+</div>
 </details>
 
 <details>
-<summary>What should I do if I have more questions? </summary>
+<summary>Is the information I enter into the app private? </summary>
+
+Yes, in the sense that no user or administrator will have access. No information will be saved across sessions. The downside of this is that once you leave the app, you'll lose your progress.
+
+</details>
+
+<details>
+<summary>What should I do if I have more questions or I want to provide feedback? </summary>
+
+Hit the envelope button on the top right of the page. It's a link to send me an email!
+</details>
+
+<details>
+<summary>How can I support the site if I'd like to  </summary>
+
+Hit the coffee button on the top right of the page. It's a link to my "Buy me a coffee page". Any support you'd be willing to provide is much appreciated. It costs me ~$12 per month to keep up the Jupyterhub that hosts this site.
 </details>
