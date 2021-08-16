@@ -6,6 +6,10 @@ output:
     theme:
       version: 4
       bootswatch: cosmo
+      base_font: 
+        google: Open Sans
+      heading_font:
+        google: Open Sans
     orientation: rows
     vertical_layout: fill
     navbar:
