@@ -122,10 +122,10 @@ wrap_title <- function(vec) {
 UI_helper_func <- function(var, min_default = 0, max_default = 1, choices_default = c("0","1")) {
   if (!is.null(classes[[var]])) {
     if (as.character(classes[[var]]) == "numeric") {
-      paste0("sliderInput('",var,"','",var,"',",min_default,",",1,", c(0,1),round=T)\n") %>% 
+      paste0("sliderInput('",gsub(" ","_",var),"','",var,"',",min_default,",",1,", c(0,1),round=T)\n") %>% 
         cat(.)
     } else {
-      paste0("pickerInput('",var,"','",var,"',","choices= c(",paste(choices_default, collapse = ', '), "), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))\n") %>% 
+      paste0("pickerInput('",gsub(" ","_",var),"','",var,"',","choices= c(",paste(choices_default, collapse = ', '), "), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))\n") %>% 
         cat(.)
     }
   }
@@ -148,10 +148,10 @@ UI_update_helper <- function() {
     for (var in vars_) {
       if (!is.null(classes[[var]])) {
         if (as.character(classes[[var]]) == "numeric") {
-          cat(paste0("updateSliderInput(session,inputId='",var,"', min=mins[['",var,"']], max= maxs[['",
+          cat(paste0("updateSliderInput(session,inputId='",gsub(" ","_",var),"', min=mins[['",var,"']], max= maxs[['",
                      var,"']], value=c(mins[['",var,"']],maxs[['",var,"']]))\n"))
         } else {
-          cat(paste0("updatePickerInput(session, inputId ='", var,"', choices=vals[['",var,"']],selected = vals[['",var,"']])\n"))
+          cat(paste0("updatePickerInput(session, inputId ='", gsub(" ","_",var),"', choices=vals[['",var,"']],selected = vals[['",var,"']])\n"))
         }
       }
     }

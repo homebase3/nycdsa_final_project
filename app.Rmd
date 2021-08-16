@@ -397,32 +397,12 @@ uiOutput("UIbuttons")
 Dropdown selection inputs below generated
 
 <details>
-
-<summary>Program basics</summary>
-```{r, context="render", results="asis"}
-observeEvent(input$specialty,{
-  filters %>%
-  filter(Class %in% "Program basics") %>%
-    dplyr::select(Colname) %>%
-    .[[1]] -> vars_
-  lis_ <- lapply(vars_, UI_helper_func)
-  for (el in lis_) {
-    print(el)
-  }
-})
-
-# for (el in as.character(lis_)) {
-#   shiny::tagList(.)
-# }
-```
-</details>
-<details>
 <summary>Program basics</summary>
 ```{r, context='render'}
-pickerInput('Participates in ERAS','Participates in ERAS',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Participates in the NRMP Main Match','Participates in the NRMP Main Match',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Program setting','Program setting',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Residency program name','Residency program name',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Participates_in_ERAS','Participates in ERAS',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Participates_in_the_NRMP_Main_Match','Participates in the NRMP Main Match',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Program_setting','Program setting',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Residency_program_name','Residency program name',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 pickerInput('Status','Status',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 
 ```
@@ -432,7 +412,7 @@ pickerInput('Status','Status',choices= c(0, 1), multiple = T, options=list(`live
 <summary>Geography</summary>
 ```{r, context='render'}
 pickerInput('City','City',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Metro Area Name','Metro Area Name',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Metro_Area_Name','Metro Area Name',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 pickerInput('State','State',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 
 ```
@@ -441,14 +421,14 @@ pickerInput('State','State',choices= c(0, 1), multiple = T, options=list(`liveSe
 <details>
 <summary>Resident demographics</summary>
 ```{r, context='render'}
-sliderInput('Percentage of completed residents with non-academic U.S. practice career plans','Percentage of completed residents with non-academic U.S. practice career plans',0,1, c(0,1),round=T)
-sliderInput('Percentage of completed residents with other career plans','Percentage of completed residents with other career plans',0,1, c(0,1),round=T)
-sliderInput('Percentage of completed residents with plans to continue training in another program','Percentage of completed residents with plans to continue training in another program',0,1, c(0,1),round=T)
-sliderInput('Percentage of completed residents with plans to obtain a full-time or part-time academic position','Percentage of completed residents with plans to obtain a full-time or part-time academic position',0,1, c(0,1),round=T)
-sliderInput('Percentage of residents who were non-US-citizen IMGs','Percentage of residents who were non-US-citizen IMGs',0,1, c(0,1),round=T)
-sliderInput('Percentage of residents who were US DO graduates','Percentage of residents who were US DO graduates',0,1, c(0,1),round=T)
-sliderInput('Percentage of residents who were US MD graduates','Percentage of residents who were US MD graduates',0,1, c(0,1),round=T)
-sliderInput('Percentage of residents who were US-citizen IMGs','Percentage of residents who were US-citizen IMGs',0,1, c(0,1),round=T)
+sliderInput('Percentage_of_completed_residents_with_non-academic_U.S._practice_career_plans','Percentage of completed residents with non-academic U.S. practice career plans',0,1, c(0,1),round=T)
+sliderInput('Percentage_of_completed_residents_with_other_career_plans','Percentage of completed residents with other career plans',0,1, c(0,1),round=T)
+sliderInput('Percentage_of_completed_residents_with_plans_to_continue_training_in_another_program','Percentage of completed residents with plans to continue training in another program',0,1, c(0,1),round=T)
+sliderInput('Percentage_of_completed_residents_with_plans_to_obtain_a_full-time_or_part-time_academic_position','Percentage of completed residents with plans to obtain a full-time or part-time academic position',0,1, c(0,1),round=T)
+sliderInput('Percentage_of_residents_who_were_non-US-citizen_IMGs','Percentage of residents who were non-US-citizen IMGs',0,1, c(0,1),round=T)
+sliderInput('Percentage_of_residents_who_were_US_DO_graduates','Percentage of residents who were US DO graduates',0,1, c(0,1),round=T)
+sliderInput('Percentage_of_residents_who_were_US_MD_graduates','Percentage of residents who were US MD graduates',0,1, c(0,1),round=T)
+sliderInput('Percentage_of_residents_who_were_US-citizen_IMGs','Percentage of residents who were US-citizen IMGs',0,1, c(0,1),round=T)
 
 ```
 </details>
@@ -456,8 +436,8 @@ sliderInput('Percentage of residents who were US-citizen IMGs','Percentage of re
 <details>
 <summary>Accreditation</summary>
 ```{r, context='render'}
-pickerInput('Osteopathic Recognition','Osteopathic Recognition',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Program accreditation status','Program accreditation status',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Osteopathic_Recognition','Osteopathic Recognition',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Program_accreditation_status','Program accreditation status',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 
 ```
 </details>
@@ -465,16 +445,16 @@ pickerInput('Program accreditation status','Program accreditation status',choice
 <details>
 <summary>Program size</summary>
 ```{r, context='render'}
-sliderInput('# of advanced positions filled by this program in the 2021 NRMP Main Match','# of advanced positions filled by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
-sliderInput('# of advanced positions offered by this program in the 2021 NRMP Main Match','# of advanced positions offered by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
-sliderInput('# of applications submitted to this program in 2021','# of applications submitted to this program in 2021',0,1, c(0,1),round=T)
-sliderInput('# of categorical positions filled by this program in the 2021 NRMP Main Match','# of categorical positions filled by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
-sliderInput('# of categorical positions offered by this program in the 2021 NRMP Main Match','# of categorical positions offered by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
-sliderInput('# of positions filled by this program in the 2021 NRMP Main Match','# of positions filled by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
-sliderInput('# of positions offered by this program in the 2021 NRMP Main Match','# of positions offered by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
-sliderInput('# Residents on Duty Year 1','# Residents on Duty Year 1',0,1, c(0,1),round=T)
-sliderInput('% of applicants interviewed by the program in 2020','% of applicants interviewed by the program in 2020',0,1, c(0,1),round=T)
-sliderInput('Total # Residents on Duty','Total # Residents on Duty',0,1, c(0,1),round=T)
+sliderInput('#_of_advanced_positions_filled_by_this_program_in_the_2021_NRMP_Main_Match','# of advanced positions filled by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
+sliderInput('#_of_advanced_positions_offered_by_this_program_in_the_2021_NRMP_Main_Match','# of advanced positions offered by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
+sliderInput('#_of_applications_submitted_to_this_program_in_2021','# of applications submitted to this program in 2021',0,1, c(0,1),round=T)
+sliderInput('#_of_categorical_positions_filled_by_this_program_in_the_2021_NRMP_Main_Match','# of categorical positions filled by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
+sliderInput('#_of_categorical_positions_offered_by_this_program_in_the_2021_NRMP_Main_Match','# of categorical positions offered by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
+sliderInput('#_of_positions_filled_by_this_program_in_the_2021_NRMP_Main_Match','# of positions filled by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
+sliderInput('#_of_positions_offered_by_this_program_in_the_2021_NRMP_Main_Match','# of positions offered by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
+sliderInput('#_Residents_on_Duty_Year_1','# Residents on Duty Year 1',0,1, c(0,1),round=T)
+sliderInput('%_of_applicants_interviewed_by_the_program_in_2020','% of applicants interviewed by the program in 2020',0,1, c(0,1),round=T)
+sliderInput('Total_#_Residents_on_Duty','Total # Residents on Duty',0,1, c(0,1),round=T)
 
 ```
 </details>
@@ -482,14 +462,14 @@ sliderInput('Total # Residents on Duty','Total # Residents on Duty',0,1, c(0,1),
 <details>
 <summary>Applicant competitiveness</summary>
 ```{r, context='render'}
-sliderInput('Average number of peer-reviewed publications among matched applicants','Average number of peer-reviewed publications among matched applicants',0,1, c(0,1),round=T)
-sliderInput('Average number of research experiences among matched applicants','Average number of research experiences among matched applicants',0,1, c(0,1),round=T)
-sliderInput('Average number of volunteer experiences among matched applicants','Average number of volunteer experiences among matched applicants',0,1, c(0,1),round=T)
-sliderInput('Average number of work experiences among matched applicants','Average number of work experiences among matched applicants',0,1, c(0,1),round=T)
-sliderInput('Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)','Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)',0,1, c(0,1),round=T)
-sliderInput('Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)','Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)',0,1, c(0,1),round=T)
-pickerInput('Range of average COMLEX Level 1 score of current residents','Range of average COMLEX Level 1 score of current residents',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Range of average USMLE Step 1 score of current residents','Range of average USMLE Step 1 score of current residents',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+sliderInput('Average_number_of_peer-reviewed_publications_among_matched_applicants','Average number of peer-reviewed publications among matched applicants',0,1, c(0,1),round=T)
+sliderInput('Average_number_of_research_experiences_among_matched_applicants','Average number of research experiences among matched applicants',0,1, c(0,1),round=T)
+sliderInput('Average_number_of_volunteer_experiences_among_matched_applicants','Average number of volunteer experiences among matched applicants',0,1, c(0,1),round=T)
+sliderInput('Average_number_of_work_experiences_among_matched_applicants','Average number of work experiences among matched applicants',0,1, c(0,1),round=T)
+sliderInput('Percentage_of_matched_applicants_who_were_members_of_Alpha_Omega_Alpha_(at_the_time_of_application)','Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)',0,1, c(0,1),round=T)
+sliderInput('Percentage_of_matched_applicants_who_were_members_of_Gold_Humanism_Honor_Society_(at_the_time_of_application)','Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)',0,1, c(0,1),round=T)
+pickerInput('Range_of_average_COMLEX_Level_1_score_of_current_residents','Range of average COMLEX Level 1 score of current residents',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Range_of_average_USMLE_Step_1_score_of_current_residents','Range of average USMLE Step 1 score of current residents',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 
 ```
 </details>
@@ -497,9 +477,9 @@ pickerInput('Range of average USMLE Step 1 score of current residents','Range of
 <details>
 <summary>International student considerations</summary>
 ```{r, context='render'}
-pickerInput('Program consider applicants with F-1 Visa (OPT 1st year)?','Program consider applicants with F-1 Visa (OPT 1st year)?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Program consider applicants with H-1B visa?','Program consider applicants with H-1B visa?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Program consider applicants with J-1 visa?','Program consider applicants with J-1 visa?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Program_consider_applicants_with_F-1_Visa_(OPT_1st_year)?','Program consider applicants with F-1 Visa (OPT 1st year)?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Program_consider_applicants_with_H-1B_visa?','Program consider applicants with H-1B visa?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Program_consider_applicants_with_J-1_visa?','Program consider applicants with J-1 visa?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 
 ```
 </details>
@@ -507,13 +487,13 @@ pickerInput('Program consider applicants with J-1 visa?','Program consider appli
 <details>
 <summary>Program experience</summary>
 ```{r, context='render'}
-sliderInput('% of training spent in year 1 in ambulatory nonhospital community-based settings','% of training spent in year 1 in ambulatory nonhospital community-based settings',0,1, c(0,1),round=T)
-sliderInput('% of training spent in year 1 in hospital outpatient clinics','% of training spent in year 1 in hospital outpatient clinics',0,1, c(0,1),round=T)
-sliderInput('Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)','Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)',0,1, c(0,1),round=T)
-sliderInput('Average hours/week in year one that resident works (excluding beeper call)','Average hours/week in year one that resident works (excluding beeper call)',0,1, c(0,1),round=T)
-sliderInput('Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)','Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)',0,1, c(0,1),round=T)
-pickerInput('Program allows residents (beyond PGY1) to moonlight?','Program allows residents (beyond PGY1) to moonlight?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Program curriculum includes a dedicated research rotation','Program curriculum includes a dedicated research rotation',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+sliderInput('%_of_training_spent_in_year_1_in_ambulatory_nonhospital_community-based_settings','% of training spent in year 1 in ambulatory nonhospital community-based settings',0,1, c(0,1),round=T)
+sliderInput('%_of_training_spent_in_year_1_in_hospital_outpatient_clinics','% of training spent in year 1 in hospital outpatient clinics',0,1, c(0,1),round=T)
+sliderInput('Average_hours/week_in_year_one_of_program_spent_in_structured_didactic_activities_(e.g.,_lectures,_conferences)','Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)',0,1, c(0,1),round=T)
+sliderInput('Average_hours/week_in_year_one_that_resident_works_(excluding_beeper_call)','Average hours/week in year one that resident works (excluding beeper call)',0,1, c(0,1),round=T)
+sliderInput('Maximum_consecutive_hours_resident_is_allowed_to_work_in_year_one_(excluding_beeper_call)','Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)',0,1, c(0,1),round=T)
+pickerInput('Program_allows_residents_(beyond_PGY1)_to_moonlight?','Program allows residents (beyond PGY1) to moonlight?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
+pickerInput('Program_curriculum_includes_a_dedicated_research_rotation','Program curriculum includes a dedicated research rotation',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 
 ```
 </details>
@@ -521,8 +501,8 @@ pickerInput('Program curriculum includes a dedicated research rotation','Program
 <details>
 <summary>Research</summary>
 ```{r, context='render'}
-sliderInput('2019 NIH specialty funding','2019 NIH specialty funding',0,1, c(0,1),round=T)
-sliderInput('2019 NIH total funding','2019 NIH total funding',0,1, c(0,1),round=T)
+sliderInput('2019_NIH_specialty_funding','2019 NIH specialty funding',0,1, c(0,1),round=T)
+sliderInput('2019_NIH_total_funding','2019 NIH total funding',0,1, c(0,1),round=T)
 
 ```
 </details>
@@ -530,10 +510,10 @@ sliderInput('2019 NIH total funding','2019 NIH total funding',0,1, c(0,1),round=
 <details>
 <summary>Teaching</summary>
 ```{r, context='render'}
-sliderInput('Family medicine board pass rate','Family medicine board pass rate',0,1, c(0,1),round=T)
-sliderInput('Internal medicine board pass rate','Internal medicine board pass rate',0,1, c(0,1),round=T)
-sliderInput('Pediatrics board pass rate','Pediatrics board pass rate',0,1, c(0,1),round=T)
-sliderInput('Surgery board pass rate','Surgery board pass rate',0,1, c(0,1),round=T)
+sliderInput('Family_medicine_board_pass_rate','Family medicine board pass rate',0,1, c(0,1),round=T)
+sliderInput('Internal_medicine_board_pass_rate','Internal medicine board pass rate',0,1, c(0,1),round=T)
+sliderInput('Pediatrics_board_pass_rate','Pediatrics board pass rate',0,1, c(0,1),round=T)
+sliderInput('Surgery_board_pass_rate','Surgery board pass rate',0,1, c(0,1),round=T)
 
 ```
 </details>
@@ -541,11 +521,11 @@ sliderInput('Surgery board pass rate','Surgery board pass rate',0,1, c(0,1),roun
 <details>
 <summary>Weather</summary>
 ```{r, context='render'}
-sliderInput('% days above 90F','% days above 90F',0,1, c(0,1),round=T)
-sliderInput('% days below freezing','% days below freezing',0,1, c(0,1),round=T)
-sliderInput('% days with precipitation','% days with precipitation',0,1, c(0,1),round=T)
-sliderInput('Annual snowfall','Annual snowfall',0,1, c(0,1),round=T)
-sliderInput('Mean % sunny','Mean % sunny',0,1, c(0,1),round=T)
+sliderInput('%_days_above_90F','% days above 90F',0,1, c(0,1),round=T)
+sliderInput('%_days_below_freezing','% days below freezing',0,1, c(0,1),round=T)
+sliderInput('%_days_with_precipitation','% days with precipitation',0,1, c(0,1),round=T)
+sliderInput('Annual_snowfall','Annual snowfall',0,1, c(0,1),round=T)
+sliderInput('Mean_%_sunny','Mean % sunny',0,1, c(0,1),round=T)
 
 ```
 </details>
@@ -553,7 +533,7 @@ sliderInput('Mean % sunny','Mean % sunny',0,1, c(0,1),round=T)
 <details>
 <summary>Cost of living</summary>
 ```{r, context='render'}
-sliderInput('Cost of Living Index','Cost of Living Index',0,1, c(0,1),round=T)
+sliderInput('Cost_of_Living_Index','Cost of Living Index',0,1, c(0,1),round=T)
 
 ```
 </details>
@@ -561,29 +541,29 @@ sliderInput('Cost of Living Index','Cost of Living Index',0,1, c(0,1),round=T)
 <details>
 <summary>County health characteristics</summary>
 ```{r, context='render'}
-sliderInput('Access to Care (percentile)','Access to Care (percentile)',0,1, c(0,1),round=T)
-sliderInput('Air and Water Quality (percentile)','Air and Water Quality (percentile)',0,1, c(0,1),round=T)
-sliderInput('Alcohol and Drug Use (percentile)','Alcohol and Drug Use (percentile)',0,1, c(0,1),round=T)
-sliderInput('Clinical care (percentile)','Clinical care (percentile)',0,1, c(0,1),round=T)
-sliderInput('Community Safety (percentile)','Community Safety (percentile)',0,1, c(0,1),round=T)
-sliderInput('Diet and Exercise (percentile)','Diet and Exercise (percentile)',0,1, c(0,1),round=T)
-sliderInput('Education (percentile)','Education (percentile)',0,1, c(0,1),round=T)
-sliderInput('Employment (percentile)','Employment (percentile)',0,1, c(0,1),round=T)
-sliderInput('Family and Social Support (percentile)','Family and Social Support (percentile)',0,1, c(0,1),round=T)
-sliderInput('Health behaviors (percentile)','Health behaviors (percentile)',0,1, c(0,1),round=T)
-sliderInput('Health factors (percentile)','Health factors (percentile)',0,1, c(0,1),round=T)
-sliderInput('Health outcomes (percentile)','Health outcomes (percentile)',0,1, c(0,1),round=T)
-sliderInput('Housing and Transit (percentile)','Housing and Transit (percentile)',0,1, c(0,1),round=T)
-sliderInput('Income (percentile)','Income (percentile)',0,1, c(0,1),round=T)
-sliderInput('Income Ratio','Income Ratio',0,1, c(0,1),round=T)
-sliderInput('Income Ratio (percentile)','Income Ratio (percentile)',0,1, c(0,1),round=T)
-sliderInput('Length of Life (percentile)','Length of Life (percentile)',0,1, c(0,1),round=T)
-sliderInput('Physical environment (percentile)','Physical environment (percentile)',0,1, c(0,1),round=T)
-sliderInput('Quality of Care (percentile)','Quality of Care (percentile)',0,1, c(0,1),round=T)
-sliderInput('Quality of Life (percentile)','Quality of Life (percentile)',0,1, c(0,1),round=T)
-sliderInput('Sexual Activity (percentile)','Sexual Activity (percentile)',0,1, c(0,1),round=T)
-sliderInput('Social & economic factors (percentile)','Social & economic factors (percentile)',0,1, c(0,1),round=T)
-sliderInput('Tobacco Use (percentile)','Tobacco Use (percentile)',0,1, c(0,1),round=T)
+sliderInput('Access_to_Care_(percentile)','Access to Care (percentile)',0,1, c(0,1),round=T)
+sliderInput('Air_and_Water_Quality_(percentile)','Air and Water Quality (percentile)',0,1, c(0,1),round=T)
+sliderInput('Alcohol_and_Drug_Use_(percentile)','Alcohol and Drug Use (percentile)',0,1, c(0,1),round=T)
+sliderInput('Clinical_care_(percentile)','Clinical care (percentile)',0,1, c(0,1),round=T)
+sliderInput('Community_Safety_(percentile)','Community Safety (percentile)',0,1, c(0,1),round=T)
+sliderInput('Diet_and_Exercise_(percentile)','Diet and Exercise (percentile)',0,1, c(0,1),round=T)
+sliderInput('Education_(percentile)','Education (percentile)',0,1, c(0,1),round=T)
+sliderInput('Employment_(percentile)','Employment (percentile)',0,1, c(0,1),round=T)
+sliderInput('Family_and_Social_Support_(percentile)','Family and Social Support (percentile)',0,1, c(0,1),round=T)
+sliderInput('Health_behaviors_(percentile)','Health behaviors (percentile)',0,1, c(0,1),round=T)
+sliderInput('Health_factors_(percentile)','Health factors (percentile)',0,1, c(0,1),round=T)
+sliderInput('Health_outcomes_(percentile)','Health outcomes (percentile)',0,1, c(0,1),round=T)
+sliderInput('Housing_and_Transit_(percentile)','Housing and Transit (percentile)',0,1, c(0,1),round=T)
+sliderInput('Income_(percentile)','Income (percentile)',0,1, c(0,1),round=T)
+sliderInput('Income_Ratio','Income Ratio',0,1, c(0,1),round=T)
+sliderInput('Income_Ratio_(percentile)','Income Ratio (percentile)',0,1, c(0,1),round=T)
+sliderInput('Length_of_Life_(percentile)','Length of Life (percentile)',0,1, c(0,1),round=T)
+sliderInput('Physical_environment_(percentile)','Physical environment (percentile)',0,1, c(0,1),round=T)
+sliderInput('Quality_of_Care_(percentile)','Quality of Care (percentile)',0,1, c(0,1),round=T)
+sliderInput('Quality_of_Life_(percentile)','Quality of Life (percentile)',0,1, c(0,1),round=T)
+sliderInput('Sexual_Activity_(percentile)','Sexual Activity (percentile)',0,1, c(0,1),round=T)
+sliderInput('Social_&_economic_factors_(percentile)','Social & economic factors (percentile)',0,1, c(0,1),round=T)
+sliderInput('Tobacco_Use_(percentile)','Tobacco Use (percentile)',0,1, c(0,1),round=T)
 
 ```
 </details>
@@ -591,16 +571,16 @@ sliderInput('Tobacco Use (percentile)','Tobacco Use (percentile)',0,1, c(0,1),ro
 <details>
 <summary>County demographics</summary>
 ```{r, context='render'}
-sliderInput('% 65 and Over','% 65 and Over',0,1, c(0,1),round=T)
-sliderInput('% American Indian & Alaska Native','% American Indian & Alaska Native',0,1, c(0,1),round=T)
-sliderInput('% Asian','% Asian',0,1, c(0,1),round=T)
-sliderInput('% Black','% Black',0,1, c(0,1),round=T)
-sliderInput('% Female','% Female',0,1, c(0,1),round=T)
-sliderInput('% Hispanic','% Hispanic',0,1, c(0,1),round=T)
-sliderInput('% Less Than 18 Years of Age','% Less Than 18 Years of Age',0,1, c(0,1),round=T)
-sliderInput('% Native Hawaiian/Other Pacific Islander','% Native Hawaiian/Other Pacific Islander',0,1, c(0,1),round=T)
-sliderInput('% Non-Hispanic White','% Non-Hispanic White',0,1, c(0,1),round=T)
-sliderInput('% Rural','% Rural',0,1, c(0,1),round=T)
+sliderInput('%_65_and_Over','% 65 and Over',0,1, c(0,1),round=T)
+sliderInput('%_American_Indian_&_Alaska_Native','% American Indian & Alaska Native',0,1, c(0,1),round=T)
+sliderInput('%_Asian','% Asian',0,1, c(0,1),round=T)
+sliderInput('%_Black','% Black',0,1, c(0,1),round=T)
+sliderInput('%_Female','% Female',0,1, c(0,1),round=T)
+sliderInput('%_Hispanic','% Hispanic',0,1, c(0,1),round=T)
+sliderInput('%_Less_Than_18_Years_of_Age','% Less Than 18 Years of Age',0,1, c(0,1),round=T)
+sliderInput('%_Native_Hawaiian/Other_Pacific_Islander','% Native Hawaiian/Other Pacific Islander',0,1, c(0,1),round=T)
+sliderInput('%_Non-Hispanic_White','% Non-Hispanic White',0,1, c(0,1),round=T)
+sliderInput('%_Rural','% Rural',0,1, c(0,1),round=T)
 sliderInput('Population','Population',0,1, c(0,1),round=T)
 
 ```
@@ -609,13 +589,13 @@ sliderInput('Population','Population',0,1, c(0,1),round=T)
 <details>
 <summary>Hospital outcomes</summary>
 ```{r, context='render'}
-sliderInput('Hospital overall rating','Hospital overall rating',0,1, c(0,1),round=T)
-sliderInput('MORT Better %','MORT Better %',0,1, c(0,1),round=T)
-sliderInput('MORT Worse %','MORT Worse %',0,1, c(0,1),round=T)
-sliderInput('READM Better %','READM Better %',0,1, c(0,1),round=T)
-sliderInput('READM Worse %','READM Worse %',0,1, c(0,1),round=T)
-sliderInput('Safety Better %','Safety Better %',0,1, c(0,1),round=T)
-sliderInput('Safety Worse %','Safety Worse %',0,1, c(0,1),round=T)
+sliderInput('Hospital_overall_rating','Hospital overall rating',0,1, c(0,1),round=T)
+sliderInput('MORT_Better_%','MORT Better %',0,1, c(0,1),round=T)
+sliderInput('MORT_Worse_%','MORT Worse %',0,1, c(0,1),round=T)
+sliderInput('READM_Better_%','READM Better %',0,1, c(0,1),round=T)
+sliderInput('READM_Worse_%','READM Worse %',0,1, c(0,1),round=T)
+sliderInput('Safety_Better_%','Safety Better %',0,1, c(0,1),round=T)
+sliderInput('Safety_Worse_%','Safety Worse %',0,1, c(0,1),round=T)
 
 ```
 </details>
@@ -637,115 +617,117 @@ observeEvent(input$specialty, {
     for (var in vars_) {
       if (!is.null(classes[[var]])) {
         if (as.character(classes[[var]]) == "numeric") {
-          mins[[var]] <- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T))
-          maxs[[var]] <- ceiling(max(combined_df_list[[input$specialty]][[var]], na.rm = T))
+          min<- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T))
+          max <- ceiling(max(combined_df_list[[input$specialty]][[var]], na.rm = T))
+          updateSliderInput(session,inputId=gsub(" ","_",var), min=mins[['Percentage of completed residents with other career plans']], max= maxs[['Percentage of completed residents with other career plans']], value=c(mins[['Percentage of completed residents with other career plans']],maxs[['Percentage of completed residents with other career plans']]))
         } else {
-          vals[[var]] <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
+          val <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
+          updatePickerInput(session, inputId =gsub(" ","_",var), choices=val,selected = val)
         }
       }
     }
   }
   # copy in code generated by from UI_update_helper. Need to rerun only if variable names change
-  updatePickerInput(session, inputId ='Participates in ERAS', choices=vals[['Participates in ERAS']],selected = vals[['Participates in ERAS']])
-  updatePickerInput(session, inputId ='Participates in the NRMP Main Match', choices=vals[['Participates in the NRMP Main Match']],selected = vals[['Participates in the NRMP Main Match']])
-  updatePickerInput(session, inputId ='Program setting', choices=vals[['Program setting']],selected = vals[['Program setting']])
-  updatePickerInput(session, inputId ='Residency program name', choices=vals[['Residency program name']],selected = vals[['Residency program name']])
-  updatePickerInput(session, inputId ='Status', choices=vals[['Status']],selected = vals[['Status']])
-  updatePickerInput(session, inputId ='City', choices=vals[['City']],selected = vals[['City']])
-  updatePickerInput(session, inputId ='Metro Area Name', choices=vals[['Metro Area Name']],selected = vals[['Metro Area Name']])
-  updatePickerInput(session, inputId ='State', choices=vals[['State']],selected = vals[['State']])
-  updateSliderInput(session,inputId='Percentage of completed residents with non-academic U.S. practice career plans', min=mins[['Percentage of completed residents with non-academic U.S. practice career plans']], max= maxs[['Percentage of completed residents with non-academic U.S. practice career plans']], value=c(mins[['Percentage of completed residents with non-academic U.S. practice career plans']],maxs[['Percentage of completed residents with non-academic U.S. practice career plans']]))
-  updateSliderInput(session,inputId='Percentage of completed residents with other career plans', min=mins[['Percentage of completed residents with other career plans']], max= maxs[['Percentage of completed residents with other career plans']], value=c(mins[['Percentage of completed residents with other career plans']],maxs[['Percentage of completed residents with other career plans']]))
-  updateSliderInput(session,inputId='Percentage of completed residents with plans to continue training in another program', min=mins[['Percentage of completed residents with plans to continue training in another program']], max= maxs[['Percentage of completed residents with plans to continue training in another program']], value=c(mins[['Percentage of completed residents with plans to continue training in another program']],maxs[['Percentage of completed residents with plans to continue training in another program']]))
-  updateSliderInput(session,inputId='Percentage of completed residents with plans to obtain a full-time or part-time academic position', min=mins[['Percentage of completed residents with plans to obtain a full-time or part-time academic position']], max= maxs[['Percentage of completed residents with plans to obtain a full-time or part-time academic position']], value=c(mins[['Percentage of completed residents with plans to obtain a full-time or part-time academic position']],maxs[['Percentage of completed residents with plans to obtain a full-time or part-time academic position']]))
-  updateSliderInput(session,inputId='Percentage of residents who were non-US-citizen IMGs', min=mins[['Percentage of residents who were non-US-citizen IMGs']], max= maxs[['Percentage of residents who were non-US-citizen IMGs']], value=c(mins[['Percentage of residents who were non-US-citizen IMGs']],maxs[['Percentage of residents who were non-US-citizen IMGs']]))
-  updateSliderInput(session,inputId='Percentage of residents who were US DO graduates', min=mins[['Percentage of residents who were US DO graduates']], max= maxs[['Percentage of residents who were US DO graduates']], value=c(mins[['Percentage of residents who were US DO graduates']],maxs[['Percentage of residents who were US DO graduates']]))
-  updateSliderInput(session,inputId='Percentage of residents who were US MD graduates', min=mins[['Percentage of residents who were US MD graduates']], max= maxs[['Percentage of residents who were US MD graduates']], value=c(mins[['Percentage of residents who were US MD graduates']],maxs[['Percentage of residents who were US MD graduates']]))
-  updateSliderInput(session,inputId='Percentage of residents who were US-citizen IMGs', min=mins[['Percentage of residents who were US-citizen IMGs']], max= maxs[['Percentage of residents who were US-citizen IMGs']], value=c(mins[['Percentage of residents who were US-citizen IMGs']],maxs[['Percentage of residents who were US-citizen IMGs']]))
-  updatePickerInput(session, inputId ='Osteopathic Recognition', choices=vals[['Osteopathic Recognition']],selected = vals[['Osteopathic Recognition']])
-  updatePickerInput(session, inputId ='Program accreditation status', choices=vals[['Program accreditation status']],selected = vals[['Program accreditation status']])
-  updateSliderInput(session,inputId='# of advanced positions filled by this program in the 2021 NRMP Main Match', min=mins[['# of advanced positions filled by this program in the 2021 NRMP Main Match']], max= maxs[['# of advanced positions filled by this program in the 2021 NRMP Main Match']], value=c(mins[['# of advanced positions filled by this program in the 2021 NRMP Main Match']],maxs[['# of advanced positions filled by this program in the 2021 NRMP Main Match']]))
-  updateSliderInput(session,inputId='# of advanced positions offered by this program in the 2021 NRMP Main Match', min=mins[['# of advanced positions offered by this program in the 2021 NRMP Main Match']], max= maxs[['# of advanced positions offered by this program in the 2021 NRMP Main Match']], value=c(mins[['# of advanced positions offered by this program in the 2021 NRMP Main Match']],maxs[['# of advanced positions offered by this program in the 2021 NRMP Main Match']]))
-  updateSliderInput(session,inputId='# of applications submitted to this program in 2021', min=mins[['# of applications submitted to this program in 2021']], max= maxs[['# of applications submitted to this program in 2021']], value=c(mins[['# of applications submitted to this program in 2021']],maxs[['# of applications submitted to this program in 2021']]))
-  updateSliderInput(session,inputId='# of categorical positions filled by this program in the 2021 NRMP Main Match', min=mins[['# of categorical positions filled by this program in the 2021 NRMP Main Match']], max= maxs[['# of categorical positions filled by this program in the 2021 NRMP Main Match']], value=c(mins[['# of categorical positions filled by this program in the 2021 NRMP Main Match']],maxs[['# of categorical positions filled by this program in the 2021 NRMP Main Match']]))
-  updateSliderInput(session,inputId='# of categorical positions offered by this program in the 2021 NRMP Main Match', min=mins[['# of categorical positions offered by this program in the 2021 NRMP Main Match']], max= maxs[['# of categorical positions offered by this program in the 2021 NRMP Main Match']], value=c(mins[['# of categorical positions offered by this program in the 2021 NRMP Main Match']],maxs[['# of categorical positions offered by this program in the 2021 NRMP Main Match']]))
-  updateSliderInput(session,inputId='# of positions filled by this program in the 2021 NRMP Main Match', min=mins[['# of positions filled by this program in the 2021 NRMP Main Match']], max= maxs[['# of positions filled by this program in the 2021 NRMP Main Match']], value=c(mins[['# of positions filled by this program in the 2021 NRMP Main Match']],maxs[['# of positions filled by this program in the 2021 NRMP Main Match']]))
-  updateSliderInput(session,inputId='# of positions offered by this program in the 2021 NRMP Main Match', min=mins[['# of positions offered by this program in the 2021 NRMP Main Match']], max= maxs[['# of positions offered by this program in the 2021 NRMP Main Match']], value=c(mins[['# of positions offered by this program in the 2021 NRMP Main Match']],maxs[['# of positions offered by this program in the 2021 NRMP Main Match']]))
-  updateSliderInput(session,inputId='# Residents on Duty Year 1', min=mins[['# Residents on Duty Year 1']], max= maxs[['# Residents on Duty Year 1']], value=c(mins[['# Residents on Duty Year 1']],maxs[['# Residents on Duty Year 1']]))
-  updateSliderInput(session,inputId='% of applicants interviewed by the program in 2020', min=mins[['% of applicants interviewed by the program in 2020']], max= maxs[['% of applicants interviewed by the program in 2020']], value=c(mins[['% of applicants interviewed by the program in 2020']],maxs[['% of applicants interviewed by the program in 2020']]))
-  updateSliderInput(session,inputId='Total # Residents on Duty', min=mins[['Total # Residents on Duty']], max= maxs[['Total # Residents on Duty']], value=c(mins[['Total # Residents on Duty']],maxs[['Total # Residents on Duty']]))
-  updateSliderInput(session,inputId='Average number of peer-reviewed publications among matched applicants', min=mins[['Average number of peer-reviewed publications among matched applicants']], max= maxs[['Average number of peer-reviewed publications among matched applicants']], value=c(mins[['Average number of peer-reviewed publications among matched applicants']],maxs[['Average number of peer-reviewed publications among matched applicants']]))
-  updateSliderInput(session,inputId='Average number of research experiences among matched applicants', min=mins[['Average number of research experiences among matched applicants']], max= maxs[['Average number of research experiences among matched applicants']], value=c(mins[['Average number of research experiences among matched applicants']],maxs[['Average number of research experiences among matched applicants']]))
-  updateSliderInput(session,inputId='Average number of volunteer experiences among matched applicants', min=mins[['Average number of volunteer experiences among matched applicants']], max= maxs[['Average number of volunteer experiences among matched applicants']], value=c(mins[['Average number of volunteer experiences among matched applicants']],maxs[['Average number of volunteer experiences among matched applicants']]))
-  updateSliderInput(session,inputId='Average number of work experiences among matched applicants', min=mins[['Average number of work experiences among matched applicants']], max= maxs[['Average number of work experiences among matched applicants']], value=c(mins[['Average number of work experiences among matched applicants']],maxs[['Average number of work experiences among matched applicants']]))
-  updateSliderInput(session,inputId='Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)', min=mins[['Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)']], max= maxs[['Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)']], value=c(mins[['Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)']],maxs[['Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)']]))
-  updateSliderInput(session,inputId='Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)', min=mins[['Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)']], max= maxs[['Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)']], value=c(mins[['Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)']],maxs[['Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)']]))
-  updatePickerInput(session, inputId ='Range of average COMLEX Level 1 score of current residents', choices=vals[['Range of average COMLEX Level 1 score of current residents']],selected = vals[['Range of average COMLEX Level 1 score of current residents']])
-  updatePickerInput(session, inputId ='Range of average USMLE Step 1 score of current residents', choices=vals[['Range of average USMLE Step 1 score of current residents']],selected = vals[['Range of average USMLE Step 1 score of current residents']])
-  updatePickerInput(session, inputId ='Program consider applicants with F-1 Visa (OPT 1st year)?', choices=vals[['Program consider applicants with F-1 Visa (OPT 1st year)?']],selected = vals[['Program consider applicants with F-1 Visa (OPT 1st year)?']])
-  updatePickerInput(session, inputId ='Program consider applicants with H-1B visa?', choices=vals[['Program consider applicants with H-1B visa?']],selected = vals[['Program consider applicants with H-1B visa?']])
-  updatePickerInput(session, inputId ='Program consider applicants with J-1 visa?', choices=vals[['Program consider applicants with J-1 visa?']],selected = vals[['Program consider applicants with J-1 visa?']])
-  updateSliderInput(session,inputId='% of training spent in year 1 in ambulatory nonhospital community-based settings', min=mins[['% of training spent in year 1 in ambulatory nonhospital community-based settings']], max= maxs[['% of training spent in year 1 in ambulatory nonhospital community-based settings']], value=c(mins[['% of training spent in year 1 in ambulatory nonhospital community-based settings']],maxs[['% of training spent in year 1 in ambulatory nonhospital community-based settings']]))
-  updateSliderInput(session,inputId='% of training spent in year 1 in hospital outpatient clinics', min=mins[['% of training spent in year 1 in hospital outpatient clinics']], max= maxs[['% of training spent in year 1 in hospital outpatient clinics']], value=c(mins[['% of training spent in year 1 in hospital outpatient clinics']],maxs[['% of training spent in year 1 in hospital outpatient clinics']]))
-  updateSliderInput(session,inputId='Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)', min=mins[['Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)']], max= maxs[['Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)']], value=c(mins[['Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)']],maxs[['Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)']]))
-  updateSliderInput(session,inputId='Average hours/week in year one that resident works (excluding beeper call)', min=mins[['Average hours/week in year one that resident works (excluding beeper call)']], max= maxs[['Average hours/week in year one that resident works (excluding beeper call)']], value=c(mins[['Average hours/week in year one that resident works (excluding beeper call)']],maxs[['Average hours/week in year one that resident works (excluding beeper call)']]))
-  updateSliderInput(session,inputId='Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)', min=mins[['Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)']], max= maxs[['Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)']], value=c(mins[['Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)']],maxs[['Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)']]))
-  updatePickerInput(session, inputId ='Program allows residents (beyond PGY1) to moonlight?', choices=vals[['Program allows residents (beyond PGY1) to moonlight?']],selected = vals[['Program allows residents (beyond PGY1) to moonlight?']])
-  updatePickerInput(session, inputId ='Program curriculum includes a dedicated research rotation', choices=vals[['Program curriculum includes a dedicated research rotation']],selected = vals[['Program curriculum includes a dedicated research rotation']])
-  updateSliderInput(session,inputId='2019 NIH specialty funding', min=mins[['2019 NIH specialty funding']], max= maxs[['2019 NIH specialty funding']], value=c(mins[['2019 NIH specialty funding']],maxs[['2019 NIH specialty funding']]))
-  updateSliderInput(session,inputId='2019 NIH total funding', min=mins[['2019 NIH total funding']], max= maxs[['2019 NIH total funding']], value=c(mins[['2019 NIH total funding']],maxs[['2019 NIH total funding']]))
-  updateSliderInput(session,inputId='Family medicine board pass rate', min=mins[['Family medicine board pass rate']], max= maxs[['Family medicine board pass rate']], value=c(mins[['Family medicine board pass rate']],maxs[['Family medicine board pass rate']]))
-  updateSliderInput(session,inputId='Internal medicine board pass rate', min=mins[['Internal medicine board pass rate']], max= maxs[['Internal medicine board pass rate']], value=c(mins[['Internal medicine board pass rate']],maxs[['Internal medicine board pass rate']]))
-  updateSliderInput(session,inputId='Pediatrics board pass rate', min=mins[['Pediatrics board pass rate']], max= maxs[['Pediatrics board pass rate']], value=c(mins[['Pediatrics board pass rate']],maxs[['Pediatrics board pass rate']]))
-  updateSliderInput(session,inputId='Surgery board pass rate', min=mins[['Surgery board pass rate']], max= maxs[['Surgery board pass rate']], value=c(mins[['Surgery board pass rate']],maxs[['Surgery board pass rate']]))
-  updateSliderInput(session,inputId='% days above 90F', min=mins[['% days above 90F']], max= maxs[['% days above 90F']], value=c(mins[['% days above 90F']],maxs[['% days above 90F']]))
-  updateSliderInput(session,inputId='% days below freezing', min=mins[['% days below freezing']], max= maxs[['% days below freezing']], value=c(mins[['% days below freezing']],maxs[['% days below freezing']]))
-  updateSliderInput(session,inputId='% days with precipitation', min=mins[['% days with precipitation']], max= maxs[['% days with precipitation']], value=c(mins[['% days with precipitation']],maxs[['% days with precipitation']]))
-  updateSliderInput(session,inputId='Annual snowfall', min=mins[['Annual snowfall']], max= maxs[['Annual snowfall']], value=c(mins[['Annual snowfall']],maxs[['Annual snowfall']]))
-  updateSliderInput(session,inputId='Mean % sunny', min=mins[['Mean % sunny']], max= maxs[['Mean % sunny']], value=c(mins[['Mean % sunny']],maxs[['Mean % sunny']]))
-  updateSliderInput(session,inputId='Cost of Living Index', min=mins[['Cost of Living Index']], max= maxs[['Cost of Living Index']], value=c(mins[['Cost of Living Index']],maxs[['Cost of Living Index']]))
-  updateSliderInput(session,inputId='Access to Care (percentile)', min=mins[['Access to Care (percentile)']], max= maxs[['Access to Care (percentile)']], value=c(mins[['Access to Care (percentile)']],maxs[['Access to Care (percentile)']]))
-  updateSliderInput(session,inputId='Air and Water Quality (percentile)', min=mins[['Air and Water Quality (percentile)']], max= maxs[['Air and Water Quality (percentile)']], value=c(mins[['Air and Water Quality (percentile)']],maxs[['Air and Water Quality (percentile)']]))
-  updateSliderInput(session,inputId='Alcohol and Drug Use (percentile)', min=mins[['Alcohol and Drug Use (percentile)']], max= maxs[['Alcohol and Drug Use (percentile)']], value=c(mins[['Alcohol and Drug Use (percentile)']],maxs[['Alcohol and Drug Use (percentile)']]))
-  updateSliderInput(session,inputId='Clinical care (percentile)', min=mins[['Clinical care (percentile)']], max= maxs[['Clinical care (percentile)']], value=c(mins[['Clinical care (percentile)']],maxs[['Clinical care (percentile)']]))
-  updateSliderInput(session,inputId='Community Safety (percentile)', min=mins[['Community Safety (percentile)']], max= maxs[['Community Safety (percentile)']], value=c(mins[['Community Safety (percentile)']],maxs[['Community Safety (percentile)']]))
-  updateSliderInput(session,inputId='Diet and Exercise (percentile)', min=mins[['Diet and Exercise (percentile)']], max= maxs[['Diet and Exercise (percentile)']], value=c(mins[['Diet and Exercise (percentile)']],maxs[['Diet and Exercise (percentile)']]))
-  updateSliderInput(session,inputId='Education (percentile)', min=mins[['Education (percentile)']], max= maxs[['Education (percentile)']], value=c(mins[['Education (percentile)']],maxs[['Education (percentile)']]))
-  updateSliderInput(session,inputId='Employment (percentile)', min=mins[['Employment (percentile)']], max= maxs[['Employment (percentile)']], value=c(mins[['Employment (percentile)']],maxs[['Employment (percentile)']]))
-  updateSliderInput(session,inputId='Family and Social Support (percentile)', min=mins[['Family and Social Support (percentile)']], max= maxs[['Family and Social Support (percentile)']], value=c(mins[['Family and Social Support (percentile)']],maxs[['Family and Social Support (percentile)']]))
-  updateSliderInput(session,inputId='Health behaviors (percentile)', min=mins[['Health behaviors (percentile)']], max= maxs[['Health behaviors (percentile)']], value=c(mins[['Health behaviors (percentile)']],maxs[['Health behaviors (percentile)']]))
-  updateSliderInput(session,inputId='Health factors (percentile)', min=mins[['Health factors (percentile)']], max= maxs[['Health factors (percentile)']], value=c(mins[['Health factors (percentile)']],maxs[['Health factors (percentile)']]))
-  updateSliderInput(session,inputId='Health outcomes (percentile)', min=mins[['Health outcomes (percentile)']], max= maxs[['Health outcomes (percentile)']], value=c(mins[['Health outcomes (percentile)']],maxs[['Health outcomes (percentile)']]))
-  updateSliderInput(session,inputId='Housing and Transit (percentile)', min=mins[['Housing and Transit (percentile)']], max= maxs[['Housing and Transit (percentile)']], value=c(mins[['Housing and Transit (percentile)']],maxs[['Housing and Transit (percentile)']]))
-  updateSliderInput(session,inputId='Income (percentile)', min=mins[['Income (percentile)']], max= maxs[['Income (percentile)']], value=c(mins[['Income (percentile)']],maxs[['Income (percentile)']]))
-  updateSliderInput(session,inputId='Income Ratio', min=mins[['Income Ratio']], max= maxs[['Income Ratio']], value=c(mins[['Income Ratio']],maxs[['Income Ratio']]))
-  updateSliderInput(session,inputId='Income Ratio (percentile)', min=mins[['Income Ratio (percentile)']], max= maxs[['Income Ratio (percentile)']], value=c(mins[['Income Ratio (percentile)']],maxs[['Income Ratio (percentile)']]))
-  updateSliderInput(session,inputId='Length of Life (percentile)', min=mins[['Length of Life (percentile)']], max= maxs[['Length of Life (percentile)']], value=c(mins[['Length of Life (percentile)']],maxs[['Length of Life (percentile)']]))
-  updateSliderInput(session,inputId='Physical environment (percentile)', min=mins[['Physical environment (percentile)']], max= maxs[['Physical environment (percentile)']], value=c(mins[['Physical environment (percentile)']],maxs[['Physical environment (percentile)']]))
-  updateSliderInput(session,inputId='Quality of Care (percentile)', min=mins[['Quality of Care (percentile)']], max= maxs[['Quality of Care (percentile)']], value=c(mins[['Quality of Care (percentile)']],maxs[['Quality of Care (percentile)']]))
-  updateSliderInput(session,inputId='Quality of Life (percentile)', min=mins[['Quality of Life (percentile)']], max= maxs[['Quality of Life (percentile)']], value=c(mins[['Quality of Life (percentile)']],maxs[['Quality of Life (percentile)']]))
-  updateSliderInput(session,inputId='Sexual Activity (percentile)', min=mins[['Sexual Activity (percentile)']], max= maxs[['Sexual Activity (percentile)']], value=c(mins[['Sexual Activity (percentile)']],maxs[['Sexual Activity (percentile)']]))
-  updateSliderInput(session,inputId='Social & economic factors (percentile)', min=mins[['Social & economic factors (percentile)']], max= maxs[['Social & economic factors (percentile)']], value=c(mins[['Social & economic factors (percentile)']],maxs[['Social & economic factors (percentile)']]))
-  updateSliderInput(session,inputId='Tobacco Use (percentile)', min=mins[['Tobacco Use (percentile)']], max= maxs[['Tobacco Use (percentile)']], value=c(mins[['Tobacco Use (percentile)']],maxs[['Tobacco Use (percentile)']]))
-  updateSliderInput(session,inputId='% 65 and Over', min=mins[['% 65 and Over']], max= maxs[['% 65 and Over']], value=c(mins[['% 65 and Over']],maxs[['% 65 and Over']]))
-  updateSliderInput(session,inputId='% American Indian & Alaska Native', min=mins[['% American Indian & Alaska Native']], max= maxs[['% American Indian & Alaska Native']], value=c(mins[['% American Indian & Alaska Native']],maxs[['% American Indian & Alaska Native']]))
-  updateSliderInput(session,inputId='% Asian', min=mins[['% Asian']], max= maxs[['% Asian']], value=c(mins[['% Asian']],maxs[['% Asian']]))
-  updateSliderInput(session,inputId='% Black', min=mins[['% Black']], max= maxs[['% Black']], value=c(mins[['% Black']],maxs[['% Black']]))
-  updateSliderInput(session,inputId='% Female', min=mins[['% Female']], max= maxs[['% Female']], value=c(mins[['% Female']],maxs[['% Female']]))
-  updateSliderInput(session,inputId='% Hispanic', min=mins[['% Hispanic']], max= maxs[['% Hispanic']], value=c(mins[['% Hispanic']],maxs[['% Hispanic']]))
-  updateSliderInput(session,inputId='% Less Than 18 Years of Age', min=mins[['% Less Than 18 Years of Age']], max= maxs[['% Less Than 18 Years of Age']], value=c(mins[['% Less Than 18 Years of Age']],maxs[['% Less Than 18 Years of Age']]))
-  updateSliderInput(session,inputId='% Native Hawaiian/Other Pacific Islander', min=mins[['% Native Hawaiian/Other Pacific Islander']], max= maxs[['% Native Hawaiian/Other Pacific Islander']], value=c(mins[['% Native Hawaiian/Other Pacific Islander']],maxs[['% Native Hawaiian/Other Pacific Islander']]))
-  updateSliderInput(session,inputId='% Non-Hispanic White', min=mins[['% Non-Hispanic White']], max= maxs[['% Non-Hispanic White']], value=c(mins[['% Non-Hispanic White']],maxs[['% Non-Hispanic White']]))
-  updateSliderInput(session,inputId='% Rural', min=mins[['% Rural']], max= maxs[['% Rural']], value=c(mins[['% Rural']],maxs[['% Rural']]))
-  updateSliderInput(session,inputId='Population', min=mins[['Population']], max= maxs[['Population']], value=c(mins[['Population']],maxs[['Population']]))
-  updateSliderInput(session,inputId='Hospital overall rating', min=mins[['Hospital overall rating']], max= maxs[['Hospital overall rating']], value=c(mins[['Hospital overall rating']],maxs[['Hospital overall rating']]))
-  updateSliderInput(session,inputId='MORT Better %', min=mins[['MORT Better %']], max= maxs[['MORT Better %']], value=c(mins[['MORT Better %']],maxs[['MORT Better %']]))
-  updateSliderInput(session,inputId='MORT Worse %', min=mins[['MORT Worse %']], max= maxs[['MORT Worse %']], value=c(mins[['MORT Worse %']],maxs[['MORT Worse %']]))
-  updateSliderInput(session,inputId='READM Better %', min=mins[['READM Better %']], max= maxs[['READM Better %']], value=c(mins[['READM Better %']],maxs[['READM Better %']]))
-  updateSliderInput(session,inputId='READM Worse %', min=mins[['READM Worse %']], max= maxs[['READM Worse %']], value=c(mins[['READM Worse %']],maxs[['READM Worse %']]))
-  updateSliderInput(session,inputId='Safety Better %', min=mins[['Safety Better %']], max= maxs[['Safety Better %']], value=c(mins[['Safety Better %']],maxs[['Safety Better %']]))
-  updateSliderInput(session,inputId='Safety Worse %', min=mins[['Safety Worse %']], max= maxs[['Safety Worse %']], value=c(mins[['Safety Worse %']],maxs[['Safety Worse %']]))
-  
+  # updatePickerInput(session, inputId ='Participates in ERAS', choices=vals[['Participates in ERAS']],selected = vals[['Participates in ERAS']])
+  # updatePickerInput(session, inputId ='Participates in the NRMP Main Match', choices=vals[['Participates in the NRMP Main Match']],selected = vals[['Participates in the NRMP Main Match']])
+  # updatePickerInput(session, inputId ='Program setting', choices=vals[['Program setting']],selected = vals[['Program setting']])
+  # updatePickerInput(session, inputId ='Residency program name', choices=vals[['Residency program name']],selected = vals[['Residency program name']])
+  # updatePickerInput(session, inputId ='Status', choices=vals[['Status']],selected = vals[['Status']])
+  # updatePickerInput(session, inputId ='City', choices=vals[['City']],selected = vals[['City']])
+  # updatePickerInput(session, inputId ='Metro Area Name', choices=vals[['Metro Area Name']],selected = vals[['Metro Area Name']])
+  # updatePickerInput(session, inputId ='State', choices=vals[['State']],selected = vals[['State']])
+  # updateSliderInput(session,inputId='Percentage of completed residents with non-academic U.S. practice career plans', min=mins[['Percentage of completed residents with non-academic U.S. practice career plans']], max= maxs[['Percentage of completed residents with non-academic U.S. practice career plans']], value=c(mins[['Percentage of completed residents with non-academic U.S. practice career plans']],maxs[['Percentage of completed residents with non-academic U.S. practice career plans']]))
+  # updateSliderInput(session,inputId='Percentage of completed residents with other career plans', min=mins[['Percentage of completed residents with other career plans']], max= maxs[['Percentage of completed residents with other career plans']], value=c(mins[['Percentage of completed residents with other career plans']],maxs[['Percentage of completed residents with other career plans']]))
+  # updateSliderInput(session,inputId='Percentage of completed residents with plans to continue training in another program', min=mins[['Percentage of completed residents with plans to continue training in another program']], max= maxs[['Percentage of completed residents with plans to continue training in another program']], value=c(mins[['Percentage of completed residents with plans to continue training in another program']],maxs[['Percentage of completed residents with plans to continue training in another program']]))
+  # updateSliderInput(session,inputId='Percentage of completed residents with plans to obtain a full-time or part-time academic position', min=mins[['Percentage of completed residents with plans to obtain a full-time or part-time academic position']], max= maxs[['Percentage of completed residents with plans to obtain a full-time or part-time academic position']], value=c(mins[['Percentage of completed residents with plans to obtain a full-time or part-time academic position']],maxs[['Percentage of completed residents with plans to obtain a full-time or part-time academic position']]))
+  # updateSliderInput(session,inputId='Percentage of residents who were non-US-citizen IMGs', min=mins[['Percentage of residents who were non-US-citizen IMGs']], max= maxs[['Percentage of residents who were non-US-citizen IMGs']], value=c(mins[['Percentage of residents who were non-US-citizen IMGs']],maxs[['Percentage of residents who were non-US-citizen IMGs']]))
+  # updateSliderInput(session,inputId='Percentage of residents who were US DO graduates', min=mins[['Percentage of residents who were US DO graduates']], max= maxs[['Percentage of residents who were US DO graduates']], value=c(mins[['Percentage of residents who were US DO graduates']],maxs[['Percentage of residents who were US DO graduates']]))
+  # updateSliderInput(session,inputId='Percentage of residents who were US MD graduates', min=mins[['Percentage of residents who were US MD graduates']], max= maxs[['Percentage of residents who were US MD graduates']], value=c(mins[['Percentage of residents who were US MD graduates']],maxs[['Percentage of residents who were US MD graduates']]))
+  # updateSliderInput(session,inputId='Percentage of residents who were US-citizen IMGs', min=mins[['Percentage of residents who were US-citizen IMGs']], max= maxs[['Percentage of residents who were US-citizen IMGs']], value=c(mins[['Percentage of residents who were US-citizen IMGs']],maxs[['Percentage of residents who were US-citizen IMGs']]))
+  # updatePickerInput(session, inputId ='Osteopathic Recognition', choices=vals[['Osteopathic Recognition']],selected = vals[['Osteopathic Recognition']])
+  # updatePickerInput(session, inputId ='Program accreditation status', choices=vals[['Program accreditation status']],selected = vals[['Program accreditation status']])
+  # updateSliderInput(session,inputId='# of advanced positions filled by this program in the 2021 NRMP Main Match', min=mins[['# of advanced positions filled by this program in the 2021 NRMP Main Match']], max= maxs[['# of advanced positions filled by this program in the 2021 NRMP Main Match']], value=c(mins[['# of advanced positions filled by this program in the 2021 NRMP Main Match']],maxs[['# of advanced positions filled by this program in the 2021 NRMP Main Match']]))
+  # updateSliderInput(session,inputId='# of advanced positions offered by this program in the 2021 NRMP Main Match', min=mins[['# of advanced positions offered by this program in the 2021 NRMP Main Match']], max= maxs[['# of advanced positions offered by this program in the 2021 NRMP Main Match']], value=c(mins[['# of advanced positions offered by this program in the 2021 NRMP Main Match']],maxs[['# of advanced positions offered by this program in the 2021 NRMP Main Match']]))
+  # updateSliderInput(session,inputId='# of applications submitted to this program in 2021', min=mins[['# of applications submitted to this program in 2021']], max= maxs[['# of applications submitted to this program in 2021']], value=c(mins[['# of applications submitted to this program in 2021']],maxs[['# of applications submitted to this program in 2021']]))
+  # updateSliderInput(session,inputId='# of categorical positions filled by this program in the 2021 NRMP Main Match', min=mins[['# of categorical positions filled by this program in the 2021 NRMP Main Match']], max= maxs[['# of categorical positions filled by this program in the 2021 NRMP Main Match']], value=c(mins[['# of categorical positions filled by this program in the 2021 NRMP Main Match']],maxs[['# of categorical positions filled by this program in the 2021 NRMP Main Match']]))
+  # updateSliderInput(session,inputId='# of categorical positions offered by this program in the 2021 NRMP Main Match', min=mins[['# of categorical positions offered by this program in the 2021 NRMP Main Match']], max= maxs[['# of categorical positions offered by this program in the 2021 NRMP Main Match']], value=c(mins[['# of categorical positions offered by this program in the 2021 NRMP Main Match']],maxs[['# of categorical positions offered by this program in the 2021 NRMP Main Match']]))
+  # updateSliderInput(session,inputId='# of positions filled by this program in the 2021 NRMP Main Match', min=mins[['# of positions filled by this program in the 2021 NRMP Main Match']], max= maxs[['# of positions filled by this program in the 2021 NRMP Main Match']], value=c(mins[['# of positions filled by this program in the 2021 NRMP Main Match']],maxs[['# of positions filled by this program in the 2021 NRMP Main Match']]))
+  # updateSliderInput(session,inputId='# of positions offered by this program in the 2021 NRMP Main Match', min=mins[['# of positions offered by this program in the 2021 NRMP Main Match']], max= maxs[['# of positions offered by this program in the 2021 NRMP Main Match']], value=c(mins[['# of positions offered by this program in the 2021 NRMP Main Match']],maxs[['# of positions offered by this program in the 2021 NRMP Main Match']]))
+  # updateSliderInput(session,inputId='# Residents on Duty Year 1', min=mins[['# Residents on Duty Year 1']], max= maxs[['# Residents on Duty Year 1']], value=c(mins[['# Residents on Duty Year 1']],maxs[['# Residents on Duty Year 1']]))
+  # updateSliderInput(session,inputId='% of applicants interviewed by the program in 2020', min=mins[['% of applicants interviewed by the program in 2020']], max= maxs[['% of applicants interviewed by the program in 2020']], value=c(mins[['% of applicants interviewed by the program in 2020']],maxs[['% of applicants interviewed by the program in 2020']]))
+  # updateSliderInput(session,inputId='Total # Residents on Duty', min=mins[['Total # Residents on Duty']], max= maxs[['Total # Residents on Duty']], value=c(mins[['Total # Residents on Duty']],maxs[['Total # Residents on Duty']]))
+  # updateSliderInput(session,inputId='Average number of peer-reviewed publications among matched applicants', min=mins[['Average number of peer-reviewed publications among matched applicants']], max= maxs[['Average number of peer-reviewed publications among matched applicants']], value=c(mins[['Average number of peer-reviewed publications among matched applicants']],maxs[['Average number of peer-reviewed publications among matched applicants']]))
+  # updateSliderInput(session,inputId='Average number of research experiences among matched applicants', min=mins[['Average number of research experiences among matched applicants']], max= maxs[['Average number of research experiences among matched applicants']], value=c(mins[['Average number of research experiences among matched applicants']],maxs[['Average number of research experiences among matched applicants']]))
+  # updateSliderInput(session,inputId='Average number of volunteer experiences among matched applicants', min=mins[['Average number of volunteer experiences among matched applicants']], max= maxs[['Average number of volunteer experiences among matched applicants']], value=c(mins[['Average number of volunteer experiences among matched applicants']],maxs[['Average number of volunteer experiences among matched applicants']]))
+  # updateSliderInput(session,inputId='Average number of work experiences among matched applicants', min=mins[['Average number of work experiences among matched applicants']], max= maxs[['Average number of work experiences among matched applicants']], value=c(mins[['Average number of work experiences among matched applicants']],maxs[['Average number of work experiences among matched applicants']]))
+  # updateSliderInput(session,inputId='Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)', min=mins[['Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)']], max= maxs[['Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)']], value=c(mins[['Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)']],maxs[['Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)']]))
+  # updateSliderInput(session,inputId='Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)', min=mins[['Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)']], max= maxs[['Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)']], value=c(mins[['Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)']],maxs[['Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)']]))
+  # updatePickerInput(session, inputId ='Range of average COMLEX Level 1 score of current residents', choices=vals[['Range of average COMLEX Level 1 score of current residents']],selected = vals[['Range of average COMLEX Level 1 score of current residents']])
+  # updatePickerInput(session, inputId ='Range of average USMLE Step 1 score of current residents', choices=vals[['Range of average USMLE Step 1 score of current residents']],selected = vals[['Range of average USMLE Step 1 score of current residents']])
+  # updatePickerInput(session, inputId ='Program consider applicants with F-1 Visa (OPT 1st year)?', choices=vals[['Program consider applicants with F-1 Visa (OPT 1st year)?']],selected = vals[['Program consider applicants with F-1 Visa (OPT 1st year)?']])
+  # updatePickerInput(session, inputId ='Program consider applicants with H-1B visa?', choices=vals[['Program consider applicants with H-1B visa?']],selected = vals[['Program consider applicants with H-1B visa?']])
+  # updatePickerInput(session, inputId ='Program consider applicants with J-1 visa?', choices=vals[['Program consider applicants with J-1 visa?']],selected = vals[['Program consider applicants with J-1 visa?']])
+  # updateSliderInput(session,inputId='% of training spent in year 1 in ambulatory nonhospital community-based settings', min=mins[['% of training spent in year 1 in ambulatory nonhospital community-based settings']], max= maxs[['% of training spent in year 1 in ambulatory nonhospital community-based settings']], value=c(mins[['% of training spent in year 1 in ambulatory nonhospital community-based settings']],maxs[['% of training spent in year 1 in ambulatory nonhospital community-based settings']]))
+  # updateSliderInput(session,inputId='% of training spent in year 1 in hospital outpatient clinics', min=mins[['% of training spent in year 1 in hospital outpatient clinics']], max= maxs[['% of training spent in year 1 in hospital outpatient clinics']], value=c(mins[['% of training spent in year 1 in hospital outpatient clinics']],maxs[['% of training spent in year 1 in hospital outpatient clinics']]))
+  # updateSliderInput(session,inputId='Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)', min=mins[['Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)']], max= maxs[['Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)']], value=c(mins[['Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)']],maxs[['Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)']]))
+  # updateSliderInput(session,inputId='Average hours/week in year one that resident works (excluding beeper call)', min=mins[['Average hours/week in year one that resident works (excluding beeper call)']], max= maxs[['Average hours/week in year one that resident works (excluding beeper call)']], value=c(mins[['Average hours/week in year one that resident works (excluding beeper call)']],maxs[['Average hours/week in year one that resident works (excluding beeper call)']]))
+  # updateSliderInput(session,inputId='Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)', min=mins[['Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)']], max= maxs[['Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)']], value=c(mins[['Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)']],maxs[['Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)']]))
+  # updatePickerInput(session, inputId ='Program allows residents (beyond PGY1) to moonlight?', choices=vals[['Program allows residents (beyond PGY1) to moonlight?']],selected = vals[['Program allows residents (beyond PGY1) to moonlight?']])
+  # updatePickerInput(session, inputId ='Program curriculum includes a dedicated research rotation', choices=vals[['Program curriculum includes a dedicated research rotation']],selected = vals[['Program curriculum includes a dedicated research rotation']])
+  # updateSliderInput(session,inputId='2019 NIH specialty funding', min=mins[['2019 NIH specialty funding']], max= maxs[['2019 NIH specialty funding']], value=c(mins[['2019 NIH specialty funding']],maxs[['2019 NIH specialty funding']]))
+  # updateSliderInput(session,inputId='2019 NIH total funding', min=mins[['2019 NIH total funding']], max= maxs[['2019 NIH total funding']], value=c(mins[['2019 NIH total funding']],maxs[['2019 NIH total funding']]))
+  # updateSliderInput(session,inputId='Family medicine board pass rate', min=mins[['Family medicine board pass rate']], max= maxs[['Family medicine board pass rate']], value=c(mins[['Family medicine board pass rate']],maxs[['Family medicine board pass rate']]))
+  # updateSliderInput(session,inputId='Internal medicine board pass rate', min=mins[['Internal medicine board pass rate']], max= maxs[['Internal medicine board pass rate']], value=c(mins[['Internal medicine board pass rate']],maxs[['Internal medicine board pass rate']]))
+  # updateSliderInput(session,inputId='Pediatrics board pass rate', min=mins[['Pediatrics board pass rate']], max= maxs[['Pediatrics board pass rate']], value=c(mins[['Pediatrics board pass rate']],maxs[['Pediatrics board pass rate']]))
+  # updateSliderInput(session,inputId='Surgery board pass rate', min=mins[['Surgery board pass rate']], max= maxs[['Surgery board pass rate']], value=c(mins[['Surgery board pass rate']],maxs[['Surgery board pass rate']]))
+  # updateSliderInput(session,inputId='% days above 90F', min=mins[['% days above 90F']], max= maxs[['% days above 90F']], value=c(mins[['% days above 90F']],maxs[['% days above 90F']]))
+  # updateSliderInput(session,inputId='% days below freezing', min=mins[['% days below freezing']], max= maxs[['% days below freezing']], value=c(mins[['% days below freezing']],maxs[['% days below freezing']]))
+  # updateSliderInput(session,inputId='% days with precipitation', min=mins[['% days with precipitation']], max= maxs[['% days with precipitation']], value=c(mins[['% days with precipitation']],maxs[['% days with precipitation']]))
+  # updateSliderInput(session,inputId='Annual snowfall', min=mins[['Annual snowfall']], max= maxs[['Annual snowfall']], value=c(mins[['Annual snowfall']],maxs[['Annual snowfall']]))
+  # updateSliderInput(session,inputId='Mean % sunny', min=mins[['Mean % sunny']], max= maxs[['Mean % sunny']], value=c(mins[['Mean % sunny']],maxs[['Mean % sunny']]))
+  # updateSliderInput(session,inputId='Cost of Living Index', min=mins[['Cost of Living Index']], max= maxs[['Cost of Living Index']], value=c(mins[['Cost of Living Index']],maxs[['Cost of Living Index']]))
+  # updateSliderInput(session,inputId='Access to Care (percentile)', min=mins[['Access to Care (percentile)']], max= maxs[['Access to Care (percentile)']], value=c(mins[['Access to Care (percentile)']],maxs[['Access to Care (percentile)']]))
+  # updateSliderInput(session,inputId='Air and Water Quality (percentile)', min=mins[['Air and Water Quality (percentile)']], max= maxs[['Air and Water Quality (percentile)']], value=c(mins[['Air and Water Quality (percentile)']],maxs[['Air and Water Quality (percentile)']]))
+  # updateSliderInput(session,inputId='Alcohol and Drug Use (percentile)', min=mins[['Alcohol and Drug Use (percentile)']], max= maxs[['Alcohol and Drug Use (percentile)']], value=c(mins[['Alcohol and Drug Use (percentile)']],maxs[['Alcohol and Drug Use (percentile)']]))
+  # updateSliderInput(session,inputId='Clinical care (percentile)', min=mins[['Clinical care (percentile)']], max= maxs[['Clinical care (percentile)']], value=c(mins[['Clinical care (percentile)']],maxs[['Clinical care (percentile)']]))
+  # updateSliderInput(session,inputId='Community Safety (percentile)', min=mins[['Community Safety (percentile)']], max= maxs[['Community Safety (percentile)']], value=c(mins[['Community Safety (percentile)']],maxs[['Community Safety (percentile)']]))
+  # updateSliderInput(session,inputId='Diet and Exercise (percentile)', min=mins[['Diet and Exercise (percentile)']], max= maxs[['Diet and Exercise (percentile)']], value=c(mins[['Diet and Exercise (percentile)']],maxs[['Diet and Exercise (percentile)']]))
+  # updateSliderInput(session,inputId='Education (percentile)', min=mins[['Education (percentile)']], max= maxs[['Education (percentile)']], value=c(mins[['Education (percentile)']],maxs[['Education (percentile)']]))
+  # updateSliderInput(session,inputId='Employment (percentile)', min=mins[['Employment (percentile)']], max= maxs[['Employment (percentile)']], value=c(mins[['Employment (percentile)']],maxs[['Employment (percentile)']]))
+  # updateSliderInput(session,inputId='Family and Social Support (percentile)', min=mins[['Family and Social Support (percentile)']], max= maxs[['Family and Social Support (percentile)']], value=c(mins[['Family and Social Support (percentile)']],maxs[['Family and Social Support (percentile)']]))
+  # updateSliderInput(session,inputId='Health behaviors (percentile)', min=mins[['Health behaviors (percentile)']], max= maxs[['Health behaviors (percentile)']], value=c(mins[['Health behaviors (percentile)']],maxs[['Health behaviors (percentile)']]))
+  # updateSliderInput(session,inputId='Health factors (percentile)', min=mins[['Health factors (percentile)']], max= maxs[['Health factors (percentile)']], value=c(mins[['Health factors (percentile)']],maxs[['Health factors (percentile)']]))
+  # updateSliderInput(session,inputId='Health outcomes (percentile)', min=mins[['Health outcomes (percentile)']], max= maxs[['Health outcomes (percentile)']], value=c(mins[['Health outcomes (percentile)']],maxs[['Health outcomes (percentile)']]))
+  # updateSliderInput(session,inputId='Housing and Transit (percentile)', min=mins[['Housing and Transit (percentile)']], max= maxs[['Housing and Transit (percentile)']], value=c(mins[['Housing and Transit (percentile)']],maxs[['Housing and Transit (percentile)']]))
+  # updateSliderInput(session,inputId='Income (percentile)', min=mins[['Income (percentile)']], max= maxs[['Income (percentile)']], value=c(mins[['Income (percentile)']],maxs[['Income (percentile)']]))
+  # updateSliderInput(session,inputId='Income Ratio', min=mins[['Income Ratio']], max= maxs[['Income Ratio']], value=c(mins[['Income Ratio']],maxs[['Income Ratio']]))
+  # updateSliderInput(session,inputId='Income Ratio (percentile)', min=mins[['Income Ratio (percentile)']], max= maxs[['Income Ratio (percentile)']], value=c(mins[['Income Ratio (percentile)']],maxs[['Income Ratio (percentile)']]))
+  # updateSliderInput(session,inputId='Length of Life (percentile)', min=mins[['Length of Life (percentile)']], max= maxs[['Length of Life (percentile)']], value=c(mins[['Length of Life (percentile)']],maxs[['Length of Life (percentile)']]))
+  # updateSliderInput(session,inputId='Physical environment (percentile)', min=mins[['Physical environment (percentile)']], max= maxs[['Physical environment (percentile)']], value=c(mins[['Physical environment (percentile)']],maxs[['Physical environment (percentile)']]))
+  # updateSliderInput(session,inputId='Quality of Care (percentile)', min=mins[['Quality of Care (percentile)']], max= maxs[['Quality of Care (percentile)']], value=c(mins[['Quality of Care (percentile)']],maxs[['Quality of Care (percentile)']]))
+  # updateSliderInput(session,inputId='Quality of Life (percentile)', min=mins[['Quality of Life (percentile)']], max= maxs[['Quality of Life (percentile)']], value=c(mins[['Quality of Life (percentile)']],maxs[['Quality of Life (percentile)']]))
+  # updateSliderInput(session,inputId='Sexual Activity (percentile)', min=mins[['Sexual Activity (percentile)']], max= maxs[['Sexual Activity (percentile)']], value=c(mins[['Sexual Activity (percentile)']],maxs[['Sexual Activity (percentile)']]))
+  # updateSliderInput(session,inputId='Social & economic factors (percentile)', min=mins[['Social & economic factors (percentile)']], max= maxs[['Social & economic factors (percentile)']], value=c(mins[['Social & economic factors (percentile)']],maxs[['Social & economic factors (percentile)']]))
+  # updateSliderInput(session,inputId='Tobacco Use (percentile)', min=mins[['Tobacco Use (percentile)']], max= maxs[['Tobacco Use (percentile)']], value=c(mins[['Tobacco Use (percentile)']],maxs[['Tobacco Use (percentile)']]))
+  # updateSliderInput(session,inputId='% 65 and Over', min=mins[['% 65 and Over']], max= maxs[['% 65 and Over']], value=c(mins[['% 65 and Over']],maxs[['% 65 and Over']]))
+  # updateSliderInput(session,inputId='% American Indian & Alaska Native', min=mins[['% American Indian & Alaska Native']], max= maxs[['% American Indian & Alaska Native']], value=c(mins[['% American Indian & Alaska Native']],maxs[['% American Indian & Alaska Native']]))
+  # updateSliderInput(session,inputId='% Asian', min=mins[['% Asian']], max= maxs[['% Asian']], value=c(mins[['% Asian']],maxs[['% Asian']]))
+  # updateSliderInput(session,inputId='% Black', min=mins[['% Black']], max= maxs[['% Black']], value=c(mins[['% Black']],maxs[['% Black']]))
+  # updateSliderInput(session,inputId='% Female', min=mins[['% Female']], max= maxs[['% Female']], value=c(mins[['% Female']],maxs[['% Female']]))
+  # updateSliderInput(session,inputId='% Hispanic', min=mins[['% Hispanic']], max= maxs[['% Hispanic']], value=c(mins[['% Hispanic']],maxs[['% Hispanic']]))
+  # updateSliderInput(session,inputId='% Less Than 18 Years of Age', min=mins[['% Less Than 18 Years of Age']], max= maxs[['% Less Than 18 Years of Age']], value=c(mins[['% Less Than 18 Years of Age']],maxs[['% Less Than 18 Years of Age']]))
+  # updateSliderInput(session,inputId='% Native Hawaiian/Other Pacific Islander', min=mins[['% Native Hawaiian/Other Pacific Islander']], max= maxs[['% Native Hawaiian/Other Pacific Islander']], value=c(mins[['% Native Hawaiian/Other Pacific Islander']],maxs[['% Native Hawaiian/Other Pacific Islander']]))
+  # updateSliderInput(session,inputId='% Non-Hispanic White', min=mins[['% Non-Hispanic White']], max= maxs[['% Non-Hispanic White']], value=c(mins[['% Non-Hispanic White']],maxs[['% Non-Hispanic White']]))
+  # updateSliderInput(session,inputId='% Rural', min=mins[['% Rural']], max= maxs[['% Rural']], value=c(mins[['% Rural']],maxs[['% Rural']]))
+  # updateSliderInput(session,inputId='Population', min=mins[['Population']], max= maxs[['Population']], value=c(mins[['Population']],maxs[['Population']]))
+  # updateSliderInput(session,inputId='Hospital overall rating', min=mins[['Hospital overall rating']], max= maxs[['Hospital overall rating']], value=c(mins[['Hospital overall rating']],maxs[['Hospital overall rating']]))
+  # updateSliderInput(session,inputId='MORT Better %', min=mins[['MORT Better %']], max= maxs[['MORT Better %']], value=c(mins[['MORT Better %']],maxs[['MORT Better %']]))
+  # updateSliderInput(session,inputId='MORT Worse %', min=mins[['MORT Worse %']], max= maxs[['MORT Worse %']], value=c(mins[['MORT Worse %']],maxs[['MORT Worse %']]))
+  # updateSliderInput(session,inputId='READM Better %', min=mins[['READM Better %']], max= maxs[['READM Better %']], value=c(mins[['READM Better %']],maxs[['READM Better %']]))
+  # updateSliderInput(session,inputId='READM Worse %', min=mins[['READM Worse %']], max= maxs[['READM Worse %']], value=c(mins[['READM Worse %']],maxs[['READM Worse %']]))
+  # updateSliderInput(session,inputId='Safety Better %', min=mins[['Safety Better %']], max= maxs[['Safety Better %']], value=c(mins[['Safety Better %']],maxs[['Safety Better %']]))
+  # updateSliderInput(session,inputId='Safety Worse %', min=mins[['Safety Worse %']], max= maxs[['Safety Worse %']], value=c(mins[['Safety Worse %']],maxs[['Safety Worse %']]))
+  # 
 })
 ```
 
