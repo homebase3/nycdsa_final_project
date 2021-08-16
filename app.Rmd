@@ -397,13 +397,16 @@ uiOutput("UIbuttons")
 <details>
 
 <summary>Program basics</summary>
-```{r, context="render"}
+```{r, context="render", results="asis"}
 reactive({
   filters %>%
   filter(Class %in% "Program basics") %>%
-  dplyr::select(Colname) %>%
-  .[[1]] -> vars_
-lapply(vars_, UI_helper_func)
+    dplyr::select(Colname) %>%
+    .[[1]] -> vars_
+  lis_ <- lapply(vars_, UI_helper_func)
+  for (el in lis_) {
+    cat(el)
+  }
 })
 ```
 </details>
