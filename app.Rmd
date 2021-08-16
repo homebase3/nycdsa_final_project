@@ -795,9 +795,9 @@ output$table <- DT::renderDT({
     for (var in vars_) {
       if (!is.null(classes[[var]])) {
         if (classes[[var]] %in% c("character","factor")) {
-
-          df %<>%
-            filter_at(vars(var), any_vars((. %in% input[[gsub(" ","_",var)]])))
+          # if(input[[gsub(" ","_",var)]]]])
+            df %<>%
+              filter_at(vars(var), any_vars((. %in% input[[gsub(" ","_",var)]])))
           } else {
 
             df %<>%
