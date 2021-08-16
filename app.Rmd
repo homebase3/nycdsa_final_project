@@ -377,7 +377,7 @@ gaugeOutput("volunteerGauge")
 Select programs
 ================
 
-Input {.sidebar data-width=300}
+Input {.sidebar data-width=300 id="apple"}
 --------------------
 
 ```{r, context="server"}
