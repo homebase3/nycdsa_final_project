@@ -606,9 +606,6 @@ Row {data-height=50}
 ```{r server_logic_1, context="server"}
 # immediately update dummy inputs
 observeEvent(input$specialty, {
-  mins = list()
-  maxs = list()
-  vals = list()
   for (group in filter_groups) {
     filters %>%
       filter(Class %in% group) %>%
@@ -648,8 +645,9 @@ hardcode_selectedIDs <- NULL
 #log selections
 
 observeEvent(input$table_row_last_clicked,{
-  ID <- combined_df_list[[input$specialty]] %>%
-    arrange(Overall_rank) %>%
+    ID <- df_save() %>% 
+  # ID <- combined_df_list[[input$specialty]] %>%
+  #   arrange(Overall_rank) %>%
     .[input$table_row_last_clicked,"ID"] %>%
     as.character(.)
 
