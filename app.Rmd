@@ -1081,7 +1081,7 @@ Data is missing from the app for two reasons:
 <li> Programs did not provide relevant info (e.g. step scores) to the AAMC </li>
 <li> Auxiliary information (e.g. Medicare Hospital data) could not be joined to the underlying program data due to an inadequate match </li>
 </ul>
-<br>
+
 
 ```{r, context="server"}
 output$text5 <- renderText({
@@ -1100,8 +1100,11 @@ textOutput("text5")
 <summary>Where does your data come from?</summary>
 <div>
 ```{r}
-paste0("The app relies on ", nrow(bibliography)," main sources. The full list of sources can be found below:")
+paste0("The app relies on ", nrow(bibliography)," main sources. The full list of sources can be found below:") %>% 
+  cat(.)
+```
 
+```{r}
 bibliography %>% 
   mutate(Link = paste0('<a style="font-size:100%" href="', Link,'" target="_blank" class="btn btn-1">Link</a>')) %>% 
   kbl(., escape = F) %>% 
@@ -1117,7 +1120,8 @@ Note that this data is under fair use only for non-commercial purposes, so pleas
 <summary>Why doesn't the app include all ERAS specialties?</summary>
 <div>
 ```{r}
-paste0("Unfortunately, the main data source for this app, AAMC residency explorer, only carries ",length(names(dat_list)), "specialties. This represents the vast majority of total programs, including all specialties with over 100 programs except Opthamology and Urology. The full list of included specialties below, along with the number of programs for each specialty.")
+paste0("Unfortunately, the main data source for this app, AAMC residency explorer, only carries ",length(names(dat_list)), "specialties. This represents the vast majority of total programs, including all specialties with over 100 programs except Opthamology and Urology. The full list of included specialties below, along with the number of programs for each specialty.") %>% 
+  cat(.)
 ```
 
 ```{r}
@@ -1135,7 +1139,7 @@ dat %>%
 <div>
 ```{r, context="server"}
 output$text6 <- renderText({
-  paste0("Even for the included specialties, AAMC residency explorer is not a complete dataset, or is very close. In total, it is missing ",nrow(missing_programs), "In your chosen specialty, it is missing ",nrow(missing_programs %>% filter(Specialty == input$specialty)), ". Those programs are:")
+  paste0("Even for the included specialties, AAMC residency explorer is not a complete dataset, or is very close. In total, it is missing ",nrow(missing_programs), ". In your chosen specialty, it is missing ",nrow(missing_programs %>% filter(Specialty == input$specialty)), ". Those programs are:")
 })
 ```
 
@@ -1147,7 +1151,7 @@ textOutput("text6")
 output$kable_missing <- function() {
   req(input$specialty)
   missing_programs %>% 
-    filter(Specialty == input$Specialty) %>% 
+    filter(Specialty == input$specialty) %>% 
     kbl(.) %>% 
     kable_styling(.)
 }
