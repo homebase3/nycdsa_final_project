@@ -818,7 +818,7 @@ output$table <- DT::renderDT({
             # filter_at(vars(any_of(var)), any_vars((. %in% input[[gsub(" ","_",var)]])))
           } else {
           val1(input[[gsub(" ","_",var)]])
-          val2(unique(df[[var]]))
+          val2(df[[var]])
           val3(var)
           val5(colnames(df))
            df <- df[df[[var]] >= input[[gsub(" ","_",var)]][1] & df[[var]] >= input[[gsub(" ","_",var)]][2],]
