@@ -766,7 +766,7 @@ observeEvent(input$button,{
   to_join(inter)
 })
 
-output$table <- DT::renderDT({
+output$table <- shiny::renderDataTable({
   #make scoring calculations
   score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
     score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights)
