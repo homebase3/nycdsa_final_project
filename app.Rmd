@@ -413,6 +413,7 @@ observeEvent(input$specialty,{
 #   shiny::tagList(.)
 # }
 ```
+</details>
 <details>
 <summary>Program basics</summary>
 ```{r, context='render'}
@@ -629,10 +630,10 @@ observeEvent(input$specialty, {
             if (as.character(classes[[var]]) == "numeric") {
               min <- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T))
               max <- ceiling(max(combined_df_list[[input$specialty]][[var]], na.rm = T))
-              updateSliderInput(inputId=var,min=min,max=max,value=c(min,max))
+              updateSliderInput(session,inputId=var,min=min,max=max,value=c(min,max))
           } else {
               vals <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
-              updatePickerInput(inputId = var, choices=vals,selected = vals)
+              updatePickerInput(session, inputId = var, choices=vals,selected = vals)
           }
        }
     }
