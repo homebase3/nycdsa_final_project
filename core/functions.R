@@ -157,12 +157,3 @@ UI_update_helper <- function() {
     }
   }
 }
-for (group in filter_groups) {
-  vars_ <- filters %>%
-    filter(Class == group) %>%
-    dplyr::select(Colname) %>%
-    .[[1]]
-  for (var in vars_) {
-    print(var)
-  }
-}
