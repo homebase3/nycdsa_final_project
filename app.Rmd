@@ -929,7 +929,7 @@ output$table <- DT::renderDataTable({
     formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff"))) %>%
     formatStyle(.,columns = to_color,valueColumns = from_color,color = styleEqual(c(1),c("#ff0039"))) %>%
     formatStyle(.,columns = 1:ncol(df), fontSize = '100%')
-  },  server = F
+  },  server = T
 )
 ```
 
