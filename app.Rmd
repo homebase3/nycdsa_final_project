@@ -386,8 +386,8 @@ Input {.sidebar data-width=300 id="selectbar"}
 actionButton("button","Make recommendations and resort",icon("thumbs-up"))
 actionButton("tour2","Take tour of this page",icon("paper-plane"))
 actionButton("show","Remove all filters", icon("broom"))
-pickerInput('selected_filter','Show selected',choices = c("Selected","Not selected"), 
-            multiple = T,options=list(`liveSearch` = T, `actions-box` = TRUE,size =10,
+pickerInput('selected_filter','Show selected',choices = c("Selected","Not selected","Both"),selected = "Both", 
+            multiple = F,options=list(`liveSearch` = T, `actions-box` = TRUE,size =10,
                                       `selected-text-format` = 'count > 3'))
 ```
 
@@ -811,9 +811,11 @@ output$table <- DT::renderDataTable({
     df %<>% 
       filter(ID %in% selectedIDs())
   }
-  if (input$selected_filter == "Not selected") {
+  else if (input$selected_filter == "Not selected") {
     df %<>% 
       filter(ID %notin% selectedIDs())
+  } else {
+    df <- df
   }
   for (group in filter_groups) {
     vars_ <- filters %>%
