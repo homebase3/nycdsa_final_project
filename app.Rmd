@@ -794,6 +794,8 @@ output$table <- DT::renderDT({
     for (var in vars_[1]) {
       if (!is.null(classes[[var]])) {
         if (classes[[var]] %in% c("character","factor")) {
+          print(input[[gsub(" ","_",var)]])
+          print(unique(df$var))
           df %<>%
             filter(!!rlang::sym(var) %in% input[[gsub(" ","_",var)]])
             # filter_at(vars(any_of(var)), any_vars((. %in% input[[gsub(" ","_",var)]])))
