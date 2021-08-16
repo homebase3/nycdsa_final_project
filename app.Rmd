@@ -814,20 +814,20 @@ output$table <- DT::renderDT({
     for (var in vars_) {
       if (!is.null(classes[[var]])) {
         if (classes[[var]] %in% c("character","factor")) {
-          val4(df[[var]] %in% input[[gsub(" ","_",var)]])
-          df <- df[df[[var]] %in% input[[gsub(" ","_",var)]],]
-          # df %<>%
-          #   filter(!!rlang::sym(var) %in% isolate(input[[gsub(" ","_",var)]]))
-            # filter_at(vars(any_of(var)), any_vars((. %in% input[[gsub(" ","_",var)]])))
+          # val4(df[[var]] %in% input[[gsub(" ","_",var)]])
+          # df <- df[df[[var]] %in% input[[gsub(" ","_",var)]],]
+          df %<>%
+            # filter(!!rlang::sym(var) %in% isolate(input[[gsub(" ","_",var)]]))
+            filter_at(vars(var), any_vars((. %in% input[[gsub(" ","_",var)]])))
           } else {
           val1(input[[gsub(" ","_",var)]])
           val2(df[[var]])
           val3(var)
           val5(colnames(df))
-           df <- df[df[[var]] >= input[[gsub(" ","_",var)]][1] & df[[var]] >= input[[gsub(" ","_",var)]][2],]
-            # df %<>%
-            #   filter(!!rlang::sym(var) >= isolate(input[[gsub(" ","_",var)]][1]) & !!rlang::sym(var) <= isolate(input[[gsub(" ","_",var)]][2]))
-              # filter_at(vars(any_of(var)), any_vars((. >= input[[gsub(" ","_",var)]][1] & . <= input[[gsub(" ","_",var)]][2])))
+           # df <- df[df[[var]] >= input[[gsub(" ","_",var)]][1] & df[[var]] >= input[[gsub(" ","_",var)]][2],]
+            df %<>%
+              # filter(!!rlang::sym(var) >= isolate(input[[gsub(" ","_",var)]][1]) & !!rlang::sym(var) <= isolate(input[[gsub(" ","_",var)]][2]))
+              filter_at(vars(var), any_vars((. >= input[[gsub(" ","_",var)]][1] & . <= input[[gsub(" ","_",var)]][2])))
           }
       }
       cat(file=stderr(),nrow(df))
