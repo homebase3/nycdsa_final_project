@@ -562,7 +562,6 @@ uiOutput('UIHospital_outcomes')
 </details>
 
 Row {data-height=50}
-
 -----
 
 ```{r server_logic, context="server", include = F}
@@ -690,7 +689,6 @@ valueBoxOutput("valuebox_safer")
 ```
 
 Row {data-height=900}
-
 -----
 
 ###
