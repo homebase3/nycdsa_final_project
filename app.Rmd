@@ -806,20 +806,21 @@ output$table <- DT::renderDT({
       filter(Class == group) %>%
       dplyr::select(Colname) %>%
       .[[1]]
-    for (var in vars_[1]) {
+    for (var in vars_[2]) {
       if (!is.null(classes[[var]])) {
         if (classes[[var]] %in% c("character","factor")) {
-          val1(input[[gsub(" ","_",var)]])
-          val2(unique(df[[var]]))
-          val3(var)
           val4(df[[var]] %in% input[[gsub(" ","_",var)]])
           df <- df[df[[var]] %in% input[[gsub(" ","_",var)]],]
           # df %<>%
           #   filter(!!rlang::sym(var) %in% isolate(input[[gsub(" ","_",var)]]))
             # filter_at(vars(any_of(var)), any_vars((. %in% input[[gsub(" ","_",var)]])))
           } else {
-            df %<>%
-              filter(!!rlang::sym(var) >= isolate(input[[gsub(" ","_",var)]][1]) & !!rlang::sym(var) <= isolate(input[[gsub(" ","_",var)]][2]))
+          val1(input[[gsub(" ","_",var)]])
+          val2(unique(df[[var]]))
+          val3(var)
+           df <- df[df[[var]] >= input[[gsub(" ","_",var)]][1] & df[[var]] >= input[[gsub(" ","_",var)]][2],]
+            # df %<>%
+            #   filter(!!rlang::sym(var) >= isolate(input[[gsub(" ","_",var)]][1]) & !!rlang::sym(var) <= isolate(input[[gsub(" ","_",var)]][2]))
               # filter_at(vars(any_of(var)), any_vars((. >= input[[gsub(" ","_",var)]][1] & . <= input[[gsub(" ","_",var)]][2])))
           }
       }
