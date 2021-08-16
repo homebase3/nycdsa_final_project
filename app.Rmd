@@ -759,9 +759,16 @@ Row {data-height=900}
 
 ###
 
+```{r, context="render"}
+renderPrint({
+  val1()
+  val2()
+})
+```
+
 ```{r, context="server"}
-val1 <- reactiveValue()
-val2 <- reactiveValue()
+val1 <- reactiveVal()
+val2 <- reactiveVal()
 observeEvent(input$button,{
   #join recommendations to the dataframe
   inter <- py$models[[input$specialty]]$recommend_from_interactions(observed_items=as.list(selectedIDs()),k=as.integer(1000))$to_dataframe()[,] %>%
