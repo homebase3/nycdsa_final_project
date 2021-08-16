@@ -617,9 +617,9 @@ observeEvent(input$specialty, {
     for (var in vars_) {
       if (!is.null(classes[[var]])) {
         if (as.character(classes[[var]]) == "numeric") {
-          min<- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T))
+          min <- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T))
           max <- ceiling(max(combined_df_list[[input$specialty]][[var]], na.rm = T))
-          updateSliderInput(session,inputId=gsub(" ","_",var), min=mins[[var]], max= maxs[[var]], value=c(mins[[var]],maxs[[var]]))
+          updateSliderInput(session,inputId=gsub(" ","_",var), min=mins, max= max, value=c(min,max))
         } else {
           val <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
           updatePickerInput(session, inputId =gsub(" ","_",var), choices=val,selected = val)
