@@ -399,7 +399,7 @@ uiOutput("UIbuttons")
 <summary>Program basics</summary>
 ```{r, context="render"}
 filters %>%
-  filter(Class %in% group) %>%
+  filter(Class %in% "Program basics") %>%
   dplyr::select(Colname) %>%
   .[[1]] -> vars_
 lapply(vars_, UI_helper_func)
