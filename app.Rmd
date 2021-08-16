@@ -760,6 +760,8 @@ Row {data-height=900}
 ###
 
 ```{r, context="server"}
+val1 <- reactiveValue()
+val2 <- reactiveValue()
 observeEvent(input$button,{
   #join recommendations to the dataframe
   inter <- py$models[[input$specialty]]$recommend_from_interactions(observed_items=as.list(selectedIDs()),k=as.integer(1000))$to_dataframe()[,] %>%
@@ -794,14 +796,14 @@ output$table <- DT::renderDT({
     for (var in vars_[1]) {
       if (!is.null(classes[[var]])) {
         if (classes[[var]] %in% c("character","factor")) {
-          print(input[[gsub(" ","_",var)]])
-          print(unique(df$var))
+          val1(input[[gsub(" ","_",var)]])
+          val2(print(unique(df$var)))
           df %<>%
-            filter(!!rlang::sym(var) %in% input[[gsub(" ","_",var)]])
+            filter(!!rlang::sym(var) %in% isolate(input[[gsub(" ","_",var)]]))
             # filter_at(vars(any_of(var)), any_vars((. %in% input[[gsub(" ","_",var)]])))
           } else {
             df %<>%
-              filter(!!rlang::sym(var) >= input[[gsub(" ","_",var)]][1] & !!rlang::sym(var) <= input[[gsub(" ","_",var)]][2])
+              filter(!!rlang::sym(var) >= isolate(input[[gsub(" ","_",var)]][1]) & !!rlang::sym(var) <= isolate(input[[gsub(" ","_",var)]][2]))
               # filter_at(vars(any_of(var)), any_vars((. >= input[[gsub(" ","_",var)]][1] & . <= input[[gsub(" ","_",var)]][2])))
           }
       }
