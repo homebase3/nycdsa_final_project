@@ -383,7 +383,9 @@ Input {.sidebar data-width=300 id="selectbar"}
 ```{r, context="render"}
 actionButton("button","Make recommendations and resort")
 actionButton("tour2","Take tour of this page",icon("paper-plane"))
-downloadButton("downloadData", "Download selections")
+renderUI({
+  downloadButton("downloadData", "Download selections")
+})
 ```
 
 <!-- ```{r, context="render"} -->
@@ -781,25 +783,25 @@ output$table <- DT::renderDataTable({
 
   #filter core dataframe
 
-  # for (group in filter_groups) {
-  #   vars_ <- filters %>%
-  #     filter(Class == group) %>%
-  #     dplyr::select(Colname) %>%
-  #     .[[1]]
-  #   for (var in vars_) {
-  #     if (!is.null(classes[[var]])) {
-  #       if (classes[[var]] %in% c("character","factor")) {
-  #         # if(input[[gsub(" ","_",var)]]]])
-  #           df %<>%
-  #             filter_at(vars(var), any_vars((. %in% input[[gsub(" ","_",var)]])))
-  #         } else {
-  # 
-  #           df %<>%
-  #             filter_at(vars(var), any_vars((. >= input[[gsub(" ","_",var)]][1] & . <= input[[gsub(" ","_",var)]][2])))
-  #         }
-  #     }
-  #   }
-  # }
+  for (group in filter_groups) {
+    vars_ <- filters %>%
+      filter(Class == group) %>%
+      dplyr::select(Colname) %>%
+      .[[1]]
+    for (var in vars_) {
+      if (!is.null(classes[[var]])) {
+        if (classes[[var]] %in% c("character","factor")) {
+          # if(input[[gsub(" ","_",var)]]]])
+            df %<>%
+              filter_at(vars(var), any_vars((. %in% input[[gsub(" ","_",var)]])))
+          } else {
+
+            df %<>%
+              filter_at(vars(var), any_vars((. >= input[[gsub(" ","_",var)]][1] & . <= input[[gsub(" ","_",var)]][2])))
+          }
+      }
+    }
+  }
 
   # create and style DR
   val <- to_join()
