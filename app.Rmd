@@ -623,7 +623,7 @@ sliderInput('Safety Worse %','Safety Worse %',0,1, c(0,1),round=T)
 Row {data-height=50}
 -----
 
-```{r server_logic1, context="server"}
+```{r server_logic_1, context="server"}
 # immediately update dummy inputs
 observe({
   mins = list()
@@ -745,7 +745,7 @@ observe({
 })
 ```
 
-```{r server_logic_2, context="server',include=F}
+```{r server_logic_2, context='server',include=F}
 # keep track of selections
 `%notin%` <- Negate(`%in%`)
 
