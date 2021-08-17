@@ -989,12 +989,12 @@ output$table <- DT::renderDataTable(
         displayStart = floor(length(selectedRows) / 10) * 10,
         scrollX = TRUE,
         dom = "Bfrtipl",
+        # fixedColumns = list(leftColumns = 3),
         buttons = list("copy", list(
           extend = "collection",
           buttons = c("csv", "excel", "pdf"),
           text = "Download"
-        )),
-        fixedColumns = list(leftColumns = 3)
+        ))
       ),
       # extensions = c("FixedColumns", "Buttons"),
       extensions = c("Buttons","Responsive"),
