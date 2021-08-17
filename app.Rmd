@@ -636,7 +636,9 @@ observeEvent(input$specialty, {
           updateSliderInput(session, inputId = gsub(" ", "_", var), min = min, max = max, value = c(min, max))
         } else {
           val <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
-          updatePickerInput(session, inputId = gsub(" ", "_", var), choices = val, selected = val)
+          updatePickerInput(session, inputId = gsub(" ", "_", var), choices = val, selected = val, choicesOpt = list(
+      content = stringr::str_trunc(val, width = 30)
+    ))
         }
       }
     }
