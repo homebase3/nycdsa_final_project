@@ -57,6 +57,14 @@ button {
   margin-left: 3px;
 }
 
+.dataTables_wrapper .dataTables_length {
+    float:left;
+    position: absolute;
+}
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+}
+
 </style>
 
 ---
@@ -990,7 +998,7 @@ output$table <- DT::renderDataTable(
         order = list(list(ncol(df), "desc"), list(ncol(df) - 1, "asc")),
         displayStart = floor(length(selectedRows) / 10) * 10,
         scrollX = TRUE,
-        dom = "Bfrtilp",
+        dom = "Blfrtip",
         buttons = list("copy", list(
           extend = "collection",
           buttons = c("csv", "excel", "pdf"),
