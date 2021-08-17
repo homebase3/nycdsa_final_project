@@ -979,7 +979,6 @@ output$table <- DT::renderDataTable(
     # create datatable
     datatable(df,
       escape = F,
-      rownames = F,
       colnames = colname_change_vec,
       options = list(
         autoWidth = TRUE,
