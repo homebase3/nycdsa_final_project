@@ -20,16 +20,19 @@ output:
 ---
 
 <style>
+/*Gauge widget scaling*/
+
 .html-widget.gauge {
-  height: 100%; /*or try sth like 320px instead of 100%, whatever you prefer*/
+  height: 100%; 
 }
 
 .html-widget.gauge svg {
-  height: 100%; /*or try sth like 320px instead of 100%, whatever you prefer*/
+  height: 100%; 
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
+/*Button coloring*/
 .btn-1 {
   background-color: #1F2041;
   color: #fff;
@@ -47,16 +50,19 @@ output:
   color: #fff;
 }
 
+/*Remove grey line on page from bs4 error in flexdashboard*/
 hr {
   border-top: none !important;
 }
 
+/*Add space between buttons*/
 button {
   margin-bottom: 5px;
   margin-right: 3px;
   margin-left: 3px;
 }
 
+/*Reduce vertical spacing between dataTables elements*/
 .dataTables_wrapper .dataTables_length {
     float:right;
     margin-right: 10px;
@@ -424,7 +430,7 @@ Input {.sidebar data-width=300 id="selectbar"}
 actionButton("tour2", "Take tour of this page", icon("paper-plane"))
 actionButton("button", "Recommend and resort", icon("thumbs-up"))
 actionButton("show", "Remove all filters", icon("broom"))
-fileInput("file1", label = NULL, buttonLabel = list(icon("file-import"),"Import"), accept = c(".csv", ".xlsx"))
+fileInput("file1", label = NULL, buttonLabel = list(icon("file-import"), "Import"), accept = c(".csv", ".xlsx"))
 materialSwitch(inputId = "selected_switch", label = "Export mode", value = FALSE)
 ```
 
@@ -649,8 +655,8 @@ observeEvent(input$specialty, {
         } else {
           val <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
           updatePickerInput(session, inputId = gsub(" ", "_", var), choices = val, selected = val, choicesOpt = list(
-      content = stringr::str_trunc(val, width = 15)
-    ))
+            content = stringr::str_trunc(val, width = 15)
+          ))
         }
       }
     }
@@ -686,6 +692,7 @@ selectedID_list <- reactiveVal()
 selectedIDs <- reactiveVal()
 difficulty_counts <- reactiveVal(list("Reach" = 0, "Target" = 0, "Safer" = 0))
 df_save <- reactiveVal()
+dummy <- reactiveVal(0)
 
 # initialize global variables
 
@@ -749,6 +756,10 @@ observeEvent(input$file1, {
     }
   }
   difficulty_counts(new_lis)
+  
+  #update dummy to trigger refresh of dataTable
+  dummyVal <- dummy() + 1
+  dummy(dummyVal)
 })
 ```
 
@@ -870,6 +881,9 @@ Row {data-height=900}
 
 ```{r, context="server"}
 observeEvent(input$button, {
+  # trigger if file is imported
+  dummy()
+  
   # join recommendations to the dataframe
   inter <- py$models[[input$specialty]]$recommend_from_interactions(observed_items = as.list(selectedIDs()), k = as.integer(1000))$to_dataframe()[, ] %>%
     as.data.frame(.) %>%
