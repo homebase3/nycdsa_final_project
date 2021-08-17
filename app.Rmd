@@ -679,9 +679,10 @@ observeEvent(input$file1, {
   }
 
   old_IDs <- old_select %>%
-    select(`Residency program name`) %>%
+  X2021_Residency_selection_tool_2 %>% 
+    dplyr::select(`Residency program name`) %>%
     left_join(., combined_df_list[[input$specialty]]) %>%
-    select(ID) %>%
+    dplyr::select(ID) %>%
     drop_na(.) %>%
     .[[1]]
 
