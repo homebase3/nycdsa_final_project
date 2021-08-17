@@ -698,10 +698,15 @@ dummy <- reactiveVal(0)
 
 hardcode_selectedIDs <- NULL
 
-# keep track of selections
+# Negation helper
 `%notin%` <- Negate(`%in%`)
 
+# Import old selections
 observeEvent(input$file1, {
+  # Remove current selections
+  selectedID_list(list())
+  selectedIDs(c())
+  
   file <- input$file1
   ext <- tools::file_ext(file$datapath)
 
