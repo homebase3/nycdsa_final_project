@@ -85,10 +85,10 @@ library(kableExtra)
 
 ```{r, context="setup", cache=T}
 # load functions and objects
-base<- getwd()
+base <- getwd()
 models_loc <- here("models")
-for (obj in list.files(paste0(here("objects"),"/"))) {
-  base::load(paste0(here("objects",obj)))
+for (obj in list.files(paste0(here("objects"), "/"))) {
+  base::load(paste0(here("objects", obj)))
 }
 
 source("core/functions.R")
@@ -114,13 +114,13 @@ classes <- lapply(imputed_df_list[[1]], class)
 ```{r, context="server"}
 UI_helper_func <- function(var) {
   if (!is.null(classes[[var]])) {
-      if (as.character(classes[[var]]) == "numeric") {
-        min <- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T))
-        max <- ceiling(max(combined_df_list[[input$specialty]][[var]], na.rm = T))
-        sliderInput(var,var,min,max,c(min,max),round=T)
+    if (as.character(classes[[var]]) == "numeric") {
+      min <- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T))
+      max <- ceiling(max(combined_df_list[[input$specialty]][[var]], na.rm = T))
+      sliderInput(var, var, min, max, c(min, max), round = T)
     } else {
-        vals <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
-        pickerInput(var,var, choices=vals,selected = vals, multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10, `selected-text-format` = "count > 3"))
+      vals <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
+      pickerInput(var, var, choices = vals, selected = vals, multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
     }
   }
 }
@@ -141,34 +141,42 @@ Applicant competitiveness
 
 ```{r, context="server"}
 
-steps1 <- data.frame(element = c("#specialty-selectized","#section-applicant_sidebar","#section-overall-score","#step1Gauge", ".navbar"),
-                     intro = c("To get started, select your desired specialty.",
-                               "Then enter information about your step scores. Please note that these values are not logged or saved, and no one will have access to them other than you.",
-                               "Once you've made your entries, you can see an assessment of your competitiveness in that specialty here versus matched applicants in the prior few years. This aggregates your scores on each individual components based on their relative importance accroding to program director surveys in your chosen specialty.",
-                               "Your competitiveness for the individual components can also be found below. For example, this is your score based on your step 1 score alone",
-                               "Once you're done, click 'Select programs' in the navbar to move to the next section. Give it a few seconds to load :)"))
+steps1 <- data.frame(
+  element = c("#specialty-selectized", "#section-applicant_sidebar", "#section-overall-score", "#step1Gauge", ".navbar"),
+  intro = c(
+    "To get started, select your desired specialty.",
+    "Then enter information about your step scores. Please note that these values are not logged or saved, and no one will have access to them other than you.",
+    "Once you've made your entries, you can see an assessment of your competitiveness in that specialty here versus matched applicants in the prior few years. This aggregates your scores on each individual components based on their relative importance accroding to program director surveys in your chosen specialty.",
+    "Your competitiveness for the individual components can also be found below. For example, this is your score based on your step 1 score alone",
+    "Once you're done, click 'Select programs' in the navbar to move to the next section. Give it a few seconds to load :)"
+  )
+)
 
-steps2 <-data.frame(element = c("#table", ".navbar ","#table","#table","#table","#section-range_gauge","#section-selectbar","#section-selectbar","#section-selectbar","#section-selectbar","#section-selectbar","#section-selectbar","#table"),
-                    intro = c("First off, you'll see a list of (nearly) every program in your specialty. Programs are bucketted into \"Reach\", \"Target\", and \"Safer\" based on (1) your competitiveness in the specialty and (2) our assessment of the program based on applicant competitiveness, research quality, teaching quality, and patient outcomes. The initial order of the programs is based on this rank list, with the top program at the top.",
-                              "You can find more detail on how your specialty was ranked by clicking \"More info on specialty ranking\" in the Navbar.",
-                              "For each program, you can quickly see its details as well as links to all major relevant sites, including the Program website itself, Freida, AAMC, and Doximity where available.",
-                              "To see additional information collected on an individual program, click the plus sign at the right of the table.",
-                              "To select a program, simply click on the row in the table and it will highlight.",
-                              "As you make your selections, the boxes at the top of the page will keep a tally of how many programs you've selected and at what level of competitiveness to help you craft a full, well-balanced program portfolio",
-                              "If you would like help finding programs, click the \"Make recommendations and resort\" button. This will make recommendations based on a machine learning algorithm that tries to find similarities between your current selections and the other remaining programs. Once this loads, your current selections will be at the top, then the programs will be listed in the order of recommendation. I.e. the top recommended program will be first after your current selections.",
-                              "You can also filter programs based on the menus contained below. These include all the traditional filters (e.g. Geography), but also some unique ones, including weather, cost of living, county health characteristics, and county divserity. We hope you find these useful.",
-                              "To access the filters, click on an arrow to open the respective menu",
-                              "Then set your filters, the table with automatically adjust, and don't worry, your prior selections will be saved, even if the filter removes them",
-                              "You can continue this way until you find all your programs",
-                              "To export your list, first toggle on the \"Export toggle\" tag.",
-                              "Then click dowload a csv file with all of the information about your chosen programs. Please note that the app will not save your selections on, so make sure to do this to keep a record of your selection. Otherwise, you'll be starting from scratch the next time you open the app."))
+steps2 <- data.frame(
+  element = c("#table", ".navbar ", "#table", "#table", "#table", "#section-range_gauge", "#section-selectbar", "#section-selectbar", "#section-selectbar", "#section-selectbar", "#section-selectbar", "#section-selectbar", "#table"),
+  intro = c(
+    "First off, you'll see a list of (nearly) every program in your specialty. Programs are bucketted into \"Reach\", \"Target\", and \"Safer\" based on (1) your competitiveness in the specialty and (2) our assessment of the program based on applicant competitiveness, research quality, teaching quality, and patient outcomes. The initial order of the programs is based on this rank list, with the top program at the top.",
+    "You can find more detail on how your specialty was ranked by clicking \"More info on specialty ranking\" in the Navbar.",
+    "For each program, you can quickly see its details as well as links to all major relevant sites, including the Program website itself, Freida, AAMC, and Doximity where available.",
+    "To see additional information collected on an individual program, click the plus sign at the right of the table.",
+    "To select a program, simply click on the row in the table and it will highlight.",
+    "As you make your selections, the boxes at the top of the page will keep a tally of how many programs you've selected and at what level of competitiveness to help you craft a full, well-balanced program portfolio",
+    "If you would like help finding programs, click the \"Make recommendations and resort\" button. This will make recommendations based on a machine learning algorithm that tries to find similarities between your current selections and the other remaining programs. Once this loads, your current selections will be at the top, then the programs will be listed in the order of recommendation. I.e. the top recommended program will be first after your current selections.",
+    "You can also filter programs based on the menus contained below. These include all the traditional filters (e.g. Geography), but also some unique ones, including weather, cost of living, county health characteristics, and county divserity. We hope you find these useful.",
+    "To access the filters, click on an arrow to open the respective menu",
+    "Then set your filters, the table with automatically adjust, and don't worry, your prior selections will be saved, even if the filter removes them",
+    "You can continue this way until you find all your programs",
+    "To export your list, first toggle on the \"Export toggle\" tag.",
+    "Then click dowload a csv file with all of the information about your chosen programs. Please note that the app will not save your selections on, so make sure to do this to keep a record of your selection. Otherwise, you'll be starting from scratch the next time you open the app."
+  )
+)
 
-observeEvent(input$tour1,{
-  introjs(session,options = list(steps=steps1))
+observeEvent(input$tour1, {
+  introjs(session, options = list(steps = steps1))
 })
 
-observeEvent(input$tour2,{
-  introjs(session,options = list(steps=steps2))
+observeEvent(input$tour2, {
+  introjs(session, options = list(steps = steps2))
 })
 ```
 
@@ -182,12 +190,12 @@ Inputs {.sidebar id="applicant_sidebar"}
 ------
 ```{r}
 uiOutput("introJShelper")
-actionButton("tour1","Take tour of this page",icon("paper-plane"))
+actionButton("tour1", "Take tour of this page", icon("paper-plane"))
 selectInput(
   "specialty",
   "Specialty",
   spec_dat$Specialty,
-  selected =spec_dat$Specialty[1],
+  selected = spec_dat$Specialty[1],
   multiple = FALSE,
   selectize = TRUE
 )
@@ -248,14 +256,14 @@ Row {data-height=300}
 ```{r, context="server"}
 output$valuebox <- renderValueBox({
   c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
-    score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights) %>%
+    score_overall(., input$specialty, spec_dat, dists, PD_Survey_weights) %>%
     `*`(100) -> score
   col <- if_else(score >= 50, "#3fb618", if_else(score >= 20, "#ff7518", "#ff0039"))
   score %>%
     round(.) %>%
     scales::ordinal(.) %>%
     tags$p(., style = "font-size: 200%; color: #fff") %>%
-    valueBox(., caption = tags$p(paste0("percentile overall in ",input$specialty),style = "font-size: 150%; color: #fff"), icon = 'fa-star', color = col, href = NULL)
+    valueBox(., caption = tags$p(paste0("percentile overall in ", input$specialty), style = "font-size: 150%; color: #fff"), icon = "fa-star", color = col, href = NULL)
 })
 ```
 
@@ -269,14 +277,16 @@ Row {data-height=300}
 ### Step 1 score
 
 ```{r, context="server"}
-output$step1Gauge<- renderGauge({
-  score_step1(input$step1,input$specialty, spec_dat,dists)%>%
+output$step1Gauge <- renderGauge({
+  score_step1(input$step1, input$specialty, spec_dat, dists) %>%
     `*`(100) %>%
     round(.) %>%
-    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(50,100),
-                                                                warning = c(20,50),
-                                                                danger = c(0,20),
-                                                                colors = c("success", "warning","danger")))
+    gauge(., 0, 100, label = "Percentile", sectors = gaugeSectors(
+      success = c(50, 100),
+      warning = c(20, 50),
+      danger = c(0, 20),
+      colors = c("success", "warning", "danger")
+    ))
 })
 ```
 
@@ -288,13 +298,15 @@ gaugeOutput("step1Gauge")
 
 ```{r, context="server"}
 output$step2Gauge <- renderGauge({
-  score_step2(input$step2,input$specialty, spec_dat,dists)%>%
+  score_step2(input$step2, input$specialty, spec_dat, dists) %>%
     `*`(100) %>%
     round(.) %>%
-    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100),
-                                                                warning = c(33,67),
-                                                                danger = c(0,33),
-                                                                colors = c("success", "warning","danger")))
+    gauge(., 0, 100, label = "Percentile", sectors = gaugeSectors(
+      success = c(67, 100),
+      warning = c(33, 67),
+      danger = c(0, 33),
+      colors = c("success", "warning", "danger")
+    ))
 })
 ```
 
@@ -309,13 +321,15 @@ Row {data-height=400}
 
 ```{r, context="server"}
 output$researchGauge <- renderGauge({
-  score_research(input$research,input$specialty, spec_dat,dists)%>%
+  score_research(input$research, input$specialty, spec_dat, dists) %>%
     `*`(100) %>%
     round(.) %>%
-    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100),
-                                                                warning = c(33,67),
-                                                                danger = c(0,33),
-                                                                colors = c("success", "warning","danger")))
+    gauge(., 0, 100, label = "Percentile", sectors = gaugeSectors(
+      success = c(67, 100),
+      warning = c(33, 67),
+      danger = c(0, 33),
+      colors = c("success", "warning", "danger")
+    ))
 })
 ```
 
@@ -327,13 +341,15 @@ gaugeOutput("researchGauge")
 
 ```{r, context="server"}
 output$publicationsGauge <- renderGauge({
-  score_publications(input$publications,input$specialty, spec_dat,dists)%>%
+  score_publications(input$publications, input$specialty, spec_dat, dists) %>%
     `*`(100) %>%
     round(.) %>%
-    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100),
-                                                                warning = c(33,67),
-                                                                danger = c(0,33),
-                                                                colors = c("success", "warning","danger")))
+    gauge(., 0, 100, label = "Percentile", sectors = gaugeSectors(
+      success = c(67, 100),
+      warning = c(33, 67),
+      danger = c(0, 33),
+      colors = c("success", "warning", "danger")
+    ))
 })
 ```
 
@@ -346,13 +362,15 @@ gaugeOutput("publicationsGauge")
 ```{r, context="server"}
 
 output$workGauge <- renderGauge({
-  score_work(input$work,input$specialty, spec_dat,dists)%>%
+  score_work(input$work, input$specialty, spec_dat, dists) %>%
     `*`(100) %>%
     round(.) %>%
-    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100),
-                                                                warning = c(33,67),
-                                                                danger = c(0,33),
-                                                                colors = c("success", "warning","danger")))
+    gauge(., 0, 100, label = "Percentile", sectors = gaugeSectors(
+      success = c(67, 100),
+      warning = c(33, 67),
+      danger = c(0, 33),
+      colors = c("success", "warning", "danger")
+    ))
 })
 ```
 
@@ -364,14 +382,18 @@ gaugeOutput("workGauge")
 
 ```{r, context="server"}
 output$volunteerGauge <- renderGauge({
-  score_volunteer(input$volunteer,input$specialty, spec_dat,dists)%>%
+  score_volunteer(input$volunteer, input$specialty, spec_dat, dists) %>%
     `*`(100) %>%
     round(.) %>%
-    gauge(.,0,100, label = "Percentile", sectors = gaugeSectors(success = c(67,100),
-                                                                warning = c(33,67),
-                                                                danger = c(0,33),
-                                                                colors = c("success", "warning",
-                                                                           "danger")))
+    gauge(., 0, 100, label = "Percentile", sectors = gaugeSectors(
+      success = c(67, 100),
+      warning = c(33, 67),
+      danger = c(0, 33),
+      colors = c(
+        "success", "warning",
+        "danger"
+      )
+    ))
 })
 ```
 
@@ -386,17 +408,20 @@ Input {.sidebar data-width=300 id="selectbar"}
 --------------------
 
 ```{r, context="render"}
-actionButton("tour2","Take tour of this page",icon("paper-plane"))
-actionButton("button","Make recommendations and resort",icon("thumbs-up"))
-actionButton("show","Remove all filters", icon("broom"))
+actionButton("tour2", "Take tour of this page", icon("paper-plane"))
+actionButton("button", "Make recommendations and resort", icon("thumbs-up"))
+actionButton("show", "Remove all filters", icon("broom"))
 materialSwitch(inputId = "selected_switch", label = "Export mode", value = FALSE)
+fileInput("file1", "Import old selections", accept = c(".csv", ".xlsx"))
 ```
 
 <details>
 <summary>Program range</summary>
 ```{r}
-pickerInput('range_filter','Program range',choices = c("Reach","Target","Safer"),
-            selected=c("Reach","Target","Safer"), multiple = T,options=list(`liveSearch` = T,`actions-box` = TRUE,size =10,`selected-text-format` = 'count > 3'))
+pickerInput("range_filter", "Program range",
+  choices = c("Reach", "Target", "Safer"),
+  selected = c("Reach", "Target", "Safer"), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3")
+)
 ```
 </details>
 
@@ -405,204 +430,189 @@ pickerInput('range_filter','Program range',choices = c("Reach","Target","Safer")
 <details>
 <summary>Program basics</summary>
 ```{r, context='render'}
-pickerInput('Participates_in_ERAS','Participates in ERAS',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Participates_in_the_NRMP_Main_Match','Participates in the NRMP Main Match',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Program_setting','Program setting',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Residency_program_name','Residency program name',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Status','Status',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-
+pickerInput("Participates_in_ERAS", "Participates in ERAS", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
+pickerInput("Participates_in_the_NRMP_Main_Match", "Participates in the NRMP Main Match", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
+pickerInput("Program_setting", "Program setting", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
+pickerInput("Residency_program_name", "Residency program name", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
+pickerInput("Status", "Status", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
 ```
 </details>
 
 <details>
 <summary>Geography</summary>
 ```{r, context='render'}
-pickerInput('City','City',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Metro_Area_Name','Metro Area Name',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('State','State',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-
+pickerInput("City", "City", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
+pickerInput("Metro_Area_Name", "Metro Area Name", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
+pickerInput("State", "State", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
 ```
 </details>
 
 <details>
 <summary>Resident demographics</summary>
 ```{r, context='render'}
-sliderInput('Percentage_of_completed_residents_with_non-academic_U.S._practice_career_plans','Percentage of completed residents with non-academic U.S. practice career plans',0,1, c(0,1),round=T)
-sliderInput('Percentage_of_completed_residents_with_other_career_plans','Percentage of completed residents with other career plans',0,1, c(0,1),round=T)
-sliderInput('Percentage_of_completed_residents_with_plans_to_continue_training_in_another_program','Percentage of completed residents with plans to continue training in another program',0,1, c(0,1),round=T)
-sliderInput('Percentage_of_completed_residents_with_plans_to_obtain_a_full-time_or_part-time_academic_position','Percentage of completed residents with plans to obtain a full-time or part-time academic position',0,1, c(0,1),round=T)
-sliderInput('Percentage_of_residents_who_were_non-US-citizen_IMGs','Percentage of residents who were non-US-citizen IMGs',0,1, c(0,1),round=T)
-sliderInput('Percentage_of_residents_who_were_US_DO_graduates','Percentage of residents who were US DO graduates',0,1, c(0,1),round=T)
-sliderInput('Percentage_of_residents_who_were_US_MD_graduates','Percentage of residents who were US MD graduates',0,1, c(0,1),round=T)
-sliderInput('Percentage_of_residents_who_were_US-citizen_IMGs','Percentage of residents who were US-citizen IMGs',0,1, c(0,1),round=T)
-
+sliderInput("Percentage_of_completed_residents_with_non-academic_U.S._practice_career_plans", "Percentage of completed residents with non-academic U.S. practice career plans", 0, 1, c(0, 1), round = T)
+sliderInput("Percentage_of_completed_residents_with_other_career_plans", "Percentage of completed residents with other career plans", 0, 1, c(0, 1), round = T)
+sliderInput("Percentage_of_completed_residents_with_plans_to_continue_training_in_another_program", "Percentage of completed residents with plans to continue training in another program", 0, 1, c(0, 1), round = T)
+sliderInput("Percentage_of_completed_residents_with_plans_to_obtain_a_full-time_or_part-time_academic_position", "Percentage of completed residents with plans to obtain a full-time or part-time academic position", 0, 1, c(0, 1), round = T)
+sliderInput("Percentage_of_residents_who_were_non-US-citizen_IMGs", "Percentage of residents who were non-US-citizen IMGs", 0, 1, c(0, 1), round = T)
+sliderInput("Percentage_of_residents_who_were_US_DO_graduates", "Percentage of residents who were US DO graduates", 0, 1, c(0, 1), round = T)
+sliderInput("Percentage_of_residents_who_were_US_MD_graduates", "Percentage of residents who were US MD graduates", 0, 1, c(0, 1), round = T)
+sliderInput("Percentage_of_residents_who_were_US-citizen_IMGs", "Percentage of residents who were US-citizen IMGs", 0, 1, c(0, 1), round = T)
 ```
 </details>
 
 <details>
 <summary>Accreditation</summary>
 ```{r, context='render'}
-pickerInput('Osteopathic_Recognition','Osteopathic Recognition',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Program_accreditation_status','Program accreditation status',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-
+pickerInput("Osteopathic_Recognition", "Osteopathic Recognition", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
+pickerInput("Program_accreditation_status", "Program accreditation status", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
 ```
 </details>
 
 <details>
 <summary>Program size</summary>
 ```{r, context='render'}
-sliderInput('#_of_advanced_positions_filled_by_this_program_in_the_2021_NRMP_Main_Match','# of advanced positions filled by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
-sliderInput('#_of_advanced_positions_offered_by_this_program_in_the_2021_NRMP_Main_Match','# of advanced positions offered by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
-sliderInput('#_of_applications_submitted_to_this_program_in_2021','# of applications submitted to this program in 2021',0,1, c(0,1),round=T)
-sliderInput('#_of_categorical_positions_filled_by_this_program_in_the_2021_NRMP_Main_Match','# of categorical positions filled by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
-sliderInput('#_of_categorical_positions_offered_by_this_program_in_the_2021_NRMP_Main_Match','# of categorical positions offered by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
-sliderInput('#_of_positions_filled_by_this_program_in_the_2021_NRMP_Main_Match','# of positions filled by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
-sliderInput('#_of_positions_offered_by_this_program_in_the_2021_NRMP_Main_Match','# of positions offered by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
-sliderInput('#_Residents_on_Duty_Year_1','# Residents on Duty Year 1',0,1, c(0,1),round=T)
-sliderInput('%_of_applicants_interviewed_by_the_program_in_2020','% of applicants interviewed by the program in 2020',0,1, c(0,1),round=T)
-sliderInput('Total_#_Residents_on_Duty','Total # Residents on Duty',0,1, c(0,1),round=T)
-
+sliderInput("#_of_advanced_positions_filled_by_this_program_in_the_2021_NRMP_Main_Match", "# of advanced positions filled by this program in the 2021 NRMP Main Match", 0, 1, c(0, 1), round = T)
+sliderInput("#_of_advanced_positions_offered_by_this_program_in_the_2021_NRMP_Main_Match", "# of advanced positions offered by this program in the 2021 NRMP Main Match", 0, 1, c(0, 1), round = T)
+sliderInput("#_of_applications_submitted_to_this_program_in_2021", "# of applications submitted to this program in 2021", 0, 1, c(0, 1), round = T)
+sliderInput("#_of_categorical_positions_filled_by_this_program_in_the_2021_NRMP_Main_Match", "# of categorical positions filled by this program in the 2021 NRMP Main Match", 0, 1, c(0, 1), round = T)
+sliderInput("#_of_categorical_positions_offered_by_this_program_in_the_2021_NRMP_Main_Match", "# of categorical positions offered by this program in the 2021 NRMP Main Match", 0, 1, c(0, 1), round = T)
+sliderInput("#_of_positions_filled_by_this_program_in_the_2021_NRMP_Main_Match", "# of positions filled by this program in the 2021 NRMP Main Match", 0, 1, c(0, 1), round = T)
+sliderInput("#_of_positions_offered_by_this_program_in_the_2021_NRMP_Main_Match", "# of positions offered by this program in the 2021 NRMP Main Match", 0, 1, c(0, 1), round = T)
+sliderInput("#_Residents_on_Duty_Year_1", "# Residents on Duty Year 1", 0, 1, c(0, 1), round = T)
+sliderInput("%_of_applicants_interviewed_by_the_program_in_2020", "% of applicants interviewed by the program in 2020", 0, 1, c(0, 1), round = T)
+sliderInput("Total_#_Residents_on_Duty", "Total # Residents on Duty", 0, 1, c(0, 1), round = T)
 ```
 </details>
 
 <details>
 <summary>Applicant competitiveness</summary>
 ```{r, context='render'}
-sliderInput('Average_number_of_peer-reviewed_publications_among_matched_applicants','Average number of peer-reviewed publications among matched applicants',0,1, c(0,1),round=T)
-sliderInput('Average_number_of_research_experiences_among_matched_applicants','Average number of research experiences among matched applicants',0,1, c(0,1),round=T)
-sliderInput('Average_number_of_volunteer_experiences_among_matched_applicants','Average number of volunteer experiences among matched applicants',0,1, c(0,1),round=T)
-sliderInput('Average_number_of_work_experiences_among_matched_applicants','Average number of work experiences among matched applicants',0,1, c(0,1),round=T)
-sliderInput('Percentage_of_matched_applicants_who_were_members_of_Alpha_Omega_Alpha_(at_the_time_of_application)','Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)',0,1, c(0,1),round=T)
-sliderInput('Percentage_of_matched_applicants_who_were_members_of_Gold_Humanism_Honor_Society_(at_the_time_of_application)','Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)',0,1, c(0,1),round=T)
-pickerInput('Range_of_average_COMLEX_Level_1_score_of_current_residents','Range of average COMLEX Level 1 score of current residents',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Range_of_average_USMLE_Step_1_score_of_current_residents','Range of average USMLE Step 1 score of current residents',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-
+sliderInput("Average_number_of_peer-reviewed_publications_among_matched_applicants", "Average number of peer-reviewed publications among matched applicants", 0, 1, c(0, 1), round = T)
+sliderInput("Average_number_of_research_experiences_among_matched_applicants", "Average number of research experiences among matched applicants", 0, 1, c(0, 1), round = T)
+sliderInput("Average_number_of_volunteer_experiences_among_matched_applicants", "Average number of volunteer experiences among matched applicants", 0, 1, c(0, 1), round = T)
+sliderInput("Average_number_of_work_experiences_among_matched_applicants", "Average number of work experiences among matched applicants", 0, 1, c(0, 1), round = T)
+sliderInput("Percentage_of_matched_applicants_who_were_members_of_Alpha_Omega_Alpha_(at_the_time_of_application)", "Percentage of matched applicants who were members of Alpha Omega Alpha (at the time of application)", 0, 1, c(0, 1), round = T)
+sliderInput("Percentage_of_matched_applicants_who_were_members_of_Gold_Humanism_Honor_Society_(at_the_time_of_application)", "Percentage of matched applicants who were members of Gold Humanism Honor Society (at the time of application)", 0, 1, c(0, 1), round = T)
+pickerInput("Range_of_average_COMLEX_Level_1_score_of_current_residents", "Range of average COMLEX Level 1 score of current residents", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
+pickerInput("Range_of_average_USMLE_Step_1_score_of_current_residents", "Range of average USMLE Step 1 score of current residents", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
 ```
 </details>
 
 <details>
 <summary>International student considerations</summary>
 ```{r, context='render'}
-pickerInput('Program_consider_applicants_with_F-1_Visa_(OPT_1st_year)?','Program consider applicants with F-1 Visa (OPT 1st year)?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Program_consider_applicants_with_H-1B_visa?','Program consider applicants with H-1B visa?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Program_consider_applicants_with_J-1_visa?','Program consider applicants with J-1 visa?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-
+pickerInput("Program_consider_applicants_with_F-1_Visa_(OPT_1st_year)?", "Program consider applicants with F-1 Visa (OPT 1st year)?", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
+pickerInput("Program_consider_applicants_with_H-1B_visa?", "Program consider applicants with H-1B visa?", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
+pickerInput("Program_consider_applicants_with_J-1_visa?", "Program consider applicants with J-1 visa?", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
 ```
 </details>
 
 <details>
 <summary>Program experience</summary>
 ```{r, context='render'}
-sliderInput('%_of_training_spent_in_year_1_in_ambulatory_nonhospital_community-based_settings','% of training spent in year 1 in ambulatory nonhospital community-based settings',0,1, c(0,1),round=T)
-sliderInput('%_of_training_spent_in_year_1_in_hospital_outpatient_clinics','% of training spent in year 1 in hospital outpatient clinics',0,1, c(0,1),round=T)
-sliderInput('Average_hours/week_in_year_one_of_program_spent_in_structured_didactic_activities_(e.g.,_lectures,_conferences)','Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)',0,1, c(0,1),round=T)
-sliderInput('Average_hours/week_in_year_one_that_resident_works_(excluding_beeper_call)','Average hours/week in year one that resident works (excluding beeper call)',0,1, c(0,1),round=T)
-sliderInput('Maximum_consecutive_hours_resident_is_allowed_to_work_in_year_one_(excluding_beeper_call)','Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)',0,1, c(0,1),round=T)
-pickerInput('Program_allows_residents_(beyond_PGY1)_to_moonlight?','Program allows residents (beyond PGY1) to moonlight?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-pickerInput('Program_curriculum_includes_a_dedicated_research_rotation','Program curriculum includes a dedicated research rotation',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
-
+sliderInput("%_of_training_spent_in_year_1_in_ambulatory_nonhospital_community-based_settings", "% of training spent in year 1 in ambulatory nonhospital community-based settings", 0, 1, c(0, 1), round = T)
+sliderInput("%_of_training_spent_in_year_1_in_hospital_outpatient_clinics", "% of training spent in year 1 in hospital outpatient clinics", 0, 1, c(0, 1), round = T)
+sliderInput("Average_hours/week_in_year_one_of_program_spent_in_structured_didactic_activities_(e.g.,_lectures,_conferences)", "Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)", 0, 1, c(0, 1), round = T)
+sliderInput("Average_hours/week_in_year_one_that_resident_works_(excluding_beeper_call)", "Average hours/week in year one that resident works (excluding beeper call)", 0, 1, c(0, 1), round = T)
+sliderInput("Maximum_consecutive_hours_resident_is_allowed_to_work_in_year_one_(excluding_beeper_call)", "Maximum consecutive hours resident is allowed to work in year one (excluding beeper call)", 0, 1, c(0, 1), round = T)
+pickerInput("Program_allows_residents_(beyond_PGY1)_to_moonlight?", "Program allows residents (beyond PGY1) to moonlight?", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
+pickerInput("Program_curriculum_includes_a_dedicated_research_rotation", "Program curriculum includes a dedicated research rotation", choices = c(0, 1), multiple = T, options = list(`liveSearch` = T, `actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"))
 ```
 </details>
 
 <details>
 <summary>Research</summary>
 ```{r, context='render'}
-sliderInput('2019_NIH_specialty_funding','2019 NIH specialty funding',0,1, c(0,1),round=T)
-sliderInput('2019_NIH_total_funding','2019 NIH total funding',0,1, c(0,1),round=T)
-
+sliderInput("2019_NIH_specialty_funding", "2019 NIH specialty funding", 0, 1, c(0, 1), round = T)
+sliderInput("2019_NIH_total_funding", "2019 NIH total funding", 0, 1, c(0, 1), round = T)
 ```
 </details>
 
 <details>
 <summary>Teaching</summary>
 ```{r, context='render'}
-sliderInput('Family_medicine_board_pass_rate','Family medicine board pass rate',0,1, c(0,1),round=T)
-sliderInput('Internal_medicine_board_pass_rate','Internal medicine board pass rate',0,1, c(0,1),round=T)
-sliderInput('Pediatrics_board_pass_rate','Pediatrics board pass rate',0,1, c(0,1),round=T)
-sliderInput('Surgery_board_pass_rate','Surgery board pass rate',0,1, c(0,1),round=T)
-
+sliderInput("Family_medicine_board_pass_rate", "Family medicine board pass rate", 0, 1, c(0, 1), round = T)
+sliderInput("Internal_medicine_board_pass_rate", "Internal medicine board pass rate", 0, 1, c(0, 1), round = T)
+sliderInput("Pediatrics_board_pass_rate", "Pediatrics board pass rate", 0, 1, c(0, 1), round = T)
+sliderInput("Surgery_board_pass_rate", "Surgery board pass rate", 0, 1, c(0, 1), round = T)
 ```
 </details>
 
 <details>
 <summary>Weather</summary>
 ```{r, context='render'}
-sliderInput('%_days_above_90F','% days above 90F',0,1, c(0,1),round=T)
-sliderInput('%_days_below_freezing','% days below freezing',0,1, c(0,1),round=T)
-sliderInput('%_days_with_precipitation','% days with precipitation',0,1, c(0,1),round=T)
-sliderInput('Annual_snowfall','Annual snowfall',0,1, c(0,1),round=T)
-sliderInput('Mean_%_sunny','Mean % sunny',0,1, c(0,1),round=T)
-
+sliderInput("%_days_above_90F", "% days above 90F", 0, 1, c(0, 1), round = T)
+sliderInput("%_days_below_freezing", "% days below freezing", 0, 1, c(0, 1), round = T)
+sliderInput("%_days_with_precipitation", "% days with precipitation", 0, 1, c(0, 1), round = T)
+sliderInput("Annual_snowfall", "Annual snowfall", 0, 1, c(0, 1), round = T)
+sliderInput("Mean_%_sunny", "Mean % sunny", 0, 1, c(0, 1), round = T)
 ```
 </details>
 
 <details>
 <summary>Cost of living</summary>
 ```{r, context='render'}
-sliderInput('Cost_of_Living_Index','Cost of Living Index',0,1, c(0,1),round=T)
-
+sliderInput("Cost_of_Living_Index", "Cost of Living Index", 0, 1, c(0, 1), round = T)
 ```
 </details>
 
 <details>
 <summary>County health characteristics</summary>
 ```{r, context='render'}
-sliderInput('Access_to_Care_(percentile)','Access to Care (percentile)',0,1, c(0,1),round=T)
-sliderInput('Air_and_Water_Quality_(percentile)','Air and Water Quality (percentile)',0,1, c(0,1),round=T)
-sliderInput('Alcohol_and_Drug_Use_(percentile)','Alcohol and Drug Use (percentile)',0,1, c(0,1),round=T)
-sliderInput('Clinical_care_(percentile)','Clinical care (percentile)',0,1, c(0,1),round=T)
-sliderInput('Community_Safety_(percentile)','Community Safety (percentile)',0,1, c(0,1),round=T)
-sliderInput('Diet_and_Exercise_(percentile)','Diet and Exercise (percentile)',0,1, c(0,1),round=T)
-sliderInput('Education_(percentile)','Education (percentile)',0,1, c(0,1),round=T)
-sliderInput('Employment_(percentile)','Employment (percentile)',0,1, c(0,1),round=T)
-sliderInput('Family_and_Social_Support_(percentile)','Family and Social Support (percentile)',0,1, c(0,1),round=T)
-sliderInput('Health_behaviors_(percentile)','Health behaviors (percentile)',0,1, c(0,1),round=T)
-sliderInput('Health_factors_(percentile)','Health factors (percentile)',0,1, c(0,1),round=T)
-sliderInput('Health_outcomes_(percentile)','Health outcomes (percentile)',0,1, c(0,1),round=T)
-sliderInput('Housing_and_Transit_(percentile)','Housing and Transit (percentile)',0,1, c(0,1),round=T)
-sliderInput('Income_(percentile)','Income (percentile)',0,1, c(0,1),round=T)
-sliderInput('Income_Ratio','Income Ratio',0,1, c(0,1),round=T)
-sliderInput('Income_Ratio_(percentile)','Income Ratio (percentile)',0,1, c(0,1),round=T)
-sliderInput('Length_of_Life_(percentile)','Length of Life (percentile)',0,1, c(0,1),round=T)
-sliderInput('Physical_environment_(percentile)','Physical environment (percentile)',0,1, c(0,1),round=T)
-sliderInput('Quality_of_Care_(percentile)','Quality of Care (percentile)',0,1, c(0,1),round=T)
-sliderInput('Quality_of_Life_(percentile)','Quality of Life (percentile)',0,1, c(0,1),round=T)
-sliderInput('Sexual_Activity_(percentile)','Sexual Activity (percentile)',0,1, c(0,1),round=T)
-sliderInput('Social_&_economic_factors_(percentile)','Social & economic factors (percentile)',0,1, c(0,1),round=T)
-sliderInput('Tobacco_Use_(percentile)','Tobacco Use (percentile)',0,1, c(0,1),round=T)
-
+sliderInput("Access_to_Care_(percentile)", "Access to Care (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Air_and_Water_Quality_(percentile)", "Air and Water Quality (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Alcohol_and_Drug_Use_(percentile)", "Alcohol and Drug Use (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Clinical_care_(percentile)", "Clinical care (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Community_Safety_(percentile)", "Community Safety (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Diet_and_Exercise_(percentile)", "Diet and Exercise (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Education_(percentile)", "Education (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Employment_(percentile)", "Employment (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Family_and_Social_Support_(percentile)", "Family and Social Support (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Health_behaviors_(percentile)", "Health behaviors (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Health_factors_(percentile)", "Health factors (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Health_outcomes_(percentile)", "Health outcomes (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Housing_and_Transit_(percentile)", "Housing and Transit (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Income_(percentile)", "Income (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Income_Ratio", "Income Ratio", 0, 1, c(0, 1), round = T)
+sliderInput("Income_Ratio_(percentile)", "Income Ratio (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Length_of_Life_(percentile)", "Length of Life (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Physical_environment_(percentile)", "Physical environment (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Quality_of_Care_(percentile)", "Quality of Care (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Quality_of_Life_(percentile)", "Quality of Life (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Sexual_Activity_(percentile)", "Sexual Activity (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Social_&_economic_factors_(percentile)", "Social & economic factors (percentile)", 0, 1, c(0, 1), round = T)
+sliderInput("Tobacco_Use_(percentile)", "Tobacco Use (percentile)", 0, 1, c(0, 1), round = T)
 ```
 </details>
 
 <details>
 <summary>County demographics</summary>
 ```{r, context='render'}
-sliderInput('%_65_and_Over','% 65 and Over',0,1, c(0,1),round=T)
-sliderInput('%_American_Indian_&_Alaska_Native','% American Indian & Alaska Native',0,1, c(0,1),round=T)
-sliderInput('%_Asian','% Asian',0,1, c(0,1),round=T)
-sliderInput('%_Black','% Black',0,1, c(0,1),round=T)
-sliderInput('%_Female','% Female',0,1, c(0,1),round=T)
-sliderInput('%_Hispanic','% Hispanic',0,1, c(0,1),round=T)
-sliderInput('%_Less_Than_18_Years_of_Age','% Less Than 18 Years of Age',0,1, c(0,1),round=T)
-sliderInput('%_Native_Hawaiian/Other_Pacific_Islander','% Native Hawaiian/Other Pacific Islander',0,1, c(0,1),round=T)
-sliderInput('%_Non-Hispanic_White','% Non-Hispanic White',0,1, c(0,1),round=T)
-sliderInput('%_Rural','% Rural',0,1, c(0,1),round=T)
-sliderInput('Population','Population',0,1, c(0,1),round=T)
-
+sliderInput("%_65_and_Over", "% 65 and Over", 0, 1, c(0, 1), round = T)
+sliderInput("%_American_Indian_&_Alaska_Native", "% American Indian & Alaska Native", 0, 1, c(0, 1), round = T)
+sliderInput("%_Asian", "% Asian", 0, 1, c(0, 1), round = T)
+sliderInput("%_Black", "% Black", 0, 1, c(0, 1), round = T)
+sliderInput("%_Female", "% Female", 0, 1, c(0, 1), round = T)
+sliderInput("%_Hispanic", "% Hispanic", 0, 1, c(0, 1), round = T)
+sliderInput("%_Less_Than_18_Years_of_Age", "% Less Than 18 Years of Age", 0, 1, c(0, 1), round = T)
+sliderInput("%_Native_Hawaiian/Other_Pacific_Islander", "% Native Hawaiian/Other Pacific Islander", 0, 1, c(0, 1), round = T)
+sliderInput("%_Non-Hispanic_White", "% Non-Hispanic White", 0, 1, c(0, 1), round = T)
+sliderInput("%_Rural", "% Rural", 0, 1, c(0, 1), round = T)
+sliderInput("Population", "Population", 0, 1, c(0, 1), round = T)
 ```
 </details>
 
 <details>
 <summary>Hospital outcomes</summary>
 ```{r, context='render'}
-sliderInput('Hospital_overall_rating','Hospital overall rating',0,1, c(0,1),round=T)
-sliderInput('MORT_Better_%','MORT Better %',0,1, c(0,1),round=T)
-sliderInput('MORT_Worse_%','MORT Worse %',0,1, c(0,1),round=T)
-sliderInput('READM_Better_%','READM Better %',0,1, c(0,1),round=T)
-sliderInput('READM_Worse_%','READM Worse %',0,1, c(0,1),round=T)
-sliderInput('Safety_Better_%','Safety Better %',0,1, c(0,1),round=T)
-sliderInput('Safety_Worse_%','Safety Worse %',0,1, c(0,1),round=T)
-
+sliderInput("Hospital_overall_rating", "Hospital overall rating", 0, 1, c(0, 1), round = T)
+sliderInput("MORT_Better_%", "MORT Better %", 0, 1, c(0, 1), round = T)
+sliderInput("MORT_Worse_%", "MORT Worse %", 0, 1, c(0, 1), round = T)
+sliderInput("READM_Better_%", "READM Better %", 0, 1, c(0, 1), round = T)
+sliderInput("READM_Worse_%", "READM Worse %", 0, 1, c(0, 1), round = T)
+sliderInput("Safety_Better_%", "Safety Better %", 0, 1, c(0, 1), round = T)
+sliderInput("Safety_Worse_%", "Safety Worse %", 0, 1, c(0, 1), round = T)
 ```
 </details>
 
@@ -622,10 +632,10 @@ observeEvent(input$specialty, {
         if (as.character(classes[[var]]) == "numeric") {
           min <- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T))
           max <- ceiling(max(combined_df_list[[input$specialty]][[var]], na.rm = T))
-          updateSliderInput(session,inputId=gsub(" ","_",var), min=min, max= max, value=c(min,max))
+          updateSliderInput(session, inputId = gsub(" ", "_", var), min = min, max = max, value = c(min, max))
         } else {
           val <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
-          updatePickerInput(session, inputId =gsub(" ","_",var), choices=val,selected = val)
+          updatePickerInput(session, inputId = gsub(" ", "_", var), choices = val, selected = val)
         }
       }
     }
@@ -642,10 +652,10 @@ observeEvent(input$show, {
         if (as.character(classes[[var]]) == "numeric") {
           min <- floor(min(combined_df_list[[input$specialty]][[var]], na.rm = T))
           max <- ceiling(max(combined_df_list[[input$specialty]][[var]], na.rm = T))
-          updateSliderInput(session,inputId=gsub(" ","_",var), min=min, max= max, value=c(min,max))
+          updateSliderInput(session, inputId = gsub(" ", "_", var), min = min, max = max, value = c(min, max))
         } else {
           val <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
-          updatePickerInput(session, inputId =gsub(" ","_",var), choices=val,selected = val)
+          updatePickerInput(session, inputId = gsub(" ", "_", var), choices = val, selected = val)
         }
       }
     }
@@ -653,28 +663,87 @@ observeEvent(input$show, {
 })
 ```
 
+
 ```{r server_logic_2, context='server'}
+observeEvent(input$file1, {
+  file <- input$file1
+  ext <- tools::file_ext(file$datapath)
+
+  req(file)
+  validate(need(ext %in% c("csv", "xlsx"), "Please upload a csv file"))
+
+  if (ext == "csv") {
+    old_select <- read_csv(file$datapath, header = TRUE)
+  } else {
+    old_select <- read_xlsx(file$datapath, header = TRUE)
+  }
+
+  old_IDs <- old_select %>%
+    select(`Residency program name`) %>%
+    left_join(., combined_df_list[[input$specialty]]) %>%
+    select(ID) %>%
+    drop_na(.) %>%
+    .[[1]]
+
+  ### NOTE code here adapted from below snippet for selected list update
+  for (ID in old_IDs) {
+    if (ID %notin% names(selectedID_list())) {
+      lis_ <- selectedID_list()
+      lis_[[ID]] <- 1
+      selectedID_list(lis_)
+    } else {
+      lis_ <- selectedID_list()
+      lis_[[ID]] <- lis_[[ID]] + 1
+      selectedID_list(lis_)
+    }
+  }
+
+  newVal <- names(selectedID_list())[as.vector(unlist(lapply(selectedID_list(), function(i) mod(i, 2) == 1)))]
+  selectedIDs(newVal)
+
+  # make scoring calculations
+
+  score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
+    score_overall(., input$specialty, spec_dat, dists, PD_Survey_weights)
+  safer <- pnorm(qnorm(score) - input$rangeset)
+  reach <- pnorm(qnorm(score) + input$rangeset)
+
+  combined_df_list[[input$specialty]] %>%
+    mutate(Range = if_else(Overall_percentile > reach, "Reach", if_else(Overall_percentile > safer, "Target", "Safer")), .before = 1)
+  filter(ID %in% selectedIDs()) %>%
+    dplyr::select(Range) %>%
+    table(.) -> value_counts
+  new_lis <- list("Reach" = 0, "Target" = 0, "Safer" = 0)
+  for (name in c("Reach", "Target", "Safer")) {
+    if (name %in% names(value_counts)) {
+      new_lis[[name]] <- value_counts[[name]][[1]]
+    }
+  }
+  difficulty_counts(new_lis)
+})
+```
+
+
+```{r server_logic_3, context='server'}
 # keep track of selections
 `%notin%` <- Negate(`%in%`)
 
-#initialize reactive vals
-to_join <- reactiveVal(data.frame(ID = "", recommend_rank=0))
+# initialize reactive vals
+to_join <- reactiveVal(data.frame(ID = "", recommend_rank = 0))
 selectedID_list <- reactiveVal()
 selectedIDs <- reactiveVal()
-difficulty_counts <- reactiveVal(list("Reach" = 0,"Target" = 0, "Safer" = 0))
+difficulty_counts <- reactiveVal(list("Reach" = 0, "Target" = 0, "Safer" = 0))
 df_save <- reactiveVal()
 
 # initialize global variables
 
 hardcode_selectedIDs <- NULL
 
-#log selections
+# log selections
 
-observeEvent(input$table_row_last_clicked,{
-    ID <- df_save() %>% 
-  # ID <- combined_df_list[[input$specialty]] %>%
-  #   arrange(Overall_rank) %>%
-    .[input$table_row_last_clicked,"ID"] %>%
+observeEvent(input$table_row_last_clicked, {
+  ID <- df_save() %>%
+    .[input$table_row_last_clicked, "ID"] %>%
     as.character(.)
 
   if (ID %notin% names(selectedID_list())) {
@@ -687,24 +756,24 @@ observeEvent(input$table_row_last_clicked,{
     selectedID_list(lis_)
   }
 
-  newVal <- names(selectedID_list())[as.vector(unlist(lapply(selectedID_list(),function(i) mod(i,2)==1)))]
+  newVal <- names(selectedID_list())[as.vector(unlist(lapply(selectedID_list(), function(i) mod(i, 2) == 1)))]
   selectedIDs(newVal)
   harcode_selectedIDs <<- selectedIDs()
 
-  #make scoring calculations
+  # make scoring calculations
 
   score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
-    score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights)
+    score_overall(., input$specialty, spec_dat, dists, PD_Survey_weights)
   safer <- pnorm(qnorm(score) - input$rangeset)
   reach <- pnorm(qnorm(score) + input$rangeset)
 
   combined_df_list[[input$specialty]] %>%
-    mutate(Range = if_else(Overall_percentile > reach, "Reach", if_else(Overall_percentile > safer, "Target","Safer")), .before=1) %>%
+    mutate(Range = if_else(Overall_percentile > reach, "Reach", if_else(Overall_percentile > safer, "Target", "Safer")), .before = 1) %>%
     filter(ID %in% selectedIDs()) %>%
     dplyr::select(Range) %>%
     table(.) -> value_counts
-  new_lis <- list("Reach" = 0,"Target" = 0, "Safer" = 0)
-  for (name in c("Reach","Target","Safer")) {
+  new_lis <- list("Reach" = 0, "Target" = 0, "Safer" = 0)
+  for (name in c("Reach", "Target", "Safer")) {
     if (name %in% names(value_counts)) {
       new_lis[[name]] <- value_counts[[name]][[1]]
     }
@@ -712,7 +781,7 @@ observeEvent(input$table_row_last_clicked,{
   difficulty_counts(new_lis)
 })
 
-#prepare download helper
+# prepare download helper
 data <- reactive({
   out <- df_save()
   out %<>%
@@ -729,17 +798,17 @@ output$downloadData <- downloadHandler(
   }
 )
 
-#reinitialize selections if specialty is switched or if bucketing cut-offs are updated
-observeEvent(input$specialty,{
+# reinitialize selections if specialty is switched or if bucketing cut-offs are updated
+observeEvent(input$specialty, {
   selectedID_list(list())
   selectedIDs(c())
-  difficulty_counts(list("Reach" = 0,"Target" = 0, "Safer" = 0))
+  difficulty_counts(list("Reach" = 0, "Target" = 0, "Safer" = 0))
 })
 
-observeEvent(input$rangeset,{
+observeEvent(input$rangeset, {
   selectedID_list(list())
   selectedIDs(c())
-  difficulty_counts(list("Reach" = 0,"Target" = 0, "Safer" = 0))
+  difficulty_counts(list("Reach" = 0, "Target" = 0, "Safer" = 0))
 })
 ```
 
@@ -748,7 +817,7 @@ observeEvent(input$rangeset,{
 ```{r, context="server"}
 
 output$valuebox_reach <- renderValueBox({
-    valueBox(tags$p(difficulty_counts()[["Reach"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("target programs selected"), style = "font-size: 150%; color: #fff"), color = "info", href = NULL)
+  valueBox(tags$p(difficulty_counts()[["Reach"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("target programs selected"), style = "font-size: 150%; color: #fff"), color = "info", href = NULL)
 })
 ```
 
@@ -760,7 +829,7 @@ valueBoxOutput("valuebox_reach")
 
 ```{r, context="server"}
 output$valuebox_target <- renderValueBox({
-    valueBox(tags$p(difficulty_counts()[["Target"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("target programs selected"),style = "font-size: 150%; color: #fff"), color = "warning", href = NULL)
+  valueBox(tags$p(difficulty_counts()[["Target"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("target programs selected"), style = "font-size: 150%; color: #fff"), color = "warning", href = NULL)
 })
 ```
 
@@ -772,7 +841,7 @@ valueBoxOutput("valuebox_target")
 
 ```{r, context="server"}
 output$valuebox_safer <- renderValueBox({
-    valueBox(tags$p(difficulty_counts()[["Safer"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("safer programs selected"),style = "font-size: 150%; color: #fff"), color = "success", href = NULL)
+  valueBox(tags$p(difficulty_counts()[["Safer"]], style = "font-size: 150%; color: #fff"), caption = tags$p(paste0("safer programs selected"), style = "font-size: 150%; color: #fff"), color = "success", href = NULL)
 })
 ```
 
@@ -786,155 +855,161 @@ Row {data-height=900}
 ###
 
 ```{r, context="server"}
-observeEvent(input$button,{
-  #join recommendations to the dataframe
-  inter <- py$models[[input$specialty]]$recommend_from_interactions(observed_items=as.list(selectedIDs()),k=as.integer(1000))$to_dataframe()[,] %>%
+observeEvent(input$button, {
+  # join recommendations to the dataframe
+  inter <- py$models[[input$specialty]]$recommend_from_interactions(observed_items = as.list(selectedIDs()), k = as.integer(1000))$to_dataframe()[, ] %>%
     as.data.frame(.) %>%
     rename(recommend_rank = rank)
   to_join(inter)
 })
 
-output$table <- DT::renderDataTable({
-  #make scoring calculations
-  score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
-    score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights)
-  safer <- pnorm(qnorm(score) - input$rangeset)
-  reach <- pnorm(qnorm(score) + input$rangeset)
+output$table <- DT::renderDataTable(
+  {
+    # make scoring calculations
+    score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
+      score_overall(., input$specialty, spec_dat, dists, PD_Survey_weights)
+    safer <- pnorm(qnorm(score) - input$rangeset)
+    reach <- pnorm(qnorm(score) + input$rangeset)
 
-  #build core dataframe
-  df <- combined_df_list[[input$specialty]] %>%
-    arrange(Overall_rank) %>%
-    mutate(Range = if_else(Overall_percentile > reach, "Reach", if_else(Overall_percentile > safer, "Target","Safer")), .before=1) %>%
-    mutate(`Program website` = if_else(is.na(`Program website`),as.character(NA),paste0('<a style="font-size:100%" href="', `Program website`,'" target="_blank" class="btn btn-1">Link</a>'))) %>%
-    mutate(`Freida` = if_else(is.na(`ID`),as.character(NA),paste0('<a style="font-size:100%" href="https://freida.ama-assn.org/program/', `ID`,'" target="_blank" class="btn btn-2">Link</a>'))) %>%
-    mutate(`AAMC link` = if_else(is.na(`AAMC link`),as.character(NA),paste0('<a style="font-size:100%" href="', `AAMC link`,'" target="_blank" class="btn btn-3">Link</a>'))) %>%
-    mutate(`Doximity link` = if_else(is.na(`Doximity link`),as.character(NA),paste0('<a style="font-size:100%" href="', `Doximity link`,'" target="_blank" class="btn btn-4">Link</a>'))) %>%
-    relocate(City, .after=`Residency program name`)
+    # build core dataframe
+    df <- combined_df_list[[input$specialty]] %>%
+      arrange(Overall_rank) %>%
+      mutate(Range = if_else(Overall_percentile > reach, "Reach", if_else(Overall_percentile > safer, "Target", "Safer")), .before = 1) %>%
+      mutate(`Program website` = if_else(is.na(`Program website`), as.character(NA), paste0('<a style="font-size:100%" href="', `Program website`, '" target="_blank" class="btn btn-1">Link</a>'))) %>%
+      mutate(`Freida` = if_else(is.na(`ID`), as.character(NA), paste0('<a style="font-size:100%" href="https://freida.ama-assn.org/program/', `ID`, '" target="_blank" class="btn btn-2">Link</a>'))) %>%
+      mutate(`AAMC link` = if_else(is.na(`AAMC link`), as.character(NA), paste0('<a style="font-size:100%" href="', `AAMC link`, '" target="_blank" class="btn btn-3">Link</a>'))) %>%
+      mutate(`Doximity link` = if_else(is.na(`Doximity link`), as.character(NA), paste0('<a style="font-size:100%" href="', `Doximity link`, '" target="_blank" class="btn btn-4">Link</a>'))) %>%
+      relocate(City, .after = `Residency program name`)
 
-  #filter core dataframe
-  df %<>% 
-    filter(Range %in% input$range_filter)
-  if (input$selected_switch == TRUE) {
-    df %<>% 
-      filter(ID %in% selectedIDs())
-  }
-  for (group in filter_groups) {
-    vars_ <- filters %>%
-      filter(Class == group) %>%
-      dplyr::select(Colname) %>%
-      .[[1]]
-    for (var in vars_) {
-      if (!is.null(classes[[var]])) {
-        if (classes[[var]] %in% c("character","factor")) {
-          # if(input[[gsub(" ","_",var)]]]])
+    # filter core dataframe
+    df %<>%
+      filter(Range %in% input$range_filter)
+    if (input$selected_switch == TRUE) {
+      df %<>%
+        filter(ID %in% selectedIDs())
+    }
+    for (group in filter_groups) {
+      vars_ <- filters %>%
+        filter(Class == group) %>%
+        dplyr::select(Colname) %>%
+        .[[1]]
+      for (var in vars_) {
+        if (!is.null(classes[[var]])) {
+          if (classes[[var]] %in% c("character", "factor")) {
+            # if(input[[gsub(" ","_",var)]]]])
             df %<>%
-              filter_at(vars(var), any_vars((. %in% input[[gsub(" ","_",var)]])))
+              filter_at(vars(var), any_vars((. %in% input[[gsub(" ", "_", var)]])))
           } else {
-
             df %<>%
-              filter_at(vars(var), any_vars((. >= input[[gsub(" ","_",var)]][1] & . <= input[[gsub(" ","_",var)]][2])))
+              filter_at(vars(var), any_vars((. >= input[[gsub(" ", "_", var)]][1] & . <= input[[gsub(" ", "_", var)]][2])))
           }
+        }
       }
     }
-  }
 
-  # create and style DR
-  val <- to_join()
-  vis <- c("Range","Residency program name", "City", "State", "Overall rank","Program website","Freida","AAMC link","Doximity link", "# Residents on Duty Year 1","Range of average USMLE Step 1 score of current residents")
-  df %<>%
-    dplyr::select(.,-any_of(c("recommend_rank"))) %>%
-    left_join(.,val,by="ID")  %>%
-    relocate(any_of(vis))
+    # create and style DR
+    val <- to_join()
+    vis <- c("Range", "Residency program name", "City", "State", "Overall rank", "Program website", "Freida", "AAMC link", "Doximity link", "# Residents on Duty Year 1", "Range of average USMLE Step 1 score of current residents")
+    df %<>%
+      dplyr::select(., -any_of(c("recommend_rank"))) %>%
+      left_join(., val, by = "ID") %>%
+      relocate(any_of(vis))
 
-  # create helper to move selected items to the top
-  df$prev_select <- if_else(df$ID %in% isolate(selectedIDs()),c(TRUE),c(FALSE))
+    # create helper to move selected items to the top
+    df$prev_select <- if_else(df$ID %in% isolate(selectedIDs()), c(TRUE), c(FALSE))
 
-  # select previous rows
-  selectedRows <- which(df$ID %in% isolate(selectedIDs()))
+    # select previous rows
+    selectedRows <- which(df$ID %in% isolate(selectedIDs()))
 
-  # find columns to hide
-  to_hide1 <- which(str_detect(colnames(df),"_1"))
-  to_hide2 <- which(colnames(df) %in% c("score","recommend_rank","prev_select","Specialty"))
-  to_hide3 <- which(str_detect(colnames(df),"_percentile"))
+    # find columns to hide
+    to_hide1 <- which(str_detect(colnames(df), "_1"))
+    to_hide2 <- which(colnames(df) %in% c("score", "recommend_rank", "prev_select", "Specialty"))
+    to_hide3 <- which(str_detect(colnames(df), "_percentile"))
 
-  # find colnames to color
+    # find colnames to color
 
-  from_color <- colSums(is.na(df)) %>%
-    .[.>0] %>%
-    names(.) %>%
-    .[!is.na(str_locate(.,"_1")[,1])]
+    from_color <- colSums(is.na(df)) %>%
+      .[. > 0] %>%
+      names(.) %>%
+      .[!is.na(str_locate(., "_1")[, 1])]
 
-  to_color <- from_color %>%
-    str_sub(.,1,-3)
+    to_color <- from_color %>%
+      str_sub(., 1, -3)
 
-  # save df for downloading
-  df_save(df)
+    # save df for downloading
+    df_save(df)
 
-  # prepare colname changes
+    # prepare colname changes
 
-  colname_change_list = list()
-  colname_change_list[["Program website"]] <- "Program"
-  colname_change_list[["AAMC link"]] <- "AAMC"
-  colname_change_list[["Doximity link"]] <- "Doximity"
-  colname_change_list[["# Residents on Duty Year 1"]] <- "# Year 1 Residents"
-  colname_change_list[["Range of average USMLE Step 1 score of current residents"]] <- "Current residents Step 1 range"
-  colname_change_vec <- as.numeric(lapply(names(colname_change_list), function(i) which(colnames(df) == i) + 1))
-  names(colname_change_vec) <- as.character(colname_change_list)
+    colname_change_list <- list()
+    colname_change_list[["Program website"]] <- "Program"
+    colname_change_list[["AAMC link"]] <- "AAMC"
+    colname_change_list[["Doximity link"]] <- "Doximity"
+    colname_change_list[["# Residents on Duty Year 1"]] <- "# Year 1 Residents"
+    colname_change_list[["Range of average USMLE Step 1 score of current residents"]] <- "Current residents Step 1 range"
+    colname_change_vec <- as.numeric(lapply(names(colname_change_list), function(i) which(colnames(df) == i) + 1))
+    names(colname_change_vec) <- as.character(colname_change_list)
 
-  #adjust to_color for new column names
-  replace_indices_base <- sapply( names(colname_change_list), function(i) which(to_color == i)) %>%
-    as.numeric(.)
-  replace_indices_non_na <- replace_indices_base %>%
-    is.na(.) %>%
-    as.numeric(.) %>%
-    multiply_by(-1) %>%
-    add(1) %>%
-    as.logical(.) %>%
-    which(.)
-  to_color <- replace(to_color, replace_indices_base[replace_indices_non_na], as.character(colname_change_list)[replace_indices_non_na])
+    # adjust to_color for new column names
+    replace_indices_base <- sapply(names(colname_change_list), function(i) which(to_color == i)) %>%
+      as.numeric(.)
+    replace_indices_non_na <- replace_indices_base %>%
+      is.na(.) %>%
+      as.numeric(.) %>%
+      multiply_by(-1) %>%
+      add(1) %>%
+      as.logical(.) %>%
+      which(.)
+    to_color <- replace(to_color, replace_indices_base[replace_indices_non_na], as.character(colname_change_list)[replace_indices_non_na])
 
-  # wrap column names and adjust variable names accordingly
-  colnames(df) %<>% wrap_title
-  to_color %<>% wrap_title
-  from_color %<>% wrap_title
-  names(colname_change_vec) %<>% wrap_title
+    # wrap column names and adjust variable names accordingly
+    colnames(df) %<>% wrap_title
+    to_color %<>% wrap_title
+    from_color %<>% wrap_title
+    names(colname_change_vec) %<>% wrap_title
 
-  # mutate NAs and round numbers
-  df %<>%
-    mutate_at(vars(contains("_1")), ~as.numeric(is.na(.))) %>%
-    mutate_if(is.numeric, ~round(.,2))
+    # mutate NAs and round numbers
+    df %<>%
+      mutate_at(vars(contains("_1")), ~ as.numeric(is.na(.))) %>%
+      mutate_if(is.numeric, ~ round(., 2))
 
-  # get full colnames
-  colnames(df)
+    # get full colnames
+    colnames(df)
 
-  # create datatable
-  datatable(df, escape = F,
-            colnames = colname_change_vec,
-            options= list(autoWidth = TRUE,
-                          pageLength = 10,
-                          lengthMenu = c(6, 8, 10, 12),
-                          columnDefs = list(list(visible=FALSE, targets=c(to_hide1,to_hide2,to_hide3))),
-                          order = list(list(ncol(df),'desc'),list(ncol(df)-1,'asc')),
-                          displayStart=floor(length(selectedRows)/10)*10,
-                          scrollX = TRUE,
-                          dom = 'Bfrtipl',
-                          buttons = list('copy', list(
-                            extend = 'collection',
-                            buttons = c('csv', 'excel', 'pdf'),
-                            text = 'Download')),
-                          fixedColumns = list(leftColumns = 3)),
-            extensions = c('FixedColumns','Buttons'),
-            class = "display nowrap",
-            selection = list(mode = "multiple", target = "row", selected = selectedRows)) %>%
-    formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff"))) %>%
-    formatStyle(.,columns = to_color,valueColumns = from_color,color = styleEqual(c(1),c("#ff0039"))) %>%
-    formatStyle(.,columns = 1:ncol(df), fontSize = '100%')
-  },  server = F
+    # create datatable
+    datatable(df,
+      escape = F,
+      colnames = colname_change_vec,
+      options = list(
+        autoWidth = TRUE,
+        pageLength = 10,
+        lengthMenu = c(6, 8, 10, 12),
+        columnDefs = list(list(visible = FALSE, targets = c(to_hide1, to_hide2, to_hide3))),
+        order = list(list(ncol(df), "desc"), list(ncol(df) - 1, "asc")),
+        displayStart = floor(length(selectedRows) / 10) * 10,
+        scrollX = TRUE,
+        dom = "Bfrtipl",
+        buttons = list("copy", list(
+          extend = "collection",
+          buttons = c("csv", "excel", "pdf"),
+          text = "Download"
+        )),
+        fixedColumns = list(leftColumns = 3)
+      ),
+      extensions = c("FixedColumns", "Buttons"),
+      class = "display nowrap",
+      selection = list(mode = "multiple", target = "row", selected = selectedRows)
+    ) %>%
+      formatStyle(., "Range", backgroundColor = styleEqual(c("Reach", "Target", "Safer"), c("#9954bb", "#ff7518", "#3fb618")), color = styleEqual(c("Reach", "Target", "Safer"), c("#fff", "#fff", "#fff"))) %>%
+      formatStyle(., columns = to_color, valueColumns = from_color, color = styleEqual(c(1), c("#ff0039"))) %>%
+      formatStyle(., columns = 1:ncol(df), fontSize = "100%")
+  },
+  server = F
 )
 ```
 
 ```{r, context="render"}
-#output DT
+# output DT
 DTOutput("table")
 ```
 
@@ -969,7 +1044,7 @@ on which factors matter most in selecting candidates to interview.
 
 ```{r, context="server"}
 output$text1 <- renderText({
-  paste0("For your chosen specialty of ", input$specialty,", the factors are weighted as follows:")
+  paste0("For your chosen specialty of ", input$specialty, ", the factors are weighted as follows:")
 })
 ```
 
@@ -984,7 +1059,7 @@ output$kable_factors <- function() {
     filter(Specialty == input$specialty) %>%
     t() %>%
     as.data.frame(.) %>%
-    janitor::row_to_names(.,1) %>%
+    janitor::row_to_names(., 1) %>%
     rename(Weights = 1) %>%
     mutate_at(1, as.numeric) %>%
     mutate_at(1, scales::percent) %>%
@@ -1008,7 +1083,7 @@ The other 70% of the ranking is tied to remaining applicant characteristics, pro
 
 ```{r, context="server"}
 output$text2 <- renderText({
-  paste0("For your chosen specialty of ", "Anesthesiology",", the factors are weighted as follows:")
+  paste0("For your chosen specialty of ", "Anesthesiology", ", the factors are weighted as follows:")
 })
 ```
 
@@ -1019,32 +1094,33 @@ textOutput("text2")
 ```{r, context="server"}
 output$kable_factors2 <- function() {
   req(input$specialty)
-  categories <- c(rep("Applicant competitiveness (core)",5),
-                  rep("Applicant competitiveness (other)",3),
-                  rep("Program selectivity",3),
-                  rep("Care quality",7),
-                  rep("Research quality",3),
-                  rep("Teaching quality",5)
-                  )
-  ranking_weights %>% 
-    filter(Specialty == "Anesthesiology") %>% 
-    t() %>% 
-    as.data.frame(.) %>% 
-    janitor::row_to_names(.,1) %>% 
-    rename(Weight = 1) %>% 
+  categories <- c(
+    rep("Applicant competitiveness (core)", 5),
+    rep("Applicant competitiveness (other)", 3),
+    rep("Program selectivity", 3),
+    rep("Care quality", 7),
+    rep("Research quality", 3),
+    rep("Teaching quality", 5)
+  )
+  ranking_weights %>%
+    filter(Specialty == "Anesthesiology") %>%
+    t() %>%
+    as.data.frame(.) %>%
+    janitor::row_to_names(., 1) %>%
+    rename(Weight = 1) %>%
     mutate_at(1, as.numeric) %>%
-    tibble::rownames_to_column(.,"Metric") %>% 
-    mutate(Category = categories,.before=1) -> save
-  
-  save %>% 
-    group_by(Category) %>% 
-    summarize(`Total weight`=sum(Weight)) %>% 
-    left_join(save,.) %>% 
-    relocate(`Total weight`,.after=Category) %>% 
-    mutate_at(vars(all_of(c("Total weight","Weight"))), ~scales::percent(., accuracy = 0.1)) %>% 
-    kbl(.) %>% 
-    kableExtra::collapse_rows(.,columns = 1:2, valign = 'middle') %>%
-    kable_styling(.) 
+    tibble::rownames_to_column(., "Metric") %>%
+    mutate(Category = categories, .before = 1) -> save
+
+  save %>%
+    group_by(Category) %>%
+    summarize(`Total weight` = sum(Weight)) %>%
+    left_join(save, .) %>%
+    relocate(`Total weight`, .after = Category) %>%
+    mutate_at(vars(all_of(c("Total weight", "Weight"))), ~ scales::percent(., accuracy = 0.1)) %>%
+    kbl(.) %>%
+    kableExtra::collapse_rows(., columns = 1:2, valign = "middle") %>%
+    kable_styling(.)
 }
 ```
 
@@ -1059,7 +1135,7 @@ tableOutput("kable_factors2")
 
 ```{r, context="server"}
 output$text3 <- renderText({
-  paste0("In short, it merges your own competitiveness with the school rankings above. Since both are ranked on a percentile scale between 0 and 1, a simple suggestion might be to set the Target range at ±x percentile of your competitiveness score. But this has a major flaw: there are many more successful applicants near the middle of the distribution. Because these applicants are more similar to each other, the Target range should be wider. Effectively, they look similar to other applicants at a larger portion of schools than at either end (low or high) of the distribution.\n\n","Instead, the app translates your competitiveness score and the school rankings in terms of the normal distibution. It arbitrarily considers any school with a rating within ±",input$rangeset, " standard deviations of your score to be in the Target range. Anything below is considered Safer and above is considered a Reach. You can adjust this setting below.\n\n")
+  paste0("In short, it merges your own competitiveness with the school rankings above. Since both are ranked on a percentile scale between 0 and 1, a simple suggestion might be to set the Target range at ±x percentile of your competitiveness score. But this has a major flaw: there are many more successful applicants near the middle of the distribution. Because these applicants are more similar to each other, the Target range should be wider. Effectively, they look similar to other applicants at a larger portion of schools than at either end (low or high) of the distribution.\n\n", "Instead, the app translates your competitiveness score and the school rankings in terms of the normal distibution. It arbitrarily considers any school with a rating within ±", input$rangeset, " standard deviations of your score to be in the Target range. Anything below is considered Safer and above is considered a Reach. You can adjust this setting below.\n\n")
 })
 ```
 
@@ -1068,16 +1144,16 @@ textOutput("text3")
 ```
 
 ```{r, context="render"}
-sliderInput("rangeset", "Target range set at ±x standard deviations",0,1,0.4)
+sliderInput("rangeset", "Target range set at ±x standard deviations", 0, 1, 0.4)
 ```
 
 ```{r, context="server"}
 output$text4 <- renderText({
   score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
-    score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights)
+    score_overall(., input$specialty, spec_dat, dists, PD_Survey_weights)
   safer <- pnorm(qnorm(score) - input$rangeset)
   reach <- pnorm(qnorm(score) + input$rangeset)
-  paste0("For example, based on the information you've provided and your chosen specialty of ","Anesthesiology",", you rank at the ",scales::ordinal(100*score)," percentile in your specialty. As shown in the chart below, this sets your Target range for schools ranked between the ", scales::ordinal(100*safer), " percentile and the ", scales::ordinal(100*reach)," percentile. Anything above the ",scales::ordinal(100*reach), " is considerded a reach, and anything below the ",scales::ordinal(100*safer), " percentil is considered Safer.\n\n")
+  paste0("For example, based on the information you've provided and your chosen specialty of ", "Anesthesiology", ", you rank at the ", scales::ordinal(100 * score), " percentile in your specialty. As shown in the chart below, this sets your Target range for schools ranked between the ", scales::ordinal(100 * safer), " percentile and the ", scales::ordinal(100 * reach), " percentile. Anything above the ", scales::ordinal(100 * reach), " is considerded a reach, and anything below the ", scales::ordinal(100 * safer), " percentil is considered Safer.\n\n")
 })
 ```
 
@@ -1091,29 +1167,29 @@ If you prefer to think visually, the chart below indicates where you sit within 
 ```{r, context="server"}
 output$gg <- renderPlotly({
   score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
-    score_overall(., input$specialty, spec_dat,dists,PD_Survey_weights)
+    score_overall(., input$specialty, spec_dat, dists, PD_Survey_weights)
   safer <- qnorm(score) - input$rangeset
   reach <- qnorm(score) + input$rangeset
   actual <- qnorm(score)
-  lbound <- min(-3,safer)
+  lbound <- min(-3, safer)
   ubound <- max(3, reach)
-  ggplot(data = data.frame(x = c(lbound,ubound)), aes(x)) +
-    stat_function(aes(fill = "Safer"), xlim = c(lbound, safer), fun = dnorm, n = 101, args = list(mean = 0, sd = 1), geom="area") +
-    stat_function(aes(fill = "Target"), xlim = c(safer, reach), fun = dnorm, n = 101, args = list(mean = 0, sd = 1), geom="area") +
-    stat_function(aes(fill = "Reach"), xlim = c(reach, ubound), fun = dnorm, n = 101, args = list(mean = 0, sd = 1), geom="area") +
-    xlim(lbound-1, ubound+1) +
+  ggplot(data = data.frame(x = c(lbound, ubound)), aes(x)) +
+    stat_function(aes(fill = "Safer"), xlim = c(lbound, safer), fun = dnorm, n = 101, args = list(mean = 0, sd = 1), geom = "area") +
+    stat_function(aes(fill = "Target"), xlim = c(safer, reach), fun = dnorm, n = 101, args = list(mean = 0, sd = 1), geom = "area") +
+    stat_function(aes(fill = "Reach"), xlim = c(reach, ubound), fun = dnorm, n = 101, args = list(mean = 0, sd = 1), geom = "area") +
+    xlim(lbound - 1, ubound + 1) +
     ylab("") +
     xlab("Standard deviations from mean") +
-    scale_fill_manual(values = c("#9954bb","#3fb618","#ff7518")) +
-    geom_point(data=data.frame(x=actual,y=dnorm(actual)), aes(x=x, y=y), color="blue") + 
-    geom_text(data=data.frame(x=actual,y=dnorm(actual)), aes(x=x, y=y, label=paste0("You: ",scales::ordinal(score*100), " percentile")), color="blue", nudge_x = if_else(actual>0,0.6,-0.6)) +
-    geom_point(data=data.frame(x=safer,y=dnorm(safer)), aes(x=x, y=y), color="#3fb618") + 
-    geom_text(data=data.frame(x=safer+if_else(safer>0,.1,-.1),y=dnorm(safer)), aes(x=x, y=y, label=paste0(scales::ordinal(pnorm(safer)*100), " percentile")), color="#3fb618", nudge_x = if_else(safer>0,0.45,-0.45)) +
-    geom_point(data=data.frame(x=reach,y=dnorm(reach)), aes(x=x, y=y), color="#9954bb") + 
-    geom_text(data=data.frame(x=reach+if_else(reach>0,.1,-.1),y=dnorm(reach)), aes(x=x, y=y, label=paste0(scales::ordinal(pnorm(reach)*100), " percentile")), color="#9954bb", nudge_x = if_else(reach>0,0.45,-0.45)) +
-    guides(fill=guide_legend(title="Category")) +
-    theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) -> gg 
-ggplotly(gg)
+    scale_fill_manual(values = c("#9954bb", "#3fb618", "#ff7518")) +
+    geom_point(data = data.frame(x = actual, y = dnorm(actual)), aes(x = x, y = y), color = "blue") +
+    geom_text(data = data.frame(x = actual, y = dnorm(actual)), aes(x = x, y = y, label = paste0("You: ", scales::ordinal(score * 100), " percentile")), color = "blue", nudge_x = if_else(actual > 0, 0.6, -0.6)) +
+    geom_point(data = data.frame(x = safer, y = dnorm(safer)), aes(x = x, y = y), color = "#3fb618") +
+    geom_text(data = data.frame(x = safer + if_else(safer > 0, .1, -.1), y = dnorm(safer)), aes(x = x, y = y, label = paste0(scales::ordinal(pnorm(safer) * 100), " percentile")), color = "#3fb618", nudge_x = if_else(safer > 0, 0.45, -0.45)) +
+    geom_point(data = data.frame(x = reach, y = dnorm(reach)), aes(x = x, y = y), color = "#9954bb") +
+    geom_text(data = data.frame(x = reach + if_else(reach > 0, .1, -.1), y = dnorm(reach)), aes(x = x, y = y, label = paste0(scales::ordinal(pnorm(reach) * 100), " percentile")), color = "#9954bb", nudge_x = if_else(reach > 0, 0.45, -0.45)) +
+    guides(fill = guide_legend(title = "Category")) +
+    theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) -> gg
+  ggplotly(gg)
 })
 ```
 
@@ -1136,8 +1212,8 @@ Data is missing from the app for two reasons:
 ```{r, context="server"}
 output$text5 <- renderText({
   missing <- sum(is.na(dat_list[[input$specialty]]))
-  total <- nrow(dat_list[[input$specialty]]) * (ncol(dat_list[[input$specialty]])-2) #subtract two due to name and ID
-   paste0("Note that this is common, but not alarmingly so. In your chosen specialty of ",input$specialty," approximately ",scales::percent(missing/total), ". Unfortunately, this still presents a significant issue in ranking schools, since missing data would interfere with the ranking algorithm above. Fortunately, missing data is a well studied phenomenon. This app uses random forest imputation, a nonlinear machine learning algorithm, to help fill in the blanks. In the main program table on the \"Select programs\" tab, all imputed values are marked in red for transparency.")
+  total <- nrow(dat_list[[input$specialty]]) * (ncol(dat_list[[input$specialty]]) - 2) # subtract two due to name and ID
+  paste0("Note that this is common, but not alarmingly so. In your chosen specialty of ", input$specialty, " approximately ", scales::percent(missing / total), ". Unfortunately, this still presents a significant issue in ranking schools, since missing data would interfere with the ranking algorithm above. Fortunately, missing data is a well studied phenomenon. This app uses random forest imputation, a nonlinear machine learning algorithm, to help fill in the blanks. In the main program table on the \"Select programs\" tab, all imputed values are marked in red for transparency.")
 })
 ```
 
@@ -1150,14 +1226,14 @@ textOutput("text5")
 <summary>Where does your data come from?</summary>
 <div>
 ```{r}
-paste0("The app relies on ", nrow(bibliography)," main sources. The full list of sources can be found below:") %>% 
+paste0("The app relies on ", nrow(bibliography), " main sources. The full list of sources can be found below:") %>%
   tags$p(.)
 ```
 
 ```{r}
-bibliography %>% 
-  mutate(Link = paste0('<a style="font-size:100%" href="', Link,'" target="_blank" class="btn btn-1">Link</a>')) %>% 
-  kbl(., escape = F) %>% 
+bibliography %>%
+  mutate(Link = paste0('<a style="font-size:100%" href="', Link, '" target="_blank" class="btn btn-1">Link</a>')) %>%
+  kbl(., escape = F) %>%
   kable_styling(.)
 ```
 
@@ -1170,15 +1246,15 @@ Note that this data is under fair use only for non-commercial purposes, so pleas
 <summary>Why doesn't the app include all ERAS specialties?</summary>
 <div>
 ```{r}
-paste0("Unfortunately, the main data source for this app, AAMC residency explorer, only carries ",length(names(dat_list)), "specialties. This represents the vast majority of total programs, including all specialties with over 100 programs except Opthamology and Urology. The full list of included specialties below, along with the number of programs for each specialty.") %>% 
+paste0("Unfortunately, the main data source for this app, AAMC residency explorer, only carries ", length(names(dat_list)), "specialties. This represents the vast majority of total programs, including all specialties with over 100 programs except Opthamology and Urology. The full list of included specialties below, along with the number of programs for each specialty.") %>%
   tags$p(.)
 ```
 
 ```{r}
-dat %>% 
-  group_by(Specialty) %>% 
-  summarize(`Total programs` = n())  %>% 
-  kbl(.) %>% 
+dat %>%
+  group_by(Specialty) %>%
+  summarize(`Total programs` = n()) %>%
+  kbl(.) %>%
   kable_styling(.)
 ```
 </div>
@@ -1189,7 +1265,7 @@ dat %>%
 <div>
 ```{r, context="server"}
 output$text6 <- renderText({
-  paste0("Even for the included specialties, AAMC residency explorer is not a complete dataset, or is very close. In total, it is missing ",nrow(missing_programs), ". In your chosen specialty, it is missing ",nrow(missing_programs %>% filter(Specialty == input$specialty)), ". Those programs are:")
+  paste0("Even for the included specialties, AAMC residency explorer is not a complete dataset, or is very close. In total, it is missing ", nrow(missing_programs), ". In your chosen specialty, it is missing ", nrow(missing_programs %>% filter(Specialty == input$specialty)), ". Those programs are:")
 })
 ```
 
@@ -1200,9 +1276,9 @@ textOutput("text6")
 ```{r, context="server"}
 output$kable_missing <- function() {
   req(input$specialty)
-  missing_programs %>% 
-    filter(Specialty == input$specialty) %>% 
-    kbl(.) %>% 
+  missing_programs %>%
+    filter(Specialty == input$specialty) %>%
+    kbl(.) %>%
     kable_styling(.)
 }
 ```
