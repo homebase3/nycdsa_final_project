@@ -990,7 +990,7 @@ output$table <- DT::renderDataTable(
         order = list(list(ncol(df), "desc"), list(ncol(df) - 1, "asc")),
         displayStart = floor(length(selectedRows) / 10) * 10,
         scrollX = TRUE,
-        dom = "Blfrtip",
+        dom = "Bflrtip",
         # fixedColumns = list(leftColumns = 3),
         buttons = list("copy", list(
           extend = "collection",
