@@ -996,7 +996,6 @@ output$table <- DT::renderDataTable(
           text = "Download"
         ))
       ),
-      # extensions = c("FixedColumns", "Buttons"),
       extensions = c("Buttons"),
       class = "display nowrap",
       selection = list(mode = "multiple", target = "row", selected = selectedRows)
