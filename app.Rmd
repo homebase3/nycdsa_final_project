@@ -65,6 +65,15 @@ button {
     float: right;
 }
 
+.dataTables_wrapper .dataTables_info {
+    float:left;
+    position: absolute;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    float: right;
+}
+
 </style>
 
 ---
