@@ -665,6 +665,20 @@ observeEvent(input$show, {
 
 
 ```{r server_logic_2, context='server'}
+# initialize reactive vals
+to_join <- reactiveVal(data.frame(ID = "", recommend_rank = 0))
+selectedID_list <- reactiveVal()
+selectedIDs <- reactiveVal()
+difficulty_counts <- reactiveVal(list("Reach" = 0, "Target" = 0, "Safer" = 0))
+df_save <- reactiveVal()
+
+# initialize global variables
+
+hardcode_selectedIDs <- NULL
+
+# keep track of selections
+`%notin%` <- Negate(`%in%`)
+
 observeEvent(input$file1, {
   file <- input$file1
   ext <- tools::file_ext(file$datapath)
@@ -709,7 +723,7 @@ observeEvent(input$file1, {
   reach <- pnorm(qnorm(score) + input$rangeset)
 
   combined_df_list[[input$specialty]] %>%
-    mutate(Range = if_else(Overall_percentile > reach, "Reach", if_else(Overall_percentile > safer, "Target", "Safer")), .before = 1)
+    mutate(Range = if_else(Overall_percentile > reach, "Reach", if_else(Overall_percentile > safer, "Target", "Safer")), .before = 1) %>% 
   filter(ID %in% selectedIDs()) %>%
     dplyr::select(Range) %>%
     table(.) -> value_counts
@@ -725,22 +739,7 @@ observeEvent(input$file1, {
 
 
 ```{r server_logic_3, context='server'}
-# keep track of selections
-`%notin%` <- Negate(`%in%`)
-
-# initialize reactive vals
-to_join <- reactiveVal(data.frame(ID = "", recommend_rank = 0))
-selectedID_list <- reactiveVal()
-selectedIDs <- reactiveVal()
-difficulty_counts <- reactiveVal(list("Reach" = 0, "Target" = 0, "Safer" = 0))
-df_save <- reactiveVal()
-
-# initialize global variables
-
-hardcode_selectedIDs <- NULL
-
 # log selections
-
 observeEvent(input$table_row_last_clicked, {
   ID <- df_save() %>%
     .[input$table_row_last_clicked, "ID"] %>%
