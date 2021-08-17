@@ -410,7 +410,7 @@ Input {.sidebar data-width=300 id="selectbar"}
 
 ```{r, context="render"}
 actionButton("tour2", "Take tour of this page", icon("paper-plane"))
-actionButton("button", "Make recommendations and resort", icon("thumbs-up"))
+actionButton("button", "Recommend and resort", icon("thumbs-up"))
 actionButton("show", "Remove all filters", icon("broom"))
 fileInput("file1", label = NULL, buttonLabel = list(icon("file-import"),"Import"), accept = c(".csv", ".xlsx"))
 materialSwitch(inputId = "selected_switch", label = "Export mode", value = FALSE)
