@@ -58,7 +58,7 @@ button {
 }
 
 .dataTables_wrapper .dataTables_length {
-    float:left;
+    float:right;
 }
 .dataTables_wrapper .dataTables_filter {
     float: right;
@@ -66,10 +66,6 @@ button {
 
 .dataTables_wrapper .dataTables_info {
     float:left;
-}
-
-.dataTables_wrapper .dataTables_paginate {
-    float: right;
 }
 
 </style>
