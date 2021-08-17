@@ -1,0 +1,5 @@
+.__rstudio_bslib_get_variables:root {
+  --white: #fff;
+  --black: #000;
+  --font-family-base: "Open Sans";
+}
