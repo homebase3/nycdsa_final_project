@@ -881,8 +881,6 @@ Row {data-height=900}
 
 ```{r, context="server"}
 observeEvent(input$button, {
-  # trigger if file is imported
-  dummy()
   
   # join recommendations to the dataframe
   inter <- py$models[[input$specialty]]$recommend_from_interactions(observed_items = as.list(selectedIDs()), k = as.integer(1000))$to_dataframe()[, ] %>%
@@ -893,6 +891,9 @@ observeEvent(input$button, {
 
 output$table <- DT::renderDataTable(
   {
+    # trigger if file is imported
+  dummy()
+    
     # make scoring calculations
     score <- c(input$step1, input$step2, input$research, input$publications, input$work, input$volunteer) %>%
       score_overall(., input$specialty, spec_dat, dists, PD_Survey_weights)
