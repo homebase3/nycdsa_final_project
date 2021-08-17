@@ -147,27 +147,28 @@ steps1 <- data.frame(
     "To get started, select your desired specialty.",
     "Then enter information about your step scores. Please note that these values are not logged or saved, and no one will have access to them other than you.",
     "Once you've made your entries, you can see an assessment of your competitiveness in that specialty here versus matched applicants in the prior few years. This aggregates your scores on each individual components based on their relative importance accroding to program director surveys in your chosen specialty.",
-    "Your competitiveness for the individual components can also be found below. For example, this is your score based on your step 1 score alone",
-    "Once you're done, click 'Select programs' in the navbar to move to the next section. Give it a few seconds to load :)"
+    "Your competitiveness for the individual components can also be found below. For example, this is your score based on your step 1 score alone.",
+    "Once you're done, click 'Select programs' in the navbar to move to the next section. Give it a few seconds to load :)."
   )
 )
 
 steps2 <- data.frame(
-  element = c("#table", ".navbar ", "#table", "#table", "#table", "#section-range_gauge", "#section-selectbar", "#section-selectbar", "#section-selectbar", "#section-selectbar", "#section-selectbar", "#section-selectbar", "#table"),
+  element = c("#table", ".navbar ", "#table", "#table", "#table", "#section-range_gauge", "#section-selectbar", "#section-selectbar", "#section-selectbar", "#section-selectbar", "#section-selectbar", "#section-selectbar", "#table", "#section-sidebar"),
   intro = c(
     "First off, you'll see a list of (nearly) every program in your specialty. Programs are bucketted into \"Reach\", \"Target\", and \"Safer\" based on (1) your competitiveness in the specialty and (2) our assessment of the program based on applicant competitiveness, research quality, teaching quality, and patient outcomes. The initial order of the programs is based on this rank list, with the top program at the top.",
-    "You can find more detail on how your specialty was ranked by clicking \"More info on specialty ranking\" in the Navbar.",
+    "You can find more detail on how your specialty was ranked by clicking \"FAQ\" in the Navbar.",
     "For each program, you can quickly see its details as well as links to all major relevant sites, including the Program website itself, Freida, AAMC, and Doximity where available.",
     "To see additional information collected on an individual program, click the plus sign at the right of the table.",
     "To select a program, simply click on the row in the table and it will highlight.",
-    "As you make your selections, the boxes at the top of the page will keep a tally of how many programs you've selected and at what level of competitiveness to help you craft a full, well-balanced program portfolio",
+    "As you make your selections, the boxes at the top of the page will keep a tally of how many programs you've selected and at what level of competitiveness to help you craft a full, well-balanced program portfolio.",
     "If you would like help finding programs, click the \"Make recommendations and resort\" button. This will make recommendations based on a machine learning algorithm that tries to find similarities between your current selections and the other remaining programs. Once this loads, your current selections will be at the top, then the programs will be listed in the order of recommendation. I.e. the top recommended program will be first after your current selections.",
     "You can also filter programs based on the menus contained below. These include all the traditional filters (e.g. Geography), but also some unique ones, including weather, cost of living, county health characteristics, and county divserity. We hope you find these useful.",
-    "To access the filters, click on an arrow to open the respective menu",
-    "Then set your filters, the table with automatically adjust, and don't worry, your prior selections will be saved, even if the filter removes them",
-    "You can continue this way until you find all your programs",
+    "To access the filters, click on an arrow to open the respective menu.",
+    "Then set your filters, the table with automatically adjust, and don't worry, your prior selections will be saved, even if the filter removes them.",
+    "You can continue this way until you find all your programs.",
     "To export your list, first toggle on the \"Export toggle\" tag.",
-    "Then click dowload a csv file with all of the information about your chosen programs. Please note that the app will not save your selections on, so make sure to do this to keep a record of your selection. Otherwise, you'll be starting from scratch the next time you open the app."
+    "Then click download in the table to download a csv.",
+    "If you'd like to save your progress for future use, simply download a csv and upload here next time you visit the app."
   )
 )
 
@@ -411,8 +412,8 @@ Input {.sidebar data-width=300 id="selectbar"}
 actionButton("tour2", "Take tour of this page", icon("paper-plane"))
 actionButton("button", "Make recommendations and resort", icon("thumbs-up"))
 actionButton("show", "Remove all filters", icon("broom"))
-materialSwitch(inputId = "selected_switch", label = "Export mode", value = FALSE)
 fileInput("file1", "Import old selections", accept = c(".csv", ".xlsx"))
+materialSwitch(inputId = "selected_switch", label = "Export mode", value = FALSE)
 ```
 
 <details>
