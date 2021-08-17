@@ -637,7 +637,7 @@ observeEvent(input$specialty, {
         } else {
           val <- unique(as.character(combined_df_list[[input$specialty]][[var]]))
           updatePickerInput(session, inputId = gsub(" ", "_", var), choices = val, selected = val, choicesOpt = list(
-      content = stringr::str_trunc(val, width = 30)
+      content = stringr::str_trunc(val, width = 15)
     ))
         }
       }
