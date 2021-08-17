@@ -58,8 +58,7 @@ button {
 }
 
 .dataTables_wrapper .dataTables_length {
-    float:left;
-    position: absolute;
+    float:left
 }
 .dataTables_wrapper .dataTables_filter {
     float: right;
@@ -72,6 +71,7 @@ button {
 
 .dataTables_wrapper .dataTables_paginate {
     float: right;
+    position: absolute;
 }
 
 </style>
