@@ -979,6 +979,7 @@ output$table <- DT::renderDataTable(
     # create datatable
     datatable(df,
       escape = F,
+      rownames = F,
       colnames = colname_change_vec,
       options = list(
         autoWidth = TRUE,
@@ -988,7 +989,7 @@ output$table <- DT::renderDataTable(
         order = list(list(ncol(df), "desc"), list(ncol(df) - 1, "asc")),
         displayStart = floor(length(selectedRows) / 10) * 10,
         scrollX = TRUE,
-        dom = "Bfrtipl",
+        dom = "Blfrtip",
         # fixedColumns = list(leftColumns = 3),
         buttons = list("copy", list(
           extend = "collection",
