@@ -917,7 +917,7 @@ output$table <- DT::renderDataTable({
                           order = list(list(ncol(df),'desc'),list(ncol(df)-1,'asc')),
                           displayStart=floor(length(selectedRows)/10)*10,
                           scrollX = TRUE,
-                          dom = 'Bfrtipl',
+                          # dom = 'Bfrtipl',
                           buttons = list('copy', list(
                             extend = 'collection',
                             buttons = c('csv', 'excel', 'pdf'),
