@@ -59,7 +59,7 @@ button {
 
 .dataTables_wrapper .dataTables_length {
     float:right;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 .dataTables_wrapper .dataTables_filter {
     float: right;
