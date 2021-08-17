@@ -673,9 +673,9 @@ observeEvent(input$file1, {
   validate(need(ext %in% c("csv", "xlsx"), "Please upload a csv file"))
 
   if (ext == "csv") {
-    old_select <- read_csv(file$datapath, header = TRUE)
+    old_select <- read_csv(file$datapath)
   } else {
-    old_select <- read_xlsx(file$datapath, header = TRUE)
+    old_select <- read_excel(file$datapath, header)
   }
 
   old_IDs <- old_select %>%
