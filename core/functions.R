@@ -106,7 +106,7 @@ UI_code_gen_3 <- function() {
   for (group in filter_groups) {
     cat("<details>\n")
     cat(paste0("<summary>",group,"</summary>\n"))
-    cat("```{r, context='render'}\n")
+    cat("```{r, context='render', cache=T}\n")
     UI_helper_group(group)
     cat("\n```\n")
     cat("</details>\n\n")

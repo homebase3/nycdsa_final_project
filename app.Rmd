@@ -278,7 +278,7 @@ output$step1Gauge<- renderGauge({
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 gaugeOutput("step1Gauge")
 ```
 
@@ -296,7 +296,7 @@ output$step2Gauge <- renderGauge({
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 gaugeOutput("step2Gauge")
 ```
 
@@ -317,7 +317,7 @@ output$researchGauge <- renderGauge({
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 gaugeOutput("researchGauge")
 ```
 
@@ -335,7 +335,7 @@ output$publicationsGauge <- renderGauge({
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 gaugeOutput("publicationsGauge")
 ```
 
@@ -354,7 +354,7 @@ output$workGauge <- renderGauge({
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 gaugeOutput("workGauge")
 ```
 
@@ -373,7 +373,7 @@ output$volunteerGauge <- renderGauge({
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 gaugeOutput("volunteerGauge")
 ```
 
@@ -390,9 +390,6 @@ actionButton("show","Remove all filters", icon("broom"))
 materialSwitch(inputId = "selected_switch", label = "Export mode", value = FALSE)
 ```
 
-<!-- ```{r, context="render"} -->
-<!-- uiOutput("UIbuttons") -->
-<!-- ``` -->
 <details>
 <summary>Program range</summary>
 ```{r}
@@ -405,7 +402,7 @@ pickerInput('range_filter','Program range',choices = c("Reach","Target","Safer")
 <!-- Dropdown selection inputs below generated -->
 <details>
 <summary>Program basics</summary>
-```{r, context='render'}
+```{r, context='render', cache=T}
 pickerInput('Participates_in_ERAS','Participates in ERAS',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 pickerInput('Participates_in_the_NRMP_Main_Match','Participates in the NRMP Main Match',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 pickerInput('Program_setting','Program setting',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
@@ -417,7 +414,7 @@ pickerInput('Status','Status',choices= c(0, 1), multiple = T, options=list(`live
 
 <details>
 <summary>Geography</summary>
-```{r, context='render'}
+```{r, context='render', cache=T}
 pickerInput('City','City',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 pickerInput('Metro_Area_Name','Metro Area Name',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 pickerInput('State','State',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
@@ -427,7 +424,7 @@ pickerInput('State','State',choices= c(0, 1), multiple = T, options=list(`liveSe
 
 <details>
 <summary>Resident demographics</summary>
-```{r, context='render'}
+```{r, context='render', cache=T}
 sliderInput('Percentage_of_completed_residents_with_non-academic_U.S._practice_career_plans','Percentage of completed residents with non-academic U.S. practice career plans',0,1, c(0,1),round=T)
 sliderInput('Percentage_of_completed_residents_with_other_career_plans','Percentage of completed residents with other career plans',0,1, c(0,1),round=T)
 sliderInput('Percentage_of_completed_residents_with_plans_to_continue_training_in_another_program','Percentage of completed residents with plans to continue training in another program',0,1, c(0,1),round=T)
@@ -442,7 +439,7 @@ sliderInput('Percentage_of_residents_who_were_US-citizen_IMGs','Percentage of re
 
 <details>
 <summary>Accreditation</summary>
-```{r, context='render'}
+```{r, context='render', cache=T}
 pickerInput('Osteopathic_Recognition','Osteopathic Recognition',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 pickerInput('Program_accreditation_status','Program accreditation status',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 
@@ -451,7 +448,7 @@ pickerInput('Program_accreditation_status','Program accreditation status',choice
 
 <details>
 <summary>Program size</summary>
-```{r, context='render'}
+```{r, context='render', cache=T}
 sliderInput('#_of_advanced_positions_filled_by_this_program_in_the_2021_NRMP_Main_Match','# of advanced positions filled by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
 sliderInput('#_of_advanced_positions_offered_by_this_program_in_the_2021_NRMP_Main_Match','# of advanced positions offered by this program in the 2021 NRMP Main Match',0,1, c(0,1),round=T)
 sliderInput('#_of_applications_submitted_to_this_program_in_2021','# of applications submitted to this program in 2021',0,1, c(0,1),round=T)
@@ -468,7 +465,7 @@ sliderInput('Total_#_Residents_on_Duty','Total # Residents on Duty',0,1, c(0,1),
 
 <details>
 <summary>Applicant competitiveness</summary>
-```{r, context='render'}
+```{r, context='render', cache=T}
 sliderInput('Average_number_of_peer-reviewed_publications_among_matched_applicants','Average number of peer-reviewed publications among matched applicants',0,1, c(0,1),round=T)
 sliderInput('Average_number_of_research_experiences_among_matched_applicants','Average number of research experiences among matched applicants',0,1, c(0,1),round=T)
 sliderInput('Average_number_of_volunteer_experiences_among_matched_applicants','Average number of volunteer experiences among matched applicants',0,1, c(0,1),round=T)
@@ -483,7 +480,7 @@ pickerInput('Range_of_average_USMLE_Step_1_score_of_current_residents','Range of
 
 <details>
 <summary>International student considerations</summary>
-```{r, context='render'}
+```{r, context='render', cache=T}
 pickerInput('Program_consider_applicants_with_F-1_Visa_(OPT_1st_year)?','Program consider applicants with F-1 Visa (OPT 1st year)?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 pickerInput('Program_consider_applicants_with_H-1B_visa?','Program consider applicants with H-1B visa?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
 pickerInput('Program_consider_applicants_with_J-1_visa?','Program consider applicants with J-1 visa?',choices= c(0, 1), multiple = T, options=list(`liveSearch` = T, `actions-box` = TRUE,size = 10,`selected-text-format` = 'count > 3'))
@@ -493,7 +490,7 @@ pickerInput('Program_consider_applicants_with_J-1_visa?','Program consider appli
 
 <details>
 <summary>Program experience</summary>
-```{r, context='render'}
+```{r, context='render', cache=T}
 sliderInput('%_of_training_spent_in_year_1_in_ambulatory_nonhospital_community-based_settings','% of training spent in year 1 in ambulatory nonhospital community-based settings',0,1, c(0,1),round=T)
 sliderInput('%_of_training_spent_in_year_1_in_hospital_outpatient_clinics','% of training spent in year 1 in hospital outpatient clinics',0,1, c(0,1),round=T)
 sliderInput('Average_hours/week_in_year_one_of_program_spent_in_structured_didactic_activities_(e.g.,_lectures,_conferences)','Average hours/week in year one of program spent in structured didactic activities (e.g., lectures, conferences)',0,1, c(0,1),round=T)
@@ -507,7 +504,7 @@ pickerInput('Program_curriculum_includes_a_dedicated_research_rotation','Program
 
 <details>
 <summary>Research</summary>
-```{r, context='render'}
+```{r, context='render', cache=T}
 sliderInput('2019_NIH_specialty_funding','2019 NIH specialty funding',0,1, c(0,1),round=T)
 sliderInput('2019_NIH_total_funding','2019 NIH total funding',0,1, c(0,1),round=T)
 
@@ -516,7 +513,7 @@ sliderInput('2019_NIH_total_funding','2019 NIH total funding',0,1, c(0,1),round=
 
 <details>
 <summary>Teaching</summary>
-```{r, context='render'}
+```{r, context='render', cache=T}
 sliderInput('Family_medicine_board_pass_rate','Family medicine board pass rate',0,1, c(0,1),round=T)
 sliderInput('Internal_medicine_board_pass_rate','Internal medicine board pass rate',0,1, c(0,1),round=T)
 sliderInput('Pediatrics_board_pass_rate','Pediatrics board pass rate',0,1, c(0,1),round=T)
@@ -527,7 +524,7 @@ sliderInput('Surgery_board_pass_rate','Surgery board pass rate',0,1, c(0,1),roun
 
 <details>
 <summary>Weather</summary>
-```{r, context='render'}
+```{r, context='render', cache=T}
 sliderInput('%_days_above_90F','% days above 90F',0,1, c(0,1),round=T)
 sliderInput('%_days_below_freezing','% days below freezing',0,1, c(0,1),round=T)
 sliderInput('%_days_with_precipitation','% days with precipitation',0,1, c(0,1),round=T)
@@ -539,7 +536,7 @@ sliderInput('Mean_%_sunny','Mean % sunny',0,1, c(0,1),round=T)
 
 <details>
 <summary>Cost of living</summary>
-```{r, context='render'}
+```{r, context='render', cache=T}
 sliderInput('Cost_of_Living_Index','Cost of Living Index',0,1, c(0,1),round=T)
 
 ```
@@ -547,7 +544,7 @@ sliderInput('Cost_of_Living_Index','Cost of Living Index',0,1, c(0,1),round=T)
 
 <details>
 <summary>County health characteristics</summary>
-```{r, context='render'}
+```{r, context='render', cache=T}
 sliderInput('Access_to_Care_(percentile)','Access to Care (percentile)',0,1, c(0,1),round=T)
 sliderInput('Air_and_Water_Quality_(percentile)','Air and Water Quality (percentile)',0,1, c(0,1),round=T)
 sliderInput('Alcohol_and_Drug_Use_(percentile)','Alcohol and Drug Use (percentile)',0,1, c(0,1),round=T)
@@ -577,7 +574,7 @@ sliderInput('Tobacco_Use_(percentile)','Tobacco Use (percentile)',0,1, c(0,1),ro
 
 <details>
 <summary>County demographics</summary>
-```{r, context='render'}
+```{r, context='render', cache=T}
 sliderInput('%_65_and_Over','% 65 and Over',0,1, c(0,1),round=T)
 sliderInput('%_American_Indian_&_Alaska_Native','% American Indian & Alaska Native',0,1, c(0,1),round=T)
 sliderInput('%_Asian','% Asian',0,1, c(0,1),round=T)
@@ -595,7 +592,7 @@ sliderInput('Population','Population',0,1, c(0,1),round=T)
 
 <details>
 <summary>Hospital outcomes</summary>
-```{r, context='render'}
+```{r, context='render', cache=T}
 sliderInput('Hospital_overall_rating','Hospital overall rating',0,1, c(0,1),round=T)
 sliderInput('MORT_Better_%','MORT Better %',0,1, c(0,1),round=T)
 sliderInput('MORT_Worse_%','MORT Worse %',0,1, c(0,1),round=T)
@@ -753,7 +750,7 @@ output$valuebox_reach <- renderValueBox({
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 valueBoxOutput("valuebox_reach")
 ```
 
@@ -765,7 +762,7 @@ output$valuebox_target <- renderValueBox({
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 valueBoxOutput("valuebox_target")
 ```
 
@@ -777,7 +774,7 @@ output$valuebox_safer <- renderValueBox({
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 valueBoxOutput("valuebox_safer")
 ```
 
@@ -934,7 +931,7 @@ output$table <- DT::renderDataTable({
 )
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 #output DT
 DTOutput("table")
 ```
@@ -974,7 +971,7 @@ output$text1 <- renderText({
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 textOutput("text1")
 ```
 
@@ -994,7 +991,7 @@ output$kable_factors <- function() {
 }
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 tableOutput("kable_factors")
 ```
 </div>
@@ -1013,7 +1010,7 @@ output$text2 <- renderText({
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 textOutput("text2")
 ```
 
@@ -1049,7 +1046,7 @@ output$kable_factors2 <- function() {
 }
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 tableOutput("kable_factors2")
 ```
 </div>
@@ -1064,11 +1061,11 @@ output$text3 <- renderText({
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 textOutput("text3")
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 sliderInput("rangeset", "Target range set at ±x standard deviations",0,1,0.4)
 ```
 
@@ -1083,7 +1080,7 @@ output$text4 <- renderText({
 ```
 
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 textOutput("text4")
 ```
 <br>
@@ -1118,7 +1115,7 @@ ggplotly(gg)
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 plotlyOutput("gg")
 ```
 
@@ -1142,7 +1139,7 @@ output$text5 <- renderText({
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 textOutput("text5")
 ```
 </details>
@@ -1194,7 +1191,7 @@ output$text6 <- renderText({
 })
 ```
 
-```{r, context="render"}
+```{r, context="render", cache=T}
 textOutput("text6")
 ```
 
@@ -1208,7 +1205,7 @@ output$kable_missing <- function() {
 }
 ```
   
-```{r, context="render"}
+```{r, context="render", cache=T}
 tableOutput("kable_missing")
 ```
 </div>
