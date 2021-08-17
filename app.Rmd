@@ -917,7 +917,7 @@ output$table <- DT::renderDataTable({
                           order = list(list(ncol(df),'desc'),list(ncol(df)-1,'asc')),
                           displayStart=floor(length(selectedRows)/10)*10,
                           scrollX = TRUE,
-                          # dom = 'Bfrtipl',
+                          dom = 'Bfrtipl',
                           buttons = list('copy', list(
                             extend = 'collection',
                             buttons = c('csv', 'excel', 'pdf'),
@@ -929,7 +929,7 @@ output$table <- DT::renderDataTable({
     formatStyle(.,"Range", backgroundColor = styleEqual(c("Reach","Target","Safer"), c("#9954bb", "#ff7518","#3fb618")), color = styleEqual(c("Reach","Target","Safer"), c("#fff", "#fff","#fff"))) %>%
     formatStyle(.,columns = to_color,valueColumns = from_color,color = styleEqual(c(1),c("#ff0039"))) %>%
     formatStyle(.,columns = 1:ncol(df), fontSize = '100%')
-  },  server = T
+  },  server = F
 )
 ```
 
